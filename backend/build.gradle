@@ -51,29 +51,33 @@ tasks.named('test') {
 }
 
 tasks.register('unitTest', Test) {
-    description = 'Runs only unit tests.'
+	description = 'Runs only unit tests.'
     group = 'verification'
     testClassesDirs = sourceSets.test.output.classesDirs
     classpath = sourceSets.test.runtimeClasspath
 
-    useJUnitPlatform {
-        includeTags 'unitTest'
-    }
+	useJUnitPlatform()
+
+	filter {
+		includeTestsMatching "backend.unit.*"
+	}
 }
 
 tasks.register('integrationTest', Test) {
-    description = 'Runs only integration tests.'
-    group = 'verification'
-    testClassesDirs = sourceSets.test.output.classesDirs
-    classpath = sourceSets.test.runtimeClasspath
+	description = 'Runs only integration tests.'
+	group = 'verification'
+	testClassesDirs = sourceSets.test.output.classesDirs
+	classpath = sourceSets.test.runtimeClasspath
 
-    useJUnitPlatform {
-        includeTags 'integrationTest'
-    }
+	useJUnitPlatform()
+
+	filter {
+		includeTestsMatching "backend.integration.*"
+	}
 }
 
 spotless {
-    java {
+	java {
         googleJavaFormat('1.28.0')
         target 'src/**/*.java'
         endWithNewline()
