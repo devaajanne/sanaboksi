@@ -50,6 +50,28 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+tasks.register('unitTest', Test) {
+    description = 'Runs only unit tests.'
+    group = 'verification'
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+
+    useJUnitPlatform {
+        includeTags 'unitTest'
+    }
+}
+
+tasks.register('integrationTest', Test) {
+    description = 'Runs only integration tests.'
+    group = 'verification'
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+
+    useJUnitPlatform {
+        includeTags 'integrationTest'
+    }
+}
+
 spotless {
     java {
         googleJavaFormat('1.28.0')
