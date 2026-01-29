@@ -57,20 +57,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v6
+      - name: Checkout code
+        uses: actions/checkout@v6
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v6
-      with:
-        node-version: "24"
-    
-    - name: Install dependencies
-      run: |
-        cd frontend
-        npm install
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm install
 
-    - name: Run FE linting check
-      run: |
-        cd frontend
-        npx eslint .
+      - name: Run FE linting check
+        run: |
+          cd frontend
+          npx eslint .
