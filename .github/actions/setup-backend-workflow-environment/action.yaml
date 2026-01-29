@@ -1,5 +1,5 @@
 name: Set up backend workflow environment
-description: Sets up Java version 25 and grants Gradle executive permissions for the workflow
+description: Sets up Java version 25 and grants Gradle execute permissions for the workflow
 
 runs:
   using: "composite"
