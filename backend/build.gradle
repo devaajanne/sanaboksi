@@ -51,8 +51,8 @@ tasks.named('test') {
 }
 
 tasks.register('unitTest', Test) {
+	group = 'verification'
 	description = 'Runs only unit tests.'
-    group = 'verification'
 
 	useJUnitPlatform()
 
@@ -62,8 +62,8 @@ tasks.register('unitTest', Test) {
 }
 
 tasks.register('integrationTest', Test) {
-	description = 'Runs only integration tests.'
 	group = 'verification'
+	description = 'Runs only integration tests.'
 
 	useJUnitPlatform()
 
