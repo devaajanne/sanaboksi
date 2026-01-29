@@ -1,0 +1,16 @@
+name: Set up frontend workflow environment
+description: Sets up Node.js and dependencies for the workflow
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: "24"
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        cd frontend
+        npm install
