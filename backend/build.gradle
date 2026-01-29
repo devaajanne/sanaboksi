@@ -51,10 +51,8 @@ tasks.named('test') {
 }
 
 tasks.register('unitTest', Test) {
+	group = 'verification'
 	description = 'Runs only unit tests.'
-    group = 'verification'
-    testClassesDirs = sourceSets.test.output.classesDirs
-    classpath = sourceSets.test.runtimeClasspath
 
 	useJUnitPlatform()
 
@@ -64,10 +62,8 @@ tasks.register('unitTest', Test) {
 }
 
 tasks.register('integrationTest', Test) {
-	description = 'Runs only integration tests.'
 	group = 'verification'
-	testClassesDirs = sourceSets.test.output.classesDirs
-	classpath = sourceSets.test.runtimeClasspath
+	description = 'Runs only integration tests.'
 
 	useJUnitPlatform()
 
