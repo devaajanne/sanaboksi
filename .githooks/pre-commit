@@ -21,8 +21,6 @@ fi
 
 # Format frontend files (if exist)
 if [[ -n "$STAGED_FRONTEND_FILES" ]]; then
-    echo "Running frontend file formatting..."
-
     # Format all staged frontend files
     npx prettier --write $STAGED_FRONTEND_FILES
     if [[ $? -ne 0 ]]; then
@@ -31,7 +29,7 @@ if [[ -n "$STAGED_FRONTEND_FILES" ]]; then
     fi
 
     # Lint all staged frontend files
-    npx eslint --fix $STAGED_FRONTEND_FILES
+    npx eslint --fix $STAGED_FRONTEND_FILES -c "frontend/eslint.config.js"
     if [[ $? -ne 0 ]]; then
         echo "Frontend linting failed"
         exit 1
