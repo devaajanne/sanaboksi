@@ -49,16 +49,16 @@ Automatically formats and lints staged files before each commit to maintain code
 #### Backend (Java)
 - **Trigger**: Any staged `.java` files in the `backend/` directory
 - **Actions**:
-  1. Runs `./gradlew spotlessApply` to format Java code
-  2. Re-stages formatted files
+  1. Runs `(cd backend && ./gradlew spotlessApply)` to format Java code
+  2. Re-stages previously staged and now formatted files
   3. Exits with error if formatting fails
 
 #### Frontend (TypeScript/React)
 - **Trigger**: Any staged files in the `frontend/` directory
 - **Actions**:
-  1. Runs `npx prettier --write` to format code
-  2. Runs `npx eslint --fix` to lint and auto-fix issues
-  3. Re-stages formatted files
+  1. Runs `npx prettier --write <staged-frontend-files>` to format staged files
+  2. Runs `npx eslint --fix <staged-frontend-files> -c "frontend/eslint.config.js"` to lint staged files using the explicit linting config
+  3. Re-stages formatted and linted files
   4. Exits with error if formatting or linting fails
 
 ### Setup
@@ -103,13 +103,13 @@ Runs automatically on pull requests when:
   - Composite action sets up Node.js 24 and installs npm dependencies
 
 #### 4. Backend Unit Tests (`run-backend-unit-tests`)
-- **Purpose**: Runs isolated unit tests
+- **Purpose**: Runs unit tests
 - **Command**: `./gradlew unitTest`
 - **Test Location**: [backend/src/test/java/backend/unit/](../backend/src/test/java/backend/unit/)
 - **Custom Task**: Defined in [backend/build.gradle](../backend/build.gradle)
 
 #### 5. Backend Integration Tests (`run-backend-integration-tests`)
-- **Purpose**: Runs isolated integration tests
+- **Purpose**: Runs integration tests
 - **Command**: `./gradlew integrationTest`
 - **Test Location**: [backend/src/test/java/backend/integration/](../backend/src/test/java/backend/integration/)
 - **Custom Task**: Defined in [backend/build.gradle](../backend/build.gradle)
@@ -162,7 +162,7 @@ Currently no automated frontend tests are configured in the CI pipeline. Planned
 
 ## Best Practices
 
-1. **Always run formatters before committing** - The pre-commit hook handles this automatically
+1. **Always run formatters before committing**, which is automatically handled by the pre-commit hook
 2. **Ensure all CI checks pass** before requesting PR review
 3. **Keep unit and integration tests separate** using the appropriate backend package structure
 4. **Add new tests** to the correct package (`backend.unit.*` or `backend.integration.*`)
