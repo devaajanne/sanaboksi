@@ -1,4 +1,4 @@
-name: Continuous Integration (CI) workflow
+name: Continuous Integration (CI)
 
 on:
   pull_request:
@@ -6,12 +6,12 @@ on:
 
 jobs:
   run-backend-formatting-check:
-    name: Run BE formatting check
+    name: BE formatting check
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       
       - name: Set up backend workflow environment
         uses: ./.github/actions/setup-backend-workflow-environment
@@ -22,7 +22,7 @@ jobs:
           ./gradlew spotlessCheck
   
   run-frontend-formatting-check:
-    name: Run FE formatting check
+    name: FE formatting check
     runs-on: ubuntu-latest
 
     steps:
@@ -38,7 +38,7 @@ jobs:
           npx prettier . --check
 
   run-frontend-linting-check:
-    name: Run FE linting check
+    name: FE linting check
     runs-on: ubuntu-latest
 
     steps:
@@ -54,12 +54,12 @@ jobs:
           npx eslint .
 
   run-backend-unit-tests:
-    name: Run BE unit tests
+    name: BE unit tests
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       
       - name: Set up backend workflow environment
         uses: ./.github/actions/setup-backend-workflow-environment
@@ -70,12 +70,12 @@ jobs:
           ./gradlew unitTest
   
   run-backend-integration-tests:
-    name: Run BE integration tests
+    name: BE integration tests
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       
       - name: Set up backend workflow environment
         uses: ./.github/actions/setup-backend-workflow-environment
