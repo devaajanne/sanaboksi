@@ -2,9 +2,10 @@ spring:
   application:
     name: backend
   datasource:
-    url: jdbc:postgresql://${DATABASE_HOST_NAME}:${DATABASE_HOST_PORT}/${DATABASE_NAME}
-    username: ${DATABASE_USER}
-    password: ${DATABASE_PASSWORD}
+    # Datasource variables come from compose.yaml
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   sql:
     init:
       mode: always
