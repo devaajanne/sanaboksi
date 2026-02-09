@@ -5,12 +5,12 @@ set -e
 
 # Start the backend service
 startBackend() {
-    cd backend && ./gradlew bootRun --args='--spring.profiles.active=dev' && cd ..
+    (cd backend && ./gradlew bootRun --args='--spring.profiles.active=dev')
 }
 
 # Start the frontend service
 startFrontend() {
-    cd frontend && npm run dev && cd ..
+    (cd frontend && npm run dev)
 }
 
 # Wait for all services to start, kill with CTRL+C
