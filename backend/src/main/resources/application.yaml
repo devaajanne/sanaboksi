@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: backend
+  datasource:
+    url: jdbc:postgresql://${DATABASE_HOST_NAME}:${DATABASE_HOST_PORT}/${DATABASE_NAME}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
