@@ -1,1 +1,8 @@
+# VS Code directory, contains settings
 .vscode
+
+# Environment variable files
+.env
+
+# Act secrets
+.secrets
