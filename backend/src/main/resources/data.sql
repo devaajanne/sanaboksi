@@ -1,4 +1,4 @@
-DELETE FROM five_letter_words;
+TRUNCATE TABLE five_letter_words;
 
 INSERT INTO five_letter_words(word) VALUES
 ('aaloe'),('aalto'),('aamen'),('aaria'),('aarre'),('aatos'),('aatra'),('aatto'),('ahava'),('ahdas'),
