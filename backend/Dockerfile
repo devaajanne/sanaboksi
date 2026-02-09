@@ -7,7 +7,7 @@ COPY gradlew ./
 COPY gradle ./gradle/
 COPY build.gradle* settings.gradle* ./
 # Download dependencies in a separate layer to leverage Docker cache
-RUN ./gradlew && ./gradlew --no-daemon dependencies
+RUN chmod +x ./gradlew && ./gradlew --no-daemon dependencies
 # Copy source code to working directory
 COPY . .
 # Build the app without running clean to preserve build caches
