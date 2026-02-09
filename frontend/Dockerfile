@@ -7,7 +7,7 @@ COPY package*.json /app
 # Install npm dependencies
 RUN npm ci
 # Copy source code to working directory
-COPY . /app
+COPY . .
 # Build the app
 RUN npm run build
 
@@ -19,9 +19,7 @@ WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
 # Copy all built frontend files from build stage
 COPY --from=build /app/dist .
-# Expose port
-ARG FRONTEND_CONTAINER_PORT
-ENV FRONTEND_CONTAINER_PORT=${FRONTEND_CONTAINER_PORT}
-EXPOSE ${FRONTEND_CONTAINER_PORT}
+# Expose nginx default HTTP port
+EXPOSE 80
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]

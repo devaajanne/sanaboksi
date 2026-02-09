@@ -2,10 +2,16 @@
 FROM eclipse-temurin:25-jdk AS build
 # Working directory inside the image
 WORKDIR /app
+# Copy Gradle wrapper and build configuration first for better caching
+COPY gradlew ./
+COPY gradle ./gradle/
+COPY build.gradle* settings.gradle* ./
+# Download dependencies in a separate layer to leverage Docker cache
+RUN ./gradlew && ./gradlew --no-daemon dependencies
 # Copy source code to working directory
-COPY . /app
-# Build the app
-RUN chmod +x ./gradlew && ./gradlew clean bootJar
+COPY . .
+# Build the app without running clean to preserve build caches
+RUN ./gradlew --no-daemon bootJar
 
 # Java JRE base image for run
 FROM eclipse-temurin:25-jre AS run
@@ -16,8 +22,6 @@ RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 # Copy built .jar file from build stage
 COPY --from=build /app/build/libs/*.jar backend_build.jar
 # Expose port
-ARG BACKEND_CONTAINER_PORT
-ENV BACKEND_CONTAINER_PORT=${BACKEND_CONTAINER_PORT}
-EXPOSE ${BACKEND_CONTAINER_PORT}
+EXPOSE 8080
 # Command to run the build
 CMD ["java", "-jar", "backend_build.jar"]
