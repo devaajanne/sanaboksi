@@ -37,9 +37,9 @@ services:
       - network
     environment:
       # Environment variables are configured in .env file (and passed to application.yaml)
-      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
-      - SPRING_DATASOURCE_USERNAME=${DATABASE_USER}
-      - SPRING_DATASOURCE_PASSWORD=${DATABASE_PASSWORD}
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${DATABASE_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DATABASE_PASSWORD}
     depends_on:
       database:
         condition: service_healthy
