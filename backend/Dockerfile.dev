@@ -15,4 +15,4 @@ COPY . .
 # Expose port
 EXPOSE 8080
 # Run
-CMD ["./gradlew", "bootRun"]
+CMD ["./gradlew", "bootRun", "--no-daemon"]

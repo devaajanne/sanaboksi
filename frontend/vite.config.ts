@@ -5,11 +5,11 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   server: {
-    host: true,
+    host: process.env.VITE_DEV_HOST === "true" ? true : "localhost",
     port: 5173,
     strictPort: true,
     watch: {
-      usePolling: true,
+      usePolling: process.env.VITE_USE_POLLING === "true",
     },
   },
 });
