@@ -67,7 +67,7 @@ SPRING_DATASOURCE_DEV_URL=jdbc:postgresql://${DATABASE_HOST_DEV_NAME}:${DATABASE
 
 ## Docker Compose Configurations
 
-`Sanaboksi` project has two containerization configurations: one for production, and one for development.
+The `Sanaboksi` project has two containerization configurations: one for production, and one for development.
 
 ### Production Configuration
 
@@ -313,7 +313,7 @@ Hot reloading enables developers to make changes in local source code and have t
 
 **Configuration**:
 - Polling enabled via `VITE_USE_POLLING=true` in your `.env` file
-- Vite config: [vite.config.ts](../vite.config.ts)
+- Vite config: [vite.config.ts](../frontend/vite.config.ts)
 - File syncing: `develop.watch` in [compose.dev.yaml](../compose.dev.yaml)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
