@@ -1,0 +1,19 @@
+# Java JDK base image for build
+FROM eclipse-temurin:25-jdk
+# Install curl for healthcheck
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+# Working directory inside the image
+WORKDIR /workdir
+# Copy Gradle wrapper and build configuration first for better caching
+COPY gradlew .
+COPY build.gradle .
+COPY settings.gradle .
+COPY gradle ./gradle/
+# Download dependencies in a separate layer to leverage Docker cache
+RUN chmod +x ./gradlew && ./gradlew --no-daemon dependencies
+# Copy source code to working directory
+COPY . .
+# Expose port
+EXPOSE 8080
+# Run
+CMD ["sh", "-c", "./gradlew classes --continuous --no-daemon & ./gradlew bootRun --no-daemon --args='--spring.profiles.active=dev'"]
