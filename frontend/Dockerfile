@@ -1,9 +1,9 @@
 # Node base image for build
 FROM node:24-alpine AS build
 # Working directory inside the image
-WORKDIR /app
+WORKDIR /workdir
 # Copy package files to working directory
-COPY package*.json /app
+COPY package*.json .
 # Install npm dependencies
 RUN npm ci
 # Copy source code to working directory
@@ -18,7 +18,7 @@ WORKDIR /usr/share/nginx/html
 # Remove nginx default welcome page
 RUN rm -rf ./*
 # Copy all built frontend files from build stage
-COPY --from=build /app/dist .
+COPY --from=build /workdir/dist .
 # Expose nginx default HTTP port
 EXPOSE 80
 # Start nginx
