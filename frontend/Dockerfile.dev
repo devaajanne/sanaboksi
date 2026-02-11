@@ -1,9 +1,9 @@
 # Node base image for build
 FROM node:24-alpine
 # Working directory inside the image
-WORKDIR /app
+WORKDIR /workdir
 # Copy package files to working directory
-COPY package*.json /app
+COPY package*.json .
 # Install npm dependencies
 RUN npm ci
 # Copy source code to working directory

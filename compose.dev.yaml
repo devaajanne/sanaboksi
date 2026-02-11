@@ -2,7 +2,6 @@ name: sanaboksi
 
 services:
   database_dev:
-    # Dev database
     container_name: sanaboksi_database_dev
     image: postgres:18.1
     restart: always
@@ -27,7 +26,6 @@ services:
       start_period: 15s
 
   backend_dev:
-    # Dev backend
     container_name: sanaboksi_backend_dev
     build:
       context: ./backend
@@ -38,10 +36,10 @@ services:
     networks:
       - network_dev
     environment:
-      # Environment variables are configured in .env file (and passed to application.yaml)
+      # Environment variables are configured in .env file (and passed to application-dev.yaml)
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_DEV_URL}
       SPRING_DATASOURCE_USERNAME: ${DATABASE_USER}
-      SPRING_DATASOURCE_PASSWORD: ${DATABASE_PASSWORD}ssss
+      SPRING_DATASOURCE_PASSWORD: ${DATABASE_PASSWORD}
     depends_on:
       database_dev:
         condition: service_healthy
@@ -51,9 +49,15 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+    develop:
+      watch:
+        - action: sync
+          path: ./backend/src
+          target: /workdir/src
+          ignore:
+            - "**/*.class"
 
   frontend_dev:
-    # Dev frontend
     container_name: sanaboksi_frontend_dev
     build:
       context: ./frontend
@@ -67,12 +71,16 @@ services:
       # Environment variables are configured in .env file
       VITE_DEV_HOST: ${VITE_DEV_HOST}
       VITE_USE_POLLING: ${VITE_USE_POLLING}
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
     depends_on:
       backend_dev:
         condition: service_healthy
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend
+          target: /workdir
+          ignore:
+            - node_modules/
 
 networks:
   network_dev:
