@@ -3,6 +3,11 @@
 # Exit immediately if a command exits with a non-zero status
 set -e
 
+# Continuously compile backend classes when source files change
+watchBackend() {
+    (cd backend && ./gradlew classes --continuous)
+}
+
 # Start the backend service
 startBackend() {
     (cd backend && ./gradlew bootRun --args='--spring.profiles.active=dev')
@@ -14,4 +19,4 @@ startFrontend() {
 }
 
 # Wait for all services to start, kill with CTRL+C
-startBackend & startFrontend; trap "exit" SIGINT; wait
+watchBackend & startBackend & startFrontend; trap "exit" SIGINT; wait
