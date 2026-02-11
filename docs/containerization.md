@@ -221,7 +221,7 @@ docker compose -f compose.dev.yaml down -v
 - **Base Image**: `eclipse-temurin:25-jdk` (full JDK for compilation)
 - **Hot Reloading**: Runs two parallel Gradle processes:
   1. `./gradlew classes --continuous --no-daemon` - Watches and recompiles Java files
-  2. `./gradlew bootRun --no-daemon --args='--spring.profiles.active=dev'` - Runs Spring Boot with DevTools with active `dev` profile
+  2. `./gradlew bootRun --no-daemon --args='--spring.profiles.active=dev'` - Runs Spring Boot with DevTools and the active `dev` profile
 - **Port**: port 8080 (Spring Boot default)
 - **DevTools**: Spring Boot DevTools detects `.class` file changes and automatically restarts
 
@@ -265,7 +265,7 @@ spring:
     name: backend
   datasource:
     # Datasource variables come from compose.dev.yaml
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://<database host name>:<database host port>/<database name>}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://<database host name for development environment>:<database host port>/<database name>}
     username: ${DATABASE_USER:<database user>}
     password: ${DATABASE_PASSWORD:<database password>}
   sql:
