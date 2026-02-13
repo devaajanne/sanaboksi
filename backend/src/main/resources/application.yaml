@@ -10,3 +10,5 @@ spring:
     init:
       mode: always
       data-locations: classpath:data.sql
+
+CorsAllowedOrigin: ${CORS_ALLOWED_ORIGIN}
