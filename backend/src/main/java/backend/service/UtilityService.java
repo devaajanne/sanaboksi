@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UtilityService {
 
-  public int getRandomInt(int count) {
+  public int getRandomIndex(int count) {
     if (count < 0) {
       throw new IllegalArgumentException("count must be non-negative.");
     }
@@ -15,7 +15,7 @@ public class UtilityService {
       throw new IllegalArgumentException("count must not be zero.");
     }
 
-    // Returns an int between 1 and count (inclusive)
-    return ThreadLocalRandom.current().nextInt(1, count + 1);
+    // Returns an int between 0 (inclusive) and count (exclusive)
+    return ThreadLocalRandom.current().nextInt(count);
   }
 }

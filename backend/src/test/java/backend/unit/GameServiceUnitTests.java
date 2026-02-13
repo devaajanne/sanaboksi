@@ -41,11 +41,11 @@ public class GameServiceUnitTests {
 
     when(mockRepository.findAll()).thenReturn(mockWords);
 
-    when(mockUtilityService.getRandomInt(wordRepositorySize))
+    when(mockUtilityService.getRandomIndex(wordRepositorySize))
         .thenAnswer(
             invocation -> {
               int upperBound = invocation.getArgument(0);
-              return new java.util.Random().nextInt(upperBound) + 1;
+              return new java.util.Random().nextInt(upperBound);
             });
 
     GameService gameService = new GameService(mockRepository, mockUtilityService);
@@ -91,19 +91,19 @@ public class GameServiceUnitTests {
     when(mockRepository.findAll()).thenReturn(mockWords);
 
     // Mock getRandomInt for selecting words from repository
-    when(mockUtilityService.getRandomInt(wordRepositorySize))
+    when(mockUtilityService.getRandomIndex(wordRepositorySize))
         .thenAnswer(
             invocation -> {
               int upperBound = invocation.getArgument(0);
-              return new java.util.Random().nextInt(upperBound) + 1;
+              return new java.util.Random().nextInt(upperBound);
             });
 
     // Mock getRandomInt for selecting random character index within each word
-    when(mockUtilityService.getRandomInt(letterCount))
+    when(mockUtilityService.getRandomIndex(letterCount))
         .thenAnswer(
             invocation -> {
               int upperBound = invocation.getArgument(0);
-              return new java.util.Random().nextInt(upperBound) + 1;
+              return new java.util.Random().nextInt(upperBound);
             });
 
     GameService gameService = new GameService(mockRepository, mockUtilityService);
@@ -143,11 +143,11 @@ public class GameServiceUnitTests {
     int wordRepositorySize = mockWords.size();
     when(mockRepository.count()).thenReturn((long) wordRepositorySize);
 
-    when(mockUtilityService.getRandomInt((int) wordRepositorySize))
-        .thenReturn(1, 2, 3, 4, 5); // Returns indices for word selection
+    when(mockUtilityService.getRandomIndex((int) wordRepositorySize))
+        .thenReturn(0, 1, 2, 3, 4); // Returns indices for word selection
 
-    when(mockUtilityService.getRandomInt(letterCount))
-        .thenReturn(3, 4, 2, 5, 1); // Returns character indices
+    when(mockUtilityService.getRandomIndex(letterCount))
+        .thenReturn(2, 3, 1, 4, 0); // Returns character indices
 
     GameService gameService = new GameService(mockRepository, mockUtilityService);
 

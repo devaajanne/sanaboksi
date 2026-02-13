@@ -38,10 +38,7 @@ public class GameService {
     List<Word> randomWordList = new ArrayList<Word>();
 
     for (int i = 0; i < wordCount; i++) {
-      int randomIndex =
-          utilityService.getRandomInt(repositorySize)
-              - 1; // -1 to convert random number between 1 and repositorySize to index starting at
-      // 0
+      int randomIndex = utilityService.getRandomIndex(repositorySize);
       randomWordList.add(allWords.get(randomIndex));
     }
 
@@ -56,9 +53,7 @@ public class GameService {
     for (Word word : randomWordList) {
       FixedLetterResponse fixedLetter = new FixedLetterResponse();
       wordLength = word.getWord().length();
-      randomIndex =
-          utilityService.getRandomInt(wordLength)
-              - 1; // -1 to convert random number between 1 and wordLength to index starting at 0
+      randomIndex = utilityService.getRandomIndex(wordLength);
       fixedLetter.setFixedIndex(randomIndex);
       fixedLetter.setFixedCharacter(word.getWord().charAt(randomIndex));
       fixedLetters.add(fixedLetter);

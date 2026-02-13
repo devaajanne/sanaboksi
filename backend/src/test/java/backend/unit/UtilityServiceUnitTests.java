@@ -17,9 +17,9 @@ public class UtilityServiceUnitTests {
     int count = 20;
 
     for (int i = 0; i < 1000; i++) {
-      randomInt = utilityService.getRandomInt(count);
-      assertTrue(randomInt >= 1);
-      assertTrue(randomInt <= count);
+      randomInt = utilityService.getRandomIndex(count);
+      assertTrue(randomInt >= 0);
+      assertTrue(randomInt < count);
     }
   }
 
@@ -29,7 +29,7 @@ public class UtilityServiceUnitTests {
     String expectedExceptionMessage = "count must be non-negative.";
 
     IllegalArgumentException exception =
-        assertThrows(IllegalArgumentException.class, () -> utilityService.getRandomInt(count));
+        assertThrows(IllegalArgumentException.class, () -> utilityService.getRandomIndex(count));
 
     assertEquals(expectedExceptionMessage, exception.getMessage());
   }
@@ -40,7 +40,7 @@ public class UtilityServiceUnitTests {
     String expectedExceptionMessage = "count must not be zero.";
 
     IllegalArgumentException exception =
-        assertThrows(IllegalArgumentException.class, () -> utilityService.getRandomInt(count));
+        assertThrows(IllegalArgumentException.class, () -> utilityService.getRandomIndex(count));
 
     assertEquals(expectedExceptionMessage, exception.getMessage());
   }

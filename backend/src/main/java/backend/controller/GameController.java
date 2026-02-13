@@ -19,8 +19,8 @@ public class GameController {
     this.gameService = gameService;
   }
 
-  @GetMapping("/fixed-letters/{count}")
-  public ResponseEntity<List<FixedLetterResponse>> getFixedLetters(@PathVariable int count) {
-    return ResponseEntity.ok(gameService.getFixedLettersFromRandomWords(count));
+  @GetMapping("/fixed-letters/{wordCount}")
+  public ResponseEntity<List<FixedLetterResponse>> getFixedLetters(@PathVariable int wordCount) {
+    return ResponseEntity.ok(gameService.getFixedLettersFromRandomWords(wordCount));
   }
 }
