@@ -156,22 +156,22 @@ public class GameServiceUnitTests {
 
     // Verify first word "hello" at index 2 -> 'l'
     assertEquals(2, fixedLetters.get(0).getFixedIndex());
-    assertEquals('l', fixedLetters.get(0).getFixedCharacter());
+    assertEquals('l', fixedLetters.get(0).getFixedLetter());
 
     // Verify second word "world" at index 3 -> 'l'
     assertEquals(3, fixedLetters.get(1).getFixedIndex());
-    assertEquals('l', fixedLetters.get(1).getFixedCharacter());
+    assertEquals('l', fixedLetters.get(1).getFixedLetter());
 
     // Verify third word "apple" at index 1 -> 'p'
     assertEquals(1, fixedLetters.get(2).getFixedIndex());
-    assertEquals('p', fixedLetters.get(2).getFixedCharacter());
+    assertEquals('p', fixedLetters.get(2).getFixedLetter());
 
     // Verify fourth word "clock" at index 4 -> 'k'
     assertEquals(4, fixedLetters.get(3).getFixedIndex());
-    assertEquals('k', fixedLetters.get(3).getFixedCharacter());
+    assertEquals('k', fixedLetters.get(3).getFixedLetter());
 
     // Verify fifth word "phone" at index 0 -> 'p'
     assertEquals(0, fixedLetters.get(4).getFixedIndex());
-    assertEquals('p', fixedLetters.get(4).getFixedCharacter());
+    assertEquals('p', fixedLetters.get(4).getFixedLetter());
   }
 }
