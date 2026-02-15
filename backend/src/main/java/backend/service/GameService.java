@@ -55,7 +55,7 @@ public class GameService {
       wordLength = word.getWord().length();
       randomIndex = utilityService.getRandomIndex(wordLength);
       fixedLetter.setFixedIndex(randomIndex);
-      fixedLetter.setFixedCharacter(word.getWord().charAt(randomIndex));
+      fixedLetter.setFixedLetter(word.getWord().charAt(randomIndex));
       fixedLetters.add(fixedLetter);
     }
 

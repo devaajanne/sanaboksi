@@ -19,6 +19,6 @@ public class FixedLetterResponse {
   @Max(value = 4, message = "Fixed index maximum value is 4.")
   private Integer fixedIndex;
 
-  @NotNull(message = "Fixed character cannot be null.")
-  private Character fixedCharacter;
+  @NotNull(message = "Fixed letter cannot be null.")
+  private Character fixedLetter;
 }
