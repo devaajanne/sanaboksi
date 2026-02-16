@@ -31,7 +31,7 @@ This document describes the requirements for the **Sanaboksi** application, a da
 
 ## User Stories
 - **As a player**, I want the daily Sanaboksi puzzle to load automatically when I open the app, so I can start playing right away.
-- **As a player**, I want to solve a puzzle consisting of a 5×5 grid by default
+- **As a player**, I want to solve a puzzle consisting of a 5×5 grid by default.
 - **As a player**, I want to have the option to play 5×6 or 5×7 grids, so I can choose my preferred difficulty.
 - **As a player**, I want each row of the puzzle to display one fixed letter in its correct position, so I know which letter must appear and where.
 - **As a player**, I want to type words that fit the grid, ensuring each word contains the fixed letter at the correct index.
