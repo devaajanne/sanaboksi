@@ -8,20 +8,28 @@ export default function SanaboksiGameGrid() {
   const [fixedLetters, setFixedLetters] = useState<FixedLetters>([]);
   // Store the actual game grid data (5x5 array of characters)
   const [gameGrid, setGameGrid] = useState<GameGrid>([]);
+  const [wordLength, setWordLength] = useState<number>(5);
 
   /**
    * Fetches fixed letters from the API and initializes the game grid
-   * @param rowCount - Number of rows to fetch
+   * @param language - Language to fetch
+   * @param wordLength - Number of letters (columns) to fetch
+   * @param wordCount - Number of words (rows) to fetch
    */
-  const fetchFixedLetters = async (rowCount: number) => {
+  const fetchFixedLetters = async (
+    language: string,
+    wordLength: number,
+    wordCount: number,
+  ) => {
     try {
-      const data = await getFixedLetters(rowCount);
-      const letters = Array.isArray(data) ? data : [];
+      const data = await getFixedLetters(language, wordLength, wordCount);
+      const fixedLetterData = data ? data.fixedLetters : [];
 
-      setFixedLetters(letters);
+      setFixedLetters(fixedLetterData);
+      setWordLength(wordLength);
       setGameGrid(
-        letters.map((item) =>
-          Array(5)
+        fixedLetterData.map((item) =>
+          Array(wordLength)
             .fill("")
             .map((_, i) =>
               i === item.fixedIndex ? item.fixedLetter.toUpperCase() : "",
@@ -40,7 +48,7 @@ export default function SanaboksiGameGrid() {
   // Fetch fixed letters on component mount
   useEffect(() => {
     const initialFetch = async () => {
-      await fetchFixedLetters(5);
+      await fetchFixedLetters("fi", 5, 5);
     };
     initialFetch();
   }, []);
@@ -49,8 +57,12 @@ export default function SanaboksiGameGrid() {
     <>
       {fixedLetters.length === 0
         ? // Render empty game grid rows
-          Array.from({ length: 5 }).map((_, index) => (
-            <SanaboksiGameRow key={index} isEmpty={true} />
+          Array.from({ length: wordLength }).map((_, index) => (
+            <SanaboksiGameRow
+              key={index}
+              isEmpty={true}
+              rowLength={wordLength}
+            />
           ))
         : // Render game grid with fixed letters
           fixedLetters.map((fixedLetter, rowIndex) => (
@@ -58,6 +70,7 @@ export default function SanaboksiGameGrid() {
               key={rowIndex}
               fixedLetter={fixedLetter}
               rowData={gameGrid[rowIndex]}
+              rowLength={wordLength}
             />
           ))}
     </>

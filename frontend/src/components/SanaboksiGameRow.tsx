@@ -5,16 +5,18 @@ interface SanaboksiGameRowProps {
   fixedLetter?: FixedLetter;
   rowData?: string[];
   isEmpty?: boolean;
+  rowLength: number;
 }
 
 export default function SanaboksiGameRow({
   fixedLetter,
   rowData = [],
   isEmpty = false,
+  rowLength,
 }: SanaboksiGameRowProps) {
   return (
     <Group>
-      {Array.from({ length: 5 }).map((_, columnIndex) => {
+      {Array.from({ length: rowLength }).map((_, columnIndex) => {
         const isFixedLetter =
           fixedLetter && columnIndex === fixedLetter.fixedIndex;
         const cellValue = isEmpty ? "" : (rowData[columnIndex] ?? "");
