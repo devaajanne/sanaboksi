@@ -45,6 +45,21 @@ export default function SanaboksiGameGrid() {
     }
   };
 
+  const handleFieldChange = (
+    rowIndex: number, // The row to update
+    columnIndex: number, // The column to update
+    value: string, // The value to update
+  ) => {
+    setGameGrid((gameGrid) => {
+      const newGameGrid = gameGrid.map((row, i) =>
+        i === rowIndex
+          ? row.map((field, j) => (j === columnIndex ? value : field))
+          : row,
+      );
+      return newGameGrid;
+    });
+  };
+
   // Fetch fixed letters on component mount
   useEffect(() => {
     const initialFetch = async () => {
@@ -60,7 +75,7 @@ export default function SanaboksiGameGrid() {
           Array.from({ length: wordLength }).map((_, index) => (
             <SanaboksiGameRow
               key={index}
-              isEmpty={true}
+              isPlaceholder={true}
               rowLength={wordLength}
             />
           ))
@@ -71,6 +86,9 @@ export default function SanaboksiGameGrid() {
               fixedLetter={fixedLetter}
               rowData={gameGrid[rowIndex]}
               rowLength={wordLength}
+              onFieldChange={(columnIndex, value) =>
+                handleFieldChange(rowIndex, columnIndex, value)
+              }
             />
           ))}
     </>
