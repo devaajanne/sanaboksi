@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import type { KeyboardEvent } from "react";
 import { TextInput, Group } from "@mantine/core";
 import type { FixedLetter } from "../types/Types";
 
@@ -44,6 +45,28 @@ export default function SanaboksiGameRow({
     }
   };
 
+  const handleKeyDown = (
+    columnIndex: number,
+    event: KeyboardEvent<HTMLInputElement>,
+  ) => {
+    if (
+      (event.key === "Backspace" || event.key === "Delete") &&
+      !rowData[columnIndex]
+    ) {
+      let previousColumnIndex = columnIndex - 1;
+      while (
+        previousColumnIndex >= 0 &&
+        fixedLetter &&
+        previousColumnIndex === fixedLetter.fixedIndex
+      ) {
+        previousColumnIndex--;
+      }
+      if (previousColumnIndex >= 0) {
+        inputRefs.current[previousColumnIndex]?.focus();
+      }
+    }
+  };
+
   return (
     <Group>
       {Array.from({ length: rowLength }).map((_, columnIndex) => {
@@ -73,6 +96,11 @@ export default function SanaboksiGameRow({
               !isPlaceholder && !isFixedLetter && onFieldChange
                 ? (event) =>
                     handleChange(columnIndex, event.target.value.toUpperCase())
+                : undefined
+            }
+            onKeyDown={
+              !isPlaceholder && !isFixedLetter && onFieldChange
+                ? (event) => handleKeyDown(columnIndex, event)
                 : undefined
             }
           />
