@@ -1,8 +1,8 @@
 package backend.dto;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import backend.domain.FixedLetter;
 import jakarta.validation.constraints.NotNull;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,11 +14,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class FixedLetterResponse {
 
-  @NotNull(message = "Fixed index cannot be null.")
-  @Min(value = 0, message = "Fixed index minimum value is 0.")
-  @Max(value = 4, message = "Fixed index maximum value is 4.")
-  private Integer fixedIndex;
+  @NotNull(message = "Word length cannot be null.")
+  private int wordLength;
 
-  @NotNull(message = "Fixed letter cannot be null.")
-  private Character fixedLetter;
+  @NotNull(message = "Fixed letter list cannot be null.")
+  private List<FixedLetter> fixedLetters;
 }

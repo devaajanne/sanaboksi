@@ -1,8 +1,8 @@
 package backend.controller;
 
+import backend.domain.Language;
 import backend.dto.FixedLetterResponse;
 import backend.service.GameService;
-import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +19,9 @@ public class GameController {
     this.gameService = gameService;
   }
 
-  @GetMapping("/fixed-letters/{wordCount}")
-  public ResponseEntity<List<FixedLetterResponse>> getFixedLetters(@PathVariable int wordCount) {
-    return ResponseEntity.ok(gameService.getFixedLettersFromRandomWords(wordCount));
+  @GetMapping("/fixed-letters/{language}/{wordLength}/{wordCount}")
+  public ResponseEntity<FixedLetterResponse> getFixedLetters(
+      @PathVariable Language language, @PathVariable int wordLength, @PathVariable int wordCount) {
+    return ResponseEntity.ok(gameService.getFixedLetterResponse(language, wordLength, wordCount));
   }
 }

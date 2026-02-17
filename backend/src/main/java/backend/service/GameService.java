@@ -1,8 +1,9 @@
 package backend.service;
 
-import backend.domain.Word;
+import backend.domain.FixedLetter;
+import backend.domain.Language;
+import backend.domain.entities.Word;
 import backend.dto.FixedLetterResponse;
-import backend.repository.WordRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -10,55 +11,62 @@ import org.springframework.stereotype.Service;
 @Service
 public class GameService {
 
-  private final WordRepository wordRepository;
+  private final RepositoryService repositoryService;
   private final UtilityService utilityService;
 
-  public GameService(WordRepository wordRepository, UtilityService utilityService) {
-    this.wordRepository = wordRepository;
+  public GameService(RepositoryService repositoryService, UtilityService utilityService) {
+    this.repositoryService = repositoryService;
     this.utilityService = utilityService;
   }
 
-  public List<Word> getRandomWords(int wordCount) {
-    int repositorySize = (int) wordRepository.count();
-
-    // Throw error if repository is empty
-    if (repositorySize == 0) {
-      throw new IllegalStateException("wordRepository is empty.");
-    }
+  public FixedLetterResponse getFixedLetterResponse(
+      Language language, int wordLength, int wordCount) {
 
     // Throw error if requested word count is negative
     if (wordCount < 0) {
       throw new IllegalArgumentException("wordCount must be non-negative.");
     }
 
-    // Get all words if request more words than there are words in the repository
-    wordCount = Math.min(wordCount, repositorySize);
+    int repositorySizeForLanguageAndWordLength =
+        repositoryService.getRepositoryCountForWordsWithCorrectLength(language, wordLength);
 
-    List<Word> allWords = wordRepository.findAll();
-    List<Word> randomWordList = new ArrayList<Word>();
-
-    for (int i = 0; i < wordCount; i++) {
-      int randomIndex = utilityService.getRandomIndex(repositorySize);
-      randomWordList.add(allWords.get(randomIndex));
+    if (repositorySizeForLanguageAndWordLength == 0) {
+      throw new IllegalStateException(
+          "Repository is empty for language " + language + " and word length " + wordLength);
     }
 
-    return randomWordList;
-  }
+    if (repositorySizeForLanguageAndWordLength < wordCount) {
+      throw new IllegalStateException(
+          "Not enough words in repository for language "
+              + language
+              + " and word length "
+              + wordLength);
+    }
 
-  public List<FixedLetterResponse> getFixedLettersFromRandomWords(int wordCount) {
-    List<Word> randomWordList = getRandomWords(wordCount);
-    List<FixedLetterResponse> fixedLetters = new ArrayList<FixedLetterResponse>();
-    int wordLength, randomIndex;
+    // Return the whole repository word count if the requested word count is larger than there are
+    // words for correct language and word length in
+    // the repository
+    wordCount = Math.min(wordCount, repositorySizeForLanguageAndWordLength);
+
+    List<? extends Word> randomWordList =
+        repositoryService.findRandomWordsWithCorrectLengthCountAndLanguage(
+            language, wordLength, wordCount);
+
+    FixedLetterResponse fixedLetterResponse = new FixedLetterResponse();
+    List<FixedLetter> fixedLetters = new ArrayList<>();
+    int randomIndex;
 
     for (Word word : randomWordList) {
-      FixedLetterResponse fixedLetter = new FixedLetterResponse();
-      wordLength = word.getWord().length();
+      FixedLetter fixedLetter = new FixedLetter();
       randomIndex = utilityService.getRandomIndex(wordLength);
       fixedLetter.setFixedIndex(randomIndex);
       fixedLetter.setFixedLetter(word.getWord().charAt(randomIndex));
       fixedLetters.add(fixedLetter);
     }
 
-    return fixedLetters;
+    fixedLetterResponse.setFixedLetters(fixedLetters);
+    fixedLetterResponse.setWordLength(wordLength);
+
+    return fixedLetterResponse;
   }
 }
