@@ -15,7 +15,7 @@ public class RepositoryService {
     this.finnishWordRepository = finnishWordRepository;
   }
 
-  public List<? extends Word> findRandomWordsWithCorrectLengthCountAndLanguage(
+  public List<? extends Word> findRandomWordsWithCorrectLanguageLengthAndCount(
       Language language, int wordLength, int wordCount) {
     if (language == Language.FI) {
       return finnishWordRepository.findRandomWordsByWordLengthAndCount(wordLength, wordCount);
@@ -23,7 +23,8 @@ public class RepositoryService {
     throw new RuntimeException("Unknown language: " + language);
   }
 
-  public int getRepositoryCountForWordsWithCorrectLength(Language language, int wordLength) {
+  public int getRepositoryCountForWordsWithCorrectLanguageAndLength(
+      Language language, int wordLength) {
     if (language == Language.FI) {
       return finnishWordRepository.countByWordLength(wordLength);
     }

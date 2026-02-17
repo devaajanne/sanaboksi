@@ -28,7 +28,8 @@ public class GameService {
     }
 
     int repositorySizeForLanguageAndWordLength =
-        repositoryService.getRepositoryCountForWordsWithCorrectLength(language, wordLength);
+        repositoryService.getRepositoryCountForWordsWithCorrectLanguageAndLength(
+            language, wordLength);
 
     if (repositorySizeForLanguageAndWordLength == 0) {
       throw new IllegalStateException(
@@ -49,7 +50,7 @@ public class GameService {
     wordCount = Math.min(wordCount, repositorySizeForLanguageAndWordLength);
 
     List<? extends Word> randomWordList =
-        repositoryService.findRandomWordsWithCorrectLengthCountAndLanguage(
+        repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(
             language, wordLength, wordCount);
 
     FixedLetterResponse fixedLetterResponse = new FixedLetterResponse();
