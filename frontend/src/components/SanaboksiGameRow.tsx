@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { TextInput, Group } from "@mantine/core";
 import type { FixedLetter } from "../types/Types";
 
@@ -16,6 +17,33 @@ export default function SanaboksiGameRow({
   rowLength,
   onFieldChange,
 }: SanaboksiGameRowProps) {
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const handleChange = (columnIndex: number, value: string) => {
+    onFieldChange?.(columnIndex, value);
+
+    // Only move focus when a non-empty character is entered
+    if (!value) {
+      return;
+    }
+    // Move focus to the next editable field in the same row
+    // Skip over the next field if it is a fixed letter (not editable)
+    // Continue skipping until an editable field is found or the end of the row is reached
+    let nextColumnIndex = columnIndex + 1;
+    while (
+      nextColumnIndex < rowLength &&
+      fixedLetter &&
+      nextColumnIndex === fixedLetter.fixedIndex
+    ) {
+      nextColumnIndex++;
+    }
+
+    // Focus the next editable field, if it exists
+    if (nextColumnIndex < rowLength) {
+      inputRefs.current[nextColumnIndex]?.focus();
+    }
+  };
+
   return (
     <Group>
       {Array.from({ length: rowLength }).map((_, columnIndex) => {
@@ -30,6 +58,9 @@ export default function SanaboksiGameRow({
             readOnly={isPlaceholder || isFixedLetter}
             maxLength={1}
             w={50}
+            ref={(el) => {
+              inputRefs.current[columnIndex] = el;
+            }}
             styles={{
               input: {
                 textAlign: "center",
@@ -41,7 +72,7 @@ export default function SanaboksiGameRow({
             onChange={
               !isPlaceholder && !isFixedLetter && onFieldChange
                 ? (event) =>
-                    onFieldChange(columnIndex, event.target.value.toUpperCase())
+                    handleChange(columnIndex, event.target.value.toUpperCase())
                 : undefined
             }
           />
