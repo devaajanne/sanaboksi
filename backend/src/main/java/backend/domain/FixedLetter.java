@@ -14,10 +14,9 @@ import lombok.Setter;
 @Setter
 public class FixedLetter {
 
-  @NotNull(message = "Fixed index cannot be null.")
   @Min(value = 0, message = "Fixed index minimum value is 0.")
   @Max(value = 6, message = "Fixed index maximum value is 6.")
-  private Integer fixedIndex;
+  private int fixedIndex;
 
   @NotNull(message = "Fixed letter cannot be null.")
   private Character fixedLetter;

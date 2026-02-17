@@ -6,7 +6,7 @@ import SanaboksiGameRow from "./SanaboksiGameRow";
 export default function SanaboksiGameGrid() {
   // Store the fixed letters configuration for each row (which index has which fixed letter)
   const [fixedLetters, setFixedLetters] = useState<FixedLetters>([]);
-  // Store the actual game grid data (5x5 array of characters)
+  // Store the actual game grid data (2D array of characters with dynamic dimensions)
   const [gameGrid, setGameGrid] = useState<GameGrid>([]);
   const [wordLength, setWordLength] = useState<number>(5);
 

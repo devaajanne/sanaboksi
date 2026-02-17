@@ -1,9 +1,10 @@
 -- Original data from Kotus (CC BY 4.0): https://kotus.fi/sanakirjat/kielitoimiston-sanakirja/nykysuomen-sana-aineistot/nykysuomen-sanalista/
 -- Modified to fit this project's needs:
---      1) removed all words with fewer or more than 5 letters
+--      1) removed all words with fewer or more than 6 letters
 --      2) removed words with diacritics (i.e. é, è, š)    
 --      3) removed words ending in or including '-' (i.e. sika-)
 --      4) removed derogatory words
+--      5) removed words with a space in beteen (i.e. "au pair")
 
 DELETE FROM finnish_words WHERE LENGTH(word) = 6;
 
@@ -303,13 +304,13 @@ INSERT INTO finnish_words(word) VALUES
 ('obeesi'), ('odelma'), ('odotus'), ('offset'), ('ohdake'), ('ohella'), ('ohenne'), ('ohessa'), ('ohesta'), ('ohitse'),
 ('ohitus'), ('ohjain'), ('ohjata'), ('ohjaus'), ('ohrana'), ('ohukas'), ('oikein'), ('oikeus'), ('oionta'), ('ojasto'),
 ('ojenne'), ('ojikko'), ('ojitus'), ('ojolla'), ('ojolle'), ('ojossa'), ('okseri'), ('oksete'), ('oksidi'), ('oleilu'),
-('olemus'), ('olento'), ('oletus'), ('oliivi'), ('olkain'), ('oloasu'), ('olunen'), ('omertà'), ('ometta'), ('omiaan'),
-('omiste'), ('ompele'), ('ompelu'), ('onania'), ('onkalo'), ('onkija'), ('onnela'), ('ontelo'), ('onyksi'), ('oomega'),
-('opaali'), ('opaste'), ('opetus'), ('opisto'), ('oppija'), ('optimi'), ('orakas'), ('oranki'), ('orgiat'), ('orjuus'),
-('orpana'), ('orpous'), ('osaaja'), ('osakas'), ('osaksi'), ('osanen'), ('osasto'), ('osasyy'), ('osaton'), ('osinko'),
-('ositus'), ('osmani'), ('osmium'), ('osoite'), ('ostaja'), ('ostari'), ('ostelu'), ('osteri'), ('otanta'), ('otella'),
-('otettu'), ('otsake'), ('otsoni'), ('ottaja'), ('ottamo'), ('ottava'), ('ottelu'), ('outlet'), ('outous'), ('output'),
-('ovaali'), ('ovisuu');
+('olemus'), ('olento'), ('oletus'), ('oliivi'), ('olkain'), ('oloasu'), ('olunen'), ('ometta'), ('omiaan'), ('omiste'), 
+('ompele'), ('ompelu'), ('onania'), ('onkalo'), ('onkija'), ('onnela'), ('ontelo'), ('onyksi'), ('oomega'), ('opaali'), 
+('opaste'), ('opetus'), ('opisto'), ('oppija'), ('optimi'), ('orakas'), ('oranki'), ('orgiat'), ('orjuus'), ('orpana'),
+('orpous'), ('osaaja'), ('osakas'), ('osaksi'), ('osanen'), ('osasto'), ('osasyy'), ('osaton'), ('osinko'), ('ositus'), 
+('osmani'), ('osmium'), ('osoite'), ('ostaja'), ('ostari'), ('ostelu'), ('osteri'), ('otanta'), ('otella'), ('otettu'),
+('otsake'), ('otsoni'), ('ottaja'), ('ottamo'), ('ottava'), ('ottelu'), ('outlet'), ('outous'), ('output'), ('ovaali'), 
+('ovisuu');
 
 -- Words starting with P
 INSERT INTO finnish_words(word) VALUES

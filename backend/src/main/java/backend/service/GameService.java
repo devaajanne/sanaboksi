@@ -32,6 +32,11 @@ public class GameService {
       throw new IllegalArgumentException("wordCount must be non-zero.");
     }
 
+    // Throw error if requested word length is outside the supported range
+    if (wordLength < 5 || wordLength > 7) {
+      throw new IllegalArgumentException("wordLength must be 5-7.");
+    }
+
     int repositorySizeForLanguageAndWordLength =
         repositoryService.getRepositoryCountForWordsWithCorrectLanguageAndLength(
             language, wordLength);

@@ -1,9 +1,10 @@
 -- Original data from Kotus (CC BY 4.0): https://kotus.fi/sanakirjat/kielitoimiston-sanakirja/nykysuomen-sana-aineistot/nykysuomen-sanalista/
 -- Modified to fit this project's needs:
---      1) removed all words with fewer or more than 5 letters
+--      1) removed all words with fewer or more than 7 letters
 --      2) removed words with diacritics (i.e. é, è, š)    
 --      3) removed words ending in or including '-' (i.e. sika-)
 --      4) removed derogatory words
+--      5) removed words with a space in beteen (i.e. "au pair")
 
 DELETE FROM finnish_words WHERE LENGTH(word) = 7;
 
@@ -32,11 +33,11 @@ INSERT INTO finnish_words(word) VALUES
 ('asennus'), ('asentaa'), ('asentua'), ('asepaja'), ('asepuku'), ('asetoni'), ('asettaa'), ('asettua'), ('aseveli'), ('asiakas'),
 ('asiaton'), ('asioida'), ('askeesi'), ('askelma'), ('askites'), ('aspekti'), ('astella'), ('astenia'), ('astunta'), ('astutus'),
 ('asujain'), ('asustaa'), ('asuttaa'), ('ateismi'), ('ateisti'), ('ateljee'), ('atrofia'), ('atropia'), ('atsalea'), ('attasea'),
-('aukaisu'), ('aukeama'), ('aukiolo'), ('aukoton'), ('aukotus'), ('au pair'), ('aurinko'), ('autella'), ('autismi'), ('autoetu'),
-('autoilu'), ('autoton'), ('auttaja'), ('auttava'), ('auvoisa'), ('avarrin'), ('avarrus'), ('avartaa'), ('avartua'), ('avaruus'),
-('avautua'), ('aversio'), ('avioero'), ('avioton'), ('avittaa'), ('avoauto'), ('avoinna'), ('avojono'), ('avokado'), ('avolava'),
-('avomeri'), ('avomies'), ('avopari'), ('avopäin'), ('avorivi'), ('avosuin'), ('avotavu'), ('avotila'), ('avotuli'), ('avovene'),
-('avovesi'), ('avulias'), ('avustaa'), ('avustus');
+('aukaisu'), ('aukeama'), ('aukiolo'), ('aukoton'), ('aukotus'), ('aurinko'), ('autella'), ('autismi'), ('autoetu'), ('autoilu'), 
+('autoton'), ('auttaja'), ('auttava'), ('auvoisa'), ('avarrin'), ('avarrus'), ('avartaa'), ('avartua'), ('avaruus'), ('avautua'), 
+('aversio'), ('avioero'), ('avioton'), ('avittaa'), ('avoauto'), ('avoinna'), ('avojono'), ('avokado'), ('avolava'), ('avomeri'), 
+('avomies'), ('avopari'), ('avopäin'), ('avorivi'), ('avosuin'), ('avotavu'), ('avotila'), ('avotuli'), ('avovene'), ('avovesi'), 
+('avulias'), ('avustaa'), ('avustus');
 
 -- Words starting with B
 INSERT INTO finnish_words(word) VALUES
