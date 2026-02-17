@@ -27,15 +27,13 @@ export default function SanaboksiGameRow({
     if (!value) {
       return;
     }
+
     // Move focus to the next editable field in the same row
     // Skip over the next field if it is a fixed letter (not editable)
     // Continue skipping until an editable field is found or the end of the row is reached
     let nextColumnIndex = columnIndex + 1;
-    while (
-      nextColumnIndex < rowLength &&
-      fixedLetter &&
-      nextColumnIndex === fixedLetter.fixedIndex
-    ) {
+
+    if (fixedLetter && nextColumnIndex === fixedLetter.fixedIndex) {
       nextColumnIndex++;
     }
 
@@ -54,13 +52,11 @@ export default function SanaboksiGameRow({
       !rowData[columnIndex]
     ) {
       let previousColumnIndex = columnIndex - 1;
-      while (
-        previousColumnIndex >= 0 &&
-        fixedLetter &&
-        previousColumnIndex === fixedLetter.fixedIndex
-      ) {
+
+      if (fixedLetter && previousColumnIndex === fixedLetter.fixedIndex) {
         previousColumnIndex--;
       }
+
       if (previousColumnIndex >= 0) {
         inputRefs.current[previousColumnIndex]?.focus();
       }

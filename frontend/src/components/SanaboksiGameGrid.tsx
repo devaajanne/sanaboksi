@@ -50,8 +50,11 @@ export default function SanaboksiGameGrid() {
     columnIndex: number, // The column to update
     value: string, // The value to update
   ) => {
-    setGameGrid((gameGrid) => {
-      const newGameGrid = gameGrid.map((row, i) =>
+    // Only allow single letter strings
+    if (typeof value !== "string" || value.length > 1) return;
+
+    setGameGrid((currentGameGrid) => {
+      const newGameGrid = currentGameGrid.map((row, i) =>
         i === rowIndex
           ? row.map((field, j) => (j === columnIndex ? value : field))
           : row,
@@ -67,6 +70,10 @@ export default function SanaboksiGameGrid() {
     };
     initialFetch();
   }, []);
+
+  useEffect(() => {
+    console.log(gameGrid);
+  }, [gameGrid]);
 
   return (
     <>
