@@ -12,7 +12,7 @@ public class UtilityServiceUnitTests {
   private final UtilityService utilityService = new UtilityService();
 
   @Test
-  public void getRandomIntShouldReturnValueBetweenOneAndCount() {
+  public void getRandomIntShouldReturnValueBetweenZeroAndExclusiveCount() {
     int randomInt;
     int count = 20;
 

@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS five_letter_words;
+DROP TABLE IF EXISTS finnish_words;
 
-CREATE TABLE IF NOT EXISTS five_letter_words
+CREATE TABLE IF NOT EXISTS finnish_words
 (
-    id      BIGSERIAL PRIMARY KEY,
-    word    VARCHAR(5) NOT NULL UNIQUE
+    id              BIGSERIAL PRIMARY KEY,
+    word            VARCHAR NOT NULL UNIQUE CHECK (LENGTH(word) >= 5 AND LENGTH(word) <= 7)
 );

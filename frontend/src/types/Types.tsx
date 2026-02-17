@@ -5,4 +5,9 @@ export type FixedLetter = {
 
 export type FixedLetters = FixedLetter[];
 
+export type FixedLetterResponse = {
+  wordLength: number;
+  fixedLetters: FixedLetter[];
+};
+
 export type GameGrid = string[][];
