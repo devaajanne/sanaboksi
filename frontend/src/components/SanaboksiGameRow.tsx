@@ -21,6 +21,10 @@ export default function SanaboksiGameRow({
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const handleChange = (columnIndex: number, value: string) => {
+    // Only allow a single letter (A-Z + Ü, Å Ä and Ö, case-insensitive)
+    if (!/^[A-ZÜÅÄÖ]$/i.test(value)) {
+      return;
+    }
     onFieldChange?.(columnIndex, value);
 
     // Only move focus when a non-empty character is entered
