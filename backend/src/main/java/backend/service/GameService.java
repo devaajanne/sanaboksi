@@ -27,6 +27,11 @@ public class GameService {
       throw new IllegalArgumentException("wordCount must be non-negative.");
     }
 
+    // Throw error if requested word count is zero
+    if (wordCount == 0) {
+      throw new IllegalArgumentException("wordCount must be non-zero.");
+    }
+
     int repositorySizeForLanguageAndWordLength =
         repositoryService.getRepositoryCountForWordsWithCorrectLanguageAndLength(
             language, wordLength);
@@ -34,14 +39,6 @@ public class GameService {
     if (repositorySizeForLanguageAndWordLength == 0) {
       throw new IllegalStateException(
           "Repository is empty for language " + language + " and word length " + wordLength);
-    }
-
-    if (repositorySizeForLanguageAndWordLength < wordCount) {
-      throw new IllegalStateException(
-          "Not enough words in repository for language "
-              + language
-              + " and word length "
-              + wordLength);
     }
 
     // Return the whole repository word count if the requested word count is larger than there are
