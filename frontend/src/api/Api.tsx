@@ -43,7 +43,7 @@ const validateGameGrid = async (
         },
       },
     );
-    return response.data;
+    return response.data.validationResults;
   } catch (error: unknown) {
     if (error instanceof Error) {
       throw new Error(error.message);
