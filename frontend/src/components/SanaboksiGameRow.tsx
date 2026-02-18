@@ -9,6 +9,7 @@ interface SanaboksiGameRowProps {
   isPlaceholder?: boolean;
   rowLength: number;
   onFieldChange?: (columnIndex: number, value: string) => void;
+  isCorrect?: boolean;
 }
 
 export default function SanaboksiGameRow({
@@ -17,6 +18,7 @@ export default function SanaboksiGameRow({
   isPlaceholder = false,
   rowLength,
   onFieldChange,
+  isCorrect,
 }: SanaboksiGameRowProps) {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -74,6 +76,8 @@ export default function SanaboksiGameRow({
         const isFixedLetter =
           fixedLetter && columnIndex === fixedLetter.fixedIndex;
         const cellValue = isPlaceholder ? "" : (rowData[columnIndex] ?? "");
+        const correctBorderColor =
+          isCorrect === undefined ? "gray" : isCorrect ? "green" : "red";
 
         return (
           <TextInput
@@ -91,6 +95,7 @@ export default function SanaboksiGameRow({
                 fontSize: 24,
                 fontWeight: isFixedLetter ? "bold" : "normal",
                 backgroundColor: isFixedLetter ? "#f0f0f0" : "white",
+                borderColor: correctBorderColor,
               },
             }}
             onChange={

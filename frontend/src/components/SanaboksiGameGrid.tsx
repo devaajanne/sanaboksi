@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import type { FixedLetters, GameGrid } from "../types/Types";
+import type { FixedLetters, GameGrid, ValidationResults } from "../types/Types";
 import { getFixedLetters, validateGameGrid } from "../api/Api";
 import SanaboksiGameRow from "./SanaboksiGameRow";
 import { Button } from "@mantine/core";
@@ -10,6 +10,9 @@ export default function SanaboksiGameGrid() {
   // Store the actual game grid data (2D array of characters with dynamic dimensions)
   const [gameGrid, setGameGrid] = useState<GameGrid>([]);
   const [wordLength, setWordLength] = useState<number>(5);
+  const [validationResults, setValidationResults] = useState<
+    ValidationResults | undefined
+  >(undefined);
 
   /**
    * Fetches fixed letters from the API and initializes the game grid
@@ -67,18 +70,23 @@ export default function SanaboksiGameGrid() {
   // Fetch fixed letters on component mount
   useEffect(() => {
     const initialFetch = async () => {
-      await fetchFixedLetters("fi", 7, 5);
+      await fetchFixedLetters("fi", 5, 5);
     };
     initialFetch();
   }, []);
 
+  // Console.logs for dev, remove when deployed to production
   useEffect(() => {
-    console.log(gameGrid);
+    console.log("gameGrid:", gameGrid);
   }, [gameGrid]);
 
+  useEffect(() => {
+    console.log("validationResults:", validationResults);
+  }, [validationResults]);
+
   const handleGameGridValidation = async () => {
-    const validationResults = await validateGameGrid(gameGrid, "fi");
-    console.log(validationResults);
+    const validationResultsData = await validateGameGrid(gameGrid, "fi");
+    setValidationResults(validationResultsData);
   };
 
   return (
@@ -101,6 +109,11 @@ export default function SanaboksiGameGrid() {
               rowLength={wordLength}
               onFieldChange={(columnIndex, value) =>
                 handleFieldChange(rowIndex, columnIndex, value)
+              }
+              isCorrect={
+                validationResults
+                  ? validationResults[rowIndex.toString()]
+                  : undefined
               }
             />
           ))}
