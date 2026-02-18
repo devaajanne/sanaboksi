@@ -18,7 +18,7 @@ public class CorsConfig {
   public CorsConfigurationSource getCorsConfigurationSource() {
     CorsConfiguration corsConfig = new CorsConfiguration();
     corsConfig.setAllowedOrigins(List.of(corsAllowedOrigin));
-    corsConfig.setAllowedMethods(List.of("GET"));
+    corsConfig.setAllowedMethods(List.of("GET", "POST"));
     corsConfig.setAllowedHeaders(List.of("Content-Type"));
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
