@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import type { FixedLetters, GameGrid } from "../types/Types";
-import { getFixedLetters } from "../api/Api";
+import { getFixedLetters, validateGameGrid } from "../api/Api";
 import SanaboksiGameRow from "./SanaboksiGameRow";
+import { Button } from "@mantine/core";
 
 export default function SanaboksiGameGrid() {
   // Store the fixed letters configuration for each row (which index has which fixed letter)
@@ -66,7 +67,7 @@ export default function SanaboksiGameGrid() {
   // Fetch fixed letters on component mount
   useEffect(() => {
     const initialFetch = async () => {
-      await fetchFixedLetters("fi", 5, 5);
+      await fetchFixedLetters("fi", 7, 5);
     };
     initialFetch();
   }, []);
@@ -74,6 +75,11 @@ export default function SanaboksiGameGrid() {
   useEffect(() => {
     console.log(gameGrid);
   }, [gameGrid]);
+
+  const handleGameGridValidation = async () => {
+    const validationResults = await validateGameGrid(gameGrid, "fi");
+    console.log(validationResults);
+  };
 
   return (
     <>
@@ -98,6 +104,7 @@ export default function SanaboksiGameGrid() {
               }
             />
           ))}
+      <Button onClick={handleGameGridValidation}>Validate game grid</Button>
     </>
   );
 }
