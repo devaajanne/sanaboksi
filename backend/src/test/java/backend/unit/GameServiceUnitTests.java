@@ -5,12 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import backend.domain.Language;
 import backend.domain.entities.FinnishWord;
 import backend.domain.entities.Word;
 import backend.dto.FixedLetterResponse;
+import backend.dto.GameGridRequest;
+import backend.dto.ValidationResultResponse;
 import backend.service.GameService;
 import backend.service.RepositoryService;
 import backend.service.UtilityService;
@@ -68,6 +71,10 @@ public class GameServiceUnitTests {
         gameService.getFixedLetterResponse(language, wordLength, requestedWordCount);
 
     assertEquals(wordRepositorySize, fixedLetterResponse.getFixedLetters().size());
+    verify(mockRepositoryService)
+        .getRepositoryCountForWordsWithCorrectLanguageAndLength(language, wordLength);
+    verify(mockRepositoryService)
+        .findRandomWordsWithCorrectLanguageLengthAndCount(eq(language), eq(wordLength), anyInt());
   }
 
   @Test
@@ -79,14 +86,12 @@ public class GameServiceUnitTests {
     assertThrows(
         IllegalStateException.class,
         () -> gameService.getFixedLetterResponse(language, wordLength, wordCount));
+    verify(mockRepositoryService)
+        .getRepositoryCountForWordsWithCorrectLanguageAndLength(language, wordLength);
   }
 
   @Test
   public void getFixedLetterResponseShouldThrowExceptionIfRequestedWordCountIsNegative() {
-    when(mockRepositoryService.getRepositoryCountForWordsWithCorrectLanguageAndLength(
-            language, wordLength))
-        .thenReturn(100);
-
     assertThrows(
         IllegalArgumentException.class,
         () -> gameService.getFixedLetterResponse(language, wordLength, -5));
@@ -94,10 +99,6 @@ public class GameServiceUnitTests {
 
   @Test
   public void getFixedLetterResponseShouldThrowExceptionIfRequestedWordCountIsZero() {
-    when(mockRepositoryService.getRepositoryCountForWordsWithCorrectLanguageAndLength(
-            language, wordLength))
-        .thenReturn(100);
-
     assertThrows(
         IllegalArgumentException.class,
         () -> gameService.getFixedLetterResponse(language, wordLength, 0));
@@ -135,6 +136,10 @@ public class GameServiceUnitTests {
         gameService.getFixedLetterResponse(language, wordLength, requestedWordCount);
 
     assertEquals(requestedWordCount, fixedLetterResponse.getFixedLetters().size());
+    verify(mockRepositoryService)
+        .getRepositoryCountForWordsWithCorrectLanguageAndLength(language, wordLength);
+    verify(mockRepositoryService)
+        .findRandomWordsWithCorrectLanguageLengthAndCount(language, wordLength, requestedWordCount);
   }
 
   @Test
@@ -192,5 +197,40 @@ public class GameServiceUnitTests {
     // Verify fifth word "phone" at index 0 -> 'p'
     assertEquals(0, fixedLetters.getFixedLetters().get(4).getFixedIndex());
     assertEquals('p', fixedLetters.getFixedLetters().get(4).getFixedLetter());
+
+    verify(mockRepositoryService)
+        .getRepositoryCountForWordsWithCorrectLanguageAndLength(language, wordLength);
+    verify(mockRepositoryService)
+        .findRandomWordsWithCorrectLanguageLengthAndCount(language, wordLength, wordCount);
+  }
+
+  @Test
+  public void getFixedLetterResponseShouldThrowExceptionIfWordLengthIsTooShort() {
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> gameService.getFixedLetterResponse(language, 4, wordCount));
+  }
+
+  @Test
+  public void getFixedLetterResponseShouldThrowExceptionIfWordLengthIsTooLong() {
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> gameService.getFixedLetterResponse(language, 8, wordCount));
+  }
+
+  @Test
+  public void validateGameGridShouldReturnValidationResultResponse() {
+    GameGridRequest mockRequest = mock(GameGridRequest.class);
+    ValidationResultResponse mockResponse = mock(ValidationResultResponse.class);
+    List<String> mockWords = List.of("vehnä", "suola", "maito", "kahvi", "kerma");
+
+    when(mockUtilityService.getGameGridWords(mockRequest)).thenReturn(mockWords);
+    when(mockRepositoryService.validateWords(mockWords, language)).thenReturn(mockResponse);
+
+    ValidationResultResponse response = gameService.validateGameGrid(mockRequest, language);
+
+    assertEquals(mockResponse, response);
+    verify(mockUtilityService).getGameGridWords(mockRequest);
+    verify(mockRepositoryService).validateWords(mockWords, language);
   }
 }

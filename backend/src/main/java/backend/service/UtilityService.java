@@ -44,9 +44,13 @@ public class UtilityService {
 
       for (int columnIndex = 0; columnIndex < row.size(); columnIndex++) {
         String cell = row.get(columnIndex);
-        if (cell == null) {
+        if (cell == null || cell.equals("")) {
           throw new IllegalArgumentException(
-              "Cell at row " + rowIndex + " with column index " + columnIndex + " cannot be null.");
+              "Cell at row "
+                  + rowIndex
+                  + " with column index "
+                  + columnIndex
+                  + " cannot be null or empty.");
         }
         stringBuilder.append(cell);
       }
