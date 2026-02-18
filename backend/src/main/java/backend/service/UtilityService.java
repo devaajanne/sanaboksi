@@ -23,14 +23,34 @@ public class UtilityService {
   }
 
   public List<String> getGameGridWords(GameGridRequest gameGridRequest) {
-    String[][] gameGrid = gameGridRequest.getGameGrid();
+    if (gameGridRequest == null) {
+      throw new IllegalArgumentException("GameGridRequest cannot be null.");
+    }
+
+    List<List<String>> gameGrid = gameGridRequest.getGameGrid();
+    if (gameGrid == null || gameGrid.isEmpty()) {
+      throw new IllegalArgumentException("Game grid cannot be null or empty.");
+    }
+
     List<String> gameGridWords = new ArrayList<>();
     StringBuilder stringBuilder = new StringBuilder();
 
-    for (int rowIndex = 0; rowIndex < gameGrid.length; rowIndex++) {
-      for (int columnIndex = 0; columnIndex < gameGrid[rowIndex].length; columnIndex++) {
-        stringBuilder.append(gameGrid[rowIndex][columnIndex]);
+    for (int rowIndex = 0; rowIndex < gameGrid.size(); rowIndex++) {
+      List<String> row = gameGrid.get(rowIndex);
+      if (row == null || row.isEmpty()) {
+        throw new IllegalArgumentException(
+            "Row with index " + rowIndex + " in game grid cannot be null or empty.");
       }
+
+      for (int columnIndex = 0; columnIndex < row.size(); columnIndex++) {
+        String cell = row.get(columnIndex);
+        if (cell == null) {
+          throw new IllegalArgumentException(
+              "Cell at row " + rowIndex + " with column index " + columnIndex + " cannot be null.");
+        }
+        stringBuilder.append(cell);
+      }
+
       gameGridWords.add(stringBuilder.toString().toLowerCase());
       stringBuilder.setLength(0);
     }

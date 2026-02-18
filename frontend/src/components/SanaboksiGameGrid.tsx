@@ -67,6 +67,19 @@ export default function SanaboksiGameGrid() {
     });
   };
 
+  const handleGameGridValidation = async () => {
+    try {
+      const validationResultsData = await validateGameGrid(gameGrid, "fi");
+      setValidationResults(validationResultsData);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      } else {
+        throw new Error("Failed to handle game grid validation: Unknown error");
+      }
+    }
+  };
+
   // Fetch fixed letters on component mount
   useEffect(() => {
     const initialFetch = async () => {
@@ -83,11 +96,6 @@ export default function SanaboksiGameGrid() {
   useEffect(() => {
     console.log("validationResults:", validationResults);
   }, [validationResults]);
-
-  const handleGameGridValidation = async () => {
-    const validationResultsData = await validateGameGrid(gameGrid, "fi");
-    setValidationResults(validationResultsData);
-  };
 
   return (
     <>

@@ -70,7 +70,7 @@ public class RepositoryService {
     Boolean result;
 
     switch (language) {
-      case FI:
+      case Language.FI:
         for (int i = 0; i < gameGridWords.size(); i++) {
           result = finnishWordRepository.validateWord(gameGridWords.get(i));
           resultsMap.put(i, result);

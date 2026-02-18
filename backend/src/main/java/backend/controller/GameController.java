@@ -5,6 +5,7 @@ import backend.dto.FixedLetterResponse;
 import backend.dto.GameGridRequest;
 import backend.dto.ValidationResultResponse;
 import backend.service.GameService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +32,7 @@ public class GameController {
 
   @PostMapping("/validation/{language}")
   public ResponseEntity<ValidationResultResponse> validateResults(
-      @RequestBody GameGridRequest gameGridRequest, @PathVariable Language language) {
+      @Valid @RequestBody GameGridRequest gameGridRequest, @PathVariable Language language) {
     return ResponseEntity.ok(gameService.validateGameGrid(gameGridRequest, language));
   }
 }

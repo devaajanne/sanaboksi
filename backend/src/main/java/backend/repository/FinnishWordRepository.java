@@ -20,7 +20,7 @@ public interface FinnishWordRepository extends JpaRepository<FinnishWord, Long> 
   int countByWordLength(@Param("wordLength") int wordLength);
 
   @Query(
-      value = "SELECT EXISTS (SELECT 1 FROM finnish_words WHERE word = :word)",
+      value = "SELECT EXISTS (SELECT 1 FROM finnish_words WHERE LOWER(word) = LOWER(:word))",
       nativeQuery = true)
   boolean validateWord(@Param("word") String word);
 }
