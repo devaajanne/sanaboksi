@@ -2,6 +2,7 @@ import { useRef } from "react";
 import type { KeyboardEvent } from "react";
 import { TextInput, Group } from "@mantine/core";
 import type { FixedLetter } from "../types/Types";
+import { IconCheck, IconX } from "@tabler/icons-react";
 
 interface SanaboksiGameRowProps {
   fixedLetter?: FixedLetter;
@@ -9,6 +10,7 @@ interface SanaboksiGameRowProps {
   isPlaceholder?: boolean;
   rowLength: number;
   onFieldChange?: (columnIndex: number, value: string) => void;
+  isCorrect?: boolean;
 }
 
 export default function SanaboksiGameRow({
@@ -17,6 +19,7 @@ export default function SanaboksiGameRow({
   isPlaceholder = false,
   rowLength,
   onFieldChange,
+  isCorrect,
 }: SanaboksiGameRowProps) {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -74,6 +77,8 @@ export default function SanaboksiGameRow({
         const isFixedLetter =
           fixedLetter && columnIndex === fixedLetter.fixedIndex;
         const cellValue = isPlaceholder ? "" : (rowData[columnIndex] ?? "");
+        const correctBorderColor =
+          isCorrect === undefined ? "gray" : isCorrect ? "green" : "red";
 
         return (
           <TextInput
@@ -91,6 +96,7 @@ export default function SanaboksiGameRow({
                 fontSize: 24,
                 fontWeight: isFixedLetter ? "bold" : "normal",
                 backgroundColor: isFixedLetter ? "#f0f0f0" : "white",
+                borderColor: correctBorderColor,
               },
             }}
             onChange={
@@ -107,6 +113,8 @@ export default function SanaboksiGameRow({
           />
         );
       })}
+      {isCorrect !== undefined &&
+        (isCorrect ? <IconCheck color="green" /> : <IconX color="red" />)}
     </Group>
   );
 }

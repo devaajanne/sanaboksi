@@ -2,8 +2,10 @@ package backend.service;
 
 import backend.domain.Language;
 import backend.domain.entities.Word;
+import backend.dto.ValidationResultResponse;
 import backend.repository.FinnishWordRepository;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -60,5 +62,26 @@ public class RepositoryService {
     }
 
     return wordCount;
+  }
+
+  public ValidationResultResponse validateWords(List<String> gameGridWords, Language language) {
+    ValidationResultResponse validationResultResponse = new ValidationResultResponse();
+    HashMap<Integer, Boolean> resultsMap = new HashMap<>();
+    Boolean result;
+
+    switch (language) {
+      case Language.FI:
+        for (int i = 0; i < gameGridWords.size(); i++) {
+          result = finnishWordRepository.validateWord(gameGridWords.get(i));
+          resultsMap.put(i, result);
+        }
+        break;
+      default:
+        throw new RuntimeException("Unknown language: " + language);
+    }
+
+    validationResultResponse.setValidationResults(resultsMap);
+
+    return validationResultResponse;
   }
 }

@@ -4,6 +4,8 @@ import backend.domain.FixedLetter;
 import backend.domain.Language;
 import backend.domain.entities.Word;
 import backend.dto.FixedLetterResponse;
+import backend.dto.GameGridRequest;
+import backend.dto.ValidationResultResponse;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -71,5 +73,14 @@ public class GameService {
     fixedLetterResponse.setWordLength(wordLength);
 
     return fixedLetterResponse;
+  }
+
+  public ValidationResultResponse validateGameGrid(
+      GameGridRequest gameGridRequest, Language language) {
+    List<String> gameGridWords = utilityService.getGameGridWords(gameGridRequest);
+    ValidationResultResponse validationResultResponse =
+        repositoryService.validateWords(gameGridWords, language);
+
+    return validationResultResponse;
   }
 }

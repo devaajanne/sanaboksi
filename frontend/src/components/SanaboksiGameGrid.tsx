@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import type { FixedLetters, GameGrid } from "../types/Types";
-import { getFixedLetters } from "../api/Api";
+import type { FixedLetters, GameGrid, ValidationResults } from "../types/Types";
+import { getFixedLetters, validateGameGrid } from "../api/Api";
 import SanaboksiGameRow from "./SanaboksiGameRow";
+import { Button } from "@mantine/core";
 
 export default function SanaboksiGameGrid() {
   // Store the fixed letters configuration for each row (which index has which fixed letter)
@@ -9,6 +10,9 @@ export default function SanaboksiGameGrid() {
   // Store the actual game grid data (2D array of characters with dynamic dimensions)
   const [gameGrid, setGameGrid] = useState<GameGrid>([]);
   const [wordLength, setWordLength] = useState<number>(5);
+  const [validationResults, setValidationResults] = useState<
+    ValidationResults | undefined
+  >(undefined);
 
   /**
    * Fetches fixed letters from the API and initializes the game grid
@@ -63,6 +67,19 @@ export default function SanaboksiGameGrid() {
     });
   };
 
+  const handleGameGridValidation = async () => {
+    try {
+      const validationResultsData = await validateGameGrid(gameGrid, "fi");
+      setValidationResults(validationResultsData);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      } else {
+        throw new Error("Failed to handle game grid validation: Unknown error");
+      }
+    }
+  };
+
   // Fetch fixed letters on component mount
   useEffect(() => {
     const initialFetch = async () => {
@@ -71,9 +88,14 @@ export default function SanaboksiGameGrid() {
     initialFetch();
   }, []);
 
+  // Console.logs for dev, remove when deployed to production
   useEffect(() => {
-    console.log(gameGrid);
+    console.log("gameGrid:", gameGrid);
   }, [gameGrid]);
+
+  useEffect(() => {
+    console.log("validationResults:", validationResults);
+  }, [validationResults]);
 
   return (
     <>
@@ -96,8 +118,14 @@ export default function SanaboksiGameGrid() {
               onFieldChange={(columnIndex, value) =>
                 handleFieldChange(rowIndex, columnIndex, value)
               }
+              isCorrect={
+                validationResults
+                  ? validationResults[rowIndex.toString()]
+                  : undefined
+              }
             />
           ))}
+      <Button onClick={handleGameGridValidation}>Validate game grid</Button>
     </>
   );
 }

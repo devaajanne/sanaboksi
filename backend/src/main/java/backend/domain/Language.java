@@ -1,5 +1,6 @@
 package backend.domain;
 
 public enum Language {
-  FI
+  FI,
+  UNKNOWN // This is used for testing purposes
 }
