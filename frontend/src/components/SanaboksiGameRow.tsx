@@ -2,6 +2,7 @@ import { useRef } from "react";
 import type { KeyboardEvent } from "react";
 import { TextInput, Group } from "@mantine/core";
 import type { FixedLetter } from "../types/Types";
+import { IconCheck, IconX } from "@tabler/icons-react";
 
 interface SanaboksiGameRowProps {
   fixedLetter?: FixedLetter;
@@ -112,6 +113,8 @@ export default function SanaboksiGameRow({
           />
         );
       })}
+      {isCorrect !== undefined &&
+        (isCorrect ? <IconCheck color="green" /> : <IconX color="red" />)}
     </Group>
   );
 }
