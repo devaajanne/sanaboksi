@@ -48,22 +48,24 @@ tasks.register('unitTest', Test) {
 	group = 'verification'
 	description = 'Runs only unit tests.'
 
-	useJUnitPlatform()
+	testClassesDirs = sourceSets.test.output.classesDirs
+	classpath = sourceSets.test.runtimeClasspath
 
-	filter {
-		includeTestsMatching "backend.unit.*"
-	}
+	useJUnitPlatform {
+        includeTags 'unitTest'
+    }
 }
 
 tasks.register('integrationTest', Test) {
 	group = 'verification'
 	description = 'Runs only integration tests.'
 
-	useJUnitPlatform()
+	testClassesDirs = sourceSets.test.output.classesDirs
+	classpath = sourceSets.test.runtimeClasspath
 
-	filter {
-		includeTestsMatching "backend.integration.*"
-	}
+	useJUnitPlatform {
+        includeTags 'integrationTest'
+    }
 }
 
 spotless {

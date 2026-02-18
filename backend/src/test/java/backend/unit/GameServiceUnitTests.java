@@ -20,8 +20,10 @@ import backend.service.UtilityService;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag("unitTest")
 public class GameServiceUnitTests {
 
   private RepositoryService mockRepositoryService;
