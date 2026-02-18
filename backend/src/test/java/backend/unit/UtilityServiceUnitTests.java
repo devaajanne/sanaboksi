@@ -125,7 +125,7 @@ public class UtilityServiceUnitTests {
   }
 
   @Test
-  public void getGameGridWordsShouldThrowExceptionIfGameGridCellIsEmptyl() {
+  public void getGameGridWordsShouldThrowExceptionIfGameGridCellIsEmpty() {
     GameGridRequest testRequest =
         new GameGridRequest(
             Arrays.asList(
