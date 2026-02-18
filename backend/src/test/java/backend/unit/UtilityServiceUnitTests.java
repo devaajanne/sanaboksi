@@ -15,7 +15,7 @@ public class UtilityServiceUnitTests {
   private final UtilityService utilityService = new UtilityService();
 
   @Test
-  public void getRandomIntShouldReturnValueBetweenZeroAndExclusiveCount() {
+  public void getRandomIndexShouldReturnValueBetweenZeroAndExclusiveCount() {
     int randomInt;
     int count = 20;
 
@@ -27,7 +27,7 @@ public class UtilityServiceUnitTests {
   }
 
   @Test
-  public void getRandomIntShouldReturnErrorIfCountIsNegative() {
+  public void getRandomIndexShouldReturnErrorIfCountIsNegative() {
     int count = -1;
     String expectedExceptionMessage = "count must be non-negative.";
 
@@ -38,7 +38,7 @@ public class UtilityServiceUnitTests {
   }
 
   @Test
-  public void getRandomIntShouldReturnErrorIfCountIsZero() {
+  public void getRandomIndexShouldReturnErrorIfCountIsZero() {
     int count = 0;
     String expectedExceptionMessage = "count must not be zero.";
 
