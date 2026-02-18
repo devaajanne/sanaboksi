@@ -97,8 +97,8 @@ public class RepositoryServiceUnitTests {
     assertThrows(
         RuntimeException.class,
         () ->
-            repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(
-                Language.UNKNOWN, 5, 5));
+            repositoryService.getRepositoryCountForWordsWithCorrectLanguageAndLength(
+                Language.UNKNOWN, 5));
   }
 
   @Test

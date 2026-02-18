@@ -105,7 +105,7 @@ public class GameServiceUnitTests {
   }
 
   @Test
-  public void getFixedLettersFromRandomWordsShouldReturnTheCorrectAmountOfFixedLetters() {
+  public void getFixedLetterResponseShouldReturnTheCorrectAmountOfFixedLetters() {
     int wordRepositorySize = 20;
     int wordLength = 5;
     int requestedWordCount = 5;
@@ -143,7 +143,7 @@ public class GameServiceUnitTests {
   }
 
   @Test
-  public void fixedLettersFromRandomWordsShouldMatchTheIndexAndLetterInOriginalWord() {
+  public void getFixedLetterResponseShouldMatchTheIndexAndLetterInOriginalWord() {
     when(mockRepositoryService.getRepositoryCountForWordsWithCorrectLanguageAndLength(
             language, wordLength))
         .thenReturn(6);
