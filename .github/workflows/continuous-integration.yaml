@@ -69,8 +69,8 @@ jobs:
           cd backend
           ./gradlew unitTest
 
-      - name: Upload unit test report
-        if: always()
+      - name: Upload unit test report on test failure
+        if: ${{ failure() }}
         uses: actions/upload-artifact@v6
         with:
           name: unit-test-report
@@ -111,8 +111,8 @@ jobs:
           cd backend
           ./gradlew integrationTest
 
-      - name: Upload integration test report
-        if: always()
+      - name: Upload integration test report on test failure
+        if: ${{ failure() }}
         uses: actions/upload-artifact@v6
         with:
           name: integration-test-report
