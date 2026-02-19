@@ -2,7 +2,8 @@ spring:
   application:
     name: backend
   datasource:
-    # Datasource variables come from compose.yaml
+    driver-class-name: org.postgresql.Driver
+    # Datasource variables come from compose.yaml or from GitHub secrets
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
