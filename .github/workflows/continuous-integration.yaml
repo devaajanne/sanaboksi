@@ -68,10 +68,31 @@ jobs:
         run: |
           cd backend
           ./gradlew unitTest
+
+      - name: Upload unit test report on test failure
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v6
+        with:
+          name: unit-test-report
+          path: backend/build/reports/tests/unitTest/
   
   run-backend-integration-tests:
     name: BE integration tests
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: ${{ vars.DATABASE_NAME }}
+          POSTGRES_USER: ${{ secrets.DATABASE_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
       - name: Checkout code
@@ -81,6 +102,18 @@ jobs:
         uses: ./.github/actions/setup-backend-workflow-environment
       
       - name: Run BE integration tests
+        env:
+          SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
+          SPRING_DATASOURCE_USERNAME: ${{ secrets.DATABASE_USER }}
+          SPRING_DATASOURCE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          CORS_ALLOWED_ORIGIN: ${{ secrets.CORS_ALLOWED_ORIGIN }}
         run: |
           cd backend
           ./gradlew integrationTest
+
+      - name: Upload integration test report on test failure
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v6
+        with:
+          name: integration-test-report
+          path: backend/build/reports/tests/integrationTest/

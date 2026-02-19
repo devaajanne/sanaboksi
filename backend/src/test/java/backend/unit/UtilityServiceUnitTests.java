@@ -8,8 +8,10 @@ import backend.dto.GameGridRequest;
 import backend.service.UtilityService;
 import java.util.Arrays;
 import java.util.List;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag("unitTest")
 public class UtilityServiceUnitTests {
 
   private final UtilityService utilityService = new UtilityService();
