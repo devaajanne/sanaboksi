@@ -1,8 +1,9 @@
 import { Alert } from "@mantine/core";
+import type { Dispatch, SetStateAction } from "react";
 
 interface AlertBoxProps {
   source: string;
-  setShowAlert: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowAlert: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function AlertBox({ source, setShowAlert }: AlertBoxProps) {
