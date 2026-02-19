@@ -9,6 +9,7 @@ spring:
   sql:
     init:
       mode: always
-      data-locations: classpath:data.sql
+      schema-locations: classpath:schema.sql
+      data-locations: [classpath:finnishWords/finnish-*-letter-words.sql]
 
 CorsAllowedOrigin: ${CORS_ALLOWED_ORIGIN}
