@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import type { FixedLetters, GameGrid, ValidationResults } from "../types/Types";
 import { getFixedLetters, validateGameGrid } from "../api/Api";
 import SanaboksiGameRow from "./SanaboksiGameRow";
+import AlertBox from "./AlertBox";
+import { checkGameGridValidity } from "../utility/UtilityFunctions";
 import { Button } from "@mantine/core";
 
 export default function SanaboksiGameGrid() {
@@ -13,6 +15,7 @@ export default function SanaboksiGameGrid() {
   const [validationResults, setValidationResults] = useState<
     ValidationResults | undefined
   >(undefined);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
 
   /**
    * Fetches fixed letters from the API and initializes the game grid
@@ -69,8 +72,13 @@ export default function SanaboksiGameGrid() {
 
   const handleGameGridValidation = async () => {
     try {
-      const validationResultsData = await validateGameGrid(gameGrid, "fi");
-      setValidationResults(validationResultsData);
+      if (!checkGameGridValidity(gameGrid)) {
+        setShowAlert(true);
+      } else {
+        setShowAlert(false);
+        const validationResultsData = await validateGameGrid(gameGrid, "fi");
+        setValidationResults(validationResultsData);
+      }
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.message);
@@ -99,6 +107,9 @@ export default function SanaboksiGameGrid() {
 
   return (
     <>
+      {showAlert && (
+        <AlertBox source="gameGridValidityCheck" setShowAlert={setShowAlert} />
+      )}
       {fixedLetters.length === 0
         ? // Render empty game grid rows
           Array.from({ length: wordLength }).map((_, index) => (
