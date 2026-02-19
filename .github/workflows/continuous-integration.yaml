@@ -68,6 +68,13 @@ jobs:
         run: |
           cd backend
           ./gradlew unitTest
+
+      - name: Upload unit test report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: unit-test-report
+          path: backend/build/reports/tests/unitTest/
   
   run-backend-integration-tests:
     name: BE integration tests
@@ -103,3 +110,10 @@ jobs:
         run: |
           cd backend
           ./gradlew integrationTest
+
+      - name: Upload integration test report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: integration-test-report
+          path: backend/build/reports/tests/integrationTest/
