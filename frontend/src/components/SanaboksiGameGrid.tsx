@@ -20,9 +20,8 @@ export default function SanaboksiGameGrid() {
   // Store the actual game grid data (2D array of characters with dynamic dimensions)
   const [gameGrid, setGameGrid] = useState<GameGrid>([]);
   const [wordLength, setWordLength] = useState<number>(5);
-  const [validationResults, setValidationResults] = useState<
-    ValidationResults | undefined
-  >(undefined);
+  const [validationResults, setValidationResults] =
+    useState<ValidationResults>(undefined);
   const [showAlert, setShowAlert] = useState<boolean>(false);
   // Game grid is valid if all rows have no empty fields
   const [isValidGameGrid, setIsValidGameGrid] = useState<boolean>(false);
@@ -102,7 +101,6 @@ export default function SanaboksiGameGrid() {
       } else {
         setShowAlert(false);
         const validationResultsData = await validateGameGrid(gameGrid, "fi");
-        setValidationResults(validationResultsData);
         setValidationResults(validationResultsData);
         setIsValidGameGrid(true);
         setIsCorrectGameGrid(checkGameGridCorrectness(validationResultsData));

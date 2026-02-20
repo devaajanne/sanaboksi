@@ -37,11 +37,11 @@ const checkGameGridCorrectness = (validationResults: ValidationResults) => {
     return false;
   }
   const rowCorrectness = Object.values(validationResults);
-  if (rowCorrectness.every((value) => value === true)) {
-    return true;
+  if (rowCorrectness.length === 0) {
+    return false;
   }
 
-  return false;
+  return rowCorrectness.every((value) => value === true);
 };
 
 export { checkGameGridValidity, checkGameGridCorrectness };
