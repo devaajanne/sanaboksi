@@ -1,4 +1,4 @@
-import type { GameGrid } from "../types/Types";
+import type { GameGrid, ValidationResults } from "../types/Types";
 
 const checkGameGridValidity = (gameGrid: GameGrid) => {
   if (!gameGrid || gameGrid.length === 0) {
@@ -22,4 +22,16 @@ const checkGameGridValidity = (gameGrid: GameGrid) => {
   return true;
 };
 
-export { checkGameGridValidity };
+const checkGameGridCorrectness = (validationResults: ValidationResults) => {
+  if (!validationResults) {
+    return false;
+  }
+  const rowCorrectness = Object.values(validationResults);
+  if (rowCorrectness.every((value) => value === true)) {
+    return true;
+  }
+
+  return false;
+};
+
+export { checkGameGridValidity, checkGameGridCorrectness };
