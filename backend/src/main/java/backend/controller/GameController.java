@@ -31,7 +31,7 @@ public class GameController {
   }
 
   @PostMapping("/validation/{language}")
-  public ResponseEntity<ValidationResultResponse> validateResults(
+  public ResponseEntity<ValidationResultResponse> validateGameGrid(
       @Valid @RequestBody GameGridRequest gameGridRequest, @PathVariable Language language) {
     return ResponseEntity.ok(gameService.validateGameGrid(gameGridRequest, language));
   }
