@@ -108,7 +108,7 @@ export default function SanaboksiGameRow({
           <TextInput
             key={columnIndex}
             value={cellValue}
-            readOnly={isPlaceholder || isFixedLetter}
+            readOnly={isPlaceholder || isFixedLetter || isCorrect}
             maxLength={1}
             w={50}
             ref={(el) => {
