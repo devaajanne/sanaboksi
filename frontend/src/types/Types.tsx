@@ -17,4 +17,6 @@ export type GameGrid = string[][];
  * The key is the row index, and the value is whether the row is correct.
  * Example: { "0": true, "1": false }
  */
-export type ValidationResults = Record<string, boolean> | undefined;
+export type ValidationResults =
+  | Record<string, Record<string, boolean>>
+  | undefined;

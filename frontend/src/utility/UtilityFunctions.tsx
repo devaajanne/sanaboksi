@@ -41,7 +41,7 @@ const checkGameGridCorrectness = (validationResults: ValidationResults) => {
     return false;
   }
 
-  return rowCorrectness.every((value) => value === true);
+  return rowCorrectness.every((value) => value?.["correctWord"] === true);
 };
 
 export { checkGameGridValidity, checkGameGridCorrectness };

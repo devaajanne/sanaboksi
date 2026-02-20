@@ -2,7 +2,7 @@ import { useRef } from "react";
 import type { KeyboardEvent } from "react";
 import { TextInput, Group } from "@mantine/core";
 import type { FixedLetter } from "../types/Types";
-import { IconCheck, IconX } from "@tabler/icons-react";
+import { IconCheck, IconX, IconCopyOff } from "@tabler/icons-react";
 
 /**
  * Props for the SanaboksiGameRow component.
@@ -20,6 +20,7 @@ interface SanaboksiGameRowProps {
   rowLength: number;
   onFieldChange?: (columnIndex: number, value: string) => void;
   isCorrect?: boolean;
+  isDuplicate?: boolean;
 }
 
 /**
@@ -34,6 +35,7 @@ export default function SanaboksiGameRow({
   rowLength,
   onFieldChange,
   isCorrect,
+  isDuplicate,
 }: SanaboksiGameRowProps) {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -102,13 +104,21 @@ export default function SanaboksiGameRow({
           fixedLetter && columnIndex === fixedLetter.fixedIndex;
         const cellValue = isPlaceholder ? "" : (rowData[columnIndex] ?? "");
         const correctBorderColor =
-          isCorrect === undefined ? "gray" : isCorrect ? "green" : "red";
+          isDuplicate === true
+            ? "blue"
+            : isCorrect === true
+              ? "green"
+              : isCorrect === false
+                ? "red"
+                : "gray";
 
         return (
           <TextInput
             key={columnIndex}
             value={cellValue}
-            readOnly={isPlaceholder || isFixedLetter || isCorrect}
+            readOnly={
+              isPlaceholder || isFixedLetter || (isCorrect && !isDuplicate)
+            }
             maxLength={1}
             w={50}
             ref={(el) => {
@@ -137,8 +147,15 @@ export default function SanaboksiGameRow({
           />
         );
       })}
-      {isCorrect !== undefined &&
-        (isCorrect ? <IconCheck color="green" /> : <IconX color="red" />)}
+      {isDuplicate === true ? (
+        <IconCopyOff color="blue" />
+      ) : isCorrect !== undefined ? (
+        isCorrect ? (
+          <IconCheck color="green" />
+        ) : (
+          <IconX color="red" />
+        )
+      ) : null}
     </Group>
   );
 }
