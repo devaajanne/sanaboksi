@@ -9,12 +9,13 @@ import static org.mockito.Mockito.when;
 import backend.domain.Language;
 import backend.domain.entities.FinnishWord;
 import backend.domain.entities.Word;
-import backend.dto.ValidationResultResponse;
 import backend.repository.FinnishWordRepository;
 import backend.service.RepositoryService;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -117,18 +118,24 @@ public class RepositoryServiceUnitTests {
   }
 
   @Test
-  public void validateWordsShouldReturnValidationResultResponse() {
-    List<String> testWords = Arrays.asList("vehnä", "maito");
-    when(mockFinnishWordRepository.validateWord("vehnä")).thenReturn(true);
-    when(mockFinnishWordRepository.validateWord("maito")).thenReturn(false);
+  void validateWordsReturnsCorrectMap() {
+    List<String> testWords = Arrays.asList("vehnä", "suola", "maito", "kahvi", "kerma");
+    Map<Integer, Boolean> mockResultsMap = new HashMap<>();
 
-    ValidationResultResponse response = repositoryService.validateWords(testWords, Language.FI);
+    for (int i = 0; i < testWords.size(); i++) {
+      mockResultsMap.put(i, true);
+    }
 
-    // Check that the response contains the expected validation results
-    assertEquals(true, response.getValidationResults().get(0));
-    assertEquals(false, response.getValidationResults().get(1));
-    verify(mockFinnishWordRepository).validateWord("vehnä");
-    verify(mockFinnishWordRepository).validateWord("maito");
+    for (String word : testWords) {
+      when(mockFinnishWordRepository.validateWord(word)).thenReturn(true);
+    }
+
+    Map<Integer, Boolean> result = repositoryService.validateWords(testWords, Language.FI);
+
+    assertEquals(mockResultsMap, result);
+    for (String word : testWords) {
+      verify(mockFinnishWordRepository).validateWord(word);
+    }
   }
 
   @Test
