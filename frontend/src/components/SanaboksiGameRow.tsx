@@ -4,6 +4,15 @@ import { TextInput, Group } from "@mantine/core";
 import type { FixedLetter } from "../types/Types";
 import { IconCheck, IconX } from "@tabler/icons-react";
 
+/**
+ * Props for the SanaboksiGameRow component.
+ * @property fixedLetter The fixed letter and its index for this row, if any.
+ * @property rowData The data for this row (array of letters).
+ * @property isPlaceholder Whether this row is a placeholder (not interactive).
+ * @property rowLength The number of columns in the row.
+ * @property onFieldChange Callback for when a field value changes.
+ * @property isCorrect Whether the row is correct (true), incorrect (false), or not validated (undefined).
+ */
 interface SanaboksiGameRowProps {
   fixedLetter?: FixedLetter;
   rowData?: string[];
@@ -13,6 +22,11 @@ interface SanaboksiGameRowProps {
   isCorrect?: boolean;
 }
 
+/**
+ * Renders a single row of the Sanaboksi game grid, including fixed letters and input fields.
+ * @param props The props for the component.
+ * @returns The rendered row as a group of text inputs.
+ */
 export default function SanaboksiGameRow({
   fixedLetter,
   rowData = [],
@@ -23,6 +37,11 @@ export default function SanaboksiGameRow({
 }: SanaboksiGameRowProps) {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
+  /**
+   * Handles user input and moves the cursor to the next available field.
+   * @param columnIndex The column index to update.
+   * @param value The value to update.
+   */
   const handleChange = (columnIndex: number, value: string) => {
     // Only allow a single letter (A-Z + Ü, Å Ä and Ö, case-insensitive)
     if (value !== "" && !/^[A-ZÜÅÄÖ]$/i.test(value)) {
@@ -51,6 +70,11 @@ export default function SanaboksiGameRow({
     }
   };
 
+  /**
+   * Handles moving the user's cursor to the previous field on backspace or delete press.
+   * @param columnIndex The column index where the event happens.
+   * @param event The keyboard event.
+   */
   const handleKeyDown = (
     columnIndex: number,
     event: KeyboardEvent<HTMLInputElement>,

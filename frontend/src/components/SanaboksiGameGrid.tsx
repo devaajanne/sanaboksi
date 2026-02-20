@@ -3,25 +3,36 @@ import type { FixedLetters, GameGrid, ValidationResults } from "../types/Types";
 import { getFixedLetters, validateGameGrid } from "../api/Api";
 import SanaboksiGameRow from "./SanaboksiGameRow";
 import AlertBox from "./AlertBox";
-import { checkGameGridValidity } from "../utility/UtilityFunctions";
+import {
+  checkGameGridValidity,
+  checkGameGridCorrectness,
+} from "../utility/UtilityFunctions";
 import { Button } from "@mantine/core";
 
+/**
+ * Main component for rendering and managing the Sanaboksi game grid.
+ * Handles fetching, validation, and user interaction for the grid.
+ * @returns The rendered game grid and controls.
+ */
 export default function SanaboksiGameGrid() {
   // Store the fixed letters configuration for each row (which index has which fixed letter)
   const [fixedLetters, setFixedLetters] = useState<FixedLetters>([]);
   // Store the actual game grid data (2D array of characters with dynamic dimensions)
   const [gameGrid, setGameGrid] = useState<GameGrid>([]);
   const [wordLength, setWordLength] = useState<number>(5);
-  const [validationResults, setValidationResults] = useState<
-    ValidationResults | undefined
-  >(undefined);
+  const [validationResults, setValidationResults] =
+    useState<ValidationResults>(undefined);
   const [showAlert, setShowAlert] = useState<boolean>(false);
+  // Game grid is valid if all rows have no empty fields
+  const [isValidGameGrid, setIsValidGameGrid] = useState<boolean>(false);
+  // Game grid is correct if all rows have a validated and correct word
+  const [isCorrectGameGrid, setIsCorrectGameGrid] = useState<boolean>(false);
 
   /**
-   * Fetches fixed letters from the API and initializes the game grid
-   * @param language - Language to fetch
-   * @param wordLength - Number of letters (columns) to fetch
-   * @param wordCount - Number of words (rows) to fetch
+   * Fetches fixed letters from the API and initializes the game grid.
+   * @param language The language to fetch.
+   * @param wordLength Number of letters (columns) to fetch.
+   * @param wordCount Number of words (rows) to fetch.
    */
   const fetchFixedLetters = async (
     language: string,
@@ -43,6 +54,9 @@ export default function SanaboksiGameGrid() {
             ),
         ),
       );
+      setValidationResults(undefined);
+      setIsValidGameGrid(false);
+      setIsCorrectGameGrid(false);
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.message);
@@ -52,10 +66,16 @@ export default function SanaboksiGameGrid() {
     }
   };
 
+  /**
+   * Updates the value of a specific field in the game grid.
+   * @param rowIndex The row index to update.
+   * @param columnIndex The column index to update.
+   * @param value The value to update.
+   */
   const handleFieldChange = (
-    rowIndex: number, // The row to update
-    columnIndex: number, // The column to update
-    value: string, // The value to update
+    rowIndex: number,
+    columnIndex: number,
+    value: string,
   ) => {
     // Only allow single letter strings
     if (typeof value !== "string" || value.length > 1) return;
@@ -70,14 +90,20 @@ export default function SanaboksiGameGrid() {
     });
   };
 
+  /**
+   * Validates the current game grid and the inputted words.
+   */
   const handleGameGridValidation = async () => {
     try {
       if (!checkGameGridValidity(gameGrid)) {
+        setIsValidGameGrid(false);
         setShowAlert(true);
       } else {
         setShowAlert(false);
         const validationResultsData = await validateGameGrid(gameGrid, "fi");
         setValidationResults(validationResultsData);
+        setIsValidGameGrid(true);
+        setIsCorrectGameGrid(checkGameGridCorrectness(validationResultsData));
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -88,7 +114,9 @@ export default function SanaboksiGameGrid() {
     }
   };
 
-  // Fetch fixed letters on component mount
+  /**
+   * Fetches a game grid when the component mounts.
+   */
   useEffect(() => {
     const initialFetch = async () => {
       await fetchFixedLetters("fi", 5, 5);
@@ -136,7 +164,13 @@ export default function SanaboksiGameGrid() {
               }
             />
           ))}
-      <Button onClick={handleGameGridValidation}>Validate game grid</Button>
+      {isValidGameGrid && isCorrectGameGrid ? (
+        <Button onClick={() => fetchFixedLetters("fi", 5, 5)}>
+          Play a new game
+        </Button>
+      ) : (
+        <Button onClick={handleGameGridValidation}>Validate game grid</Button>
+      )}
     </>
   );
 }

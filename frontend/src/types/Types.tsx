@@ -12,5 +12,9 @@ export type FixedLetterResponse = {
 
 export type GameGrid = string[][];
 
-// {rowIndex : isCorrect}, i.e. correct row 1 -> {"0", true}
-export type ValidationResults = Record<string, boolean>;
+/**
+ * Validation results for each row in the game grid.
+ * The key is the row index, and the value is whether the row is correct.
+ * Example: { "0": true, "1": false }
+ */
+export type ValidationResults = Record<string, boolean> | undefined;
