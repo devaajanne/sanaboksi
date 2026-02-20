@@ -9,6 +9,11 @@ import {
 } from "../utility/UtilityFunctions";
 import { Button } from "@mantine/core";
 
+/**
+ * Main component for rendering and managing the Sanaboksi game grid.
+ * Handles fetching, validation, and user interaction for the grid.
+ * @returns The rendered game grid and controls.
+ */
 export default function SanaboksiGameGrid() {
   // Store the fixed letters configuration for each row (which index has which fixed letter)
   const [fixedLetters, setFixedLetters] = useState<FixedLetters>([]);
@@ -24,6 +29,12 @@ export default function SanaboksiGameGrid() {
   // Game grid is correct if all rows have a validated and correct word
   const [isCorrectGameGrid, setIsCorrectGameGrid] = useState<boolean>(false);
 
+  /**
+   * Fetches fixed letters from the API and initializes the game grid.
+   * @param language The language to fetch.
+   * @param wordLength Number of letters (columns) to fetch.
+   * @param wordCount Number of words (rows) to fetch.
+   */
   const fetchFixedLetters = async (
     language: string,
     wordLength: number,
@@ -56,6 +67,12 @@ export default function SanaboksiGameGrid() {
     }
   };
 
+  /**
+   * Updates the value of a specific field in the game grid.
+   * @param rowIndex The row index to update.
+   * @param columnIndex The column index to update.
+   * @param value The value to update.
+   */
   const handleFieldChange = (
     rowIndex: number,
     columnIndex: number,
@@ -74,6 +91,9 @@ export default function SanaboksiGameGrid() {
     });
   };
 
+  /**
+   * Validates the current game grid and the inputted words.
+   */
   const handleGameGridValidation = async () => {
     try {
       if (!checkGameGridValidity(gameGrid)) {
@@ -96,6 +116,9 @@ export default function SanaboksiGameGrid() {
     }
   };
 
+  /**
+   * Fetches a game grid when the component mounts.
+   */
   useEffect(() => {
     const initialFetch = async () => {
       await fetchFixedLetters("fi", 5, 5);

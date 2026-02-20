@@ -1,5 +1,10 @@
 import type { GameGrid, ValidationResults } from "../types/Types";
 
+/**
+ * Checks if the game grid is valid (i.e., all fields are filled).
+ * @param gameGrid The game grid to check.
+ * @returns true if all fields are filled, false otherwise.
+ */
 const checkGameGridValidity = (gameGrid: GameGrid) => {
   if (!gameGrid || gameGrid.length === 0) {
     return false;
@@ -22,6 +27,11 @@ const checkGameGridValidity = (gameGrid: GameGrid) => {
   return true;
 };
 
+/**
+ * Checks if all words in the game grid are correct based on validation results.
+ * @param validationResults Validation results map to check.
+ * @returns true if all words are correct, false otherwise.
+ */
 const checkGameGridCorrectness = (validationResults: ValidationResults) => {
   if (!validationResults) {
     return false;
