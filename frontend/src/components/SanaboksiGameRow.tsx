@@ -12,6 +12,7 @@ import { IconCheck, IconX, IconCopyOff } from "@tabler/icons-react";
  * @property rowLength The number of columns in the row.
  * @property onFieldChange Callback for when a field value changes.
  * @property isCorrect Whether the row is correct (true), incorrect (false), or not validated (undefined).
+ * @property isDuplicate Whether the row is a duplicate of another correct word (true), not a duplicate (false), or not validated (undefined).
  */
 interface SanaboksiGameRowProps {
   fixedLetter?: FixedLetter;

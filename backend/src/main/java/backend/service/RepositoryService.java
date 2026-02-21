@@ -79,8 +79,6 @@ public class RepositoryService {
         throw new RuntimeException("Unknown language: " + language);
     }
 
-    System.out.println(resultsMap);
-
     return resultsMap;
   }
 }

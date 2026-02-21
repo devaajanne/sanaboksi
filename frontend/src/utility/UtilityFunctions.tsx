@@ -41,7 +41,10 @@ const checkGameGridCorrectness = (validationResults: ValidationResults) => {
     return false;
   }
 
-  return rowCorrectness.every((value) => value?.["correctWord"] === true);
+  return rowCorrectness.every(
+    (value) =>
+      value?.["correctWord"] === true && value?.["duplicateWord"] === false,
+  );
 };
 
 export { checkGameGridValidity, checkGameGridCorrectness };
