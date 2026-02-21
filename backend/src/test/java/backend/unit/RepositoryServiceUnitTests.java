@@ -20,6 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+/** Unit tests for {@link RepositoryService}. */
 @Tag("unitTest")
 public class RepositoryServiceUnitTests {
 

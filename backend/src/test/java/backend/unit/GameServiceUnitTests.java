@@ -25,6 +25,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+/** Unit tests for {@link GameService}. */
 @Tag("unitTest")
 public class GameServiceUnitTests {
 
@@ -57,8 +58,7 @@ public class GameServiceUnitTests {
       when(word.getWord()).thenReturn("abcde");
       mockWords.add(word);
     }
-    // Allow any requested word count; only language and word length matter in this test
-    // Fix: Use anyInt() for the third argument
+
     when(mockRepositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(
             eq(language), eq(wordLength), anyInt()))
         .thenAnswer(invocation -> mockWords);

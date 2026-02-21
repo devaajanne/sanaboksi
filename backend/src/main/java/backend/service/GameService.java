@@ -12,6 +12,10 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service class providing game-related logic, including generating fixed letters for the game grid
+ * and validating submitted game grids.
+ */
 @Service
 public class GameService {
 
@@ -23,6 +27,18 @@ public class GameService {
     this.utilityService = utilityService;
   }
 
+  /**
+   * Generates a {@link FixedLetterResponse} containing fixed letters for randomly selected words
+   * based on language, word length, and word count.
+   *
+   * @param language the language for the game
+   * @param wordLength the length of each word (must be 5-7)
+   * @param wordCount the number of words in the grid (must be positive)
+   * @return a {@link FixedLetterResponse} with fixed letters and word length
+   * @throws IllegalArgumentException if wordCount is negative or zero, or wordLength is out of
+   *     range
+   * @throws IllegalStateException if no words are available for the specified language and length
+   */
   public FixedLetterResponse getFixedLetterResponse(
       Language language, int wordLength, int wordCount) {
 
@@ -77,6 +93,14 @@ public class GameService {
     return fixedLetterResponse;
   }
 
+  /**
+   * Validates the submitted game grid for the specified language. Checks if words are correct and
+   * identifies duplicates.
+   *
+   * @param gameGridRequest the request containing the game grid
+   * @param language the language for validation
+   * @return a {@link ValidationResultResponse} indicating validation results for each word
+   */
   public ValidationResultResponse validateGameGrid(
       GameGridRequest gameGridRequest, Language language) {
     List<String> gameGridWords = utilityService.getGameGridWords(gameGridRequest);
