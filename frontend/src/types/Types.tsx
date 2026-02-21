@@ -14,7 +14,9 @@ export type GameGrid = string[][];
 
 /**
  * Validation results for each row in the game grid.
- * The key is the row index, and the value is whether the row is correct.
- * Example: { "0": true, "1": false }
+ * The key is the row index, and the value is a map of validation categories to booleans.
+ * Example: { "0": { "correctWord": true, "duplicateWord": false } }
  */
-export type ValidationResults = Record<string, boolean> | undefined;
+export type ValidationResults =
+  | Record<string, Record<string, boolean>>
+  | undefined;

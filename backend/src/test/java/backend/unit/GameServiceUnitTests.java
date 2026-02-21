@@ -18,7 +18,9 @@ import backend.service.GameService;
 import backend.service.RepositoryService;
 import backend.service.UtilityService;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -224,14 +226,30 @@ public class GameServiceUnitTests {
   public void validateGameGridShouldReturnValidationResultResponse() {
     GameGridRequest mockRequest = mock(GameGridRequest.class);
     ValidationResultResponse mockResponse = mock(ValidationResultResponse.class);
+    Map<Integer, Map<String, Boolean>> mockValidationResults = new HashMap<>();
+
+    for (int i = 0; i < 5; i++) {
+      Map<String, Boolean> resultMap = new HashMap<>();
+      resultMap.put("duplicateWord", false);
+      resultMap.put("correctWord", true);
+      mockValidationResults.put(i, resultMap);
+    }
+
+    when(mockResponse.getValidationResults()).thenReturn(mockValidationResults);
+
     List<String> mockWords = List.of("vehnä", "suola", "maito", "kahvi", "kerma");
+    Map<String, Integer> mockWordsCount =
+        Map.of("vehnä", 1, "suola", 1, "maito", 1, "kahvi", 1, "kerma", 1);
+
+    Map<Integer, Boolean> mockResultsMap = Map.of(0, true, 1, true, 2, true, 3, true, 4, true);
 
     when(mockUtilityService.getGameGridWords(mockRequest)).thenReturn(mockWords);
-    when(mockRepositoryService.validateWords(mockWords, language)).thenReturn(mockResponse);
+    when(mockUtilityService.countDuplicateWords(mockWords)).thenReturn(mockWordsCount);
+    when(mockRepositoryService.validateWords(mockWords, language)).thenReturn(mockResultsMap);
 
     ValidationResultResponse response = gameService.validateGameGrid(mockRequest, language);
 
-    assertEquals(mockResponse, response);
+    assertEquals(mockResponse.getValidationResults(), response.getValidationResults());
     verify(mockUtilityService).getGameGridWords(mockRequest);
     verify(mockRepositoryService).validateWords(mockWords, language);
   }

@@ -7,7 +7,9 @@ import backend.dto.FixedLetterResponse;
 import backend.dto.GameGridRequest;
 import backend.dto.ValidationResultResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -78,8 +80,24 @@ public class GameService {
   public ValidationResultResponse validateGameGrid(
       GameGridRequest gameGridRequest, Language language) {
     List<String> gameGridWords = utilityService.getGameGridWords(gameGridRequest);
-    ValidationResultResponse validationResultResponse =
-        repositoryService.validateWords(gameGridWords, language);
+    ValidationResultResponse validationResultResponse = new ValidationResultResponse();
+
+    // Check for correct words
+    Map<Integer, Boolean> correctWordMap = repositoryService.validateWords(gameGridWords, language);
+
+    // Check for duplicates
+    Map<String, Integer> wordCountMap = utilityService.countDuplicateWords(gameGridWords);
+
+    // Build response
+    Map<Integer, Map<String, Boolean>> validationResults = new HashMap<>();
+    for (int i = 0; i < gameGridWords.size(); i++) {
+      Map<String, Boolean> resultMap = new HashMap<>();
+      resultMap.put("correctWord", correctWordMap.get(i));
+      resultMap.put("duplicateWord", wordCountMap.get(gameGridWords.get(i)) > 1);
+      validationResults.put(i, resultMap);
+    }
+
+    validationResultResponse.setValidationResults(validationResults);
 
     return validationResultResponse;
   }

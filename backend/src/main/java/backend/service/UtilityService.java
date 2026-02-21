@@ -2,7 +2,9 @@ package backend.service;
 
 import backend.dto.GameGridRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import org.springframework.stereotype.Service;
 
@@ -60,5 +62,13 @@ public class UtilityService {
     }
 
     return gameGridWords;
+  }
+
+  public Map<String, Integer> countDuplicateWords(List<String> words) {
+    Map<String, Integer> wordCountMap = new HashMap<>();
+    for (String word : words) {
+      wordCountMap.put(word, wordCountMap.getOrDefault(word, 0) + 1);
+    }
+    return wordCountMap;
   }
 }

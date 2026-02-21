@@ -159,7 +159,12 @@ export default function SanaboksiGameGrid() {
               }
               isCorrect={
                 validationResults
-                  ? validationResults[rowIndex.toString()]
+                  ? validationResults[rowIndex.toString()]?.["correctWord"]
+                  : undefined
+              }
+              isDuplicate={
+                validationResults
+                  ? validationResults[rowIndex.toString()]?.["duplicateWord"]
                   : undefined
               }
             />

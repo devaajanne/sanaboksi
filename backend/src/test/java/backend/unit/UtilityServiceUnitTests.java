@@ -8,6 +8,7 @@ import backend.dto.GameGridRequest;
 import backend.service.UtilityService;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -138,5 +139,48 @@ public class UtilityServiceUnitTests {
                 Arrays.asList("K", "E", "R", "M", "")));
     assertThrows(
         IllegalArgumentException.class, () -> utilityService.getGameGridWords(testRequest));
+  }
+
+  @Test
+  public void countDuplicateWordsCountDuplicateWordsCorrectlyWhenNoDuplicatesArePresent() {
+    List<String> testWords = Arrays.asList("vehnä", "suola", "maito", "kahvi", "kerma");
+
+    Map<String, Integer> mockResultMap =
+        Map.of(
+            "vehnä", 1,
+            "suola", 1,
+            "maito", 1,
+            "kahvi", 1,
+            "kerma", 1);
+
+    Map<String, Integer> resultMap = utilityService.countDuplicateWords(testWords);
+
+    assertEquals(mockResultMap, resultMap);
+  }
+
+  @Test
+  public void countDuplicateWordsCountDuplicateWordsCorrectlyWhenOneDuplicateIsPresent() {
+    List<String> testWords = Arrays.asList("vehnä", "vehnä", "maito", "kahvi", "kerma");
+    Map<String, Integer> mockResultMap =
+        Map.of(
+            "vehnä", 2,
+            "maito", 1,
+            "kahvi", 1,
+            "kerma", 1);
+
+    Map<String, Integer> resultMap = utilityService.countDuplicateWords(testWords);
+
+    assertEquals(mockResultMap, resultMap);
+  }
+
+  @Test
+  public void countDuplicateWordsCountDuplicateWordsCorrectlyWhenAllWordsAreDuplicates() {
+    List<String> testWords = Arrays.asList("vehnä", "vehnä", "vehnä", "vehnä", "vehnä");
+
+    Map<String, Integer> mockResultMap = Map.of("vehnä", 5);
+
+    Map<String, Integer> resultMap = utilityService.countDuplicateWords(testWords);
+
+    assertEquals(mockResultMap, resultMap);
   }
 }
