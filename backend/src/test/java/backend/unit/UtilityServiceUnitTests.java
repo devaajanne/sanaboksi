@@ -12,6 +12,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+/** Unit tests for {@link UtilityService}. */
 @Tag("unitTest")
 public class UtilityServiceUnitTests {
 
