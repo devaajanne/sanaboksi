@@ -17,9 +17,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class FixedLetterResponse {
 
-  /** The length of each word in the game grid. Must be between 0 and 6 (inclusive). */
-  @Min(value = 0, message = "Fixed index minimum value is 0.")
-  @Max(value = 6, message = "Fixed index maximum value is 6.")
+  /** The length of each word in the game grid. Must be between 5 and 7 (inclusive). */
+  @Min(value = 5, message = "Word length minimum value is 5.")
+  @Max(value = 7, message = "Word length maximum value is 7.")
   private int wordLength;
 
   /** The list of fixed letters for the game grid. Cannot be null. */

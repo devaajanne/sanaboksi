@@ -18,12 +18,6 @@ public class RepositoryService {
 
   private final FinnishWordRepository finnishWordRepository;
 
-  /**
-   * Dependency injection for constructing a new RepositoryService with the specified
-   * FinnishWordRepository.
-   *
-   * @param finnishWordRepository repository for Finnish words
-   */
   public RepositoryService(FinnishWordRepository finnishWordRepository) {
     this.finnishWordRepository = finnishWordRepository;
   }

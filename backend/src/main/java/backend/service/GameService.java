@@ -22,13 +22,6 @@ public class GameService {
   private final RepositoryService repositoryService;
   private final UtilityService utilityService;
 
-  /**
-   * CDependency injections for cnstructing a new GameService with the specified repository and
-   * utility services.
-   *
-   * @param repositoryService service for accessing word repositories
-   * @param utilityService service for utility operations
-   */
   public GameService(RepositoryService repositoryService, UtilityService utilityService) {
     this.repositoryService = repositoryService;
     this.utilityService = utilityService;

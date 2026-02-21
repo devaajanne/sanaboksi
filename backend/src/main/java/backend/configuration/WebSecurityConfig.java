@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
- * Configuration class for setting up web security in the application. Configutes CORS settings and
+ * Configuration class for setting up web security in the application. Configures CORS settings and
  * CSRF protection.
  */
 @Configuration
@@ -16,17 +16,12 @@ public class WebSecurityConfig {
 
   private final CorsConfig corsConfig;
 
-  /**
-   * Dependency injection for constructing a new WebSecurityConfig with the specified CorsConfig.
-   *
-   * @param corsConfig the CORS configuration bean
-   */
   public WebSecurityConfig(CorsConfig corsConfig) {
     this.corsConfig = corsConfig;
   }
 
   /**
-   * Configures the {@link SecurityFilterChain} for the application. COnfigures CORS settings and
+   * Configures the {@link SecurityFilterChain} for the application. Configures CORS settings and
    * CSRF protection.
    *
    * @param httpSecurity the {@link HttpSecurity} to configure

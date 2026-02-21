@@ -24,11 +24,6 @@ public class GameController {
 
   private final GameService gameService;
 
-  /**
-   * Constructs a new GameController with the specified GameService.
-   *
-   * @param gameService the service handling game logic
-   */
   public GameController(GameService gameService) {
     this.gameService = gameService;
   }
