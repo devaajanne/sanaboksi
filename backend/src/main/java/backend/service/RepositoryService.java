@@ -29,6 +29,7 @@ public class RepositoryService {
    * @param wordLength the length of each word
    * @param wordCount the number of words to retrieve
    * @return a list of randomly selected words
+   * @throws IllegalArgumentException if the requested language is not in language enums
    * @throws IllegalStateException if the repository is empty or unseeded for the given parameters
    */
   public List<? extends Word> findRandomWordsWithCorrectLanguageLengthAndCount(
@@ -40,7 +41,7 @@ public class RepositoryService {
         wordList = finnishWordRepository.findRandomWordsByWordLengthAndCount(wordLength, wordCount);
         break;
       default:
-        throw new RuntimeException("Unknown language: " + language);
+        throw new IllegalArgumentException("Unknown language: " + language);
     }
 
     if (wordList == null || wordList.isEmpty()) {
@@ -60,6 +61,7 @@ public class RepositoryService {
    * @param language the language of the words
    * @param wordLength the length of each word
    * @return the number of words available
+   * @throws IllegalArgumentException if the requested language is not in language enums
    * @throws IllegalStateException if the repository is empty or unseeded for the given parameters
    */
   public int getRepositoryCountForWordsWithCorrectLanguageAndLength(
@@ -71,7 +73,7 @@ public class RepositoryService {
         wordCount = finnishWordRepository.countByWordLength(wordLength);
         break;
       default:
-        throw new RuntimeException("Unknown language: " + language);
+        throw new IllegalArgumentException("Unknown language: " + language);
     }
 
     if (wordCount == 0) {
@@ -91,6 +93,7 @@ public class RepositoryService {
    * @param gameGridWords the list of words to validate
    * @param language the language of the words
    * @return a map of word indices to validation results (true if valid, false otherwise)
+   * @throws IllegalArgumentException if the requested language is not in language enums
    */
   public Map<Integer, Boolean> validateWords(List<String> gameGridWords, Language language) {
     Map<Integer, Boolean> resultsMap = new HashMap<>();
@@ -104,7 +107,7 @@ public class RepositoryService {
         }
         break;
       default:
-        throw new RuntimeException("Unknown language: " + language);
+        throw new IllegalArgumentException("Unknown language: " + language);
     }
 
     return resultsMap;
