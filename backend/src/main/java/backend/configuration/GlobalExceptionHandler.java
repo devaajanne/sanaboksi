@@ -33,16 +33,16 @@ public class GlobalExceptionHandler {
 
   /**
    * Handles IllegalStateException thrown by controllers or services. Returns a JSON error message
-   * and HTTP 204 No Content status.
+   * and HTTP 503 Service Unavailable status.
    *
    * @param exception the IllegalStateException thrown
-   * @return ResponseEntity containing error details and status 204
+   * @return ResponseEntity containing error details and status 503
    */
   @ExceptionHandler(IllegalStateException.class)
   public ResponseEntity<Map<String, String>> handleIllegalStateException(
       IllegalStateException exception) {
     Map<String, String> error = new HashMap<>();
     error.put("error", exception.getMessage());
-    return new ResponseEntity<>(error, HttpStatus.NO_CONTENT);
+    return new ResponseEntity<>(error, HttpStatus.SERVICE_UNAVAILABLE);
   }
 }
