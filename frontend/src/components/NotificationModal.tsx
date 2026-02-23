@@ -16,12 +16,12 @@ const notificationModalContent: Record<
     notificationModalMessage:
       "Your game grid is not valid. Fill in all the fields to check your words.",
   },
-  [NotificationModalSource.DuplicateWordsAndCorrectWordsCheck]: {
+  [NotificationModalSource.DuplicateWordsAndIncorrectWords]: {
     notificationModalTitle: "Duplicate and incorrect words!",
     notificationModalMessage:
-      "Your game grid contains duplicate and incorrect words. Remove duplicate words and input only unique words. Check all words and correct incorrect words.",
+      "Your game grid contains duplicate and incorrect words. Remove duplicate words and input only unique words. Check all words and replace incorrect words.",
   },
-  [NotificationModalSource.DuplicateWordsCheck]: {
+  [NotificationModalSource.DuplicateWords]: {
     notificationModalTitle: "Duplicate words!",
     notificationModalMessage:
       "Your game grid contains duplicate words. Remove duplicate words and input only unique words.",
@@ -29,7 +29,7 @@ const notificationModalContent: Record<
   [NotificationModalSource.IncorrectWords]: {
     notificationModalTitle: "Incorrect words!",
     notificationModalMessage:
-      "Your game grid contains incorrect words. Check all words and correct incorrect words.",
+      "Your game grid contains incorrect words. Check all words and replace incorrect words.",
   },
   [NotificationModalSource.CorrectWords]: {
     notificationModalTitle: "Correct words!",
@@ -49,7 +49,7 @@ const notificationModalContent: Record<
  * @param {NotificationModalSource} props.source - The source of notification to display; determines notification text.
  * @param {boolean} props.opened - Whether the modal is open.
  * @param {() => void} props.onClose - Function to close the modal.
- * @returns {Modal} The rendered modal component.
+ * @returns {JSX.Element} The rendered modal component.
  */
 export default function NotificationModal({
   source,

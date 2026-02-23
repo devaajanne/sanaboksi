@@ -24,9 +24,9 @@ export type ValidationResults =
 export const NotificationModalSource = {
   NoSource: 0,
   GameGridValidityCheck: 1,
-  DuplicateWordsCheck: 2,
+  DuplicateWords: 2,
   IncorrectWords: 3,
-  DuplicateWordsAndCorrectWordsCheck: 4,
+  DuplicateWordsAndIncorrectWords: 4,
   CorrectWords: 5,
 } as const;
 

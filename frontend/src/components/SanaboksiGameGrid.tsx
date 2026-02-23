@@ -125,16 +125,14 @@ export default function SanaboksiGameGrid() {
         // Game grid contains duplicate words and incorrect words
         if (!allWordsAreUnique && !allWordsAreCorrect) {
           handleNotificationModalOpen(
-            NotificationModalSource.DuplicateWordsAndCorrectWordsCheck,
+            NotificationModalSource.DuplicateWordsAndIncorrectWords,
           );
           setIsCorrectGameGrid(false);
           return;
         }
         // Game grid contains duplicate words
         if (!allWordsAreUnique) {
-          handleNotificationModalOpen(
-            NotificationModalSource.DuplicateWordsCheck,
-          );
+          handleNotificationModalOpen(NotificationModalSource.DuplicateWords);
           setIsCorrectGameGrid(false);
           return;
         }
@@ -161,7 +159,7 @@ export default function SanaboksiGameGrid() {
 
   /**
    * Opens notification modal and sets the correct source
-   * @param source notification source, determines the text shown in modal
+   * @param notificationModalSource notification source, determines the text shown in modal
    */
   const handleNotificationModalOpen = (
     notificationModalSource: NotificationModalSource,
