@@ -20,3 +20,15 @@ export type GameGrid = string[][];
 export type ValidationResults =
   | Record<string, Record<string, boolean>>
   | undefined;
+
+export const NotificationModalSource = {
+  NoSource: 0,
+  GameGridValidityCheck: 1,
+  DuplicateWords: 2,
+  IncorrectWords: 3,
+  DuplicateWordsAndIncorrectWords: 4,
+  CorrectWords: 5,
+} as const;
+
+export type NotificationModalSource =
+  (typeof NotificationModalSource)[keyof typeof NotificationModalSource];
