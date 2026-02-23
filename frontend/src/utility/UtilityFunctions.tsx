@@ -28,11 +28,13 @@ const checkGameGridValidity = (gameGrid: GameGrid) => {
 };
 
 /**
- * Checks if all words in the game grid are correct based on validation results.
+ * Checks if all words in the game grid are not duplicates based on validation results.
  * @param validationResults Validation results map to check.
- * @returns true if all words are correct, false otherwise.
+ * @returns true if game grid does not contain duplicates, false otherwise.
  */
-const checkGameGridCorrectness = (validationResults: ValidationResults) => {
+const gameGridContainsOnlyUniqueWords = (
+  validationResults: ValidationResults,
+) => {
   if (!validationResults) {
     return false;
   }
@@ -40,11 +42,29 @@ const checkGameGridCorrectness = (validationResults: ValidationResults) => {
   if (rowCorrectness.length === 0) {
     return false;
   }
-
-  return rowCorrectness.every(
-    (value) =>
-      value?.["correctWord"] === true && value?.["duplicateWord"] === false,
-  );
+  return rowCorrectness.every((value) => value?.["duplicateWord"] === false);
 };
 
-export { checkGameGridValidity, checkGameGridCorrectness };
+/**
+ * Checks if all words in the game grid are correct based on validation results.
+ * @param validationResults Validation results map to check.
+ * @returns true if all words are correct, false otherwise.
+ */
+const gameGridContainsOnlyCorrectWords = (
+  validationResults: ValidationResults,
+) => {
+  if (!validationResults) {
+    return false;
+  }
+  const rowCorrectness = Object.values(validationResults);
+  if (rowCorrectness.length === 0) {
+    return false;
+  }
+  return rowCorrectness.every((value) => value?.["correctWord"] === true);
+};
+
+export {
+  checkGameGridValidity,
+  gameGridContainsOnlyUniqueWords,
+  gameGridContainsOnlyCorrectWords,
+};

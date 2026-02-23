@@ -1,13 +1,20 @@
 import { useState, useEffect } from "react";
-import type { FixedLetters, GameGrid, ValidationResults } from "../types/Types";
+import {
+  type FixedLetters,
+  type GameGrid,
+  type ValidationResults,
+  NotificationModalSource,
+} from "../types/Types";
 import { getFixedLetters, validateGameGrid } from "../api/Api";
 import SanaboksiGameRow from "./SanaboksiGameRow";
-import AlertBox from "./AlertBox";
 import {
   checkGameGridValidity,
-  checkGameGridCorrectness,
+  gameGridContainsOnlyUniqueWords,
+  gameGridContainsOnlyCorrectWords,
 } from "../utility/UtilityFunctions";
 import { Button } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import NotificationModal from "./NotificationModal";
 
 /**
  * Main component for rendering and managing the Sanaboksi game grid.
@@ -22,11 +29,13 @@ export default function SanaboksiGameGrid() {
   const [wordLength, setWordLength] = useState<number>(5);
   const [validationResults, setValidationResults] =
     useState<ValidationResults>(undefined);
-  const [showAlert, setShowAlert] = useState<boolean>(false);
   // Game grid is valid if all rows have no empty fields
   const [isValidGameGrid, setIsValidGameGrid] = useState<boolean>(false);
   // Game grid is correct if all rows have a validated and correct word
   const [isCorrectGameGrid, setIsCorrectGameGrid] = useState<boolean>(false);
+  const [notificationModalSource, setNotificationModalSource] =
+    useState<NotificationModalSource>(NotificationModalSource.NoSource);
+  const [opened, { open, close }] = useDisclosure(false);
 
   /**
    * Fetches fixed letters from the API and initializes the game grid.
@@ -86,6 +95,7 @@ export default function SanaboksiGameGrid() {
           ? row.map((field, j) => (j === columnIndex ? value : field))
           : row,
       );
+
       return newGameGrid;
     });
   };
@@ -97,13 +107,48 @@ export default function SanaboksiGameGrid() {
     try {
       if (!checkGameGridValidity(gameGrid)) {
         setIsValidGameGrid(false);
-        setShowAlert(true);
+        handleNotificationModalOpen(
+          NotificationModalSource.GameGridValidityCheck,
+        );
       } else {
-        setShowAlert(false);
         const validationResultsData = await validateGameGrid(gameGrid, "fi");
         setValidationResults(validationResultsData);
         setIsValidGameGrid(true);
-        setIsCorrectGameGrid(checkGameGridCorrectness(validationResultsData));
+
+        const allWordsAreUnique = gameGridContainsOnlyUniqueWords(
+          validationResultsData,
+        );
+        const allWordsAreCorrect = gameGridContainsOnlyCorrectWords(
+          validationResultsData,
+        );
+
+        // Game grid contains duplicate words and incorrect words
+        if (!allWordsAreUnique && !allWordsAreCorrect) {
+          handleNotificationModalOpen(
+            NotificationModalSource.DuplicateWordsAndCorrectWordsCheck,
+          );
+          setIsCorrectGameGrid(false);
+          return;
+        }
+        // Game grid contains duplicate words
+        if (!allWordsAreUnique) {
+          handleNotificationModalOpen(
+            NotificationModalSource.DuplicateWordsCheck,
+          );
+          setIsCorrectGameGrid(false);
+          return;
+        }
+        // Game grid contains incorrect words
+        if (!allWordsAreCorrect) {
+          handleNotificationModalOpen(NotificationModalSource.IncorrectWords);
+          setIsCorrectGameGrid(false);
+          return;
+        }
+
+        // Game grid contains only correct and non-duplicate words
+        handleNotificationModalOpen(NotificationModalSource.CorrectWords);
+        setIsCorrectGameGrid(true);
+        return;
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -112,6 +157,17 @@ export default function SanaboksiGameGrid() {
         throw new Error("Failed to handle game grid validation: Unknown error");
       }
     }
+  };
+
+  /**
+   * Opens notification modal and sets the correct source
+   * @param source notification source, determines the text shown in modal
+   */
+  const handleNotificationModalOpen = (
+    notificationModalSource: NotificationModalSource,
+  ) => {
+    setNotificationModalSource(notificationModalSource);
+    open();
   };
 
   /**
@@ -135,9 +191,6 @@ export default function SanaboksiGameGrid() {
 
   return (
     <>
-      {showAlert && (
-        <AlertBox source="gameGridValidityCheck" setShowAlert={setShowAlert} />
-      )}
       {fixedLetters.length === 0
         ? // Render empty game grid rows
           Array.from({ length: wordLength }).map((_, index) => (
@@ -169,6 +222,7 @@ export default function SanaboksiGameGrid() {
               }
             />
           ))}
+
       {isValidGameGrid && isCorrectGameGrid ? (
         <Button onClick={() => fetchFixedLetters("fi", 5, 5)}>
           Play a new game
@@ -176,6 +230,12 @@ export default function SanaboksiGameGrid() {
       ) : (
         <Button onClick={handleGameGridValidation}>Validate game grid</Button>
       )}
+
+      <NotificationModal
+        source={notificationModalSource}
+        opened={opened}
+        onClose={close}
+      />
     </>
   );
 }
