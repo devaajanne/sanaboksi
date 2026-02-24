@@ -1,4 +1,4 @@
-import SanaboksiGameGrid from "./components/SanaboksiGameGrid";
+import SanaboksiGameGrid from "./components/game/SanaboksiGameGrid";
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 import { Modal } from "@mantine/core";
-import { NotificationModalSource } from "../types/Types";
+import { NotificationModalSource } from "../../types/Types";
 
 interface NotificationModalProps {
   source: NotificationModalSource;

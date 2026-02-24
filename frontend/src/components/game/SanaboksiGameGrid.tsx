@@ -4,17 +4,17 @@ import {
   type GameGrid,
   type ValidationResults,
   NotificationModalSource,
-} from "../types/Types";
-import { getFixedLetters, validateGameGrid } from "../api/Api";
+} from "../../types/Types";
+import { getFixedLetters, validateGameGrid } from "../../api/Api";
 import SanaboksiGameRow from "./SanaboksiGameRow";
 import {
   checkGameGridValidity,
   gameGridContainsOnlyUniqueWords,
   gameGridContainsOnlyCorrectWords,
-} from "../utility/UtilityFunctions";
+} from "../../utility/UtilityFunctions";
 import { Button } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import NotificationModal from "./NotificationModal";
+import NotificationModal from "../modals/NotificationModal";
 
 /**
  * Main component for rendering and managing the Sanaboksi game grid.

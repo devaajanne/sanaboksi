@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import type { KeyboardEvent } from "react";
 import { TextInput, Group } from "@mantine/core";
-import type { FixedLetter } from "../types/Types";
+import type { FixedLetter } from "../../types/Types";
 import { IconCheck, IconX, IconCopyOff } from "@tabler/icons-react";
 
 /**
