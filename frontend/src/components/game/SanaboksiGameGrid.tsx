@@ -12,7 +12,7 @@ import {
   gameGridContainsOnlyUniqueWords,
   gameGridContainsOnlyCorrectWords,
 } from "../../utility/UtilityFunctions";
-import { Button } from "@mantine/core";
+import { Button, Container, Space, Stack } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import NotificationModal from "../modals/NotificationModal";
 
@@ -36,6 +36,7 @@ export default function SanaboksiGameGrid() {
   const [notificationModalSource, setNotificationModalSource] =
     useState<NotificationModalSource>(NotificationModalSource.NoSource);
   const [opened, { open, close }] = useDisclosure(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   /**
    * Fetches fixed letters from the API and initializes the game grid.
@@ -49,6 +50,7 @@ export default function SanaboksiGameGrid() {
     wordCount: number,
   ) => {
     try {
+      setIsLoading(true);
       const data = await getFixedLetters(language, wordLength, wordCount);
       const fixedLetterData = data ? data.fixedLetters : [];
 
@@ -66,6 +68,7 @@ export default function SanaboksiGameGrid() {
       setValidationResults(undefined);
       setIsValidGameGrid(false);
       setIsCorrectGameGrid(false);
+      setIsLoading(false);
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.message);
@@ -111,6 +114,7 @@ export default function SanaboksiGameGrid() {
           NotificationModalSource.GameGridValidityCheck,
         );
       } else {
+        setIsLoading(true);
         const validationResultsData = await validateGameGrid(gameGrid, "fi");
         setValidationResults(validationResultsData);
         setIsValidGameGrid(true);
@@ -128,24 +132,28 @@ export default function SanaboksiGameGrid() {
             NotificationModalSource.DuplicateWordsAndIncorrectWords,
           );
           setIsCorrectGameGrid(false);
+          setIsLoading(false);
           return;
         }
         // Game grid contains duplicate words
         if (!allWordsAreUnique) {
           handleNotificationModalOpen(NotificationModalSource.DuplicateWords);
           setIsCorrectGameGrid(false);
+          setIsLoading(false);
           return;
         }
         // Game grid contains incorrect words
         if (!allWordsAreCorrect) {
           handleNotificationModalOpen(NotificationModalSource.IncorrectWords);
           setIsCorrectGameGrid(false);
+          setIsLoading(false);
           return;
         }
 
         // Game grid contains only correct and non-duplicate words
         handleNotificationModalOpen(NotificationModalSource.CorrectWords);
         setIsCorrectGameGrid(true);
+        setIsLoading(false);
         return;
       }
     } catch (error: unknown) {
@@ -189,45 +197,65 @@ export default function SanaboksiGameGrid() {
 
   return (
     <>
-      {fixedLetters.length === 0
-        ? // Render empty game grid rows
-          Array.from({ length: wordLength }).map((_, index) => (
-            <SanaboksiGameRow
-              key={index}
-              isPlaceholder={true}
-              rowLength={wordLength}
-            />
-          ))
-        : // Render game grid with fixed letters
-          fixedLetters.map((fixedLetter, rowIndex) => (
-            <SanaboksiGameRow
-              key={rowIndex}
-              fixedLetter={fixedLetter}
-              rowData={gameGrid[rowIndex]}
-              rowLength={wordLength}
-              onFieldChange={(columnIndex, value) =>
-                handleFieldChange(rowIndex, columnIndex, value)
-              }
-              isCorrect={
-                validationResults
-                  ? validationResults[rowIndex.toString()]?.["correctWord"]
-                  : undefined
-              }
-              isDuplicate={
-                validationResults
-                  ? validationResults[rowIndex.toString()]?.["duplicateWord"]
-                  : undefined
-              }
-            />
-          ))}
+      <Container strategy="grid">
+        <Stack gap={9}>
+          {fixedLetters.length === 0
+            ? // Render empty game grid rows
+              Array.from({ length: wordLength }).map((_, index) => (
+                <SanaboksiGameRow
+                  key={index}
+                  isPlaceholder={true}
+                  rowLength={wordLength}
+                />
+              ))
+            : // Render game grid with fixed letters
+              fixedLetters.map((fixedLetter, rowIndex) => (
+                <SanaboksiGameRow
+                  key={rowIndex}
+                  fixedLetter={fixedLetter}
+                  rowData={gameGrid[rowIndex]}
+                  rowLength={wordLength}
+                  onFieldChange={(columnIndex, value) =>
+                    handleFieldChange(rowIndex, columnIndex, value)
+                  }
+                  isCorrect={
+                    validationResults
+                      ? validationResults[rowIndex.toString()]?.["correctWord"]
+                      : undefined
+                  }
+                  isDuplicate={
+                    validationResults
+                      ? validationResults[rowIndex.toString()]?.[
+                          "duplicateWord"
+                        ]
+                      : undefined
+                  }
+                />
+              ))}
+        </Stack>
+      </Container>
 
-      {isValidGameGrid && isCorrectGameGrid ? (
-        <Button onClick={() => fetchFixedLetters("fi", 5, 5)}>
-          Play a new game
-        </Button>
-      ) : (
-        <Button onClick={handleGameGridValidation}>Validate game grid</Button>
-      )}
+      <Space h="lg" />
+
+      <Container strategy="grid">
+        {isValidGameGrid && isCorrectGameGrid ? (
+          <Button
+            onClick={() => fetchFixedLetters("fi", 5, 5)}
+            loading={isLoading}
+            size="lg"
+          >
+            Play a new game
+          </Button>
+        ) : (
+          <Button
+            onClick={handleGameGridValidation}
+            loading={isLoading}
+            size="lg"
+          >
+            Validate game grid
+          </Button>
+        )}
+      </Container>
 
       <NotificationModal
         source={notificationModalSource}

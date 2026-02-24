@@ -99,7 +99,7 @@ export default function SanaboksiGameRow({
   };
 
   return (
-    <Group>
+    <Group gap={3} align="center">
       {Array.from({ length: rowLength }).map((_, columnIndex) => {
         const isFixedLetter =
           fixedLetter && columnIndex === fixedLetter.fixedIndex;
@@ -121,14 +121,15 @@ export default function SanaboksiGameRow({
               isPlaceholder || isFixedLetter || (isCorrect && !isDuplicate)
             }
             maxLength={1}
-            w={50}
             ref={(el) => {
               inputRefs.current[columnIndex] = el;
             }}
             styles={{
               input: {
+                width: "clamp(30px, 12vw,72px)",
+                height: "clamp(30px, 12vw, 72px)",
+                fontSize: "clamp(15px, 6vw, 36px)",
                 textAlign: "center",
-                fontSize: 24,
                 fontWeight: isFixedLetter ? "bold" : "normal",
                 backgroundColor: isFixedLetter ? "#f0f0f0" : "white",
                 borderColor: correctBorderColor,
@@ -148,13 +149,14 @@ export default function SanaboksiGameRow({
           />
         );
       })}
+
       {isDuplicate === true ? (
-        <IconCopyOff color="blue" />
+        <IconCopyOff color="blue" height={45} width={45} strokeWidth={2} />
       ) : isCorrect !== undefined ? (
         isCorrect ? (
-          <IconCheck color="green" />
+          <IconCheck color="green" height={45} width={45} strokeWidth={2} />
         ) : (
-          <IconX color="red" />
+          <IconX color="red" height={45} width={45} strokeWidth={2} />
         )
       ) : null}
     </Group>

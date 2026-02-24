@@ -1,3 +1,9 @@
+import { Center, Text } from "@mantine/core";
+
 export default function Footer() {
-  return <></>;
+  return (
+    <Center>
+      <Text>Sanaboksi</Text>
+    </Center>
+  );
 }
