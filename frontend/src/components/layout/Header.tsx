@@ -12,16 +12,16 @@ import { ColorPaletteContext } from "../context/ColorPaletteContext";
 export default function Header() {
   const colorPalette = useContext(ColorPaletteContext);
   const { toggleColorScheme } = useMantineColorScheme();
-  const { iconSize, iconStrokeWidth, textMargin, marginTop } = {
+  const { marginTop, headerGutter, iconSize, iconStrokeWidth } = {
+    marginTop: 20,
+    headerGutter: "clamp(20px, 12vw, 200px)",
     iconSize: "clamp(20px, 6vw, 35px)",
     iconStrokeWidth: 2,
-    textMargin: 150,
-    marginTop: 20,
   };
 
   return (
     <Container fluid style={{ marginTop: marginTop }}>
-      <Grid align="center">
+      <Grid align="center" gutter={headerGutter}>
         <Grid.Col
           span={4}
           style={{ display: "flex", justifyContent: "flex-start" }}
@@ -43,14 +43,7 @@ export default function Header() {
           span={4}
           style={{ display: "flex", justifyContent: "center" }}
         >
-          <Title
-            c={colorPalette[2]}
-            styles={{
-              root: { marginRight: textMargin, marginLeft: textMargin },
-            }}
-          >
-            Sanaboksi
-          </Title>
+          <Title c={colorPalette[2]}>Sanaboksi</Title>
         </Grid.Col>
         <Grid.Col
           span={4}
