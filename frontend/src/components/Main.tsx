@@ -16,7 +16,7 @@ export default function Main() {
         },
         primaryColor: "lightModePalette",
       }),
-    [darkModePalette, lightModePalette],
+    [],
   );
 
   return (
