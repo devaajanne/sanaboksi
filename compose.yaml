@@ -8,8 +8,7 @@ services:
     volumes:
       - data:/var/lib/postgresql
     ports:
-      # Port variables are configured in .env file
-      - "${DATABASE_HOST_PORT}:5432"
+      - "5432:5432"
     networks:
       - network
     environment:
@@ -31,8 +30,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      # Port variables are configured in .env file
-      - "${BACKEND_HOST_PORT}:8080"
+      - "8080:8080"
     networks:
       - network
     environment:
@@ -40,6 +38,7 @@ services:
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
       SPRING_DATASOURCE_USERNAME: ${DATABASE_USER}
       SPRING_DATASOURCE_PASSWORD: ${DATABASE_PASSWORD}
+      CORS_ALLOWED_ORIGIN: ${CORS_ALLOWED_ORIGIN}
     depends_on:
       database:
         condition: service_healthy
@@ -55,9 +54,10 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+          VITE_SERVER_URL: ${VITE_SERVER_URL}
     ports:
-      # Port variables are configured in .env file
-      - "${FRONTEND_HOST_PORT}:80"
+      - "5173:80"
     networks:
       - network
     depends_on:
