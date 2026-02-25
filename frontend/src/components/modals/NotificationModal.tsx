@@ -1,5 +1,7 @@
 import { Modal } from "@mantine/core";
 import { NotificationModalSource } from "../../types/Types";
+import { useContext } from "react";
+import { ColorPaletteContext } from "../context/ColorPaletteContext";
 
 interface NotificationModalProps {
   source: NotificationModalSource;
@@ -56,12 +58,24 @@ export default function NotificationModal({
   opened,
   onClose,
 }: NotificationModalProps) {
+  const colorPalette = useContext(ColorPaletteContext);
   const { notificationModalTitle, notificationModalMessage } =
     notificationModalContent[source] ||
     notificationModalContent[NotificationModalSource.NoSource];
 
   return (
-    <Modal opened={opened} onClose={onClose} title={notificationModalTitle}>
+    <Modal
+      opened={opened}
+      onClose={onClose}
+      title={notificationModalTitle}
+      styles={{
+        header: { backgroundColor: colorPalette[0], color: colorPalette[2] },
+        body: {
+          backgroundColor: colorPalette[0],
+          color: colorPalette[2],
+        },
+      }}
+    >
       {notificationModalMessage}
     </Modal>
   );

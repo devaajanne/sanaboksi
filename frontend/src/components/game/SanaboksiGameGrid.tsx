@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   type FixedLetters,
   type GameGrid,
@@ -15,6 +15,7 @@ import {
 import { Button, Container, Space, Stack } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import NotificationModal from "../modals/NotificationModal";
+import { ColorPaletteContext } from "../context/ColorPaletteContext";
 
 /**
  * Main component for rendering and managing the Sanaboksi game grid.
@@ -22,6 +23,7 @@ import NotificationModal from "../modals/NotificationModal";
  * @returns The rendered game grid and controls.
  */
 export default function SanaboksiGameGrid() {
+  const colorPalette = useContext(ColorPaletteContext);
   // Store the fixed letters configuration for each row (which index has which fixed letter)
   const [fixedLetters, setFixedLetters] = useState<FixedLetters>([]);
   // Store the actual game grid data (2D array of characters with dynamic dimensions)
@@ -243,6 +245,16 @@ export default function SanaboksiGameGrid() {
             onClick={() => fetchFixedLetters("fi", 5, 5)}
             loading={isLoading}
             size="lg"
+            color={colorPalette[0]}
+            styles={{
+              label: {
+                color: colorPalette[2],
+              },
+              root: {
+                borderColor: colorPalette[3],
+                borderWidth: 3,
+              },
+            }}
           >
             Play a new game
           </Button>
@@ -251,6 +263,16 @@ export default function SanaboksiGameGrid() {
             onClick={handleGameGridValidation}
             loading={isLoading}
             size="lg"
+            color={colorPalette[0]}
+            styles={{
+              label: {
+                color: colorPalette[2],
+              },
+              root: {
+                borderColor: colorPalette[3],
+                borderWidth: 3,
+              },
+            }}
           >
             Validate game grid
           </Button>

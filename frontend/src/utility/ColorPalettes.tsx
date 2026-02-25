@@ -1,8 +1,8 @@
 import type { MantineColorsTuple } from "@mantine/core";
 
 const darkModePalette = [
-  "#000000", // 0 background: app, text, button
-  "#D3D3D3", // 1 fixed letter background light
+  "#242424", // 0 background: app, text, button
+  "#696969", // 1 fixed letter background dark
   "#FFFFFF", // 2 text
   "#FFFFFF", // 3 border
   "#90EE90", // 4 correct light green
@@ -15,9 +15,9 @@ const darkModePalette = [
 
 const lightModePalette = [
   "#FFFFFF", // 0 background: app, text, button
-  "#696969", // 1 fixed letter background dark
-  "#000000", // 2 text
-  "#000000", // 3 border
+  "#D3D3D3", // 1 fixed letter background light
+  "#242424", // 2 text
+  "#242424", // 3 border
   "#006400", // 4 correct dark green
   "#00008B", // 5 duplicate dark blue
   "#8B0000", // 6 incorrect dark red

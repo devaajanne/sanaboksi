@@ -1,8 +1,9 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import type { KeyboardEvent } from "react";
 import { TextInput, Group } from "@mantine/core";
 import type { FixedLetter } from "../../types/Types";
 import { IconCheck, IconX, IconCopyOff } from "@tabler/icons-react";
+import { ColorPaletteContext } from "../context/ColorPaletteContext";
 
 /**
  * Props for the SanaboksiGameRow component.
@@ -38,7 +39,12 @@ export default function SanaboksiGameRow({
   isCorrect,
   isDuplicate,
 }: SanaboksiGameRowProps) {
+  const colorPalette = useContext(ColorPaletteContext);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const { iconSize, iconStrokeWidth } = {
+    iconSize: 50,
+    iconStrokeWidth: 2,
+  };
 
   /**
    * Handles user input and moves the cursor to the next available field.
@@ -106,12 +112,12 @@ export default function SanaboksiGameRow({
         const cellValue = isPlaceholder ? "" : (rowData[columnIndex] ?? "");
         const correctBorderColor =
           isDuplicate === true
-            ? "blue"
+            ? colorPalette[5]
             : isCorrect === true
-              ? "green"
+              ? colorPalette[4]
               : isCorrect === false
-                ? "red"
-                : "gray";
+                ? colorPalette[6]
+                : colorPalette[3];
 
         return (
           <TextInput
@@ -131,8 +137,12 @@ export default function SanaboksiGameRow({
                 fontSize: "clamp(15px, 6vw, 36px)",
                 textAlign: "center",
                 fontWeight: isFixedLetter ? "bold" : "normal",
-                backgroundColor: isFixedLetter ? "#f0f0f0" : "white",
+                backgroundColor: isFixedLetter
+                  ? colorPalette[1]
+                  : colorPalette[0],
                 borderColor: correctBorderColor,
+                borderWidth: 3,
+                color: colorPalette[2],
               },
             }}
             onChange={
@@ -151,12 +161,20 @@ export default function SanaboksiGameRow({
       })}
 
       {isDuplicate === true ? (
-        <IconCopyOff color="blue" height={45} width={45} strokeWidth={2} />
+        <IconCopyOff
+          color={colorPalette[5]}
+          size={iconSize}
+          strokeWidth={iconStrokeWidth}
+        />
       ) : isCorrect !== undefined ? (
         isCorrect ? (
-          <IconCheck color="green" height={45} width={45} strokeWidth={2} />
+          <IconCheck color={colorPalette[4]} size={iconSize} strokeWidth={2} />
         ) : (
-          <IconX color="red" height={45} width={45} strokeWidth={2} />
+          <IconX
+            color={colorPalette[6]}
+            size={iconSize}
+            strokeWidth={iconStrokeWidth}
+          />
         )
       ) : null}
     </Group>
