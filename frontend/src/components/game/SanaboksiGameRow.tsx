@@ -42,7 +42,7 @@ export default function SanaboksiGameRow({
   const colorPalette = useContext(ColorPaletteContext);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const { iconSize, iconStrokeWidth } = {
-    iconSize: 50,
+    iconSize: "clamp(30px, 12vw, 60px)",
     iconStrokeWidth: 2,
   };
 
