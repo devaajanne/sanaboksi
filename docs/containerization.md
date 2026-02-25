@@ -44,25 +44,24 @@ Environment variables are used to include sensitive and/or configurable data, an
 
 **Contents**:
 ```env
-### Port configurations
-BACKEND_HOST_PORT=<port number>
-FRONTEND_HOST_PORT=<port number>
-DATABASE_HOST_PORT=<port number>
-
 ### Database configurations
 DATABASE_HOST_NAME=<database host name>
-DATABASE_HOST_DEV_NAME=<database host name for development environment>
+DATABASE_HOST_NAME_DEV=<database host name for development environment>
 DATABASE_NAME=<database name>
+DATABASE_NAME_DEV=<database name for development environment>
 DATABASE_USER=<database user>
 DATABASE_PASSWORD=<database password>
 
-### Vite configurations
-VITE_DEV_HOST=<true/false>
-VITE_USE_POLLING=<true/false>
+# Cors
+CORS_ALLOWED_ORIGIN=<allowed origin for cors, frontend url>
 
-### Spring Datasource configurations
-SPRING_DATASOURCE_URL=jdbc:postgresql://${DATABASE_HOST_NAME}:${DATABASE_HOST_PORT}/${DATABASE_NAME}
-SPRING_DATASOURCE_DEV_URL=jdbc:postgresql://${DATABASE_HOST_DEV_NAME}:${DATABASE_HOST_PORT}/${DATABASE_NAME}
+### Vite configurations
+VITE_USE_POLLING=<true/false>
+VITE_SERVER_URL=<server url>
+
+# Spring datasource configurations
+SPRING_DATASOURCE_URL=jdbc:postgresql://${DATABASE_HOST_NAME}:5432/${DATABASE_NAME}
+SPRING_DATASOURCE_URL_DEV=jdbc:postgresql://${DATABASE_HOST_NAME_DEV}:5432/${DATABASE_NAME_DEV}
 ```
 
 ## Docker Compose Configurations
@@ -80,7 +79,7 @@ Production configuration is meant to build an immutable image which can be used 
 **1. Database (`database`)**
 - **Image**: `postgres:18.1`
 - **Container Name**: `sanaboksi_database`
-- **Port**: mapped from `.env`
+- **Port**: 5432
 - **Volume**: Named volume `data` for persistence
 - **Healthcheck**: PostgreSQL readiness check every 10s
 
@@ -88,7 +87,7 @@ Production configuration is meant to build an immutable image which can be used 
 - **Build Context**: `./backend`
 - **Dockerfile**: `Dockerfile` (multi-stage production build)
 - **Container Name**: `sanaboksi_backend`
-- **Port**: mapped from `.env`
+- **Port**: 8080
 - **Environment**: environment variables from `.env` for Spring Boot
 - **Dependencies**: Waits for database health check
 - **Healthcheck**: Actuator health endpoint check every 10s
@@ -97,8 +96,8 @@ Production configuration is meant to build an immutable image which can be used 
 - **Build Context**: `./frontend`
 - **Dockerfile**: `Dockerfile` (Nginx-based production build)
 - **Container Name**: `sanaboksi_frontend`
-- **Port**: mapped from `.env`
-- **Environment**: environment variables from `.env` for Vite
+- **Args**: args from `.env` for Vite
+- **Port**: 80
 - **Dependencies**: Waits for backend health check
 
 #### Usage
@@ -109,6 +108,10 @@ docker compose up --build
 ```bash
 # To stop and remove containers and volumes
 docker compose down -v
+```
+```bash
+# To stop and remove containers, created images and volumes
+docker compose down --rmi local -v
 ```
 
 ### Development Configuration
@@ -128,7 +131,7 @@ Development configuration is designed to allow changes in local source code and 
 - **Build Context**: `./backend`
 - **Dockerfile**: `Dockerfile.dev` (JDK with continuous compilation)
 - **Container Name**: `sanaboksi_backend_dev`
-- **Port**: mapped from `.env`
+- **Port**: 8080
 - **Environment**: environment variables from `.env` for Spring Boot
 - **Hot Reloading**: Enabled via Docker Compose `watch` feature
   - Syncs `./backend/src` to `/workdir/src`
@@ -140,8 +143,7 @@ Development configuration is designed to allow changes in local source code and 
 - **Build Context**: `./frontend`
 - **Dockerfile**: `Dockerfile.dev` (Node with Vite dev server)
 - **Container Name**: `sanaboksi_frontend_dev`
-- **Port**: mapped from `.env`
-- **Environment**: environment variables from `.env` for Vite
+- **Port**: mapped from `.env`5173ment**: environment variables from `.env` for Vite
 - **Hot Reloading**: Enabled via Docker Compose `watch` feature
   - Syncs `./frontend` to `/workdir`
   - Ignores `node_modules/`
@@ -155,6 +157,10 @@ docker compose -f compose.dev.yaml up --watch
 ```bash
 # To stop and remove containers and volumes
 docker compose -f compose.dev.yaml down -v
+```
+```bash
+# To stop and remove containers, created images and volumes
+docker compose -f compose.dev.yaml down --rmi local -v
 ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -197,7 +203,7 @@ docker compose -f compose.dev.yaml down -v
 - **Steps**:
   1. Copies package files for caching
   2. Runs `npm ci` to install dependencies
-  3. Copies source code
+  3. Copies source code and adds env variables
   4. Runs `npm run build` to create production bundle
 
 **Stage 2: Run**
@@ -252,31 +258,68 @@ CMD ["npm", "run", "dev", "--", "--port", "5173"]
 **Production**: [backend/src/main/resources/application.yaml](../backend/src/main/resources/application.yaml)
 - Uses environment variables from `compose.yaml`
 
+**Development**: [backend/src/main/resources/application-dev.yaml](../backend/src/main/resources/application-dev.yaml)
+- Uses environment variables from `compose.dev.yaml`
+
 **Development**: `backend/src/main/resources/application-dev.yaml` (create if not existing, see below)
 - Uses environment variables from `compose.dev.yaml`
 - Provides defaults for local development
 - Enables Spring Boot DevTools with 2s poll interval
 - Not included in version control due to hardcoded defaults
 
+**application.yaml contents**
+```yaml
+spring:
+  application:
+    name: backend
+  server:
+    address: 0.0.0.0
+  datasource:
+    # Datasource variables from compose
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      mode: <always/never>
+      schema-locations:
+        - classpath:<path to schema>
+      data-locations:
+        - classpath:<path to sql script files>
+
+# Cors allowed origin from compose
+CorsAllowedOrigin: ${CORS_ALLOWED_ORIGIN}
+```
+
 **application-dev.yaml contents**
 ```yaml
 spring:
   application:
     name: backend
+  server:
+    address: 0.0.0.0
   datasource:
-    # Datasource variables come from compose.dev.yaml
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://<database host name for development environment>:<database host port>/<database name>}
-    username: ${DATABASE_USER:<database user>}
-    password: ${DATABASE_PASSWORD:<database password>}
+    # Datasource variables from compose
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
   sql:
     init:
       mode: <always/never>
-      data-locations: classpath:data.sql
+      schema-locations:
+        - classpath:<path to schema>
+      data-locations:
+        - classpath:<path to sql script files>
   devtools:
     restart:
       enabled: <true/false>
       poll-interval: 2s
       quiet-period: 1s
+
+# Cors allowed origin from compose
+CorsAllowedOrigin: ${CORS_ALLOWED_ORIGIN}
 ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
