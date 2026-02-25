@@ -8,6 +8,9 @@ COPY package*.json .
 RUN npm ci
 # Copy source code to working directory
 COPY . .
+# Add env variables
+ARG VITE_SERVER_URL
+ENV VITE_SERVER_URL=$VITE_SERVER_URL
 # Build the app
 RUN npm run build
 

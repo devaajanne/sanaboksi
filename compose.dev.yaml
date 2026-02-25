@@ -1,4 +1,4 @@
-name: sanaboksi
+name: sanaboksi_dev
 
 services:
   database_dev:
@@ -6,20 +6,19 @@ services:
     image: postgres:18.1
     restart: always
     ports:
-      # Port variables are configured in .env file
-      - "${DATABASE_HOST_PORT}:5432"
+      - "5432:5432"
     networks:
       - network_dev
     environment:
       # Environment variables are configured in .env file
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_DB: ${DATABASE_NAME_DEV}
     volumes:
       - data_dev:/var/lib/postgresql
     healthcheck:
       # Environment variables are configured in .env file
-      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME_DEV}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -31,15 +30,15 @@ services:
       context: ./backend
       dockerfile: Dockerfile.dev
     ports:
-      # Port variables are configured in .env file
-      - "${BACKEND_HOST_PORT}:8080"
+      - "8080:8080"
     networks:
       - network_dev
     environment:
-      # Environment variables are configured in .env file (and passed to application-dev.yaml)
-      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_DEV_URL}
+      # Environment variables are configured in .env file (and passed to Spring Boot configuration)
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL_DEV}
       SPRING_DATASOURCE_USERNAME: ${DATABASE_USER}
       SPRING_DATASOURCE_PASSWORD: ${DATABASE_PASSWORD}
+      CORS_ALLOWED_ORIGIN: ${CORS_ALLOWED_ORIGIN}
     depends_on:
       database_dev:
         condition: service_healthy
@@ -63,14 +62,13 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.dev
     ports:
-      # Port variables are configured in .env file
-      - "${FRONTEND_HOST_PORT}:5173"
+      - "5173:5173"
     networks:
       - network_dev
     environment:
       # Environment variables are configured in .env file
-      VITE_DEV_HOST: ${VITE_DEV_HOST}
       VITE_USE_POLLING: ${VITE_USE_POLLING}
+      VITE_SERVER_URL: ${VITE_SERVER_URL}
     depends_on:
       backend_dev:
         condition: service_healthy
