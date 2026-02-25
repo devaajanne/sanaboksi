@@ -10,6 +10,7 @@ function App() {
 
   return (
     <Container
+      fluid
       styles={{
         root: {
           minHeight: "100vh",

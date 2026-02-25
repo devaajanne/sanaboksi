@@ -251,6 +251,7 @@ export default function SanaboksiGameGrid() {
                 color: colorPalette[2],
               },
               root: {
+                backgroundColor: colorPalette[0],
                 borderColor: colorPalette[3],
                 borderWidth: 3,
               },
@@ -269,6 +270,7 @@ export default function SanaboksiGameGrid() {
                 color: colorPalette[2],
               },
               root: {
+                backgroundColor: colorPalette[0],
                 borderColor: colorPalette[3],
                 borderWidth: 3,
               },

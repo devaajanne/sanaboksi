@@ -4,15 +4,20 @@ import App from "./App";
 import { darkModePalette, lightModePalette } from "../utility/ColorPalettes";
 import { ColorPaletteProvider } from "./context/ColorPaletteContextProvider";
 import "@mantine/core/styles.css";
+import { useMemo } from "react";
 
 export default function Main() {
-  const theme = createTheme({
-    colors: {
-      darkModePalette: darkModePalette as MantineColorsTuple,
-      lightModePalette: lightModePalette as MantineColorsTuple,
-    },
-    primaryColor: "lightModePalette",
-  });
+  const theme = useMemo(
+    () =>
+      createTheme({
+        colors: {
+          darkModePalette: darkModePalette as MantineColorsTuple,
+          lightModePalette: lightModePalette as MantineColorsTuple,
+        },
+        primaryColor: "lightModePalette",
+      }),
+    [darkModePalette, lightModePalette],
+  );
 
   return (
     <MantineProvider theme={theme}>
