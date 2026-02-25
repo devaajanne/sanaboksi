@@ -34,7 +34,7 @@ services:
     networks:
       - network_dev
     environment:
-      # Environment variables are configured in .env file (and passed to application.yaml)
+      # Environment variables are configured in .env file (and passed to Spring Boot configuration)
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL_DEV}
       SPRING_DATASOURCE_USERNAME: ${DATABASE_USER}
       SPRING_DATASOURCE_PASSWORD: ${DATABASE_PASSWORD}
