@@ -143,7 +143,7 @@ Development configuration is designed to allow changes in local source code and 
 - **Build Context**: `./frontend`
 - **Dockerfile**: `Dockerfile.dev` (Node with Vite dev server)
 - **Container Name**: `sanaboksi_frontend_dev`
-- **Port**: mapped from `.env`5173ment**: environment variables from `.env` for Vite
+- **Port**: 5173
 - **Hot Reloading**: Enabled via Docker Compose `watch` feature
   - Syncs `./frontend` to `/workdir`
   - Ignores `node_modules/`
@@ -260,12 +260,6 @@ CMD ["npm", "run", "dev", "--", "--port", "5173"]
 
 **Development**: [backend/src/main/resources/application-dev.yaml](../backend/src/main/resources/application-dev.yaml)
 - Uses environment variables from `compose.dev.yaml`
-
-**Development**: `backend/src/main/resources/application-dev.yaml` (create if not existing, see below)
-- Uses environment variables from `compose.dev.yaml`
-- Provides defaults for local development
-- Enables Spring Boot DevTools with 2s poll interval
-- Not included in version control due to hardcoded defaults
 
 **application.yaml contents**
 ```yaml
