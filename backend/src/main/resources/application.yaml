@@ -15,9 +15,7 @@ spring:
       schema-locations:
         - classpath:/databaseInit/schema.sql
       data-locations:
-        - classpath:/databaseInit/finnishWords/finnish-5-letter-words.sql
-        - classpath:/databaseInit/finnishWords/finnish-6-letter-words.sql
-        - classpath:/databaseInit/finnishWords/finnish-7-letter-words.sql
+        - classpath:/databaseInit/finnishWords/finnish-*-letter-words.sql
       continue-on-error: false
   jpa:
     hibernate:
