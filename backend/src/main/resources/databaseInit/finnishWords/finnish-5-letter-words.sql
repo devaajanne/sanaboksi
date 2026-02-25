@@ -4,7 +4,7 @@
 --      2) removed words with diacritics (i.e. é, è, š)    
 --      3) removed words ending in or including '-' (i.e. sika-)
 --      4) removed derogatory words
---      5) removed words with a space in beteen (i.e. "au pair")
+--      5) removed words with a space in between (i.e. "au pair")
 
 DELETE FROM finnish_words WHERE LENGTH(word) = 5;
 
