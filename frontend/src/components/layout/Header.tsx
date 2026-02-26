@@ -6,11 +6,10 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 import { IconSunMoon, IconInfoCircle } from "@tabler/icons-react";
-import { useContext } from "react";
-import { ColorPaletteContext } from "../context/ColorPaletteContext";
+import { useColorPalette } from "../../hooks/useColorPalette";
 
 export default function Header() {
-  const colorPalette = useContext(ColorPaletteContext);
+  const colorPalette = useColorPalette();
   const { toggleColorScheme } = useMantineColorScheme();
   const { headerMargin, headerGutter, iconSize, iconStrokeWidth } = {
     headerMargin: 20,

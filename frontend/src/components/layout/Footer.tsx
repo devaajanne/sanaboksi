@@ -1,9 +1,8 @@
 import { Center, Text } from "@mantine/core";
-import { useContext } from "react";
-import { ColorPaletteContext } from "../context/ColorPaletteContext";
+import { useColorPalette } from "../../hooks/useColorPalette";
 
 export default function Footer() {
-  const colorPalette = useContext(ColorPaletteContext);
+  const colorPalette = useColorPalette();
   const { footerMargin } = {
     footerMargin: 20,
   };

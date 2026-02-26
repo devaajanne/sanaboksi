@@ -1,9 +1,9 @@
-import { useContext, useRef } from "react";
+import { useRef } from "react";
 import type { KeyboardEvent } from "react";
 import { TextInput, Group } from "@mantine/core";
 import type { FixedLetter } from "../../types/Types";
 import { IconCheck, IconX, IconCopyOff } from "@tabler/icons-react";
-import { ColorPaletteContext } from "../context/ColorPaletteContext";
+import { useColorPalette } from "../../hooks/useColorPalette";
 
 /**
  * Props for the SanaboksiGameRow component.
@@ -39,7 +39,7 @@ export default function SanaboksiGameRow({
   isCorrect,
   isDuplicate,
 }: SanaboksiGameRowProps) {
-  const colorPalette = useContext(ColorPaletteContext);
+  const colorPalette = useColorPalette();
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const { iconSize, iconStrokeWidth, iconMargin } = {
     iconSize: "clamp(25px, 12vw, 35px)",
