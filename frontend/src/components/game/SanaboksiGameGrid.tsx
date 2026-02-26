@@ -244,6 +244,7 @@ export default function SanaboksiGameGrid() {
           <Button
             onClick={() => fetchFixedLetters("fi", 5, 5)}
             loading={isLoading}
+            loaderProps={{ type: "dots" }}
             size="lg"
             color={colorPalette[0]}
             styles={{
@@ -263,6 +264,7 @@ export default function SanaboksiGameGrid() {
           <Button
             onClick={handleGameGridValidation}
             loading={isLoading}
+            loaderProps={{ type: "dots" }}
             size="lg"
             color={colorPalette[0]}
             styles={{

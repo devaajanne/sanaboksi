@@ -12,15 +12,18 @@ import { ColorPaletteContext } from "../context/ColorPaletteContext";
 export default function Header() {
   const colorPalette = useContext(ColorPaletteContext);
   const { toggleColorScheme } = useMantineColorScheme();
-  const { marginTop, headerGutter, iconSize, iconStrokeWidth } = {
-    marginTop: 20,
+  const { headerMargin, headerGutter, iconSize, iconStrokeWidth } = {
+    headerMargin: 20,
     headerGutter: "clamp(20px, 12vw, 200px)",
     iconSize: "clamp(20px, 6vw, 35px)",
     iconStrokeWidth: 2,
   };
 
   return (
-    <Container fluid style={{ marginTop: marginTop }}>
+    <Container
+      fluid
+      style={{ marginTop: headerMargin, marginBottom: headerMargin }}
+    >
       <Grid align="center" gutter={headerGutter}>
         <Grid.Col
           span={4}
