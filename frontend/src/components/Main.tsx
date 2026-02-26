@@ -10,6 +10,10 @@ export default function Main() {
   const theme = useMemo(
     () =>
       createTheme({
+        fontFamily: "Arvo",
+        headings: {
+          fontFamily: "Arvo",
+        },
         colors: {
           darkModePalette: darkModePalette as MantineColorsTuple,
           lightModePalette: lightModePalette as MantineColorsTuple,
