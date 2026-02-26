@@ -6,21 +6,23 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 import { IconSunMoon, IconInfoCircle } from "@tabler/icons-react";
-import { useContext } from "react";
-import { ColorPaletteContext } from "../context/ColorPaletteContext";
+import { useColorPalette } from "../../hooks/useColorPalette";
 
 export default function Header() {
-  const colorPalette = useContext(ColorPaletteContext);
+  const colorPalette = useColorPalette();
   const { toggleColorScheme } = useMantineColorScheme();
-  const { marginTop, headerGutter, iconSize, iconStrokeWidth } = {
-    marginTop: 20,
+  const { headerMargin, headerGutter, iconSize, iconStrokeWidth } = {
+    headerMargin: 20,
     headerGutter: "clamp(20px, 12vw, 200px)",
     iconSize: "clamp(20px, 6vw, 35px)",
     iconStrokeWidth: 2,
   };
 
   return (
-    <Container fluid style={{ marginTop: marginTop }}>
+    <Container
+      fluid
+      style={{ marginTop: headerMargin, marginBottom: headerMargin }}
+    >
       <Grid align="center" gutter={headerGutter}>
         <Grid.Col
           span={4}

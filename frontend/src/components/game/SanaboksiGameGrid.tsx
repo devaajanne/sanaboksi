@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import {
   type FixedLetters,
   type GameGrid,
@@ -15,7 +15,7 @@ import {
 import { Button, Container, Space, Stack } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import NotificationModal from "../modals/NotificationModal";
-import { ColorPaletteContext } from "../context/ColorPaletteContext";
+import { useColorPalette } from "../../hooks/useColorPalette";
 
 /**
  * Main component for rendering and managing the Sanaboksi game grid.
@@ -23,7 +23,7 @@ import { ColorPaletteContext } from "../context/ColorPaletteContext";
  * @returns The rendered game grid and controls.
  */
 export default function SanaboksiGameGrid() {
-  const colorPalette = useContext(ColorPaletteContext);
+  const colorPalette = useColorPalette();
   // Store the fixed letters configuration for each row (which index has which fixed letter)
   const [fixedLetters, setFixedLetters] = useState<FixedLetters>([]);
   // Store the actual game grid data (2D array of characters with dynamic dimensions)
@@ -188,15 +188,6 @@ export default function SanaboksiGameGrid() {
     initialFetch();
   }, []);
 
-  // Console.logs for dev, remove when deployed to production
-  useEffect(() => {
-    console.log("gameGrid:", gameGrid);
-  }, [gameGrid]);
-
-  useEffect(() => {
-    console.log("validationResults:", validationResults);
-  }, [validationResults]);
-
   return (
     <>
       <Container strategy="grid">
@@ -244,6 +235,7 @@ export default function SanaboksiGameGrid() {
           <Button
             onClick={() => fetchFixedLetters("fi", 5, 5)}
             loading={isLoading}
+            loaderProps={{ type: "dots" }}
             size="lg"
             color={colorPalette[0]}
             styles={{
@@ -263,6 +255,7 @@ export default function SanaboksiGameGrid() {
           <Button
             onClick={handleGameGridValidation}
             loading={isLoading}
+            loaderProps={{ type: "dots" }}
             size="lg"
             color={colorPalette[0]}
             styles={{

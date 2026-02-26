@@ -2,11 +2,10 @@ import { Container } from "@mantine/core";
 import Body from "./layout/Body";
 import Footer from "./layout/Footer";
 import Header from "./layout/Header";
-import { useContext } from "react";
-import { ColorPaletteContext } from "./context/ColorPaletteContext";
+import { useColorPalette } from "../hooks/useColorPalette";
 
 function App() {
-  const colorPalette = useContext(ColorPaletteContext);
+  const colorPalette = useColorPalette();
 
   return (
     <Container

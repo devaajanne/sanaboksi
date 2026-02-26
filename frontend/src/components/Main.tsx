@@ -1,8 +1,7 @@
 import { MantineProvider, createTheme } from "@mantine/core";
 import type { MantineColorsTuple } from "@mantine/core";
 import App from "./App";
-import { darkModePalette, lightModePalette } from "../utility/ColorPalettes";
-import { ColorPaletteProvider } from "./context/ColorPaletteContextProvider";
+import { lightModePalette, darkModePalette } from "../utility/ColorPalettes";
 import "@mantine/core/styles.css";
 import { useMemo } from "react";
 import "@fontsource/arvo";
@@ -16,8 +15,8 @@ export default function Main() {
           fontFamily: "Arvo, serif",
         },
         colors: {
-          darkModePalette: darkModePalette as MantineColorsTuple,
           lightModePalette: lightModePalette as MantineColorsTuple,
+          darkModePalette: darkModePalette as MantineColorsTuple,
         },
         primaryColor: "lightModePalette",
       }),
@@ -26,9 +25,7 @@ export default function Main() {
 
   return (
     <MantineProvider theme={theme}>
-      <ColorPaletteProvider>
-        <App />
-      </ColorPaletteProvider>
+      <App />
     </MantineProvider>
   );
 }

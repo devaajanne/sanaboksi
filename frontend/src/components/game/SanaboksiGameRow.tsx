@@ -1,9 +1,9 @@
-import { useContext, useRef } from "react";
+import { useRef } from "react";
 import type { KeyboardEvent } from "react";
 import { TextInput, Group } from "@mantine/core";
 import type { FixedLetter } from "../../types/Types";
 import { IconCheck, IconX, IconCopyOff } from "@tabler/icons-react";
-import { ColorPaletteContext } from "../context/ColorPaletteContext";
+import { useColorPalette } from "../../hooks/useColorPalette";
 
 /**
  * Props for the SanaboksiGameRow component.
@@ -39,11 +39,12 @@ export default function SanaboksiGameRow({
   isCorrect,
   isDuplicate,
 }: SanaboksiGameRowProps) {
-  const colorPalette = useContext(ColorPaletteContext);
+  const colorPalette = useColorPalette();
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const { iconSize, iconStrokeWidth } = {
-    iconSize: "clamp(30px, 12vw, 60px)",
+  const { iconSize, iconStrokeWidth, iconMargin } = {
+    iconSize: "clamp(25px, 12vw, 35px)",
     iconStrokeWidth: 2,
+    iconMargin: 5,
   };
 
   /**
@@ -165,15 +166,22 @@ export default function SanaboksiGameRow({
           color={colorPalette[5]}
           size={iconSize}
           strokeWidth={iconStrokeWidth}
+          style={{ marginLeft: iconMargin }}
         />
       ) : isCorrect !== undefined ? (
         isCorrect ? (
-          <IconCheck color={colorPalette[4]} size={iconSize} strokeWidth={2} />
+          <IconCheck
+            color={colorPalette[4]}
+            size={iconSize}
+            strokeWidth={2}
+            style={{ marginLeft: iconMargin }}
+          />
         ) : (
           <IconX
             color={colorPalette[6]}
             size={iconSize}
             strokeWidth={iconStrokeWidth}
+            style={{ marginLeft: iconMargin }}
           />
         )
       ) : null}
