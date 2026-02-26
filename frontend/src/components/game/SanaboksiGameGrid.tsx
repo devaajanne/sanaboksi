@@ -188,15 +188,6 @@ export default function SanaboksiGameGrid() {
     initialFetch();
   }, []);
 
-  // Console.logs for dev, remove when deployed to production
-  useEffect(() => {
-    console.log("gameGrid:", gameGrid);
-  }, [gameGrid]);
-
-  useEffect(() => {
-    console.log("validationResults:", validationResults);
-  }, [validationResults]);
-
   return (
     <>
       <Container strategy="grid">
