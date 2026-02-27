@@ -176,18 +176,18 @@ jobs:
       - name: Run Playwright tests
         run: |
           cd frontend
-          npx playwright test --debug
+          npx playwright test
 
       - name: Upload end-to-end test report on test failure
         if: ${{ failure() }}
         uses: actions/upload-artifact@v6
         with:
           name: playwright-report
-          path: playwright-report/
+          path: test-results/
 
       - name: Upload end-to-end test report on test cancellation
         if: ${{ cancelled() }}
         uses: actions/upload-artifact@v6
         with:
           name: playwright-report
-          path: playwright-report/
+          path: test-results/
