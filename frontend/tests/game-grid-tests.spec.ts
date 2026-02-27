@@ -49,6 +49,7 @@ test("Player can input letters into the game grid", async ({ page }) => {
     .evaluateAll((inputs) =>
       inputs.map((input) => (input as HTMLInputElement).value),
     );
+
   await expect(letters).toEqual(["V", "E", "H", "N", "Ä"]);
 });
 
@@ -82,6 +83,7 @@ test("Player can validate a game grid when all words are correct", async ({
 
   await page.getByRole("button", { name: "Validate game grid" }).click();
 
+  await page.waitForTimeout(1000);
   await expect(page.getByText("Correct words!")).toBeVisible();
 });
 
@@ -93,6 +95,7 @@ test("Player cannot validate an incomplete game grid", async ({ page }) => {
 
   await page.getByRole("button", { name: "Validate game grid" }).click();
 
+  await page.waitForTimeout(1000);
   await expect(page.getByText("Invalid game grid!")).toBeVisible();
 });
 
@@ -126,6 +129,7 @@ test("Player cannot validate a game grid with duplicate words", async ({
 
   await page.getByRole("button", { name: "Validate game grid" }).click();
 
+  await page.waitForTimeout(1000);
   await expect(page.getByText("Duplicate words!")).toBeVisible();
 });
 
@@ -159,6 +163,7 @@ test("Player cannot validate a game grid with incorrect words", async ({
 
   await page.getByRole("button", { name: "Validate game grid" }).click();
 
+  await page.waitForTimeout(1000);
   await expect(page.getByText("Incorrect words!")).toBeVisible();
 });
 
@@ -192,6 +197,7 @@ test("Player cannot validate a game grid with duplicate and incorrect words", as
 
   await page.getByRole("button", { name: "Validate game grid" }).click();
 
+  await page.waitForTimeout(1000);
   await expect(page.getByText("Duplicate and incorrect words!")).toBeVisible();
 });
 
@@ -225,16 +231,19 @@ test("Player can play another game after validating a correct game grid", async 
 
   await page.getByRole("button", { name: "Validate game grid" }).click();
 
+  await page.waitForTimeout(1000);
   await expect(page.getByText("Correct words!")).toBeVisible();
 
   await page.keyboard.press("Escape");
 
+  await page.waitForTimeout(1000);
   await expect(
     page.getByRole("button", { name: "Play a new game" }),
   ).toBeVisible();
 
   await page.getByRole("button", { name: "Play a new game" }).click();
 
+  await page.waitForTimeout(1000);
   await expect(
     page.getByRole("button", { name: "Validate game grid" }),
   ).toBeVisible();
