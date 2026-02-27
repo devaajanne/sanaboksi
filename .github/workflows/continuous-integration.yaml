@@ -164,22 +164,29 @@ jobs:
           chmod +x ./gradlew
           ./gradlew bootRun &
           cd ..
-          until curl --output /dev/null --silent --head --fail http://localhost:8080/actuator/health; do echo "Waiting for backend start..."; sleep 5; done
+          until curl --output /dev/null --silent --head --fail http://localhost:8080/actuator/health; do sleep 5; done
       
       - name: Start frontend server
         run: |
           cd frontend
           npm run dev &
           cd ..
-          until curl --output /dev/null --silent --head --fail http://localhost:5173; do echo "Waiting for frontend start..."; sleep 5; done
+          until curl --output /dev/null --silent --head --fail http://localhost:5173; do sleep 5; done
 
       - name: Run Playwright tests
         run: |
           cd frontend
-          npx playwright test
+          npx playwright test --debug
 
       - name: Upload end-to-end test report on test failure
         if: ${{ failure() }}
+        uses: actions/upload-artifact@v6
+        with:
+          name: playwright-report
+          path: playwright-report/
+
+      - name: Upload end-to-end test report on test cancellation
+        if: ${{ cancelled() }}
         uses: actions/upload-artifact@v6
         with:
           name: playwright-report
