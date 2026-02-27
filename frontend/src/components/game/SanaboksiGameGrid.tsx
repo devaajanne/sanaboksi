@@ -190,13 +190,14 @@ export default function SanaboksiGameGrid() {
 
   return (
     <>
-      <Container strategy="grid">
+      <Container strategy="grid" aria-label="Sanaboksi game grid">
         <Stack gap={9}>
           {fixedLetters.length === 0
             ? // Render empty game grid rows
               Array.from({ length: wordLength }).map((_, index) => (
                 <SanaboksiGameRow
                   key={index}
+                  rowIndex={index}
                   isPlaceholder={true}
                   rowLength={wordLength}
                 />
@@ -206,6 +207,7 @@ export default function SanaboksiGameGrid() {
                 <SanaboksiGameRow
                   key={rowIndex}
                   fixedLetter={fixedLetter}
+                  rowIndex={rowIndex}
                   rowData={gameGrid[rowIndex]}
                   rowLength={wordLength}
                   onFieldChange={(columnIndex, value) =>
@@ -233,6 +235,7 @@ export default function SanaboksiGameGrid() {
       <Container strategy="grid">
         {isValidGameGrid && isCorrectGameGrid ? (
           <Button
+            aria-label="Play a new game"
             onClick={() => fetchFixedLetters("fi", 5, 5)}
             loading={isLoading}
             loaderProps={{ type: "dots" }}
@@ -253,6 +256,7 @@ export default function SanaboksiGameGrid() {
           </Button>
         ) : (
           <Button
+            aria-label="Validate game grid button"
             onClick={handleGameGridValidation}
             loading={isLoading}
             loaderProps={{ type: "dots" }}
