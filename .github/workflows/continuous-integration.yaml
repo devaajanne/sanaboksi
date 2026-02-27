@@ -118,3 +118,69 @@ jobs:
         with:
           name: integration-test-report
           path: backend/build/reports/tests/integrationTest/
+
+  run-end-to-end-tests:
+    name: End-to-end tests
+    runs-on: ubuntu-latest
+    needs: [run-backend-integration-tests]
+    services:
+      postgres:
+        image: postgres:18.1
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: ${{ vars.DATABASE_NAME }}
+          POSTGRES_USER: ${{ secrets.DATABASE_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up backend workflow environment
+        uses: ./.github/actions/setup-backend-workflow-environment
+
+      - name: Set up frontend workflow environment
+        uses: ./.github/actions/setup-frontend-workflow-environment
+
+      - name: Start backend sever
+        env:
+          SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
+          SPRING_DATASOURCE_USERNAME: ${{ secrets.DATABASE_USER }}
+          SPRING_DATASOURCE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          CORS_ALLOWED_ORIGIN: ${{ secrets.CORS_ALLOWED_ORIGIN }}
+        run: |
+          cd backend
+          chmod +x ./gradlew
+          ./gradlew bootRun &
+          cd ..
+          npx wait-on http://localhost:8080
+      
+      - name: Install Playwright Browsers
+        run: |
+          cd frontend
+          npx playwright install --with-deps
+
+      - name: Start frontend server
+        run: |
+          cd frontend
+          npm run dev &
+          cd ..
+          npx wait-on http://localhost:5173
+
+      - name: Run Playwright tests
+        run: |
+          cd frontend
+          npx playwright test
+
+      - name: Upload end-to-end test report on test failure
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v6
+        with:
+          name: playwright-report
+          path: playwright-report/
