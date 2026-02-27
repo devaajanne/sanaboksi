@@ -235,7 +235,6 @@ export default function SanaboksiGameGrid() {
       <Container strategy="grid">
         {isValidGameGrid && isCorrectGameGrid ? (
           <Button
-            aria-label="Play a new game"
             onClick={() => fetchFixedLetters("fi", 5, 5)}
             loading={isLoading}
             loaderProps={{ type: "dots" }}
@@ -256,7 +255,6 @@ export default function SanaboksiGameGrid() {
           </Button>
         ) : (
           <Button
-            aria-label="Validate game grid button"
             onClick={handleGameGridValidation}
             loading={isLoading}
             loaderProps={{ type: "dots" }}

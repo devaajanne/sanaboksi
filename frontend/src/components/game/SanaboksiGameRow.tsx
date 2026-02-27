@@ -9,6 +9,7 @@ import { useColorPalette } from "../../hooks/useColorPalette";
  * Props for the SanaboksiGameRow component.
  * @property fixedLetter The fixed letter and its index for this row, if any.
  * @property rowData The data for this row (array of letters).
+ * @property rowIndex The zero-based index of this row in the game grid.
  * @property isPlaceholder Whether this row is a placeholder (not interactive).
  * @property rowLength The number of columns in the row.
  * @property onFieldChange Callback for when a field value changes.

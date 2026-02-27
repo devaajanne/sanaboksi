@@ -11,9 +11,9 @@ test("Toggles light/dark mode when dark/light mode icon is clicked", async ({
     .locator("html")
     .getAttribute("data-mantine-color-scheme");
 
-  const lightDarkModeToggleButton = page.locator(
-    '[aria-label="Button to toggle light and dark mode"]',
-  );
+  const lightDarkModeToggleButton = page.getByRole("button", {
+    name: "Toggle light/dark mode",
+  });
 
   await lightDarkModeToggleButton.waitFor();
   await lightDarkModeToggleButton.click();

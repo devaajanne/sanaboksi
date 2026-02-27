@@ -52,7 +52,7 @@ export default function Header() {
           style={{ display: "flex", justifyContent: "flex-end" }}
         >
           <ActionIcon
-            aria-label="Button to toggle light and dark mode"
+            aria-label="Toggle light/dark mode"
             variant="subtle"
             size={iconSize}
             onClick={() => toggleColorScheme()}

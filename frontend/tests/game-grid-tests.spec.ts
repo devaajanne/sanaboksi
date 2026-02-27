@@ -52,7 +52,9 @@ test("Player can input letters into the game grid", async ({ page }) => {
   await expect(letters).toEqual(["V", "E", "H", "N", "Ä"]);
 });
 
-test("Player can validate a game grid all correct words", async ({ page }) => {
+test("Player can validate a game grid when all words are correct", async ({
+  page,
+}) => {
   await page.getByRole("textbox", { name: "Word 1, letter 2" }).fill("E");
   await page.getByRole("textbox", { name: "Word 1, letter 3" }).fill("H");
   await page.getByRole("textbox", { name: "Word 1, letter 4" }).fill("N");
@@ -78,7 +80,7 @@ test("Player can validate a game grid all correct words", async ({ page }) => {
   await page.getByRole("textbox", { name: "Word 5, letter 3" }).fill("R");
   await page.getByRole("textbox", { name: "Word 5, letter 4" }).fill("M");
 
-  await page.getByRole("button", { name: "Validate game grid button" }).click();
+  await page.getByRole("button", { name: "Validate game grid" }).click();
 
   await expect(page.getByText("Correct words!")).toBeVisible();
 });
@@ -89,7 +91,7 @@ test("Player cannot validate an incomplete game grid", async ({ page }) => {
   await page.getByRole("textbox", { name: "Word 1, letter 4" }).fill("N");
   await page.getByRole("textbox", { name: "Word 1, letter 5" }).fill("Ä");
 
-  await page.getByRole("button", { name: "Validate game grid button" }).click();
+  await page.getByRole("button", { name: "Validate game grid" }).click();
 
   await expect(page.getByText("Invalid game grid!")).toBeVisible();
 });
@@ -122,7 +124,7 @@ test("Player cannot validate a game grid with duplicate words", async ({
   await page.getByRole("textbox", { name: "Word 5, letter 3" }).fill("O");
   await page.getByRole("textbox", { name: "Word 5, letter 4" }).fill("L");
 
-  await page.getByRole("button", { name: "Validate game grid button" }).click();
+  await page.getByRole("button", { name: "Validate game grid" }).click();
 
   await expect(page.getByText("Duplicate words!")).toBeVisible();
 });
@@ -155,7 +157,7 @@ test("Player cannot validate a game grid with incorrect words", async ({
   await page.getByRole("textbox", { name: "Word 5, letter 3" }).fill("A");
   await page.getByRole("textbox", { name: "Word 5, letter 4" }).fill("A");
 
-  await page.getByRole("button", { name: "Validate game grid button" }).click();
+  await page.getByRole("button", { name: "Validate game grid" }).click();
 
   await expect(page.getByText("Incorrect words!")).toBeVisible();
 });
@@ -188,7 +190,7 @@ test("Player cannot validate a game grid with duplicate and incorrect words", as
   await page.getByRole("textbox", { name: "Word 5, letter 3" }).fill("O");
   await page.getByRole("textbox", { name: "Word 5, letter 4" }).fill("L");
 
-  await page.getByRole("button", { name: "Validate game grid button" }).click();
+  await page.getByRole("button", { name: "Validate game grid" }).click();
 
   await expect(page.getByText("Duplicate and incorrect words!")).toBeVisible();
 });
@@ -221,7 +223,7 @@ test("Player can play another game after validating a correct game grid", async 
   await page.getByRole("textbox", { name: "Word 5, letter 3" }).fill("R");
   await page.getByRole("textbox", { name: "Word 5, letter 4" }).fill("M");
 
-  await page.getByRole("button", { name: "Validate game grid button" }).click();
+  await page.getByRole("button", { name: "Validate game grid" }).click();
 
   await expect(page.getByText("Correct words!")).toBeVisible();
 
@@ -234,7 +236,7 @@ test("Player can play another game after validating a correct game grid", async 
   await page.getByRole("button", { name: "Play a new game" }).click();
 
   await expect(
-    page.getByRole("button", { name: "Validate game grid button" }),
+    page.getByRole("button", { name: "Validate game grid" }),
   ).toBeVisible();
 
   const letters = await page
