@@ -159,7 +159,7 @@ jobs:
           chmod +x ./gradlew
           ./gradlew bootRun &
           cd ..
-          npx wait-on http://localhost:8080
+          until curl --output /dev/null --silent --head --fail http://localhost:8080; do echo "Waiting for backend start..." sleep 2; done
       
       - name: Install Playwright Browsers
         run: |
@@ -171,7 +171,7 @@ jobs:
           cd frontend
           npm run dev &
           cd ..
-          npx wait-on http://localhost:5173
+          until curl --output /dev/null --silent --head --fail http://localhost:5173; do echo "Waiting for frontend start..." sleep 2; done
 
       - name: Run Playwright tests
         run: |
