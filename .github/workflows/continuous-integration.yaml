@@ -148,6 +148,11 @@ jobs:
       - name: Set up frontend workflow environment
         uses: ./.github/actions/setup-frontend-workflow-environment
 
+      - name: Install Playwright Browsers
+        run: |
+          cd frontend
+          npx playwright install --with-deps
+
       - name: Start backend sever
         env:
           SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
@@ -159,19 +164,14 @@ jobs:
           chmod +x ./gradlew
           ./gradlew bootRun &
           cd ..
-          until curl --output /dev/null --silent --head --fail http://localhost:8080; do echo "Waiting for backend start..."; sleep 2; done
+          until curl --output /dev/null --silent --head --fail http://localhost:8080/actuator/health; do echo "Waiting for backend start..."; sleep 5; done
       
-      - name: Install Playwright Browsers
-        run: |
-          cd frontend
-          npx playwright install --with-deps
-
       - name: Start frontend server
         run: |
           cd frontend
           npm run dev &
           cd ..
-          until curl --output /dev/null --silent --head --fail http://localhost:5173; do echo "Waiting for frontend start..."; sleep 2; done
+          until curl --output /dev/null --silent --head --fail http://localhost:5173; do echo "Waiting for frontend start..."; sleep 5; done
 
       - name: Run Playwright tests
         run: |
