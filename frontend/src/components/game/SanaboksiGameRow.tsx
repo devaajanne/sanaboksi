@@ -9,6 +9,7 @@ import { useColorPalette } from "../../hooks/useColorPalette";
  * Props for the SanaboksiGameRow component.
  * @property fixedLetter The fixed letter and its index for this row, if any.
  * @property rowData The data for this row (array of letters).
+ * @property rowIndex The zero-based index of this row in the game grid.
  * @property isPlaceholder Whether this row is a placeholder (not interactive).
  * @property rowLength The number of columns in the row.
  * @property onFieldChange Callback for when a field value changes.
@@ -18,6 +19,7 @@ import { useColorPalette } from "../../hooks/useColorPalette";
 interface SanaboksiGameRowProps {
   fixedLetter?: FixedLetter;
   rowData?: string[];
+  rowIndex: number;
   isPlaceholder?: boolean;
   rowLength: number;
   onFieldChange?: (columnIndex: number, value: string) => void;
@@ -33,6 +35,7 @@ interface SanaboksiGameRowProps {
 export default function SanaboksiGameRow({
   fixedLetter,
   rowData = [],
+  rowIndex,
   isPlaceholder = false,
   rowLength,
   onFieldChange,
@@ -106,7 +109,7 @@ export default function SanaboksiGameRow({
   };
 
   return (
-    <Group gap={3} align="center">
+    <Group gap={3} align="center" aria-label={`Word ${rowIndex + 1}`}>
       {Array.from({ length: rowLength }).map((_, columnIndex) => {
         const isFixedLetter =
           fixedLetter && columnIndex === fixedLetter.fixedIndex;
@@ -122,6 +125,7 @@ export default function SanaboksiGameRow({
 
         return (
           <TextInput
+            aria-label={`Word ${rowIndex + 1}, letter ${columnIndex + 1}`}
             key={columnIndex}
             value={cellValue}
             readOnly={
@@ -163,6 +167,7 @@ export default function SanaboksiGameRow({
 
       {isDuplicate === true ? (
         <IconCopyOff
+          aria-label="Duplicate word icon"
           color={colorPalette[5]}
           size={iconSize}
           strokeWidth={iconStrokeWidth}
@@ -171,6 +176,7 @@ export default function SanaboksiGameRow({
       ) : isCorrect !== undefined ? (
         isCorrect ? (
           <IconCheck
+            aria-label="Correct word icon"
             color={colorPalette[4]}
             size={iconSize}
             strokeWidth={2}
@@ -178,6 +184,7 @@ export default function SanaboksiGameRow({
           />
         ) : (
           <IconX
+            aria-label="Incorrect word icon"
             color={colorPalette[6]}
             size={iconSize}
             strokeWidth={iconStrokeWidth}
