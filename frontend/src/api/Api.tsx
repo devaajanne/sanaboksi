@@ -4,6 +4,7 @@ import type {
   GameGrid,
   ValidationResults,
 } from "../types/Types";
+import { addWaitTime } from "../utility/UtilityFunctions";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
@@ -13,6 +14,7 @@ const getFixedLetters = async (
   wordCount: number,
 ): Promise<FixedLetterResponse | undefined> => {
   const languageEnum = language.toUpperCase();
+  await addWaitTime(750);
 
   try {
     const response = await axios.get(
@@ -31,6 +33,8 @@ const validateGameGrid = async (
   language: string,
 ): Promise<ValidationResults | undefined> => {
   const languageEnum = language.toUpperCase();
+  await addWaitTime(750);
+
   try {
     const response = await axios.post(
       `${SERVER_URL}/api/validation/${languageEnum}`,

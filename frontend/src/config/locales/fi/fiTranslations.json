@@ -1,4 +1,7 @@
 {
+  "Actions": {
+    "Close": "Sulje"
+  },
   "GameGridButton": {
     "NewGame": "Uusi peli",
     "ValidateWords": "Tarkista sanat"

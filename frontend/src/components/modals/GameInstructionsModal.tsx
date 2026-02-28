@@ -40,10 +40,10 @@ export function GameInstructionsModal({
       size="lg"
       title={t("GameInstructionModal.HowToPlaySanaboksi")}
       styles={{
-        header: { backgroundColor: colorPalette[0], color: colorPalette[2] },
+        header: { backgroundColor: colorPalette[0], color: colorPalette[1] },
         body: {
           backgroundColor: colorPalette[0],
-          color: colorPalette[2],
+          color: colorPalette[1],
         },
         title: { fontSize: 24 },
       }}
@@ -124,7 +124,7 @@ export function GameInstructionsModal({
         )}
       </Text>
 
-      <Divider color={colorPalette[2]} />
+      <Divider color={colorPalette[1]} />
 
       <Text styles={{ root: { marginTop: textMarginTop } }}>
         {t("GameInstructionModal.BeMindfulOfTheseIconsAndColors")}:
@@ -138,7 +138,7 @@ export function GameInstructionsModal({
         >
           <IconCheck
             aria-label={t("AriaLabel.CorrectWordIcon")}
-            color={colorPalette[4]}
+            color={colorPalette[3]}
             size={iconSize}
             strokeWidth={2}
           />
@@ -151,7 +151,7 @@ export function GameInstructionsModal({
         >
           <IconX
             aria-label={t("AriaLabel.IncorrectWordIcon")}
-            color={colorPalette[6]}
+            color={colorPalette[4]}
             size={iconSize}
             strokeWidth={iconStrokeWidth}
           />
@@ -173,7 +173,7 @@ export function GameInstructionsModal({
           <Text>{t("GameInstructionModal.TheWordIsADuplicate")}</Text>
         </Group>
       </Stack>
-      <Divider color={colorPalette[2]} />
+      <Divider color={colorPalette[1]} />
       <Text styles={{ root: { marginTop: textMarginTop + 5 } }}>
         {t("GameInstructionModal.HaveFunWithSanaboksi")}
       </Text>

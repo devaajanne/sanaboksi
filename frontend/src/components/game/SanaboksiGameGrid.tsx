@@ -244,11 +244,11 @@ export default function SanaboksiGameGrid() {
             color={colorPalette[0]}
             styles={{
               label: {
-                color: colorPalette[2],
+                color: colorPalette[1],
               },
               root: {
                 backgroundColor: colorPalette[0],
-                borderColor: colorPalette[3],
+                borderColor: colorPalette[1],
                 borderWidth: 3,
               },
             }}
@@ -264,11 +264,11 @@ export default function SanaboksiGameGrid() {
             color={colorPalette[0]}
             styles={{
               label: {
-                color: colorPalette[2],
+                color: colorPalette[1],
               },
               root: {
                 backgroundColor: colorPalette[0],
-                borderColor: colorPalette[3],
+                borderColor: colorPalette[1],
                 borderWidth: 3,
               },
             }}
