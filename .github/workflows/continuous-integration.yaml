@@ -142,8 +142,8 @@ jobs:
           DATABASE_NAME: ${{ vars.DATABASE_NAME }}
           DATABASE_USER: ${{ secrets.DATABASE_USER }}
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
-          CORS_ALLOWED_ORIGIN: ${{ secrets.CORS_ALLOWED_ORIGIN }}
+          SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL_CI }}
+          CORS_ALLOWED_ORIGIN: http://frontend:80
           VITE_SERVER_URL: http://backend:8080
     
       - name: Show database logs on failure
@@ -162,7 +162,7 @@ jobs:
         run: |
           until curl --output /dev/null --silent --head --fail http://localhost:5173; do sleep 5; done
 
-      - name: Run Playwright tests
+      - name: Run end-to-end tests
         run: |
           cd frontend
           npx playwright test
