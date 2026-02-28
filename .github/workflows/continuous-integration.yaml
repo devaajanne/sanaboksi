@@ -143,7 +143,7 @@ jobs:
           DATABASE_USER: ${{ secrets.DATABASE_USER }}
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL_CI }}
-          CORS_ALLOWED_ORIGIN: http://frontend:80
+          CORS_ALLOWED_ORIGIN: http://localhost:5173
           VITE_SERVER_URL: http://backend:8080
     
       - name: Show database logs on failure
