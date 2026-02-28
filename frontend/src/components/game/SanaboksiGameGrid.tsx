@@ -192,7 +192,7 @@ export default function SanaboksiGameGrid() {
 
   return (
     <>
-      <Container strategy="grid" aria-label="Sanaboksi game grid">
+      <Container strategy="grid" aria-label={t("AriaLabel.SanaBoksiGameGrid")}>
         <Stack gap={9}>
           {fixedLetters.length === 0
             ? // Render empty game grid rows

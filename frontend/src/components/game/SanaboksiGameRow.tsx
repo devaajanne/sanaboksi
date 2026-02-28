@@ -4,6 +4,7 @@ import { TextInput, Group } from "@mantine/core";
 import type { FixedLetter } from "../../types/Types";
 import { IconCheck, IconX, IconCopy } from "@tabler/icons-react";
 import { useColorPalette } from "../../hooks/useColorPalette";
+import { useTranslation } from "react-i18next";
 
 /**
  * Props for the SanaboksiGameRow component.
@@ -46,6 +47,7 @@ export default function SanaboksiGameRow({
   isReadOnly,
 }: SanaboksiGameRowProps) {
   const colorPalette = useColorPalette();
+  const { t } = useTranslation();
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const { iconSize, iconStrokeWidth, iconMargin } = {
     iconSize: "clamp(25px, 12vw, 35px)",
@@ -112,7 +114,11 @@ export default function SanaboksiGameRow({
   };
 
   return (
-    <Group gap={3} align="center" aria-label={`Word ${rowIndex + 1}`}>
+    <Group
+      gap={3}
+      align="center"
+      aria-label={`${t("AriaLabel.Word")} ${rowIndex + 1}`}
+    >
       {Array.from({ length: rowLength }).map((_, columnIndex) => {
         const isFixedLetter =
           fixedLetter && columnIndex === fixedLetter.fixedIndex;
@@ -128,7 +134,7 @@ export default function SanaboksiGameRow({
 
         return (
           <TextInput
-            aria-label={`Word ${rowIndex + 1}, letter ${columnIndex + 1}`}
+            aria-label={`${t("AriaLabel.Word")} ${rowIndex + 1}, ${t("AriaLabel.Letter")} ${columnIndex + 1}`}
             key={columnIndex}
             value={cellValue}
             readOnly={
@@ -173,7 +179,7 @@ export default function SanaboksiGameRow({
 
       {isDuplicate === true ? (
         <IconCopy
-          aria-label="Duplicate word icon"
+          aria-label={t("AriaLabel.DuplicateWordIcon")}
           color={colorPalette[5]}
           size={iconSize}
           strokeWidth={iconStrokeWidth}
@@ -182,7 +188,7 @@ export default function SanaboksiGameRow({
       ) : isCorrect !== undefined ? (
         isCorrect ? (
           <IconCheck
-            aria-label="Correct word icon"
+            aria-label={t("AriaLabel.CorrectWordIcon")}
             color={colorPalette[4]}
             size={iconSize}
             strokeWidth={2}
@@ -190,7 +196,7 @@ export default function SanaboksiGameRow({
           />
         ) : (
           <IconX
-            aria-label="Incorrect word icon"
+            aria-label={t("AriaLabel.IncorrectWordIcon")}
             color={colorPalette[6]}
             size={iconSize}
             strokeWidth={iconStrokeWidth}

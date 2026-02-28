@@ -11,7 +11,7 @@ test("Toggles light/dark mode when dark/light mode icon is clicked", async ({
     .locator("html")
     .getAttribute("data-mantine-color-scheme");
 
-  await page.getByRole("button", { name: "Toggle light/dark mode" }).click();
+  await page.getByRole("button", { name: "Vaihda vaalea/tumma tila" }).click();
 
   const newMode = await page
     .locator("html")
