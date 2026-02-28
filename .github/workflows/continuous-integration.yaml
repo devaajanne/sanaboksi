@@ -56,7 +56,6 @@ jobs:
   run-backend-unit-tests:
     name: BE unit tests
     runs-on: ubuntu-latest
-    needs: [run-end-to-end-tests]
 
     steps:
       - name: Checkout code
@@ -123,6 +122,7 @@ jobs:
   run-end-to-end-tests:
     name: End-to-end tests
     runs-on: ubuntu-latest
+    needs: [run-backend-integration-tests]
 
     steps:
       - name: Checkout code
@@ -166,14 +166,6 @@ jobs:
         run: |
           cd frontend
           npx playwright test
-
-      - name: Show backend logs after tests
-        if: ${{ always() }}
-        run: docker logs sanaboksi_backend
-
-      - name: Show frontend logs after tests
-        if: ${{ always() }}
-        run: docker logs sanaboksi_frontend
 
       - name: Upload Playwright report on test failure
         if: ${{ failure() }}
