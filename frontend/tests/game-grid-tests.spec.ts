@@ -22,30 +22,30 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("Game grid loads fixed letters on page load", async ({ page }) => {
-  const word1Letter = page.getByRole("textbox", { name: "Word 1, letter 1" });
+  const word1Letter = page.getByRole("textbox", { name: "Sana 1, Kirjain 1" });
   await expect(word1Letter).toHaveValue("V");
 
-  const word2Letter = page.getByRole("textbox", { name: "Word 2, letter 2" });
+  const word2Letter = page.getByRole("textbox", { name: "Sana 2, Kirjain 2" });
   await expect(word2Letter).toHaveValue("U");
 
-  const word3Letter = page.getByRole("textbox", { name: "Word 3, letter 3" });
+  const word3Letter = page.getByRole("textbox", { name: "Sana 3, Kirjain 3" });
   await expect(word3Letter).toHaveValue("I");
 
-  const word4Letter = page.getByRole("textbox", { name: "Word 4, letter 4" });
+  const word4Letter = page.getByRole("textbox", { name: "Sana 4, Kirjain 4" });
   await expect(word4Letter).toHaveValue("V");
 
-  const word5Letter = page.getByRole("textbox", { name: "Word 5, letter 5" });
+  const word5Letter = page.getByRole("textbox", { name: "Sana 5, Kirjain 5" });
   await expect(word5Letter).toHaveValue("A");
 });
 
 test("Player can input letters into the game grid", async ({ page }) => {
-  await page.getByRole("textbox", { name: "Word 1, letter 2" }).fill("E");
-  await page.getByRole("textbox", { name: "Word 1, letter 3" }).fill("H");
-  await page.getByRole("textbox", { name: "Word 1, letter 4" }).fill("N");
-  await page.getByRole("textbox", { name: "Word 1, letter 5" }).fill("Ä");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 3" }).fill("H");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 4" }).fill("N");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 5" }).fill("Ä");
 
   const letters = await page
-    .getByRole("textbox", { name: "Word 1" })
+    .getByRole("textbox", { name: "Sana 1" })
     .evaluateAll((inputs) =>
       inputs.map((input) => (input as HTMLInputElement).value),
     );
@@ -56,30 +56,30 @@ test("Player can input letters into the game grid", async ({ page }) => {
 test("Player can validate a game grid when all words are correct", async ({
   page,
 }) => {
-  await page.getByRole("textbox", { name: "Word 1, letter 2" }).fill("E");
-  await page.getByRole("textbox", { name: "Word 1, letter 3" }).fill("H");
-  await page.getByRole("textbox", { name: "Word 1, letter 4" }).fill("N");
-  await page.getByRole("textbox", { name: "Word 1, letter 5" }).fill("Ä");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 3" }).fill("H");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 4" }).fill("N");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 5" }).fill("Ä");
 
-  await page.getByRole("textbox", { name: "Word 2, letter 1" }).fill("S");
-  await page.getByRole("textbox", { name: "Word 2, letter 3" }).fill("O");
-  await page.getByRole("textbox", { name: "Word 2, letter 4" }).fill("L");
-  await page.getByRole("textbox", { name: "Word 2, letter 5" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 1" }).fill("S");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 3" }).fill("O");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 4" }).fill("L");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 5" }).fill("A");
 
-  await page.getByRole("textbox", { name: "Word 3, letter 1" }).fill("M");
-  await page.getByRole("textbox", { name: "Word 3, letter 2" }).fill("A");
-  await page.getByRole("textbox", { name: "Word 3, letter 4" }).fill("T");
-  await page.getByRole("textbox", { name: "Word 3, letter 5" }).fill("O");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 1" }).fill("M");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 2" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 4" }).fill("T");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 5" }).fill("O");
 
-  await page.getByRole("textbox", { name: "Word 4, letter 1" }).fill("K");
-  await page.getByRole("textbox", { name: "Word 4, letter 2" }).fill("A");
-  await page.getByRole("textbox", { name: "Word 4, letter 3" }).fill("H");
-  await page.getByRole("textbox", { name: "Word 4, letter 5" }).fill("I");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 1" }).fill("K");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 2" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 3" }).fill("H");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 5" }).fill("I");
 
-  await page.getByRole("textbox", { name: "Word 5, letter 1" }).fill("K");
-  await page.getByRole("textbox", { name: "Word 5, letter 2" }).fill("E");
-  await page.getByRole("textbox", { name: "Word 5, letter 3" }).fill("R");
-  await page.getByRole("textbox", { name: "Word 5, letter 4" }).fill("M");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 1" }).fill("K");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 2" }).fill("E");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 3" }).fill("R");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 4" }).fill("M");
 
   await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
@@ -91,10 +91,10 @@ test("Player can validate a game grid when all words are correct", async ({
 });
 
 test("Player cannot validate an incomplete game grid", async ({ page }) => {
-  await page.getByRole("textbox", { name: "Word 1, letter 2" }).fill("E");
-  await page.getByRole("textbox", { name: "Word 1, letter 3" }).fill("H");
-  await page.getByRole("textbox", { name: "Word 1, letter 4" }).fill("N");
-  await page.getByRole("textbox", { name: "Word 1, letter 5" }).fill("Ä");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 3" }).fill("H");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 4" }).fill("N");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 5" }).fill("Ä");
 
   await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
@@ -106,30 +106,30 @@ test("Player cannot validate an incomplete game grid", async ({ page }) => {
 test("Player cannot validate a game grid with duplicate words", async ({
   page,
 }) => {
-  await page.getByRole("textbox", { name: "Word 1, letter 2" }).fill("E");
-  await page.getByRole("textbox", { name: "Word 1, letter 3" }).fill("H");
-  await page.getByRole("textbox", { name: "Word 1, letter 4" }).fill("N");
-  await page.getByRole("textbox", { name: "Word 1, letter 5" }).fill("Ä");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 3" }).fill("H");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 4" }).fill("N");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 5" }).fill("Ä");
 
-  await page.getByRole("textbox", { name: "Word 2, letter 1" }).fill("S");
-  await page.getByRole("textbox", { name: "Word 2, letter 3" }).fill("O");
-  await page.getByRole("textbox", { name: "Word 2, letter 4" }).fill("L");
-  await page.getByRole("textbox", { name: "Word 2, letter 5" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 1" }).fill("S");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 3" }).fill("O");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 4" }).fill("L");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 5" }).fill("A");
 
-  await page.getByRole("textbox", { name: "Word 3, letter 1" }).fill("M");
-  await page.getByRole("textbox", { name: "Word 3, letter 2" }).fill("A");
-  await page.getByRole("textbox", { name: "Word 3, letter 4" }).fill("T");
-  await page.getByRole("textbox", { name: "Word 3, letter 5" }).fill("O");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 1" }).fill("M");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 2" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 4" }).fill("T");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 5" }).fill("O");
 
-  await page.getByRole("textbox", { name: "Word 4, letter 1" }).fill("K");
-  await page.getByRole("textbox", { name: "Word 4, letter 2" }).fill("A");
-  await page.getByRole("textbox", { name: "Word 4, letter 3" }).fill("H");
-  await page.getByRole("textbox", { name: "Word 4, letter 5" }).fill("I");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 1" }).fill("K");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 2" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 3" }).fill("H");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 5" }).fill("I");
 
-  await page.getByRole("textbox", { name: "Word 5, letter 1" }).fill("S");
-  await page.getByRole("textbox", { name: "Word 5, letter 2" }).fill("U");
-  await page.getByRole("textbox", { name: "Word 5, letter 3" }).fill("O");
-  await page.getByRole("textbox", { name: "Word 5, letter 4" }).fill("L");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 1" }).fill("S");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 2" }).fill("U");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 3" }).fill("O");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 4" }).fill("L");
 
   await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
@@ -141,30 +141,30 @@ test("Player cannot validate a game grid with duplicate words", async ({
 test("Player cannot validate a game grid with incorrect words", async ({
   page,
 }) => {
-  await page.getByRole("textbox", { name: "Word 1, letter 2" }).fill("E");
-  await page.getByRole("textbox", { name: "Word 1, letter 3" }).fill("H");
-  await page.getByRole("textbox", { name: "Word 1, letter 4" }).fill("N");
-  await page.getByRole("textbox", { name: "Word 1, letter 5" }).fill("Ä");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 3" }).fill("H");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 4" }).fill("N");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 5" }).fill("Ä");
 
-  await page.getByRole("textbox", { name: "Word 2, letter 1" }).fill("S");
-  await page.getByRole("textbox", { name: "Word 2, letter 3" }).fill("O");
-  await page.getByRole("textbox", { name: "Word 2, letter 4" }).fill("L");
-  await page.getByRole("textbox", { name: "Word 2, letter 5" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 1" }).fill("S");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 3" }).fill("O");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 4" }).fill("L");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 5" }).fill("A");
 
-  await page.getByRole("textbox", { name: "Word 3, letter 1" }).fill("M");
-  await page.getByRole("textbox", { name: "Word 3, letter 2" }).fill("A");
-  await page.getByRole("textbox", { name: "Word 3, letter 4" }).fill("T");
-  await page.getByRole("textbox", { name: "Word 3, letter 5" }).fill("O");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 1" }).fill("M");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 2" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 4" }).fill("T");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 5" }).fill("O");
 
-  await page.getByRole("textbox", { name: "Word 4, letter 1" }).fill("K");
-  await page.getByRole("textbox", { name: "Word 4, letter 2" }).fill("A");
-  await page.getByRole("textbox", { name: "Word 4, letter 3" }).fill("H");
-  await page.getByRole("textbox", { name: "Word 4, letter 5" }).fill("I");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 1" }).fill("K");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 2" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 3" }).fill("H");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 5" }).fill("I");
 
-  await page.getByRole("textbox", { name: "Word 5, letter 1" }).fill("A");
-  await page.getByRole("textbox", { name: "Word 5, letter 2" }).fill("A");
-  await page.getByRole("textbox", { name: "Word 5, letter 3" }).fill("A");
-  await page.getByRole("textbox", { name: "Word 5, letter 4" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 1" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 2" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 3" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 4" }).fill("A");
 
   await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
@@ -176,30 +176,30 @@ test("Player cannot validate a game grid with incorrect words", async ({
 test("Player cannot validate a game grid with duplicate and incorrect words", async ({
   page,
 }) => {
-  await page.getByRole("textbox", { name: "Word 1, letter 2" }).fill("E");
-  await page.getByRole("textbox", { name: "Word 1, letter 3" }).fill("H");
-  await page.getByRole("textbox", { name: "Word 1, letter 4" }).fill("N");
-  await page.getByRole("textbox", { name: "Word 1, letter 5" }).fill("Ä");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 3" }).fill("H");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 4" }).fill("N");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 5" }).fill("Ä");
 
-  await page.getByRole("textbox", { name: "Word 2, letter 1" }).fill("S");
-  await page.getByRole("textbox", { name: "Word 2, letter 3" }).fill("O");
-  await page.getByRole("textbox", { name: "Word 2, letter 4" }).fill("L");
-  await page.getByRole("textbox", { name: "Word 2, letter 5" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 1" }).fill("S");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 3" }).fill("O");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 4" }).fill("L");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 5" }).fill("A");
 
-  await page.getByRole("textbox", { name: "Word 3, letter 1" }).fill("M");
-  await page.getByRole("textbox", { name: "Word 3, letter 2" }).fill("A");
-  await page.getByRole("textbox", { name: "Word 3, letter 4" }).fill("T");
-  await page.getByRole("textbox", { name: "Word 3, letter 5" }).fill("O");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 1" }).fill("M");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 2" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 4" }).fill("T");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 5" }).fill("O");
 
-  await page.getByRole("textbox", { name: "Word 4, letter 1" }).fill("V");
-  await page.getByRole("textbox", { name: "Word 4, letter 2" }).fill("V");
-  await page.getByRole("textbox", { name: "Word 4, letter 3" }).fill("V");
-  await page.getByRole("textbox", { name: "Word 4, letter 5" }).fill("V");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 1" }).fill("V");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 2" }).fill("V");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 3" }).fill("V");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 5" }).fill("V");
 
-  await page.getByRole("textbox", { name: "Word 5, letter 1" }).fill("S");
-  await page.getByRole("textbox", { name: "Word 5, letter 2" }).fill("U");
-  await page.getByRole("textbox", { name: "Word 5, letter 3" }).fill("O");
-  await page.getByRole("textbox", { name: "Word 5, letter 4" }).fill("L");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 1" }).fill("S");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 2" }).fill("U");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 3" }).fill("O");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 4" }).fill("L");
 
   await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
@@ -213,30 +213,30 @@ test("Player cannot validate a game grid with duplicate and incorrect words", as
 test("Player can play another game after validating a correct game grid", async ({
   page,
 }) => {
-  await page.getByRole("textbox", { name: "Word 1, letter 2" }).fill("E");
-  await page.getByRole("textbox", { name: "Word 1, letter 3" }).fill("H");
-  await page.getByRole("textbox", { name: "Word 1, letter 4" }).fill("N");
-  await page.getByRole("textbox", { name: "Word 1, letter 5" }).fill("Ä");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 3" }).fill("H");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 4" }).fill("N");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 5" }).fill("Ä");
 
-  await page.getByRole("textbox", { name: "Word 2, letter 1" }).fill("S");
-  await page.getByRole("textbox", { name: "Word 2, letter 3" }).fill("O");
-  await page.getByRole("textbox", { name: "Word 2, letter 4" }).fill("L");
-  await page.getByRole("textbox", { name: "Word 2, letter 5" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 1" }).fill("S");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 3" }).fill("O");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 4" }).fill("L");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 5" }).fill("A");
 
-  await page.getByRole("textbox", { name: "Word 3, letter 1" }).fill("M");
-  await page.getByRole("textbox", { name: "Word 3, letter 2" }).fill("A");
-  await page.getByRole("textbox", { name: "Word 3, letter 4" }).fill("T");
-  await page.getByRole("textbox", { name: "Word 3, letter 5" }).fill("O");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 1" }).fill("M");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 2" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 4" }).fill("T");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 5" }).fill("O");
 
-  await page.getByRole("textbox", { name: "Word 4, letter 1" }).fill("K");
-  await page.getByRole("textbox", { name: "Word 4, letter 2" }).fill("A");
-  await page.getByRole("textbox", { name: "Word 4, letter 3" }).fill("H");
-  await page.getByRole("textbox", { name: "Word 4, letter 5" }).fill("I");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 1" }).fill("K");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 2" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 3" }).fill("H");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 5" }).fill("I");
 
-  await page.getByRole("textbox", { name: "Word 5, letter 1" }).fill("K");
-  await page.getByRole("textbox", { name: "Word 5, letter 2" }).fill("E");
-  await page.getByRole("textbox", { name: "Word 5, letter 3" }).fill("R");
-  await page.getByRole("textbox", { name: "Word 5, letter 4" }).fill("M");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 1" }).fill("K");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 2" }).fill("E");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 3" }).fill("R");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 4" }).fill("M");
 
   await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
@@ -258,7 +258,7 @@ test("Player can play another game after validating a correct game grid", async 
   ).toBeVisible();
 
   const letters = await page
-    .getByRole("textbox", { name: "Word 1" })
+    .getByRole("textbox", { name: "Sana 1" })
     .evaluateAll((inputs) =>
       inputs.map((input) => (input as HTMLInputElement).value),
     );

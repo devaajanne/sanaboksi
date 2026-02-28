@@ -46,9 +46,13 @@
     "HaveFunWithSanaboksi": "Hauskoja pelihetkiä Sanaboksin parissa!"
   },
   "AriaLabel": {
-    "OpenGameInstructions": "Avaa peliohjeet",
+    "SanaboksiGameGrid": "Sanaboksi-ruudukko",
+    "Word": "Sana",
+    "Letter": "Kirjain",
     "CorrectWordIcon": "Oikean sanan merkki",
     "IncorrectWordIcon": "Väärän sanan merkki",
-    "DuplicateWordIcon": "Toistuvan sanan merkki"
+    "DuplicateWordIcon": "Toistuvan sanan merkki",
+    "OpenGameInstructions": "Avaa peliohjeet",
+    "ToggleLightDarkMode": "Vaihda vaalea/tumma tila"
   }
 }
