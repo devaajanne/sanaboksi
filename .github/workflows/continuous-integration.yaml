@@ -146,15 +146,15 @@ jobs:
           CORS_ALLOWED_ORIGIN: http://localhost:5173
           VITE_SERVER_URL: http://backend:8080
     
-      - name: Show database logs on failure
+      - name: Show database logs on container build failure
         if: ${{ failure() }}
         run: docker logs sanaboksi_database
 
-      - name: Show backend logs on failure
+      - name: Show backend logs on container build failure
         if: ${{ failure() }}
         run: docker logs sanaboksi_backend
 
-      - name: Show frontend logs on failure
+      - name: Show frontend logs on container build failure
         if: ${{ failure() }}
         run: docker logs sanaboksi_frontend
 
@@ -166,6 +166,14 @@ jobs:
         run: |
           cd frontend
           npx playwright test
+
+      - name: Show backend logs after tests
+        if: ${{ always() }}
+        run: docker logs sanaboksi_backend
+
+      - name: Show frontend logs after tests
+        if: ${{ always() }}
+        run: docker logs sanaboksi_frontend
 
       - name: Upload Playwright report on test failure
         if: ${{ failure() }}
