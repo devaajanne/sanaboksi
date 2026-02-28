@@ -19,3 +19,11 @@ test("Toggles light/dark mode when dark/light mode icon is clicked", async ({
 
   expect(newMode).not.toBe(initialMode);
 });
+
+test("Clicking info button opens game instruction modal", async ({ page }) => {
+  await page.getByRole("button", { name: "Avaa peliohjeet" }).click();
+
+  await expect(
+    page.getByRole("heading", { name: "Kuinka pelata Sanaboksia" }),
+  ).toBeVisible();
+});
