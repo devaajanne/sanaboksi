@@ -143,10 +143,20 @@ jobs:
           DATABASE_USER: ${{ secrets.DATABASE_USER }}
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
-          SPRING_DATASOURCE_USERNAME: ${{ secrets.DATABASE_USER }}
-          SPRING_DATASOURCE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           CORS_ALLOWED_ORIGIN: ${{ secrets.CORS_ALLOWED_ORIGIN }}
           VITE_SERVER_URL: http://backend:8080
+    
+      - name: Show database logs on failure
+        if: ${{ failure() }}
+        run: docker logs sanaboksi_database
+
+      - name: Show backend logs on failure
+        if: ${{ failure() }}
+        run: docker logs sanaboksi_backend
+
+      - name: Show frontend logs on failure
+        if: ${{ failure() }}
+        run: docker logs sanaboksi_frontend
 
       - name: Wait for frontend to be ready
         run: |
