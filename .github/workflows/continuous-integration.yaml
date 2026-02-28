@@ -136,8 +136,17 @@ jobs:
           cd frontend
           npx playwright install --with-deps
 
-      - name: Set up Docker Compose
-        run: docker compose up --build -d
+      - name: Build Docker containers
+        run: docker compose -f compose.yaml up --build -d
+        env:
+          POSTGRES_DB: ${{ vars.DATABASE_NAME }}
+          POSTGRES_USER: ${{ secrets.DATABASE_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
+          SPRING_DATASOURCE_USERNAME: ${{ secrets.DATABASE_USER }}
+          SPRING_DATASOURCE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          CORS_ALLOWED_ORIGIN: ${{ secrets.CORS_ALLOWED_ORIGIN }}
+          VITE_SERVER_URL: http://backend:8080
 
       - name: Wait for frontend to be ready
         run: |
