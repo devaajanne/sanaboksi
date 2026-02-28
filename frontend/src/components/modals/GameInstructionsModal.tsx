@@ -1,4 +1,4 @@
-import { Divider, Group, Modal, Stack, Text } from "@mantine/core";
+import { Button, Divider, Group, Modal, Stack, Text } from "@mantine/core";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { IconCheck, IconX, IconCopy } from "@tabler/icons-react";
 import SanaboksiGameRow from "../game/SanaboksiGameRow";
@@ -39,6 +39,7 @@ export function GameInstructionsModal({
       onClose={onClose}
       size="lg"
       title={t("GameInstructionModal.HowToPlaySanaboksi")}
+      withCloseButton={false}
       styles={{
         header: { backgroundColor: colorPalette[0], color: colorPalette[1] },
         body: {
@@ -177,6 +178,24 @@ export function GameInstructionsModal({
       <Text styles={{ root: { marginTop: textMarginTop + 5 } }}>
         {t("GameInstructionModal.HaveFunWithSanaboksi")}
       </Text>
+      <Group style={{ width: "100%", justifyContent: "flex-end" }}>
+        <Button
+          onClick={onClose}
+          color={colorPalette[0]}
+          styles={{
+            label: {
+              color: colorPalette[1],
+            },
+            root: {
+              backgroundColor: colorPalette[0],
+              borderColor: colorPalette[1],
+              borderWidth: 3,
+            },
+          }}
+        >
+          {t("Actions.Close")}
+        </Button>
+      </Group>
     </Modal>
   );
 }
