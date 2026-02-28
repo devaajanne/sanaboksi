@@ -79,9 +79,10 @@ jobs:
   run-backend-integration-tests:
     name: BE integration tests
     runs-on: ubuntu-latest
+    needs: [run-backend-unit-tests]
     services:
       postgres:
-        image: postgres:18
+        image: postgres:18.1
         ports:
           - 5432:5432
         env:
@@ -117,3 +118,58 @@ jobs:
         with:
           name: integration-test-report
           path: backend/build/reports/tests/integrationTest/
+
+  run-end-to-end-tests:
+    name: End-to-end tests
+    runs-on: ubuntu-latest
+    needs: [run-backend-integration-tests]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up frontend workflow environment
+        uses: ./.github/actions/setup-frontend-workflow-environment
+
+      - name: Install Playwright Browsers
+        run: |
+          cd frontend
+          npx playwright install --with-deps
+
+      - name: Build Docker containers
+        run: docker compose -f compose.yaml up --build -d
+        env:
+          DATABASE_NAME: ${{ vars.DATABASE_NAME }}
+          DATABASE_USER: ${{ secrets.DATABASE_USER }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL_CI }}
+          CORS_ALLOWED_ORIGIN: http://localhost:5173
+          VITE_SERVER_URL: http://localhost:8080
+    
+      - name: Show database logs on container build failure
+        if: ${{ failure() }}
+        run: docker logs sanaboksi_database
+
+      - name: Show backend logs on container build failure
+        if: ${{ failure() }}
+        run: docker logs sanaboksi_backend
+
+      - name: Show frontend logs on container build failure
+        if: ${{ failure() }}
+        run: docker logs sanaboksi_frontend
+
+      - name: Wait for frontend to be ready
+        run: |
+          until curl --output /dev/null --silent --head --fail http://localhost:5173; do sleep 5; done
+
+      - name: Run end-to-end tests
+        run: |
+          cd frontend
+          npx playwright test
+
+      - name: Upload Playwright report on test failure
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v6
+        with:
+          name: playwright-report
+          path: frontend/test-results/

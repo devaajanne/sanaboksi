@@ -12,6 +12,7 @@ RUN chmod +x ./gradlew && ./gradlew --no-daemon dependencies
 # Copy source code to working directory
 COPY . .
 # Build the app without running clean to preserve build caches
+RUN chmod +x ./gradlew
 RUN ./gradlew --no-daemon bootJar
 
 # Java JRE base image for run
