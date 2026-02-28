@@ -81,12 +81,12 @@ test("Player can validate a game grid when all words are correct", async ({
   await page.getByRole("textbox", { name: "Word 5, letter 3" }).fill("R");
   await page.getByRole("textbox", { name: "Word 5, letter 4" }).fill("M");
 
-  await page.getByRole("button", { name: "Validate game grid" }).click();
-
-  await page.waitForTimeout(1000);
+  await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Correct words!" }),
+    page.getByRole("heading", {
+      name: "Ruudukon sanat ovat kaikki oikein!",
+    }),
   ).toBeVisible();
 });
 
@@ -96,12 +96,10 @@ test("Player cannot validate an incomplete game grid", async ({ page }) => {
   await page.getByRole("textbox", { name: "Word 1, letter 4" }).fill("N");
   await page.getByRole("textbox", { name: "Word 1, letter 5" }).fill("Ä");
 
-  await page.getByRole("button", { name: "Validate game grid" }).click();
-
-  await page.waitForTimeout(1000);
+  await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Invalid game grid!" }),
+    page.getByRole("heading", { name: "Ruudukossa on tyhjiä ruutuja!" }),
   ).toBeVisible();
 });
 
@@ -133,12 +131,10 @@ test("Player cannot validate a game grid with duplicate words", async ({
   await page.getByRole("textbox", { name: "Word 5, letter 3" }).fill("O");
   await page.getByRole("textbox", { name: "Word 5, letter 4" }).fill("L");
 
-  await page.getByRole("button", { name: "Validate game grid" }).click();
-
-  await page.waitForTimeout(1000);
+  await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Duplicate words!" }),
+    page.getByRole("heading", { name: "Ruudukossa on useampi sama sana!" }),
   ).toBeVisible();
 });
 
@@ -170,12 +166,10 @@ test("Player cannot validate a game grid with incorrect words", async ({
   await page.getByRole("textbox", { name: "Word 5, letter 3" }).fill("A");
   await page.getByRole("textbox", { name: "Word 5, letter 4" }).fill("A");
 
-  await page.getByRole("button", { name: "Validate game grid" }).click();
-
-  await page.waitForTimeout(1000);
+  await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Incorrect words!" }),
+    page.getByRole("heading", { name: "Ruudukossa on vääriä sanoja!" }),
   ).toBeVisible();
 });
 
@@ -207,12 +201,12 @@ test("Player cannot validate a game grid with duplicate and incorrect words", as
   await page.getByRole("textbox", { name: "Word 5, letter 3" }).fill("O");
   await page.getByRole("textbox", { name: "Word 5, letter 4" }).fill("L");
 
-  await page.getByRole("button", { name: "Validate game grid" }).click();
-
-  await page.waitForTimeout(1000);
+  await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Duplicate and incorrect words!" }),
+    page.getByRole("heading", {
+      name: "Ruudukossa on sekä vääriä sanoja että useampi sama sana!",
+    }),
   ).toBeVisible();
 });
 
@@ -244,31 +238,23 @@ test("Player can play another game after validating a correct game grid", async 
   await page.getByRole("textbox", { name: "Word 5, letter 3" }).fill("R");
   await page.getByRole("textbox", { name: "Word 5, letter 4" }).fill("M");
 
-  await page.getByRole("button", { name: "Validate game grid" }).click();
-
-  await page.waitForTimeout(1000);
+  await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Correct words!" }),
+    page.getByRole("heading", { name: "Ruudukon sanat ovat kaikki oikein!" }),
   ).toBeVisible();
 
   await page
-    .getByRole("dialog", { name: "Correct words!" })
+    .getByRole("dialog", { name: "Ruudukon sanat ovat kaikki oikein!" })
     .getByRole("button")
     .click();
 
-  await page.waitForTimeout(1000);
+  await expect(page.getByRole("button", { name: "Uusi peli" })).toBeVisible();
+
+  await page.getByRole("button", { name: "Uusi peli" }).click();
 
   await expect(
-    page.getByRole("button", { name: "Play a new game" }),
-  ).toBeVisible();
-
-  await page.getByRole("button", { name: "Play a new game" }).click();
-
-  await page.waitForTimeout(1000);
-
-  await expect(
-    page.getByRole("button", { name: "Validate game grid" }),
+    page.getByRole("button", { name: "Tarkista sanat" }),
   ).toBeVisible();
 
   const letters = await page

@@ -1,6 +1,7 @@
 import { Modal } from "@mantine/core";
 import { NotificationModalSource } from "../../types/Types";
 import { useColorPalette } from "../../hooks/useColorPalette";
+import { useTranslation } from "react-i18next";
 
 interface NotificationModalProps {
   source: NotificationModalSource;
@@ -13,33 +14,38 @@ const notificationModalContent: Record<
   { notificationModalTitle: string; notificationModalMessage: string }
 > = {
   [NotificationModalSource.GameGridValidityCheck]: {
-    notificationModalTitle: "Invalid game grid!",
-    notificationModalMessage:
-      "Your game grid is not valid. Fill in all the fields to check your words.",
+    notificationModalTitle: "NotificationModal.Invalid.GameGridHasEmptyFields",
+    notificationModalMessage: "NotificationModal.Invalid.FillInAllEmptyFields",
   },
   [NotificationModalSource.DuplicateWordsAndIncorrectWords]: {
-    notificationModalTitle: "Duplicate and incorrect words!",
+    notificationModalTitle:
+      "NotificationModal.IncorrectAnDuplicate.GameGridHasIncorrectAndDuplicateWords",
     notificationModalMessage:
-      "Your game grid contains duplicate and incorrect words. Remove duplicate words and input only unique words. Check all words and replace incorrect words.",
+      "NotificationModal.IncorrectAnDuplicate.FixYourGameGridNoDuplicatesAllCorrectWords",
   },
   [NotificationModalSource.DuplicateWords]: {
-    notificationModalTitle: "Duplicate words!",
+    notificationModalTitle:
+      "NotificationModal.Duplicate.GameGridHasDuplicateWords",
     notificationModalMessage:
-      "Your game grid contains duplicate words. Remove duplicate words and input only unique words.",
+      "NotificationModal.Duplicate.EachWordCanAppearOnlyOnceInAGameGrid",
   },
   [NotificationModalSource.IncorrectWords]: {
-    notificationModalTitle: "Incorrect words!",
+    notificationModalTitle:
+      "NotificationModal.Incorrect.GameGridHasIncorrectWords",
     notificationModalMessage:
-      "Your game grid contains incorrect words. Check all words and replace incorrect words.",
+      "NotificationModal.Incorrect.CorrectIncorrectWords",
   },
   [NotificationModalSource.CorrectWords]: {
-    notificationModalTitle: "Correct words!",
+    notificationModalTitle:
+      "NotificationModal.Correct.AllWordsInGameGridAreCorrect",
     notificationModalMessage:
-      "Congratulations! Your game grid is correct! Feel free to play another grid.",
+      "NotificationModal.Correct.CongratulationsYourGameGridIsCorrect",
   },
   [NotificationModalSource.NoSource]: {
-    notificationModalTitle: "Unknown error.",
-    notificationModalMessage: "The application faced an unknown error.",
+    notificationModalTitle:
+      "NotificationModal.NoSource.UnknownErrorHasOccurred",
+    notificationModalMessage:
+      "NotificationModal.NoSource.NoItWasNotYouReportBug",
   },
 };
 
@@ -58,6 +64,7 @@ export default function NotificationModal({
   onClose,
 }: NotificationModalProps) {
   const colorPalette = useColorPalette();
+  const { t } = useTranslation();
   const { notificationModalTitle, notificationModalMessage } =
     notificationModalContent[source] ||
     notificationModalContent[NotificationModalSource.NoSource];
@@ -66,7 +73,7 @@ export default function NotificationModal({
     <Modal
       opened={opened}
       onClose={onClose}
-      title={notificationModalTitle}
+      title={t(notificationModalTitle)}
       styles={{
         header: { backgroundColor: colorPalette[0], color: colorPalette[2] },
         body: {
@@ -75,7 +82,7 @@ export default function NotificationModal({
         },
       }}
     >
-      {notificationModalMessage}
+      {t(notificationModalMessage)}
     </Modal>
   );
 }

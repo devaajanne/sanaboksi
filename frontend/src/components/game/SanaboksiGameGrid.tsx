@@ -16,6 +16,7 @@ import { Button, Container, Space, Stack } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import NotificationModal from "../modals/NotificationModal";
 import { useColorPalette } from "../../hooks/useColorPalette";
+import { useTranslation } from "react-i18next";
 
 /**
  * Main component for rendering and managing the Sanaboksi game grid.
@@ -24,6 +25,7 @@ import { useColorPalette } from "../../hooks/useColorPalette";
  */
 export default function SanaboksiGameGrid() {
   const colorPalette = useColorPalette();
+  const { t } = useTranslation();
   // Store the fixed letters configuration for each row (which index has which fixed letter)
   const [fixedLetters, setFixedLetters] = useState<FixedLetters>([]);
   // Store the actual game grid data (2D array of characters with dynamic dimensions)
@@ -251,7 +253,7 @@ export default function SanaboksiGameGrid() {
               },
             }}
           >
-            Play a new game
+            {t("GameGridButton.NewGame")}
           </Button>
         ) : (
           <Button
@@ -271,7 +273,7 @@ export default function SanaboksiGameGrid() {
               },
             }}
           >
-            Validate game grid
+            {t("GameGridButton.ValidateWords")}
           </Button>
         )}
       </Container>

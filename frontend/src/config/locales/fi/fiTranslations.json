@@ -1,0 +1,32 @@
+{
+  "GameGridButton": {
+    "NewGame": "Uusi peli",
+    "ValidateWords": "Tarkista sanat"
+  },
+  "NotificationModal": {
+    "Invalid": {
+      "GameGridHasEmptyFields": "Ruudukossa on tyhjiä ruutuja!",
+      "FillInAllEmptyFields": "Täytä kaikki ryhjät ruudut."
+    },
+    "IncorrectAnDuplicate": {
+      "GameGridHasIncorrectAndDuplicateWords": "Ruudukossa on sekä vääriä sanoja että useampi sama sana!",
+      "FixYourGameGridNoDuplicatesAllCorrectWords": "Korjaa ruudukkosi niin, että jokainen sana esiintyy vain kerran ja että sanat ovat oikein."
+    },
+    "Duplicate": {
+      "GameGridHasDuplicateWords": "Ruudukossa on useampi sama sana!",
+      "EachWordCanAppearOnlyOnceInAGameGrid": "Jokainen sana voi esiintyä ruudukossa vain kerran."
+    },
+    "Incorrect": {
+      "GameGridHasIncorrectWords": "Ruudukossa on vääriä sanoja!",
+      "CorrectIncorrectWords": "Korjaa väärät sanat."
+    },
+    "Correct": {
+      "AllWordsInGameGridAreCorrect": "Ruudukon sanat ovat kaikki oikein!",
+      "CongratulationsYourGameGridIsCorrect": "Onneksi olkoon! Ruudukkosi on oikein! "
+    },
+    "NoSource": {
+      "UnknownErrorHasOccurred": "Tapahtui odottamaton virhe.",
+      "NoItWasNotYouReportBug": "Ei, se ei johtunut sinusta. Täytäthän bugi-ilmoituksen, jotta asia voidaan korjata. Kiitos!"
+    }
+  }
+}
