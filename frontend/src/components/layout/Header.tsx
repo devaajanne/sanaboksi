@@ -41,7 +41,7 @@ export default function Header() {
             styles={{
               root: {
                 backgroundColor: colorPalette[0],
-                color: colorPalette[2],
+                color: colorPalette[1],
               },
             }}
           >
@@ -52,7 +52,7 @@ export default function Header() {
           span={4}
           style={{ display: "flex", justifyContent: "center" }}
         >
-          <Title c={colorPalette[2]}>Sanaboksi</Title>
+          <Title c={colorPalette[1]}>Sanaboksi</Title>
         </Grid.Col>
         <Grid.Col
           span={4}
@@ -66,7 +66,7 @@ export default function Header() {
             styles={{
               root: {
                 backgroundColor: colorPalette[0],
-                color: colorPalette[2],
+                color: colorPalette[1],
               },
             }}
           >

@@ -1,4 +1,4 @@
-import { Modal } from "@mantine/core";
+import { Button, Group, Modal, Text } from "@mantine/core";
 import { NotificationModalSource } from "../../types/Types";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { useTranslation } from "react-i18next";
@@ -68,21 +68,51 @@ export default function NotificationModal({
   const { notificationModalTitle, notificationModalMessage } =
     notificationModalContent[source] ||
     notificationModalContent[NotificationModalSource.NoSource];
+  const { textMarginTop, textMarginBottom } = {
+    textMarginTop: 10,
+    textMarginBottom: 10,
+  };
 
   return (
     <Modal
       opened={opened}
       onClose={onClose}
       title={t(notificationModalTitle)}
+      withCloseButton={false}
       styles={{
-        header: { backgroundColor: colorPalette[0], color: colorPalette[2] },
+        header: { backgroundColor: colorPalette[0], color: colorPalette[1] },
         body: {
           backgroundColor: colorPalette[0],
-          color: colorPalette[2],
+          color: colorPalette[1],
         },
+        title: { fontSize: 24 },
       }}
     >
-      {t(notificationModalMessage)}
+      <Text
+        styles={{
+          root: { marginTop: textMarginTop, marginBottom: textMarginBottom },
+        }}
+      >
+        {t(notificationModalMessage)}
+      </Text>
+      <Group style={{ width: "100%", justifyContent: "flex-end" }}>
+        <Button
+          onClick={onClose}
+          color={colorPalette[0]}
+          styles={{
+            label: {
+              color: colorPalette[1],
+            },
+            root: {
+              backgroundColor: colorPalette[0],
+              borderColor: colorPalette[1],
+              borderWidth: 3,
+            },
+          }}
+        >
+          {t("Actions.Close")}
+        </Button>
+      </Group>
     </Modal>
   );
 }

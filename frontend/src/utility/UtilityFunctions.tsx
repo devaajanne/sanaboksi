@@ -63,8 +63,19 @@ const gameGridContainsOnlyCorrectWords = (
   return rowCorrectness.every((value) => value?.["correctWord"] === true);
 };
 
+/**
+ * Returns a promise that resolves after a specified delay.
+ * Useful for introducing pauses in async functions (e.g., for UI effects).
+ * @param delay The delay in milliseconds before the promise resolves.
+ * @returns A promise that resolves after the given delay.
+ */
+function addWaitTime(delay: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, delay));
+}
+
 export {
   checkGameGridValidity,
   gameGridContainsOnlyUniqueWords,
   gameGridContainsOnlyCorrectWords,
+  addWaitTime,
 };

@@ -127,10 +127,10 @@ export default function SanaboksiGameRow({
           isDuplicate === true
             ? colorPalette[5]
             : isCorrect === true
-              ? colorPalette[4]
+              ? colorPalette[3]
               : isCorrect === false
-                ? colorPalette[6]
-                : colorPalette[3];
+                ? colorPalette[4]
+                : colorPalette[1];
 
         return (
           <TextInput
@@ -155,11 +155,11 @@ export default function SanaboksiGameRow({
                 textAlign: "center",
                 fontWeight: isFixedLetter ? "bold" : "normal",
                 backgroundColor: isFixedLetter
-                  ? colorPalette[1]
+                  ? colorPalette[2]
                   : colorPalette[0],
                 borderColor: correctBorderColor,
                 borderWidth: 3,
-                color: colorPalette[2],
+                color: colorPalette[1],
               },
             }}
             onChange={
@@ -189,7 +189,7 @@ export default function SanaboksiGameRow({
         isCorrect ? (
           <IconCheck
             aria-label={t("AriaLabel.CorrectWordIcon")}
-            color={colorPalette[4]}
+            color={colorPalette[3]}
             size={iconSize}
             strokeWidth={2}
             style={{ marginLeft: iconMargin }}
@@ -197,7 +197,7 @@ export default function SanaboksiGameRow({
         ) : (
           <IconX
             aria-label={t("AriaLabel.IncorrectWordIcon")}
-            color={colorPalette[6]}
+            color={colorPalette[4]}
             size={iconSize}
             strokeWidth={iconStrokeWidth}
             style={{ marginLeft: iconMargin }}

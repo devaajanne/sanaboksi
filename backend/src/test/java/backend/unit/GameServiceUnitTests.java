@@ -154,17 +154,17 @@ public class GameServiceUnitTests {
     // Mock findAll to return a list of words with known content
     List<Word> mockWords = new ArrayList<>();
     FinnishWord word1 = mock(FinnishWord.class);
-    when(word1.getWord()).thenReturn("hello");
+    when(word1.getWord()).thenReturn("vehnä");
     FinnishWord word2 = mock(FinnishWord.class);
-    when(word2.getWord()).thenReturn("world");
+    when(word2.getWord()).thenReturn("suola");
     FinnishWord word3 = mock(FinnishWord.class);
-    when(word3.getWord()).thenReturn("apple");
+    when(word3.getWord()).thenReturn("maito");
     FinnishWord word4 = mock(FinnishWord.class);
-    when(word4.getWord()).thenReturn("clock");
+    when(word4.getWord()).thenReturn("kahvi");
     FinnishWord word5 = mock(FinnishWord.class);
-    when(word5.getWord()).thenReturn("phone");
+    when(word5.getWord()).thenReturn("kerma");
     FinnishWord word6 = mock(FinnishWord.class);
-    when(word6.getWord()).thenReturn("cable");
+    when(word6.getWord()).thenReturn("jauho");
     mockWords.add(word1);
     mockWords.add(word2);
     mockWords.add(word3);
@@ -182,25 +182,25 @@ public class GameServiceUnitTests {
     FixedLetterResponse fixedLetters =
         gameService.getFixedLetterResponse(language, wordLength, wordCount);
 
-    // Verify first word "hello" at index 2 -> 'l'
+    // Verify first word "vehnä" at index 2 -> 'h'
     assertEquals(2, fixedLetters.getFixedLetters().get(0).getFixedIndex());
-    assertEquals('l', fixedLetters.getFixedLetters().get(0).getFixedLetter());
+    assertEquals('h', fixedLetters.getFixedLetters().get(0).getFixedLetter());
 
-    // Verify second word "world" at index 3 -> 'l'
+    // Verify second word "suola" at index 3 -> 'l'
     assertEquals(3, fixedLetters.getFixedLetters().get(1).getFixedIndex());
     assertEquals('l', fixedLetters.getFixedLetters().get(1).getFixedLetter());
 
-    // Verify third word "apple" at index 1 -> 'p'
+    // Verify third word "maito" at index 1 -> 'a'
     assertEquals(1, fixedLetters.getFixedLetters().get(2).getFixedIndex());
-    assertEquals('p', fixedLetters.getFixedLetters().get(2).getFixedLetter());
+    assertEquals('a', fixedLetters.getFixedLetters().get(2).getFixedLetter());
 
-    // Verify fourth word "clock" at index 4 -> 'k'
+    // Verify fourth word "kahvi" at index 4 -> 'i'
     assertEquals(4, fixedLetters.getFixedLetters().get(3).getFixedIndex());
-    assertEquals('k', fixedLetters.getFixedLetters().get(3).getFixedLetter());
+    assertEquals('i', fixedLetters.getFixedLetters().get(3).getFixedLetter());
 
-    // Verify fifth word "phone" at index 0 -> 'p'
+    // Verify fifth word "kerma" at index 0 -> 'k'
     assertEquals(0, fixedLetters.getFixedLetters().get(4).getFixedIndex());
-    assertEquals('p', fixedLetters.getFixedLetters().get(4).getFixedLetter());
+    assertEquals('k', fixedLetters.getFixedLetters().get(4).getFixedLetter());
 
     verify(mockRepositoryService)
         .getRepositoryCountForWordsWithCorrectLanguageAndLength(language, wordLength);
