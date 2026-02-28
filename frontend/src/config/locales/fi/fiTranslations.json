@@ -6,7 +6,7 @@
   "NotificationModal": {
     "Invalid": {
       "GameGridHasEmptyFields": "Ruudukossa on tyhjiä ruutuja!",
-      "FillInAllEmptyFields": "Täytä kaikki ryhjät ruudut."
+      "FillInAllEmptyFields": "Täytä kaikki tyhjät ruudut."
     },
     "IncorrectAnDuplicate": {
       "GameGridHasIncorrectAndDuplicateWords": "Ruudukossa on sekä vääriä sanoja että useampi sama sana!",
