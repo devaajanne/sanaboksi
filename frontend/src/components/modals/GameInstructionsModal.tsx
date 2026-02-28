@@ -137,7 +137,7 @@ export function GameInstructionsModal({
           styles={{ root: { marginTop: iconMarginTop } }}
         >
           <IconCheck
-            aria-label="Correct word icon"
+            aria-label={t("AriaLabel.CorrectWordIcon")}
             color={colorPalette[4]}
             size={iconSize}
             strokeWidth={2}
@@ -150,7 +150,7 @@ export function GameInstructionsModal({
           styles={{ root: { marginTop: iconMarginTop } }}
         >
           <IconX
-            aria-label="Incorrect word icon"
+            aria-label={t("AriaLabel.IncorrectWordIcon")}
             color={colorPalette[6]}
             size={iconSize}
             strokeWidth={iconStrokeWidth}
@@ -165,7 +165,7 @@ export function GameInstructionsModal({
           }}
         >
           <IconCopy
-            aria-label="Duplicate word icon"
+            aria-label={t("AriaLabel.DuplicateWordIcon")}
             color={colorPalette[5]}
             size={iconSize}
             strokeWidth={iconStrokeWidth}

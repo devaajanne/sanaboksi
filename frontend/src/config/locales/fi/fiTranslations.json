@@ -44,5 +44,11 @@
     "TheWordIsIncorrect": "Sana on väärin (eli sanaa ei löydy suomen kielen sanastosta)",
     "TheWordIsADuplicate": "Sana esiintyy ruudukossa useammin kuin kerran",
     "HaveFunWithSanaboksi": "Hauskoja pelihetkiä Sanaboksin parissa!"
+  },
+  "AriaLabel": {
+    "OpenGameInstructions": "Avaa peliohjeet",
+    "CorrectWordIcon": "Oikean sanan merkki",
+    "IncorrectWordIcon": "Väärän sanan merkki",
+    "DuplicateWordIcon": "Toistuvan sanan merkki"
   }
 }
