@@ -28,5 +28,21 @@
       "UnknownErrorHasOccurred": "Tapahtui odottamaton virhe.",
       "NoItWasNotYouReportBug": "Ei, se ei johtunut sinusta. Täytäthän bugi-ilmoituksen, jotta asia voidaan korjata. Kiitos!"
     }
+  },
+  "GameInstructionModal": {
+    "HowToPlaySanaboksi": "Kuinka pelata Sanaboksia",
+    "GameDescription": "Sanaboksi on peli, jossa tehtävänäsi on keksiä ruudukon joka riville sana, johon rivillä jo annettu kirjain sopii.",
+    "ForExampleIfGivenRowIs": "Esimerkiksi jos annettu rivi on",
+    "FittingWordsCouldBe": "sopisi siihen sanat",
+    "And": "ja",
+    "BecauseFixedLetterIsInTheCorrectPositionInBothWords": "koska annettu kirjain H on kummassakin sanassa oikeassa paikassa.",
+    "GamePlayInstructions": "Tarkistaaksesi sanat sinun täytyy täyttää kaikki rivit. Sanat tulee täyttää ruudukkoon perusmuodossa. Ruudukossa ei saa esiintyä sanoja useammin kuin kerran.",
+    "AfterValidationInstructions": "Tarkistuksen jälkeen peli kertoo sinulle, mitkä sanat olivat oikein, mitkä olivat väärin tai mitkä sanat esiintyivät ruudukossa useammin kuin kerran. Voit korjata sanoja kunnes saat kaikki sanat oikein.",
+    "OnceYouFillInTheGridWithCorrectWordsYouCanPlayANewGame": "Täytettyäsi ruudukon hyväksytyillä sanoilla voit pelata uuden pelin.",
+    "BeMindfulOfTheseIconsAndColors": "Tarkkaile näitä merkkejä ja värejä",
+    "TheWordIsCorrect": "Sana on oikein (eli sana on oikea suomen kielen sana)",
+    "TheWordIsIncorrect": "Sana on väärin (eli sanaa ei löydy suomen kielen sanastosta)",
+    "TheWordIsADuplicate": "Sana esiintyy ruudukossa useammin kuin kerran",
+    "HaveFunWithSanaboksi": "Hauskoja pelihetkiä Sanaboksin parissa!"
   }
 }

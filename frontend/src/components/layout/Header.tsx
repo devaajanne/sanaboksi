@@ -7,6 +7,8 @@ import {
 } from "@mantine/core";
 import { IconSunMoon, IconInfoCircle } from "@tabler/icons-react";
 import { useColorPalette } from "../../hooks/useColorPalette";
+import { GameInstructionsModal } from "../modals/GameInstructionsModal";
+import { useDisclosure } from "@mantine/hooks";
 
 export default function Header() {
   const colorPalette = useColorPalette();
@@ -17,6 +19,7 @@ export default function Header() {
     iconSize: "clamp(20px, 6vw, 35px)",
     iconStrokeWidth: 2,
   };
+  const [opened, { open, close }] = useDisclosure(false);
 
   return (
     <Container
@@ -31,6 +34,7 @@ export default function Header() {
           <ActionIcon
             variant="subtle"
             size={iconSize}
+            onClick={() => open()}
             styles={{
               root: {
                 backgroundColor: colorPalette[0],
@@ -67,6 +71,7 @@ export default function Header() {
           </ActionIcon>
         </Grid.Col>
       </Grid>
+      <GameInstructionsModal opened={opened} onClose={close} />
     </Container>
   );
 }

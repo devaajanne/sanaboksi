@@ -2,7 +2,7 @@ import { useRef } from "react";
 import type { KeyboardEvent } from "react";
 import { TextInput, Group } from "@mantine/core";
 import type { FixedLetter } from "../../types/Types";
-import { IconCheck, IconX, IconCopyOff } from "@tabler/icons-react";
+import { IconCheck, IconX, IconCopy } from "@tabler/icons-react";
 import { useColorPalette } from "../../hooks/useColorPalette";
 
 /**
@@ -15,6 +15,7 @@ import { useColorPalette } from "../../hooks/useColorPalette";
  * @property onFieldChange Callback for when a field value changes.
  * @property isCorrect Whether the row is correct (true), incorrect (false), or not validated (undefined).
  * @property isDuplicate Whether the row is a duplicate of another correct word (true), not a duplicate (false), or not validated (undefined).
+ * @property isDuplicate Whether the row has read only value.
  */
 interface SanaboksiGameRowProps {
   fixedLetter?: FixedLetter;
@@ -25,6 +26,7 @@ interface SanaboksiGameRowProps {
   onFieldChange?: (columnIndex: number, value: string) => void;
   isCorrect?: boolean;
   isDuplicate?: boolean;
+  isReadOnly?: boolean;
 }
 
 /**
@@ -41,6 +43,7 @@ export default function SanaboksiGameRow({
   onFieldChange,
   isCorrect,
   isDuplicate,
+  isReadOnly,
 }: SanaboksiGameRowProps) {
   const colorPalette = useColorPalette();
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -129,7 +132,10 @@ export default function SanaboksiGameRow({
             key={columnIndex}
             value={cellValue}
             readOnly={
-              isPlaceholder || isFixedLetter || (isCorrect && !isDuplicate)
+              isPlaceholder ||
+              isFixedLetter ||
+              (isCorrect && !isDuplicate) ||
+              isReadOnly
             }
             maxLength={1}
             ref={(el) => {
@@ -166,7 +172,7 @@ export default function SanaboksiGameRow({
       })}
 
       {isDuplicate === true ? (
-        <IconCopyOff
+        <IconCopy
           aria-label="Duplicate word icon"
           color={colorPalette[5]}
           size={iconSize}
