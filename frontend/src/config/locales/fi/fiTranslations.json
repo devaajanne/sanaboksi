@@ -21,7 +21,7 @@
       "CorrectIncorrectWords": "Korjaa väärät sanat."
     },
     "Correct": {
-      "GameGridHasAllCorrectWords": "Ruudukon sanat ovat kaikki oikein!",
+      "AllWordsInGameGridAreCorrect": "Ruudukon sanat ovat kaikki oikein!",
       "CongratulationsYourGameGridIsCorrect": "Onneksi olkoon! Ruudukkosi on oikein! "
     },
     "NoSource": {

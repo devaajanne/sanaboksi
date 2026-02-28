@@ -37,7 +37,7 @@ const notificationModalContent: Record<
   },
   [NotificationModalSource.CorrectWords]: {
     notificationModalTitle:
-      "NotificationModal.Correct.GameGridHasAllCorrectWords",
+      "NotificationModal.Correct.AllWordsInGameGridAreCorrect",
     notificationModalMessage:
       "NotificationModal.Correct.CongratulationsYourGameGridIsCorrect",
   },
