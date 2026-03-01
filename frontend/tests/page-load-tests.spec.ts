@@ -8,7 +8,9 @@ test("Header has title", async ({ page }) => {
   await expect(page).toHaveTitle("Sanaboksi");
 });
 
-test("Page fetches initial fixed letters on page load", async ({ page }) => {
+test("Each word row initially has exactly one fixed letter", async ({
+  page,
+}) => {
   await page.waitForTimeout(1_000);
 
   const letters1 = await page
@@ -41,18 +43,18 @@ test("Page fetches initial fixed letters on page load", async ({ page }) => {
       inputs.map((input) => (input as HTMLInputElement).value),
     );
 
-  await expect(letters1.filter((l) => l === "").length).toBe(4);
-  await expect(letters1.filter((l) => l !== "").length).toBe(1);
+  expect(letters1.filter((l) => l === "").length).toBe(4);
+  expect(letters1.filter((l) => l !== "").length).toBe(1);
 
-  await expect(letters2.filter((l) => l === "").length).toBe(4);
-  await expect(letters2.filter((l) => l !== "").length).toBe(1);
+  expect(letters2.filter((l) => l === "").length).toBe(4);
+  expect(letters2.filter((l) => l !== "").length).toBe(1);
 
-  await expect(letters3.filter((l) => l === "").length).toBe(4);
-  await expect(letters3.filter((l) => l !== "").length).toBe(1);
+  expect(letters3.filter((l) => l === "").length).toBe(4);
+  expect(letters3.filter((l) => l !== "").length).toBe(1);
 
-  await expect(letters4.filter((l) => l === "").length).toBe(4);
-  await expect(letters4.filter((l) => l !== "").length).toBe(1);
+  expect(letters4.filter((l) => l === "").length).toBe(4);
+  expect(letters4.filter((l) => l !== "").length).toBe(1);
 
-  await expect(letters5.filter((l) => l === "").length).toBe(4);
-  await expect(letters5.filter((l) => l !== "").length).toBe(1);
+  expect(letters5.filter((l) => l === "").length).toBe(4);
+  expect(letters5.filter((l) => l !== "").length).toBe(1);
 });
