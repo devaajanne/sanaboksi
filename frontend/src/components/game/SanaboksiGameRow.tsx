@@ -49,10 +49,10 @@ export default function SanaboksiGameRow({
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const { iconSize, iconStrokeWidth, iconMargin } = {
+  const { iconSize, iconStrokeWidth, iconPositionRight } = {
     iconSize: "clamp(25px, 12vw, 35px)",
     iconStrokeWidth: 2,
-    iconMargin: 5,
+    iconPositionRight: -40,
   };
 
   /**
@@ -117,65 +117,73 @@ export default function SanaboksiGameRow({
     <Group
       gap={3}
       align="center"
+      wrap="nowrap"
+      justify="center"
+      styles={{ root: { position: "relative" } }}
       aria-label={`${t("AriaLabel.Word")} ${rowIndex + 1}`}
     >
-      {Array.from({ length: rowLength }).map((_, columnIndex) => {
-        const isFixedLetter =
-          fixedLetter && columnIndex === fixedLetter.fixedIndex;
-        const cellValue = isPlaceholder ? "" : (rowData[columnIndex] ?? "");
-        const correctBorderColor =
-          isDuplicate === true
-            ? colorPalette[5]
-            : isCorrect === true
-              ? colorPalette[3]
-              : isCorrect === false
-                ? colorPalette[4]
-                : colorPalette[1];
+      <Group gap={3} wrap="nowrap">
+        {Array.from({ length: rowLength }).map((_, columnIndex) => {
+          const isFixedLetter =
+            fixedLetter && columnIndex === fixedLetter.fixedIndex;
+          const cellValue = isPlaceholder ? "" : (rowData[columnIndex] ?? "");
+          const correctBorderColor =
+            isDuplicate === true
+              ? colorPalette[5]
+              : isCorrect === true
+                ? colorPalette[3]
+                : isCorrect === false
+                  ? colorPalette[4]
+                  : colorPalette[1];
 
-        return (
-          <TextInput
-            aria-label={`${t("AriaLabel.Word")} ${rowIndex + 1}, ${t("AriaLabel.Letter")} ${columnIndex + 1}`}
-            key={columnIndex}
-            value={cellValue}
-            readOnly={
-              isPlaceholder ||
-              isFixedLetter ||
-              (isCorrect && !isDuplicate) ||
-              isReadOnly
-            }
-            maxLength={1}
-            ref={(el) => {
-              inputRefs.current[columnIndex] = el;
-            }}
-            styles={{
-              input: {
-                width: "clamp(30px, 12vw, 72px)",
-                height: "clamp(30px, 12vw, 72px)",
-                fontSize: "clamp(15px, 6vw, 36px)",
-                textAlign: "center",
-                fontWeight: isFixedLetter ? "bold" : "normal",
-                backgroundColor: isFixedLetter
-                  ? colorPalette[2]
-                  : colorPalette[0],
-                borderColor: correctBorderColor,
-                borderWidth: 3,
-                color: colorPalette[1],
-              },
-            }}
-            onChange={
-              !isPlaceholder && !isFixedLetter && onFieldChange
-                ? (event) =>
-                    handleChange(columnIndex, event.target.value.toUpperCase())
-                : undefined
-            }
-            onKeyDown={
-              !isPlaceholder && !isFixedLetter && onFieldChange
-                ? (event) => handleKeyDown(columnIndex, event)
-                : undefined
-            }
-          />
-        );
-      })}
+          return (
+            <TextInput
+              aria-label={`${t("AriaLabel.Word")} ${rowIndex + 1}, ${t("AriaLabel.Letter")} ${columnIndex + 1}`}
+              key={columnIndex}
+              value={cellValue}
+              readOnly={
+                isPlaceholder ||
+                isFixedLetter ||
+                (isCorrect && !isDuplicate) ||
+                isReadOnly
+              }
+              maxLength={1}
+              ref={(el) => {
+                inputRefs.current[columnIndex] = el;
+              }}
+              styles={{
+                input: {
+                  width: "clamp(30px, 12vw, 72px)",
+                  height: "clamp(30px, 12vw, 72px)",
+                  fontSize: "clamp(12px, 5vw, 36px)",
+                  textAlign: "center",
+                  fontWeight: isFixedLetter ? "bold" : "normal",
+                  backgroundColor: isFixedLetter
+                    ? colorPalette[2]
+                    : colorPalette[0],
+                  borderColor: correctBorderColor,
+                  borderWidth: 3,
+                  color: colorPalette[1],
+                },
+              }}
+              onChange={
+                !isPlaceholder && !isFixedLetter && onFieldChange
+                  ? (event) =>
+                      handleChange(
+                        columnIndex,
+                        event.target.value.toUpperCase(),
+                      )
+                  : undefined
+              }
+              onKeyDown={
+                !isPlaceholder && !isFixedLetter && onFieldChange
+                  ? (event) => handleKeyDown(columnIndex, event)
+                  : undefined
+              }
+            />
+          );
+        })}
+      </Group>
 
       {isDuplicate === true ? (
         <IconCopy
@@ -183,7 +191,7 @@ export default function SanaboksiGameRow({
           color={colorPalette[5]}
           size={iconSize}
           strokeWidth={iconStrokeWidth}
-          style={{ marginLeft: iconMargin }}
+          style={{ position: "absolute", right: iconPositionRight }}
         />
       ) : isCorrect !== undefined ? (
         isCorrect ? (
@@ -192,7 +200,7 @@ export default function SanaboksiGameRow({
             color={colorPalette[3]}
             size={iconSize}
             strokeWidth={2}
-            style={{ marginLeft: iconMargin }}
+            style={{ position: "absolute", right: iconPositionRight }}
           />
         ) : (
           <IconX
@@ -200,7 +208,7 @@ export default function SanaboksiGameRow({
             color={colorPalette[4]}
             size={iconSize}
             strokeWidth={iconStrokeWidth}
-            style={{ marginLeft: iconMargin }}
+            style={{ position: "absolute", right: iconPositionRight }}
           />
         )
       ) : null}
