@@ -5,7 +5,7 @@ import { lightModePalette, darkModePalette } from "../utility/ColorPalettes";
 import "@mantine/core/styles.css";
 import { useMemo } from "react";
 import "@fontsource/arvo";
-import "../config/i18n.ts";
+import "../localization/i18n.ts";
 
 export default function Main() {
   const theme = useMemo(
