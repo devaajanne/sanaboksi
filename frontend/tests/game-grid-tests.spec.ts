@@ -85,7 +85,7 @@ test("Player can validate a game grid when all words are correct", async ({
 
   await expect(
     page.getByRole("heading", {
-      name: "Ruudukon sanat ovat kaikki oikein!",
+      name: "Kaikki ruudukon sanat ovat oikein!",
     }),
   ).toBeVisible();
 });
@@ -134,7 +134,9 @@ test("Player cannot validate a game grid with duplicate words", async ({
   await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Ruudukossa on useampi sama sana!" }),
+    page.getByRole("heading", {
+      name: "Ruudukossa on sama sana useammin kuin kerran!",
+    }),
   ).toBeVisible();
 });
 
@@ -169,7 +171,7 @@ test("Player cannot validate a game grid with incorrect words", async ({
   await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Ruudukossa on vääriä sanoja!" }),
+    page.getByRole("heading", { name: "Ruudukossa on virheellisiä sanoja!" }),
   ).toBeVisible();
 });
 
@@ -205,7 +207,7 @@ test("Player cannot validate a game grid with duplicate and incorrect words", as
 
   await expect(
     page.getByRole("heading", {
-      name: "Ruudukossa on sekä vääriä sanoja että useampi sama sana!",
+      name: "Ruudukossa on sekä virheellisiä sanoja että useampi sama sana!",
     }),
   ).toBeVisible();
 });
@@ -241,11 +243,11 @@ test("Player can play another game after validating a correct game grid", async 
   await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Ruudukon sanat ovat kaikki oikein!" }),
+    page.getByRole("heading", { name: "Kaikki ruudukon sanat ovat oikein!" }),
   ).toBeVisible();
 
   await page
-    .getByRole("dialog", { name: "Ruudukon sanat ovat kaikki oikein!" })
+    .getByRole("dialog", { name: "Kaikki ruudukon sanat ovat oikein!" })
     .getByRole("button", { name: "Sulje" })
     .click();
 

@@ -9,23 +9,23 @@
   "NotificationModal": {
     "Invalid": {
       "GameGridHasEmptyFields": "Ruudukossa on tyhjiä ruutuja!",
-      "FillInAllEmptyFields": "Täytä kaikki tyhjät ruudut."
+      "FillInAllEmptyFields": "Täytä kaikki ruudut."
     },
     "IncorrectAnDuplicate": {
-      "GameGridHasIncorrectAndDuplicateWords": "Ruudukossa on sekä vääriä sanoja että useampi sama sana!",
-      "FixYourGameGridNoDuplicatesAllCorrectWords": "Korjaa ruudukkosi niin, että jokainen sana esiintyy vain kerran ja että sanat ovat oikein."
+      "GameGridHasIncorrectAndDuplicateWords": "Ruudukossa on sekä virheellisiä sanoja että useampi sama sana!",
+      "FixYourGameGridNoDuplicatesAllCorrectWords": "Korjaa ruudukko niin, että jokainen sana esiintyy vain kerran ja kaikki sanat ovat oikein."
     },
     "Duplicate": {
-      "GameGridHasDuplicateWords": "Ruudukossa on useampi sama sana!",
-      "EachWordCanAppearOnlyOnceInAGameGrid": "Jokainen sana voi esiintyä ruudukossa vain kerran."
+      "GameGridHasDuplicateWords": "Ruudukossa on sama sana useammin kuin kerran!",
+      "EachWordCanAppearOnlyOnceInAGameGrid": "Korjaa ruudukko niin, että jokainen sana esiintyy vain kerran."
     },
     "Incorrect": {
-      "GameGridHasIncorrectWords": "Ruudukossa on vääriä sanoja!",
-      "CorrectIncorrectWords": "Korjaa väärät sanat."
+      "GameGridHasIncorrectWords": "Ruudukossa on virheellisiä sanoja!",
+      "CorrectIncorrectWords": "Korjaa virheelliset sanat."
     },
     "Correct": {
-      "AllWordsInGameGridAreCorrect": "Ruudukon sanat ovat kaikki oikein!",
-      "CongratulationsYourGameGridIsCorrect": "Onneksi olkoon! Ruudukkosi on oikein! "
+      "AllWordsInGameGridAreCorrect": "Kaikki ruudukon sanat ovat oikein!",
+      "CongratulationsYourGameGridIsCorrect": "Onnittelut! Ruudukkosi on oikein! "
     },
     "NoSource": {
       "UnknownErrorHasOccurred": "Tapahtui odottamaton virhe.",
@@ -34,15 +34,15 @@
   },
   "GameInstructionModal": {
     "HowToPlaySanaboksi": "Kuinka pelata Sanaboksia",
-    "GameDescription": "Sanaboksi on peli, jossa tehtävänäsi on keksiä ruudukon joka riville sana, johon rivillä jo annettu kirjain sopii.",
+    "GameDescription": "Sanaboksi on peli, jossa tehtävänäsi on keksiä jokaiselle ruudukon riville sana, johon rivillä annettu kirjain sopii.",
     "ForExampleIfGivenRowIs": "Esimerkiksi jos annettu rivi on",
     "FittingWordsCouldBe": "sopisi siihen sanat",
     "And": "ja",
     "BecauseFixedLetterIsInTheCorrectPositionInBothWords": "koska annettu kirjain H on kummassakin sanassa oikeassa paikassa.",
-    "GamePlayInstructions": "Tarkistaaksesi sanat sinun täytyy täyttää kaikki rivit. Sanat tulee täyttää ruudukkoon perusmuodossa. Ruudukossa ei saa esiintyä sanoja useammin kuin kerran.",
-    "AfterValidationInstructions": "Tarkistuksen jälkeen peli kertoo sinulle, mitkä sanat olivat oikein, mitkä olivat väärin tai mitkä sanat esiintyivät ruudukossa useammin kuin kerran. Voit korjata sanoja kunnes saat kaikki sanat oikein.",
+    "GamePlayInstructions": "Voit tarkistaa sanat, kun olet täyttänyt kaikki rivit. Sanat tulee kirjoittaa perusmuodossa, eikä sama sana saa esiintyä ruudukossa useammin kuin kerran.",
+    "AfterValidationInstructions": "Tarkistuksen jälkeen peli kertoo, mitkä sanat olivat oikein, mitkä väärin ja mitkä sanat esiintyivät ruudukossa useammin kuin kerran. Voit korjata sanoja kunnes saat kaikki sanat oikein.",
     "OnceYouFillInTheGridWithCorrectWordsYouCanPlayANewGame": "Täytettyäsi ruudukon hyväksytyillä sanoilla voit pelata uuden pelin.",
-    "BeMindfulOfTheseIconsAndColors": "Tarkkaile näitä merkkejä ja värejä",
+    "BeMindfulOfTheseIconsAndColors": "Kiinnitä huomiota näihin merkkeihin ja väreihin",
     "TheWordIsCorrect": "Sana on oikein (eli sana on oikea suomen kielen sana)",
     "TheWordIsIncorrect": "Sana on väärin (eli sanaa ei löydy suomen kielen sanastosta)",
     "TheWordIsADuplicate": "Sana esiintyy ruudukossa useammin kuin kerran",
