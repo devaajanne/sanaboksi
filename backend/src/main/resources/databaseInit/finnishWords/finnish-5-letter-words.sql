@@ -309,11 +309,11 @@ INSERT INTO finnish_words(word) VALUES
 ('rulla'), ('rumba'), ('rumpu'), ('rundi'), ('runko'), ('ruode'), ('ruoho'), ('ruoja'), ('ruoka'), ('ruoko'),
 ('ruori'), ('ruoti'), ('ruoto'), ('ruotu'), ('rupia'), ('rupla'), ('ruska'), ('rusko'), ('rusto'), ('rutka'),
 ('rutto'), ('ruttu'), ('ruuhi'), ('ruuma'), ('ruuna'), ('ruusu'), ('ruuti'), ('ruutu'), ('ruuvi'), ('ryhmy'),
-('ryhmä'), ('ryhti'), ('ryijy'), ('rykiä'), ('ryntö'), ('ryppy'), ('rypsi'), ('rypäs'), ('ryske'), ('ryssä'),
-('rysty'), ('rytke'), ('rytky'), ('rytmi'), ('ryväs'), ('ryyni'), ('ryysy'), ('ryyti'), ('ryönä'), ('rähjä'),
-('rähmä'), ('räike'), ('räime'), ('räkiä'), ('räkki'), ('räkkä'), ('räksä'), ('rämeä'), ('ränni'), ('räntä'),
-('räppi'), ('räpse'), ('rästi'), ('rätti'), ('rääsy'), ('räävi'), ('röhnä'), ('rölli'), ('römeä'), ('rönsy'),
-('rösti'), ('rötös'), ('röyhy'), ('rööki'), ('rööri');
+('ryhmä'), ('ryhti'), ('ryijy'), ('rykiä'), ('ryntö'), ('ryppy'), ('rypsi'), ('rypäs'), ('ryske'), ('rysty'),
+('rytke'), ('rytky'), ('rytmi'), ('ryväs'), ('ryyni'), ('ryysy'), ('ryyti'), ('ryönä'), ('rähjä'), ('rähmä'),
+('räike'), ('räime'), ('räkiä'), ('räkki'), ('räkkä'), ('räksä'), ('rämeä'), ('ränni'), ('räntä'), ('räppi'),
+('räpse'), ('rästi'), ('rätti'), ('rääsy'), ('räävi'), ('röhnä'), ('rölli'), ('römeä'), ('rönsy'), ('rösti'),
+('rötös'), ('röyhy'), ('rööki'), ('rööri');
 
 -- Words starting with S
 INSERT INTO finnish_words(word) VALUES
@@ -427,7 +427,7 @@ INSERT INTO finnish_words(word) VALUES
 
 -- Words starting with Z
 INSERT INTO finnish_words(word) VALUES
-('zambo'), ('zloty'), ('zombi'), ('zoomi');
+('zloty'), ('zombi'), ('zoomi');
 
 -- Words starting with Å
 -- No words
