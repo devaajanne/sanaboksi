@@ -1,14 +1,15 @@
 spring:
+
   application:
     name: backend
+
   server:
     address: 0.0.0.0
+    
   datasource:
-    # Datasource variables from compose
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:sqlite:/database/database.db
+    driver-class-name: org.sqlite.JDBC
+
   sql:
     init:
       mode: always
@@ -17,7 +18,9 @@ spring:
       data-locations:
         - classpath:/databaseInit/finnishWords/finnish-*-letter-words.sql
       continue-on-error: false
+
   jpa:
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
     hibernate:
       ddl-auto: none
 

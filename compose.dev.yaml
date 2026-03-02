@@ -1,28 +1,6 @@
 name: sanaboksi_dev
 
 services:
-  database_dev:
-    container_name: sanaboksi_database_dev
-    image: postgres:18.1
-    restart: always
-    ports:
-      - "5432:5432"
-    networks:
-      - network_dev
-    environment:
-      # Environment variables are configured in .env file
-      POSTGRES_USER: ${DATABASE_USER}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_DB: ${DATABASE_NAME_DEV}
-    volumes:
-      - data_dev:/var/lib/postgresql
-    healthcheck:
-      # Environment variables are configured in .env file
-      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME_DEV}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 15s
 
   backend_dev:
     container_name: sanaboksi_backend_dev
@@ -31,17 +9,13 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - "8080:8080"
+    volumes:
+      - database_dev:/database
     networks:
       - network_dev
     environment:
       # Environment variables are configured in .env file (and passed to Spring Boot configuration)
-      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL_DEV}
-      SPRING_DATASOURCE_USERNAME: ${DATABASE_USER}
-      SPRING_DATASOURCE_PASSWORD: ${DATABASE_PASSWORD}
       CORS_ALLOWED_ORIGIN: ${CORS_ALLOWED_ORIGIN}
-    depends_on:
-      database_dev:
-        condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
       interval: 10s
@@ -85,4 +59,4 @@ networks:
     driver: bridge
 
 volumes:
-  data_dev:
+  database_dev:

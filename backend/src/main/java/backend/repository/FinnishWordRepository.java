@@ -43,7 +43,8 @@ public interface FinnishWordRepository extends JpaRepository<FinnishWord, Long> 
    * @return true if the word exists, false otherwise
    */
   @Query(
-      value = "SELECT EXISTS (SELECT 1 FROM finnish_words WHERE LOWER(word) = LOWER(:word))",
+      value =
+          "SELECT CASE WHEN EXISTS (SELECT 1 FROM finnish_words WHERE LOWER(word) = LOWER(:word)) THEN 1 ELSE 0 END",
       nativeQuery = true)
-  boolean validateWord(@Param("word") String word);
+  Integer validateWord(@Param("word") String word);
 }

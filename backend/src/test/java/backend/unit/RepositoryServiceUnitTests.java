@@ -128,7 +128,7 @@ public class RepositoryServiceUnitTests {
     }
 
     for (String word : testWords) {
-      when(mockFinnishWordRepository.validateWord(word)).thenReturn(true);
+      when(mockFinnishWordRepository.validateWord(word)).thenReturn(1);
     }
 
     Map<Integer, Boolean> result = repositoryService.validateWords(testWords, Language.FI);
