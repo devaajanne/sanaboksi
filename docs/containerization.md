@@ -28,7 +28,7 @@
 
 ## Overview
 
-This documentation describes the containerization strategy for the **Sanaboksi** project, which consists of a Java Spring Boot backend, React frontend, and PostgreSQL database. The project uses Docker and Docker Compose with separate configurations for production and development environments.
+This documentation describes the containerization strategy for the **Sanaboksi** project, which consists of a Java Spring Boot backend, React frontend, and SQLite database. The project uses Docker and Docker Compose with separate configurations for production and development environments.
 
 The containerization setup provides:
 - **Production** (`compose.yaml`): Optimized multi-stage builds for deployment
@@ -44,13 +44,6 @@ Environment variables are used to include sensitive and/or configurable data, an
 
 **Contents**:
 ```env
-### Database configurations
-DATABASE_HOST_NAME=<database host name>
-DATABASE_HOST_NAME_DEV=<database host name for development environment>
-DATABASE_NAME=<database name>
-DATABASE_NAME_DEV=<database name for development environment>
-DATABASE_USER=<database user>
-DATABASE_PASSWORD=<database password>
 
 # Cors
 CORS_ALLOWED_ORIGIN=<allowed origin for cors, frontend url>
@@ -58,10 +51,6 @@ CORS_ALLOWED_ORIGIN=<allowed origin for cors, frontend url>
 ### Vite configurations
 VITE_USE_POLLING=<true/false>
 VITE_SERVER_URL=<server url>
-
-# Spring datasource configurations
-SPRING_DATASOURCE_URL=jdbc:postgresql://${DATABASE_HOST_NAME}:5432/${DATABASE_NAME}
-SPRING_DATASOURCE_URL_DEV=jdbc:postgresql://${DATABASE_HOST_NAME_DEV}:5432/${DATABASE_NAME_DEV}
 ```
 
 ## Docker Compose Configurations
@@ -76,23 +65,16 @@ Production configuration is meant to build an immutable image which can be used 
 
 #### Services
 
-**1. Database (`database`)**
-- **Image**: `postgres:18.1`
-- **Container Name**: `sanaboksi_database`
-- **Port**: 5432
-- **Volume**: Named volume `data` for persistence
-- **Healthcheck**: PostgreSQL readiness check every 10s
-
-**2. Backend (`backend`)**
+**1. Backend (`backend`)**
 - **Build Context**: `./backend`
 - **Dockerfile**: `Dockerfile` (multi-stage production build)
 - **Container Name**: `sanaboksi_backend`
 - **Port**: 8080
+- **Volume**: Named volume `database:/database` for the SQLite database directory
 - **Environment**: environment variables from `.env` for Spring Boot
-- **Dependencies**: Waits for database health check
 - **Healthcheck**: Actuator health endpoint check every 10s
 
-**3. Frontend (`frontend`)**
+**2. Frontend (`frontend`)**
 - **Build Context**: `./frontend`
 - **Dockerfile**: `Dockerfile` (Nginx-based production build)
 - **Container Name**: `sanaboksi_frontend`
@@ -122,24 +104,19 @@ Development configuration is designed to allow changes in local source code and 
 
 #### Services
 
-**1. Database Dev (`database_dev`)**
-- Same as production but with service name `database_dev`
-- **Container Name**: `sanaboksi_database_dev`
-- **Volume**: Named volume `data_dev` for isolation from production
-
-**2. Backend Dev (`backend_dev`)**
+**1. Backend Dev (`backend_dev`)**
 - **Build Context**: `./backend`
 - **Dockerfile**: `Dockerfile.dev` (JDK with continuous compilation)
 - **Container Name**: `sanaboksi_backend_dev`
 - **Port**: 8080
+- **Volume**: Bind mount `./backend/src/main/resources/database:/database` (SQLite database directory)
 - **Environment**: environment variables from `.env` for Spring Boot
 - **Hot Reloading**: Enabled via Docker Compose `watch` feature
   - Syncs `./backend/src` to `/workdir/src`
   - Ignores `**/*.class` files
-- **Dependencies**: Waits for database_dev health check
 - **Healthcheck**: Longer start period (30s) for dev environment
 
-**3. Frontend Dev (`frontend_dev`)**
+**2. Frontend Dev (`frontend_dev`)**
 - **Build Context**: `./frontend`
 - **Dockerfile**: `Dockerfile.dev` (Node with Vite dev server)
 - **Container Name**: `sanaboksi_frontend_dev`
@@ -269,18 +246,10 @@ spring:
   server:
     address: 0.0.0.0
   datasource:
-    # Datasource variables from compose
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
-    driver-class-name: org.postgresql.Driver
-  sql:
-    init:
-      mode: <always/never>
-      schema-locations:
-        - classpath:<path to schema>
-      data-locations:
-        - classpath:<path to sql script files>
+    url: jdbc:sqlite:/database/database.db
+    driver-class-name: org.sqlite.JDBC
+  jpa:
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
 
 # Cors allowed origin from compose
 CorsAllowedOrigin: ${CORS_ALLOWED_ORIGIN}
@@ -294,18 +263,10 @@ spring:
   server:
     address: 0.0.0.0
   datasource:
-    # Datasource variables from compose
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
-    driver-class-name: org.postgresql.Driver
-  sql:
-    init:
-      mode: <always/never>
-      schema-locations:
-        - classpath:<path to schema>
-      data-locations:
-        - classpath:<path to sql script files>
+    url: jdbc:sqlite:/database/database.db
+    driver-class-name: org.sqlite.JDBC
+  jpa:
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
   devtools:
     restart:
       enabled: <true/false>
