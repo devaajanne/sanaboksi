@@ -9,10 +9,10 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - "8080:8080"
-    volumes:
-      - database_dev:/database
     networks:
       - network_dev
+    volumes:
+      - ./backend/src/main/resources/database:/database
     environment:
       # Environment variables are configured in .env file (and passed to Spring Boot configuration)
       CORS_ALLOWED_ORIGIN: ${CORS_ALLOWED_ORIGIN}
@@ -57,6 +57,3 @@ services:
 networks:
   network_dev:
     driver: bridge
-
-volumes:
-  database_dev:

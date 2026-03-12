@@ -25,5 +25,8 @@ WORKDIR /workdir
 COPY --from=build /workdir/build/libs/*.jar backend_build.jar
 # Expose port
 EXPOSE 8080
-# Command to run the build
-CMD ["java", "-jar", "backend_build.jar"]
+# Copy database files and entrypoint script
+COPY --from=build /workdir/src/main/resources/database ./database
+COPY entrypoint.sh .
+RUN chmod +x ./entrypoint.sh
+CMD ["./entrypoint.sh"]

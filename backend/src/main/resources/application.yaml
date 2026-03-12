@@ -10,19 +10,8 @@ spring:
     url: jdbc:sqlite:/database/database.db
     driver-class-name: org.sqlite.JDBC
 
-  sql:
-    init:
-      mode: always
-      schema-locations:
-        - classpath:/databaseInit/schema.sql
-      data-locations:
-        - classpath:/databaseInit/finnishWords/finnish-*-letter-words.sql
-      continue-on-error: false
-
   jpa:
     database-platform: org.hibernate.community.dialect.SQLiteDialect
-    hibernate:
-      ddl-auto: none
 
 # Cors allowed origin from compose
 CorsAllowedOrigin: ${CORS_ALLOWED_ORIGIN}

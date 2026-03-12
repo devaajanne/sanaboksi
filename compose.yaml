@@ -12,7 +12,7 @@ services:
     networks:
       - network
     volumes:
-      - data:/database
+      - database:/database
     environment:
       # Environment variables are configured in .env file (and passed to application.yaml)
       CORS_ALLOWED_ORIGIN: ${CORS_ALLOWED_ORIGIN}
@@ -43,4 +43,4 @@ networks:
     driver: bridge
 
 volumes:
-  data:
+  database:
