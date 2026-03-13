@@ -89,8 +89,11 @@ jobs:
         uses: ./.github/actions/setup-backend-workflow-environment
 
       - name: Seed database
+        env:
+          SQLITE_DB_PATH: ./database/database.db
         run: |
           cd backend/src/main/resources/databaseInit
+          chmod +x ./reseed_database.sh
           ./reseed_database.sh
       
       - name: Run BE integration tests

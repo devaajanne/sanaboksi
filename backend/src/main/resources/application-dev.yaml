@@ -7,7 +7,7 @@ spring:
     address: 0.0.0.0
 
   datasource:
-    url: jdbc:sqlite:/database/database.db
+    url: jdbc:sqlite:${SQLITE_DB_PATH:./database/database.db}
     driver-class-name: org.sqlite.JDBC
 
   jpa:

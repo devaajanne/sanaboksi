@@ -40,7 +40,7 @@ public interface FinnishWordRepository extends JpaRepository<FinnishWord, Long> 
    * Validates whether a Finnish word exists in the repository (case-insensitive).
    *
    * @param word the word to validate
-   * @return true if the word exists, false otherwise
+   * @return 1 if the word exists, 0 otherwise
    */
   @Query(
       value =
