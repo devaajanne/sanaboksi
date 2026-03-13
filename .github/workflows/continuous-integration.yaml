@@ -92,7 +92,9 @@ jobs:
         env:
           SQLITE_DB_PATH: ./database/database.db
         run: |
-          cd backend/src/main/resources/databaseInit
+          cd  backend/src/main/resources
+          mkdir -p database
+          cd databaseInit
           chmod +x ./reseed_database.sh
           ./reseed_database.sh
       
