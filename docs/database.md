@@ -54,18 +54,18 @@ The `finnish_words` table stores unique Finnish words used by the backend.
 
 ## Initialization
 
-**Script**: [backend/src/main/resources/databaseInit/create_database.sh](../backend/src/main/resources/databaseInit/create_database.sh)
+**Script**: [backend/src/main/resources/databaseInit/reseed_database.sh](../backend/src/main/resources/databaseInit/reseed_database.sh)
 
-Run the script from the `databaseInit` directory:
+Run the script from the `databaseInit` directory to create and seed the database:
 
 ```bash
 cd backend/src/main/resources/databaseInit
-./create_database.sh
+./reseed_database.sh
 ```
 
 The script:
-1. removes the old database after confirmation
-2. creates the schema
+1. removes the old database
+2. creates the schema from `schema.sql`
 3. seeds the database from the SQL word lists
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -74,14 +74,24 @@ The script:
 
 The backend container uses a bind mount so the SQLite file is available inside the container:
 
+
 ```yaml
+# Production
 volumes:
-  - ./backend/src/main/resources/database/database.db:/database/database.db
+- database:/database
+```
+
+```yaml
+# Development
+volumes:
+  - ./backend/src/main/resources/database:/database
 ```
 
 This is configured in:
 - [compose.yaml](../compose.yaml)
 - [compose.dev.yaml](../compose.dev.yaml)
+
+The entrypoint script in the container (`entrypoint.sh` or `entrypoint.dev.sh`) runs the reseed script if `/database/database.db` does not exist.
 
 Spring Boot connects to the database with:
 
