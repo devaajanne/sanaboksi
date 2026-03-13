@@ -15,5 +15,8 @@ RUN chmod +x ./gradlew && ./gradlew --no-daemon dependencies
 COPY . .
 # Expose port
 EXPOSE 8080
-# Run
-CMD ["sh", "-c", "./gradlew classes --continuous --no-daemon & ./gradlew bootRun --no-daemon --args='--spring.profiles.active=dev'"]
+# Copy database files and entrypoint script
+COPY src/main/resources/databaseInit ./databaseInit
+COPY entrypoint.dev.sh .
+RUN chmod +x ./entrypoint.dev.sh
+CMD ["./entrypoint.dev.sh"]
