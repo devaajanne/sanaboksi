@@ -2,6 +2,8 @@
 FROM eclipse-temurin:25-jdk
 # Install curl for healthcheck
 RUN apt update && apt install -y curl && rm -rf /var/lib/apt/lists/*
+# Install SQLite for database
+RUN apt update && apt install -y sqlite3 && rm -rf /var/lib/apt/lists/*
 # Working directory inside the image
 WORKDIR /workdir
 # Copy Gradle wrapper and build configuration first for better caching
