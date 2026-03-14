@@ -1,28 +1,6 @@
 name: sanaboksi
 
 services:
-  database:
-    container_name: sanaboksi_database
-    image: postgres:18.1
-    restart: always
-    volumes:
-      - data:/var/lib/postgresql
-    ports:
-      - "5432:5432"
-    networks:
-      - network
-    environment:
-      # Environment variables are configured in .env file
-      POSTGRES_USER: ${DATABASE_USER}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_DB: ${DATABASE_NAME}
-    healthcheck:
-      # Environment variables are configured in .env file
-      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 15s
 
   backend:
     container_name: sanaboksi_backend
@@ -33,15 +11,12 @@ services:
       - "8080:8080"
     networks:
       - network
+    volumes:
+      - database:/database
     environment:
-      # Environment variables are configured in .env file (and passed to application.yaml)
-      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
-      SPRING_DATASOURCE_USERNAME: ${DATABASE_USER}
-      SPRING_DATASOURCE_PASSWORD: ${DATABASE_PASSWORD}
-      CORS_ALLOWED_ORIGIN: ${CORS_ALLOWED_ORIGIN}
-    depends_on:
-      database:
-        condition: service_healthy
+      # Environment variables are passed to Spring Boot configuration
+      CORS_ALLOWED_ORIGIN: http://localhost:5173
+      SQLITE_DB_PATH: /database/database.db
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
       interval: 10s
@@ -55,7 +30,8 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-          VITE_SERVER_URL: ${VITE_SERVER_URL}
+        # Environment variables are passed to API requests
+        VITE_SERVER_URL: http://localhost:8080
     ports:
       - "5173:80"
     networks:
@@ -69,4 +45,4 @@ networks:
     driver: bridge
 
 volumes:
-  data:
+  database:

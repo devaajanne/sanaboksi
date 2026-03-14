@@ -102,7 +102,7 @@ public class RepositoryService {
     switch (language) {
       case Language.FI:
         for (int i = 0; i < gameGridWords.size(); i++) {
-          result = finnishWordRepository.validateWord(gameGridWords.get(i));
+          result = (finnishWordRepository.validateWord(gameGridWords.get(i)) == 1);
           resultsMap.put(i, result);
         }
         break;

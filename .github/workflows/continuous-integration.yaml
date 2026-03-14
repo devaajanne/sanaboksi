@@ -78,22 +78,11 @@ jobs:
   
   run-backend-integration-tests:
     name: BE integration tests
+    env:
+      SQLITE_DB_PATH: ./database/database.db
+      CORS_ALLOWED_ORIGIN: http://localhost:5173
     runs-on: ubuntu-latest
     needs: [run-backend-unit-tests]
-    services:
-      postgres:
-        image: postgres:18.1
-        ports:
-          - 5432:5432
-        env:
-          POSTGRES_DB: ${{ vars.DATABASE_NAME }}
-          POSTGRES_USER: ${{ secrets.DATABASE_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-        options: >-
-          --health-cmd pg_isready
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
 
     steps:
       - name: Checkout code
@@ -101,13 +90,21 @@ jobs:
       
       - name: Set up backend workflow environment
         uses: ./.github/actions/setup-backend-workflow-environment
+
+
+      - name: Install SQLite3 for integration tests
+        run: |
+          sudo apt update && sudo apt install -y sqlite3
+
+      - name: Seed database
+        env:
+          DATABASE_DIRECTORY: ${{ github.workspace }}/backend/src/main/resources/database
+        run: |
+          cd backend/src/main/resources/databaseInit
+          chmod +x ./reseed_database.sh
+          ./reseed_database.sh
       
       - name: Run BE integration tests
-        env:
-          SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
-          SPRING_DATASOURCE_USERNAME: ${{ secrets.DATABASE_USER }}
-          SPRING_DATASOURCE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          CORS_ALLOWED_ORIGIN: ${{ secrets.CORS_ALLOWED_ORIGIN }}
         run: |
           cd backend
           ./gradlew integrationTest
@@ -139,10 +136,6 @@ jobs:
       - name: Build Docker containers
         run: docker compose -f compose.yaml up --build -d
         env:
-          DATABASE_NAME: ${{ vars.DATABASE_NAME }}
-          DATABASE_USER: ${{ secrets.DATABASE_USER }}
-          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL_CI }}
           CORS_ALLOWED_ORIGIN: http://localhost:5173
           VITE_SERVER_URL: http://localhost:8080
     
