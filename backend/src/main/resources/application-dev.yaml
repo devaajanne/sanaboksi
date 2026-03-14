@@ -7,7 +7,7 @@ spring:
     address: 0.0.0.0
 
   datasource:
-    # Datasource url from compose
+    # SQLite DB path configurable via SQLITE_DB_PATH environment variable
     url: jdbc:sqlite:${SQLITE_DB_PATH:/database/database.db}
     driver-class-name: org.sqlite.JDBC
 

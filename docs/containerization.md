@@ -38,18 +38,22 @@ The containerization setup provides:
 
 ## Environment Variables
 
-Environment variables are used to include sensitive and/or configurable data, and are therefore not included in version control. Below, you can find the variables and what values can be assigned to them.
+Container configuration values are currently defined directly in Compose files and Docker build args.
 
-**Location**: `.env` file in repository root (create using variables below if not existing)
-
-**Contents**:
+**Backend runtime variables** (set in `compose.yaml` and `compose.dev.yaml`):
 ```env
-
-# Cors
 CORS_ALLOWED_ORIGIN=<allowed origin for cors, frontend url>
+SQLITE_DB_PATH=<sqlite database file path inside container>
+```
 
-### Vite configurations
+**Frontend development variables** (set in `compose.dev.yaml`):
+```env
 VITE_USE_POLLING=<true/false>
+VITE_SERVER_URL=<server url>
+```
+
+**Frontend production build argument** (set in `compose.yaml`):
+```env
 VITE_SERVER_URL=<server url>
 ```
 
@@ -69,17 +73,17 @@ Production configuration is meant to build an immutable image which can be used 
 - **Build Context**: `./backend`
 - **Dockerfile**: `Dockerfile` (multi-stage production build)
 - **Container Name**: `sanaboksi_backend`
-- **Port**: 8080
+- **Port**: Host `8080` mapped to container port `8080` (`8080:8080`)
 - **Volume**: Named volume `database:/database` for the SQLite database directory
-- **Environment**: environment variables from `.env` for Spring Boot
+- **Environment**: environment variables for Spring Boot
 - **Healthcheck**: Actuator health endpoint check every 10s
 
 **2. Frontend (`frontend`)**
 - **Build Context**: `./frontend`
 - **Dockerfile**: `Dockerfile` (Nginx-based production build)
 - **Container Name**: `sanaboksi_frontend`
-- **Args**: args from `.env` for Vite
-- **Port**: 80
+- **Args**: args for Vite
+- **Ports**: Host `5173` mapped to container port `80` (`5173:80`)
 - **Dependencies**: Waits for backend health check
 
 #### Usage
@@ -108,9 +112,9 @@ Development configuration is designed to allow changes in local source code and 
 - **Build Context**: `./backend`
 - **Dockerfile**: `Dockerfile.dev` (JDK with continuous compilation)
 - **Container Name**: `sanaboksi_backend_dev`
-- **Port**: 8080
+- **Port**: Host `8080` mapped to container port `8080` (`8080:8080`)
 - **Volume**: Bind mount `./backend/src/main/resources/database:/database` (SQLite database directory)
-- **Environment**: environment variables from `.env` for Spring Boot
+- **Environment**: environment variables for Spring Boot
 - **Hot Reloading**: Enabled via Docker Compose `watch` feature
   - Syncs `./backend/src` to `/workdir/src`
   - Ignores `**/*.class` files
@@ -120,7 +124,7 @@ Development configuration is designed to allow changes in local source code and 
 - **Build Context**: `./frontend`
 - **Dockerfile**: `Dockerfile.dev` (Node with Vite dev server)
 - **Container Name**: `sanaboksi_frontend_dev`
-- **Port**: 5173
+- **Port**: Host `5173` mapped to container port `5173` (`5173:5173`)
 - **Hot Reloading**: Enabled via Docker Compose `watch` feature
   - Syncs `./frontend` to `/workdir`
   - Ignores `node_modules/`
@@ -164,9 +168,12 @@ docker compose -f compose.dev.yaml down --rmi local -v
 - **Purpose**: Runs the Spring Boot application
 - **Steps**:
   1. Installs curl for healthchecks
-  2. Copies built JAR from build stage
-  3. Exposes port 8080 (Spring Boot default)
-  4. Runs application with `java -jar`
+  2. Installs sqlite3 for database
+  3. Copies built JAR from build stage
+  4. Exposes port 8080 (Spring Boot default)
+  5. Copies `databaseInit` resources and `entrypoint.sh`
+  6. Normalizes shell-script line endings and sets executable permission for `entrypoint.sh`
+  7. Runs application with entrypoint script `entrypoint.sh` (which initializes DB when needed)
 
 ### Frontend Production Build
 
@@ -202,6 +209,7 @@ docker compose -f compose.dev.yaml down --rmi local -v
 
 #### Features
 - **Base Image**: `eclipse-temurin:25-jdk` (full JDK for compilation)
+- **Entrypoint**: `entrypoint.dev.sh` initializes database when needed and starts Gradle processes
 - **Hot Reloading**: Runs two parallel Gradle processes:
   1. `./gradlew classes --continuous --no-daemon` - Watches and recompiles Java files
   2. `./gradlew bootRun --no-daemon --args='--spring.profiles.active=dev'` - Runs Spring Boot with DevTools and the active `dev` profile
@@ -210,7 +218,7 @@ docker compose -f compose.dev.yaml down --rmi local -v
 
 #### Command
 ```bash
-CMD ["sh", "-c", "./gradlew classes --continuous --no-daemon & ./gradlew bootRun --no-daemon --args='--spring.profiles.active=dev'"]
+CMD ["./entrypoint.dev.sh"]
 ```
 
 ### Frontend Development Build
@@ -238,6 +246,9 @@ CMD ["npm", "run", "dev", "--", "--port", "5173"]
 **Development**: [backend/src/main/resources/application-dev.yaml](../backend/src/main/resources/application-dev.yaml)
 - Uses environment variables from `compose.dev.yaml`
 
+**Test**: [backend/src/test/resources/application-test.yaml](../backend/src/test/resources/application-test.yaml)
+- Uses local test database path by default: `src/main/resources/database/database.db`
+
 **application.yaml contents**
 ```yaml
 spring:
@@ -246,13 +257,14 @@ spring:
   server:
     address: 0.0.0.0
   datasource:
-    url: jdbc:sqlite:/database/database.db
+    # SQLite DB path configurable via SQLITE_DB_PATH environment variable (default /database/database.db)
+    url: jdbc:sqlite:${SQLITE_DB_PATH:/database/database.db}
     driver-class-name: org.sqlite.JDBC
   jpa:
     database-platform: org.hibernate.community.dialect.SQLiteDialect
 
 # Cors allowed origin from compose
-CorsAllowedOrigin: ${CORS_ALLOWED_ORIGIN}
+CorsAllowedOrigin: ${CORS_ALLOWED_ORIGIN:http://localhost:5173}
 ```
 
 **application-dev.yaml contents**
@@ -263,7 +275,8 @@ spring:
   server:
     address: 0.0.0.0
   datasource:
-    url: jdbc:sqlite:/database/database.db
+    # SQLite DB path configurable via SQLITE_DB_PATH (default /database/database.db)
+    url: jdbc:sqlite:${SQLITE_DB_PATH:/database/database.db}
     driver-class-name: org.sqlite.JDBC
   jpa:
     database-platform: org.hibernate.community.dialect.SQLiteDialect
@@ -274,7 +287,19 @@ spring:
       quiet-period: 1s
 
 # Cors allowed origin from compose
-CorsAllowedOrigin: ${CORS_ALLOWED_ORIGIN}
+CorsAllowedOrigin: ${CORS_ALLOWED_ORIGIN:http://localhost:5173}
+```
+
+**application-test.yaml contents**
+```yaml
+spring:
+  datasource:
+    url: jdbc:sqlite:${SQLITE_DB_PATH:src/main/resources/database/database.db}
+    driver-class-name: org.sqlite.JDBC
+  jpa:
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+
+CorsAllowedOrigin: http://localhost:5173
 ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -295,7 +320,7 @@ Hot reloading enables developers to make changes in local source code and have t
 5. Application automatically restarts
 
 **Configuration**:
-- DevTools enabled in `application-dev.yaml` (create if not existing, see above)
+- DevTools enabled in `application-dev.yaml`
 - DevTools dependency: `developmentOnly` scope in [build.gradle](../backend/build.gradle)
 - File syncing: `develop.watch` in [compose.dev.yaml](../compose.dev.yaml)
 
@@ -310,7 +335,7 @@ Hot reloading enables developers to make changes in local source code and have t
 4. Browser hot-reloads automatically
 
 **Configuration**:
-- Polling enabled via `VITE_USE_POLLING=true` in your `.env` file
+- Polling enabled via `VITE_USE_POLLING=true` in [compose.dev.yaml](../compose.dev.yaml)
 - Vite config: [vite.config.ts](../frontend/vite.config.ts)
 - File syncing: `develop.watch` in [compose.dev.yaml](../compose.dev.yaml)
 
@@ -326,7 +351,7 @@ Hot reloading enables developers to make changes in local source code and have t
 6. **Implement health checks** to ensure services are ready before dependent services start
 7. **Use Docker Compose `watch`** instead of volume mounts for better hot reloading in development
 8. **Keep build directories internal** to containers to avoid file locking conflicts
-9. **Use specific image versions** (e.g., `postgres:18.1`) instead of `latest` for reproducibility
+9. **Use specific image versions** (e.g., `eclipse-temurin:25-jdk`, `node:24-alpine`) instead of `latest` for reproducibility
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

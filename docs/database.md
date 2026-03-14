@@ -68,21 +68,25 @@ The script:
 2. creates the schema from `schema.sql`
 3. seeds the database from the SQL word lists
 
+Directory handling in the script is environment-aware:
+- local run: `backend/src/main/resources/database`
+- container run: `/database`
+- GitHub Actions run: `DATABASE_DIRECTORY` environment variable
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Container and App Configuration
 
-The backend container uses a bind mount so the SQLite file is available inside the container:
-
+The backend container uses a named volume and a bind mount so the SQLite file is available inside the container:
 
 ```yaml
-# Production
+# Production, named volume
 volumes:
 - database:/database
 ```
 
 ```yaml
-# Development
+# Development, bind mount
 volumes:
   - ./backend/src/main/resources/database:/database
 ```
@@ -91,14 +95,14 @@ This is configured in:
 - [compose.yaml](../compose.yaml)
 - [compose.dev.yaml](../compose.dev.yaml)
 
-The entrypoint script in the container (`entrypoint.sh` or `entrypoint.dev.sh`) runs the reseed script if `/database/database.db` does not exist.
+The backend container entrypoint script (`backend/entrypoint.sh` or `backend/entrypoint.dev.sh`) runs the reseed script if `/database/database.db` does not exist.
 
 Spring Boot connects to the database with:
 
 ```yaml
 spring:
   datasource:
-    url: jdbc:sqlite:/database/database.db
+    url: jdbc:sqlite:${SQLITE_DB_PATH:/database/database.db}
     driver-class-name: org.sqlite.JDBC
   jpa:
     database-platform: org.hibernate.community.dialect.SQLiteDialect
@@ -107,6 +111,14 @@ spring:
 This is defined in:
 - [backend/src/main/resources/application.yaml](../backend/src/main/resources/application.yaml)
 - [backend/src/main/resources/application-dev.yaml](../backend/src/main/resources/application-dev.yaml)
+
+Integration tests use [backend/src/test/resources/application-test.yaml](../backend/src/test/resources/application-test.yaml), where the default datasource path is:
+
+```yaml
+spring:
+  datasource:
+    url: jdbc:sqlite:${SQLITE_DB_PATH:src/main/resources/database/database.db}
+```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
