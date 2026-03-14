@@ -3,6 +3,3 @@
 
 # Environment variable files
 .env
-
-# Act secrets
-.secrets

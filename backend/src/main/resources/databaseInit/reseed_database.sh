@@ -3,12 +3,20 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-if [ -f "/.dockerenv" ]; then
+if [ -n "${DATABASE_DIRECTORY:-}" ]; then
+    # Running in GitHub Actions
+    DATABASE_DIRECTORY="$DATABASE_DIRECTORY"
+elif [ -f "/.dockerenv" ]; then
     # Running in container
     DATABASE_DIRECTORY="/database"
 else
     # Running locally
     DATABASE_DIRECTORY="$SCRIPT_DIR/../database"
+fi
+
+# Ensure the database directory exists before creating the database file
+if [ ! -d "$DATABASE_DIRECTORY" ]; then
+     mkdir -p "$DATABASE_DIRECTORY"
 fi
 
 SCHEMA_FILE="$SCRIPT_DIR/schema.sql"
@@ -38,4 +46,5 @@ for WORD_FILE in 5 6 7; do
     fi
 done
 
-echo "Database created and seeded."
+ROW_COUNT=$(sqlite3 "$DATABASE_FILE" "SELECT COUNT(*) FROM finnish_words;")
+echo "Database created and seeded with ${ROW_COUNT} rows."

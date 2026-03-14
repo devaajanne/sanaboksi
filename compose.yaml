@@ -14,8 +14,9 @@ services:
     volumes:
       - database:/database
     environment:
-      # Environment variables are configured in .env file (and passed to application.yaml)
-      CORS_ALLOWED_ORIGIN: ${CORS_ALLOWED_ORIGIN}
+      # Environment variables are passed to Spring Boot configuration
+      CORS_ALLOWED_ORIGIN: http://localhost:5173
+      SQLITE_DB_PATH: /database/database.db
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
       interval: 10s
@@ -29,7 +30,8 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-          VITE_SERVER_URL: ${VITE_SERVER_URL}
+        # Environment variables are passed to API requests
+        VITE_SERVER_URL: http://localhost:8080
     ports:
       - "5173:80"
     networks:

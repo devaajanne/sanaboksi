@@ -14,8 +14,9 @@ services:
     volumes:
       - ./backend/src/main/resources/database:/database
     environment:
-      # Environment variables are configured in .env file (and passed to Spring Boot configuration)
-      CORS_ALLOWED_ORIGIN: ${CORS_ALLOWED_ORIGIN}
+      # Environment variables are passed to Spring Boot configuration
+      CORS_ALLOWED_ORIGIN: http://localhost:5173
+      SQLITE_DB_PATH: /database/database.db
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
       interval: 10s
@@ -40,9 +41,9 @@ services:
     networks:
       - network_dev
     environment:
-      # Environment variables are configured in .env file
-      VITE_USE_POLLING: ${VITE_USE_POLLING}
-      VITE_SERVER_URL: ${VITE_SERVER_URL}
+      # Environment variables are passed to Vite configuration and API requests
+      VITE_USE_POLLING: true
+      VITE_SERVER_URL: http://localhost:8080
     depends_on:
       backend_dev:
         condition: service_healthy
