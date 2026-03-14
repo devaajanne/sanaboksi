@@ -1,0 +1,10 @@
+spring:
+
+  datasource:
+    url: jdbc:sqlite:${SQLITE_DB_PATH:src/main/resources/database/database.db}
+    driver-class-name: org.sqlite.JDBC
+
+  jpa:
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+
+CorsAllowedOrigin: http://localhost:5173

@@ -39,7 +39,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 	testImplementation 'org.testcontainers:testcontainers-junit-jupiter'
-	testImplementation 'org.testcontainers:testcontainers-postgresql'
+	testImplementation 'org.hibernate.orm:hibernate-community-dialects'
+	testRuntimeOnly 'org.xerial:sqlite-jdbc'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
@@ -60,13 +61,16 @@ tasks.register('unitTest', Test) {
 }
 
 tasks.register('integrationTest', Test) {
-	group = 'verification'
-	description = 'Runs only integration tests.'
+    group = 'verification'
+    description = 'Runs only integration tests.'
 
-	testClassesDirs = sourceSets.test.output.classesDirs
-	classpath = sourceSets.test.runtimeClasspath
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
 
-	useJUnitPlatform {
+    systemProperty 'spring.profiles.active', 'test'
+    systemProperty 'SQLITE_DB_PATH', file("${projectDir}/src/main/resources/database/database.db").absolutePath.replace('\\', '/')
+
+    useJUnitPlatform {
         includeTags 'integrationTest'
     }
 }

@@ -16,28 +16,15 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.postgresql.PostgreSQLContainer;
+import org.springframework.test.context.ActiveProfiles;
 
 /** Integration tests for {@link RepositoryService}. */
 @SpringBootTest
-@Testcontainers
 @Tag("integrationTest")
+@ActiveProfiles("test")
 public class RepositoryServiceIntegrationTests {
   @Autowired private RepositoryService repositoryService;
   @Autowired private FinnishWordRepository finnishWordRepository;
-
-  @Container static PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:18.1");
-
-  @DynamicPropertySource
-  static void configureProperties(DynamicPropertyRegistry registry) {
-    registry.add("spring.datasource.url", postgres::getJdbcUrl);
-    registry.add("spring.datasource.username", postgres::getUsername);
-    registry.add("spring.datasource.password", postgres::getPassword);
-  }
 
   @Test
   public void findRandomWordsShouldReturnWordListWithCorrectAmountOfWords() {
