@@ -11,4 +11,4 @@ if [ ! -f /database/database.db ]; then
   fi
 fi
 
-./gradlew classes --continuous --no-daemon & ./gradlew bootRun --continuous --no-daemon --args='--spring.profiles.active=dev'
+./gradlew classes --continuous --no-daemon & ./gradlew bootRun --no-daemon --args='--spring.profiles.active=dev'
