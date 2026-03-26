@@ -18,7 +18,7 @@ RUN ./gradlew --no-daemon bootJar
 # Java JRE base image for run
 FROM eclipse-temurin:25-jre AS run
 # Install curl for healthcheck and SQLite for database
-RUN apt update && apt install -y curl sqlite3 && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt install -y --no-install-recommends curl sqlite3 && rm -rf /var/lib/apt/lists/*
 # Working directory inside the image
 WORKDIR /workdir
 # Copy built .jar file from build stage
