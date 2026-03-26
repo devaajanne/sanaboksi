@@ -1,9 +1,7 @@
 # Java JDK base image for build
 FROM eclipse-temurin:25-jdk
-# Install curl for healthcheck
-RUN apt update && apt install -y curl && rm -rf /var/lib/apt/lists/*
-# Install SQLite for database
-RUN apt update && apt install -y sqlite3 && rm -rf /var/lib/apt/lists/*
+# Install curl for healthcheck and SQLite for database
+RUN apt update && apt install -y curl sqlite3 && rm -rf /var/lib/apt/lists/*
 # Working directory inside the image
 WORKDIR /workdir
 # Copy Gradle wrapper and build configuration first for better caching
@@ -20,5 +18,5 @@ EXPOSE 8080
 # Copy database files and entrypoint script
 COPY src/main/resources/databaseInit ./databaseInit
 COPY entrypoint.dev.sh .
-RUN chmod +x ./entrypoint.dev.sh
+RUN sed -i 's/\r$//' ./entrypoint.dev.sh ./databaseInit/reseed_database.sh && chmod +x ./entrypoint.dev.sh ./databaseInit/reseed_database.sh
 CMD ["./entrypoint.dev.sh"]
