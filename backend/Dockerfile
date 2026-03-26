@@ -17,10 +17,8 @@ RUN ./gradlew --no-daemon bootJar
 
 # Java JRE base image for run
 FROM eclipse-temurin:25-jre AS run
-# Install curl for healthcheck
-RUN apt update && apt install -y curl && rm -rf /var/lib/apt/lists/*
-# Install SQLite for database
-RUN apt update && apt install -y sqlite3 && rm -rf /var/lib/apt/lists/*
+# Install curl for healthcheck and SQLite for database
+RUN apt update && apt install -y --no-install-recommends curl sqlite3 && rm -rf /var/lib/apt/lists/*
 # Working directory inside the image
 WORKDIR /workdir
 # Copy built .jar file from build stage
@@ -30,5 +28,5 @@ EXPOSE 8080
 # Copy database files and entrypoint script
 COPY --from=build /workdir/src/main/resources/databaseInit ./databaseInit
 COPY entrypoint.sh .
-RUN sed -i 's/\r$//' ./entrypoint.sh && chmod +x ./entrypoint.sh
+RUN sed -i 's/\r$//' ./entrypoint.sh ./databaseInit/reseed_database.sh && chmod +x ./entrypoint.sh ./databaseInit/reseed_database.sh
 CMD ["./entrypoint.sh"]
