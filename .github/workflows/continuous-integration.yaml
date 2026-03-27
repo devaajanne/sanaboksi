@@ -8,6 +8,7 @@ jobs:
   run-backend-formatting-check:
     name: BE formatting check
     runs-on: ubuntu-latest
+    if: ${{ !startsWith(github.event.pull_request.head.ref, 'update/update-version-to-') }}
 
     steps:
       - name: Checkout code
@@ -24,6 +25,7 @@ jobs:
   run-frontend-formatting-check:
     name: FE formatting check
     runs-on: ubuntu-latest
+    if: ${{ !startsWith(github.event.pull_request.head.ref, 'update/update-version-to-') }}
 
     steps:
       - name: Checkout code
@@ -40,6 +42,7 @@ jobs:
   run-frontend-linting-check:
     name: FE linting check
     runs-on: ubuntu-latest
+    if: ${{ !startsWith(github.event.pull_request.head.ref, 'update/update-version-to-') }}
 
     steps:
       - name: Checkout code
@@ -56,6 +59,7 @@ jobs:
   run-backend-unit-tests:
     name: BE unit tests
     runs-on: ubuntu-latest
+    if: ${{ !startsWith(github.event.pull_request.head.ref, 'update/update-version-to-') }}
 
     steps:
       - name: Checkout code
@@ -82,7 +86,8 @@ jobs:
       SQLITE_DB_PATH: ./database/database.db
       CORS_ALLOWED_ORIGIN: http://localhost:5173
     runs-on: ubuntu-latest
-    needs: [run-backend-unit-tests]
+    needs: run-backend-unit-tests
+    if: ${{ !startsWith(github.event.pull_request.head.ref, 'update/update-version-to-') }}
 
     steps:
       - name: Checkout code
@@ -119,7 +124,8 @@ jobs:
   run-end-to-end-tests:
     name: End-to-end tests
     runs-on: ubuntu-latest
-    needs: [run-backend-integration-tests]
+    needs: run-backend-integration-tests
+    if: ${{ !startsWith(github.event.pull_request.head.ref, 'update/update-version-to-') }}
 
     steps:
       - name: Checkout code
@@ -139,10 +145,6 @@ jobs:
           CORS_ALLOWED_ORIGIN: http://localhost:5173
           VITE_SERVER_URL: http://localhost:8080
     
-      - name: Show database logs on container build failure
-        if: ${{ failure() }}
-        run: docker logs sanaboksi_database
-
       - name: Show backend logs on container build failure
         if: ${{ failure() }}
         run: docker logs sanaboksi_backend

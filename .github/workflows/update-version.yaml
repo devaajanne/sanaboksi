@@ -1,0 +1,153 @@
+name: Update version
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  update-version:
+    name: Update version
+    runs-on: ubuntu-latest
+    # Run only when a pull request to main is merged, and the merged branch is not a version update branch
+    if: ${{  github.event.pull_request.merged == true && !startsWith(github.event.pull_request.head.ref, 'update/update-version-to-') }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up backend workflow environment
+        uses: ./.github/actions/setup-backend-workflow-environment
+
+      - name: Set up frontend workflow environment
+        uses: ./.github/actions/setup-frontend-workflow-environment
+
+      - name: Get PR update label
+        id: update_label
+        uses: actions/github-script@v8
+        with:
+          script: |
+              const prLabels = context.payload.pull_request.labels.map(label => label.name);
+              let updateLabel;
+              if (prLabels.includes('major update')) {
+                updateLabel = 'major update';
+              } else if (prLabels.includes('minor update')) {
+                updateLabel = 'minor update';
+              } else {
+                updateLabel = 'patch update';
+              }
+              
+              core.setOutput('update_label', updateLabel);
+
+      - name: Create new version number
+        id: version_number
+        uses: actions/github-script@v8
+        env:
+          UPDATE_LABEL: ${{ steps.update_label.outputs.update_label }}
+        with:
+          script: |
+            const fs = require('fs');
+            const updateLabel =  process.env.UPDATE_LABEL;
+            const packageJson = JSON.parse(fs.readFileSync('frontend/package.json', 'utf8'));
+            const currentVersion = packageJson.version;
+
+            let majorVersion = parseInt(currentVersion.split(".")[0]);
+            let minorVersion = parseInt(currentVersion.split(".")[1]);
+            let patchVersion = parseInt(currentVersion.split(".")[2]);
+
+            if (updateLabel === 'major update') {
+              majorVersion += 1;
+              minorVersion = 0;
+              patchVersion = 0;
+            } else if (updateLabel === 'minor update') {
+              minorVersion += 1;
+              patchVersion = 0;
+            } else {
+              patchVersion += 1;
+            }
+
+            const newVersion = `${majorVersion}.${minorVersion}.${patchVersion}`;
+
+            core.setOutput('version_number', newVersion);
+
+      - name: Check semantic versioning
+        uses: actions/github-script@v8
+        env:
+          VERSION_NUMBER: ${{ steps.version_number.outputs.version_number }}
+        with:
+          script: |
+            const versionNumber = process.env.VERSION_NUMBER;
+            const semVerRegEx = /^[0-9]+\.[0-9]+\.[0-9]+$/;
+
+            if (!semVerRegEx.test(versionNumber)) {
+              throw new Error('Version number does not follow semantic versioning');
+            }
+
+      - name: Open a new branch
+        env:
+          VERSION_NUMBER: ${{ steps.version_number.outputs.version_number }}
+        run: |
+          git switch -c update/update-version-to-${VERSION_NUMBER}
+
+      - name: Update backend version
+        env:
+          VERSION_NUMBER: ${{ steps.version_number.outputs.version_number }}
+        run: |
+          cd backend
+          sed -i "s/version = '.*'/version = '${VERSION_NUMBER}'/" build.gradle
+
+      - name: Update frontend version
+        env:
+          VERSION_NUMBER: ${{ steps.version_number.outputs.version_number }}
+        run: |
+          cd frontend
+          npm version "${VERSION_NUMBER}" --no-git-tag-version
+          npm install
+      
+      - name: Run Git operations
+        id: git-operations
+        env:
+          VERSION_NUMBER: ${{ steps.version_number.outputs.version_number }}
+          UPDATE_LABEL: ${{ steps.update_label.outputs.update_label }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          # Config Git
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+          # Stage files
+          git add backend/build.gradle
+          git add frontend/package.json
+          git add frontend/package-lock.json
+
+          # Commit
+          git commit -m "update/update-version-to-${VERSION_NUMBER}" -m "* Automated ${UPDATE_LABEL} to version ${VERSION_NUMBER}"
+
+          # Rebase if branch exists remotely (ignore error if new)
+          git pull --rebase origin update/update-version-to-${VERSION_NUMBER} || true
+
+          # Push
+          git push origin update/update-version-to-${VERSION_NUMBER}
+
+          # Open new PR
+          gh pr create \
+            --base main \
+            --head update/update-version-to-${VERSION_NUMBER} \
+            --title "Update/Update version to ${VERSION_NUMBER}" \
+            --body "Automated ${UPDATE_LABEL} to ${VERSION_NUMBER} " \
+            --label "version update"
+
+          # Merge PR and close branch
+          gh pr merge update/update-version-to-${VERSION_NUMBER} --merge --delete-branch --auto
+
+      - name: Create new tag
+        if: ${{ steps.git-operations.outcome == 'success' }}
+        env:
+          VERSION_NUMBER: ${{ steps.version_number.outputs.version_number }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          git switch main
+          git pull origin main
+          git tag v${VERSION_NUMBER}
+          git push origin v${VERSION_NUMBER}
+          gh workflow run continuous-deployment.yaml --ref v${VERSION_NUMBER}

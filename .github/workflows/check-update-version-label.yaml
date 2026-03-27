@@ -1,0 +1,26 @@
+name: Version update labels check
+
+on:
+  pull_request:
+    types: [synchronize, reopened, labeled, unlabeled]
+
+jobs:
+  run-version-update-labels-check:
+    name: Version update labels check
+    runs-on: ubuntu-latest
+    if: ${{ !startsWith(github.event.pull_request.head.ref, 'update/update-version-to-') }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Check version update labels
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const allowedLabels = ['major update', 'minor update', 'patch update'];
+            const prLabels = context.payload.pull_request.labels.map(label => label.name);
+            const count = prLabels.filter(label => allowedLabels.includes(label)).length;
+            if (count !== 1) {
+              throw new Error('Pull request must have only one of these labels: major update, minor update, patch update');
+            }
