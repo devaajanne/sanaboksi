@@ -3,6 +3,9 @@ name: Version update labels check
 on:
   pull_request:
     types: [synchronize, reopened, labeled, unlabeled]
+concurrency:
+  group: version-label-check-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 jobs:
   run-version-update-labels-check:
