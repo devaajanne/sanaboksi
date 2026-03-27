@@ -102,7 +102,6 @@ jobs:
         run: |
           cd frontend
           npm version "${VERSION_NUMBER}" --no-git-tag-version
-          npm install
       
       - name: Run Git operations
         id: git-operations
