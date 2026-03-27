@@ -2,6 +2,7 @@ import { Button, Group, Modal, Text } from "@mantine/core";
 import { NotificationModalSource } from "../../types/Types";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { useTranslation } from "react-i18next";
+import { colorPaletteConstants } from "../../utility/Constants";
 
 interface NotificationModalProps {
   source: NotificationModalSource;
@@ -80,10 +81,13 @@ export default function NotificationModal({
       title={t(notificationModalTitle)}
       withCloseButton={false}
       styles={{
-        header: { backgroundColor: colorPalette[0], color: colorPalette[1] },
+        header: {
+          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+        },
         body: {
-          backgroundColor: colorPalette[0],
-          color: colorPalette[1],
+          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
         },
         title: { fontSize: 24 },
       }}
@@ -98,14 +102,16 @@ export default function NotificationModal({
       <Group style={{ width: "100%", justifyContent: "flex-end" }}>
         <Button
           onClick={onClose}
-          color={colorPalette[0]}
+          color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
           styles={{
             label: {
-              color: colorPalette[1],
+              color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
             },
             root: {
-              backgroundColor: colorPalette[0],
-              borderColor: colorPalette[1],
+              backgroundColor:
+                colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+              borderColor:
+                colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
               borderWidth: 3,
             },
           }}

@@ -10,6 +10,7 @@ import { useColorPalette } from "../../hooks/useColorPalette";
 import { GameInstructionsModal } from "../modals/GameInstructionsModal";
 import { useDisclosure } from "@mantine/hooks";
 import { useTranslation } from "react-i18next";
+import { colorPaletteConstants } from "../../utility/Constants";
 
 export default function Header() {
   const colorPalette = useColorPalette();
@@ -40,8 +41,9 @@ export default function Header() {
             onClick={() => open()}
             styles={{
               root: {
-                backgroundColor: colorPalette[0],
-                color: colorPalette[1],
+                backgroundColor:
+                  colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+                color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
               },
             }}
           >
@@ -52,7 +54,9 @@ export default function Header() {
           span={4}
           style={{ display: "flex", justifyContent: "center" }}
         >
-          <Title c={colorPalette[1]}>Sanaboksi</Title>
+          <Title c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}>
+            Sanaboksi
+          </Title>
         </Grid.Col>
         <Grid.Col
           span={4}
@@ -65,8 +69,9 @@ export default function Header() {
             onClick={() => toggleColorScheme()}
             styles={{
               root: {
-                backgroundColor: colorPalette[0],
-                color: colorPalette[1],
+                backgroundColor:
+                  colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+                color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
               },
             }}
           >

@@ -1,5 +1,6 @@
 import { Anchor, Center, Text } from "@mantine/core";
 import { useColorPalette } from "../../hooks/useColorPalette";
+import { colorPaletteConstants } from "../../utility/Constants";
 
 export default function Footer() {
   const colorPalette = useColorPalette();
@@ -12,11 +13,11 @@ export default function Footer() {
     <Center
       style={{ marginTop: footerMarginTop, marginBottom: footerMarginBotton }}
     >
-      <Text c={colorPalette[1]}>
+      <Text c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}>
         [ Sanaboksi 2026 by{"  "}
         <Anchor
           href="https://github.com/devaajanne"
-          c={colorPalette[1]}
+          c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
           underline="always"
         >
           Janne Airaksinen
