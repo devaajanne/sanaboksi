@@ -48,6 +48,7 @@ jobs:
         resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
         containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
         containerAppName: sanaboksi-backend
+        environmentVariables: CORS_ALLOWED_ORIGIN=https://sanaboksi.fi
         ingress: external
         targetPort: 8080
         disableTelemetry: true
