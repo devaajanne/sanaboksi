@@ -5,6 +5,7 @@ import type { FixedLetter } from "../../types/Types";
 import { IconCheck, IconX, IconCopy } from "@tabler/icons-react";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { useTranslation } from "react-i18next";
+import { colorPaletteConstants } from "../../utility/Constants";
 
 /**
  * Props for the SanaboksiGameRow component.
@@ -129,12 +130,12 @@ export default function SanaboksiGameRow({
           const cellValue = isPlaceholder ? "" : (rowData[columnIndex] ?? "");
           const correctBorderColor =
             isDuplicate === true
-              ? colorPalette[5]
+              ? colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]
               : isCorrect === true
-                ? colorPalette[3]
+                ? colorPalette[colorPaletteConstants.CORRECT_GREEN_3]
                 : isCorrect === false
-                  ? colorPalette[4]
-                  : colorPalette[1];
+                  ? colorPalette[colorPaletteConstants.INCORRECT_RED_4]
+                  : colorPalette[colorPaletteConstants.SECONDARY_COLOR_1];
 
           return (
             <TextInput
@@ -159,11 +160,11 @@ export default function SanaboksiGameRow({
                   textAlign: "center",
                   fontWeight: isFixedLetter ? "bold" : "normal",
                   backgroundColor: isFixedLetter
-                    ? colorPalette[2]
-                    : colorPalette[0],
+                    ? colorPalette[colorPaletteConstants.TERTIARY_COLOR_2]
+                    : colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
                   borderColor: correctBorderColor,
                   borderWidth: 3,
-                  color: colorPalette[1],
+                  color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
                 },
               }}
               onChange={
@@ -188,7 +189,7 @@ export default function SanaboksiGameRow({
       {isDuplicate === true ? (
         <IconCopy
           aria-label={t("AriaLabel.DuplicateWordIcon")}
-          color={colorPalette[5]}
+          color={colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]}
           size={iconSize}
           strokeWidth={iconStrokeWidth}
           style={{ position: "absolute", right: iconPositionRight }}
@@ -197,7 +198,7 @@ export default function SanaboksiGameRow({
         isCorrect ? (
           <IconCheck
             aria-label={t("AriaLabel.CorrectWordIcon")}
-            color={colorPalette[3]}
+            color={colorPalette[colorPaletteConstants.CORRECT_GREEN_3]}
             size={iconSize}
             strokeWidth={2}
             style={{ position: "absolute", right: iconPositionRight }}
@@ -205,7 +206,7 @@ export default function SanaboksiGameRow({
         ) : (
           <IconX
             aria-label={t("AriaLabel.IncorrectWordIcon")}
-            color={colorPalette[4]}
+            color={colorPalette[colorPaletteConstants.INCORRECT_RED_4]}
             size={iconSize}
             strokeWidth={iconStrokeWidth}
             style={{ position: "absolute", right: iconPositionRight }}

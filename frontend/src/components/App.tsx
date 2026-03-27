@@ -3,6 +3,7 @@ import Body from "./layout/Body";
 import Footer from "./layout/Footer";
 import Header from "./layout/Header";
 import { useColorPalette } from "../hooks/useColorPalette";
+import { colorPaletteConstants } from "../utility/Constants";
 
 function App() {
   const colorPalette = useColorPalette();
@@ -15,7 +16,7 @@ function App() {
           minHeight: "100vh",
           display: "flex",
           flexDirection: "column",
-          backgroundColor: colorPalette[0],
+          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
         },
       }}
     >

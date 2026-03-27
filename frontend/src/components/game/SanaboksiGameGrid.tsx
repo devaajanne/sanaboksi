@@ -16,6 +16,11 @@ import { Button, Container, Space, Stack } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import NotificationModal from "../modals/NotificationModal";
 import { useColorPalette } from "../../hooks/useColorPalette";
+import {
+  colorPaletteConstants,
+  gameConstants,
+  languageConstants,
+} from "../../utility/Constants";
 import { useTranslation } from "react-i18next";
 
 /**
@@ -30,7 +35,9 @@ export default function SanaboksiGameGrid() {
   const [fixedLetters, setFixedLetters] = useState<FixedLetters>([]);
   // Store the actual game grid data (2D array of characters with dynamic dimensions)
   const [gameGrid, setGameGrid] = useState<GameGrid>([]);
-  const [wordLength, setWordLength] = useState<number>(5);
+  const [wordLength, setWordLength] = useState<number>(
+    gameConstants.WORD_LENGTH_5,
+  );
   const [validationResults, setValidationResults] =
     useState<ValidationResults>(undefined);
   // Game grid is valid if all rows have no empty fields
@@ -119,7 +126,10 @@ export default function SanaboksiGameGrid() {
         );
       } else {
         setIsLoading(true);
-        const validationResultsData = await validateGameGrid(gameGrid, "fi");
+        const validationResultsData = await validateGameGrid(
+          gameGrid,
+          languageConstants.FI,
+        );
         setValidationResults(validationResultsData);
         setIsValidGameGrid(true);
 
@@ -185,7 +195,11 @@ export default function SanaboksiGameGrid() {
    */
   useEffect(() => {
     const initialFetch = async () => {
-      await fetchFixedLetters("fi", 5, 5);
+      await fetchFixedLetters(
+        languageConstants.FI,
+        gameConstants.WORD_LENGTH_5,
+        gameConstants.WORD_COUNT_5,
+      );
     };
     initialFetch();
   }, []);
@@ -237,18 +251,29 @@ export default function SanaboksiGameGrid() {
       <Container strategy="grid">
         {isValidGameGrid && isCorrectGameGrid ? (
           <Button
-            onClick={() => fetchFixedLetters("fi", 5, 5)}
+            onClick={() =>
+              fetchFixedLetters(
+                languageConstants.FI,
+                gameConstants.WORD_LENGTH_5,
+                gameConstants.WORD_COUNT_5,
+              )
+            }
             loading={isLoading}
-            loaderProps={{ type: "dots", color: colorPalette[2] }}
+            loaderProps={{
+              type: "dots",
+              color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+            }}
             size="lg"
-            color={colorPalette[0]}
+            color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
             styles={{
               label: {
-                color: colorPalette[1],
+                color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
               },
               root: {
-                backgroundColor: colorPalette[0],
-                borderColor: colorPalette[1],
+                backgroundColor:
+                  colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+                borderColor:
+                  colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
                 borderWidth: 3,
               },
             }}
@@ -259,16 +284,21 @@ export default function SanaboksiGameGrid() {
           <Button
             onClick={handleGameGridValidation}
             loading={isLoading}
-            loaderProps={{ type: "dots", color: colorPalette[2] }}
+            loaderProps={{
+              type: "dots",
+              color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+            }}
             size="lg"
-            color={colorPalette[0]}
+            color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
             styles={{
               label: {
-                color: colorPalette[1],
+                color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
               },
               root: {
-                backgroundColor: colorPalette[0],
-                borderColor: colorPalette[1],
+                backgroundColor:
+                  colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+                borderColor:
+                  colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
                 borderWidth: 3,
               },
             }}
