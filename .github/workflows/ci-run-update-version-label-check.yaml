@@ -1,4 +1,5 @@
-name: Version update labels check
+name: CD / Run update version label check
+description: Checks that feature PRs have an update version label
 
 on:
   pull_request:

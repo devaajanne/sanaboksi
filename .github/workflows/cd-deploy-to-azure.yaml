@@ -1,4 +1,5 @@
-name: Continuous Deployment (CD)
+name: CD / Deploy to Azure
+description: Runs Azure deployments with latest pushed tag
 
 on:
   # Only workflow_dispatch trigger because update-version.yaml creates a workflow_dispatch event for this workflow
@@ -13,11 +14,14 @@ jobs:
         version_number: ${{ steps.version_number.outputs.VERSION_NUMBER }}
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v6
+      
     - name: Get version number from latest tag
       id: version_number
       run: |
-        # Name of the branch/tag that triggered the workflow, tag in this case
-        LATEST_TAG=${{ github.ref_name }}
+        git fetch origin --tags
+        LATEST_TAG="$(git tag --list 'v*' --sort=-version:refname | head -n1)"
         echo "VERSION_NUMBER=${LATEST_TAG#v}" >> $GITHUB_OUTPUT
 
   build-and-deploy-backend-container-to-azure:
