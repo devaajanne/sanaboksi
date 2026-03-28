@@ -1,4 +1,5 @@
-name: Update version
+name: CD / Update version
+description: Updates app's major, minor or patch version number
 
 on:
   pull_request:
@@ -149,4 +150,4 @@ jobs:
           git pull origin main
           git tag v${VERSION_NUMBER}
           git push origin v${VERSION_NUMBER}
-          gh workflow run continuous-deployment.yaml --ref v${VERSION_NUMBER}
+          gh workflow run cd-deploy-to-azure.yaml --ref v${VERSION_NUMBER}

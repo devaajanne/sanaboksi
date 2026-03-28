@@ -1,4 +1,5 @@
-name: Continuous Integration (CI)
+name: CI / Run backend and frontend checks
+description: Runs formatting and linting checks as well as unit, integration and end-to-end tests on feature PRs
 
 on:
   pull_request:
@@ -99,7 +100,7 @@ jobs:
 
       - name: Install SQLite3 for integration tests
         run: |
-          sudo apt update && sudo apt install -y sqlite3
+          sudo apt update && sudo apt install -y --no-install-recommends sqlite3
 
       - name: Seed database
         env:
