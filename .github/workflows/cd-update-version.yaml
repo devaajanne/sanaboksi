@@ -40,8 +40,8 @@ jobs:
               
               core.setOutput('update_label', updateLabel);
 
-      - name: Create new version number
-        id: version_number
+      - name: Create a new version number
+        id: create-new-version-number
         uses: actions/github-script@v8
         env:
           UPDATE_LABEL: ${{ steps.update_label.outputs.update_label }}
@@ -74,7 +74,7 @@ jobs:
       - name: Check semantic versioning
         uses: actions/github-script@v8
         env:
-          VERSION_NUMBER: ${{ steps.version_number.outputs.version_number }}
+          VERSION_NUMBER: ${{ steps.create-new-version-number.outputs.version_number }}
         with:
           script: |
             const versionNumber = process.env.VERSION_NUMBER;
@@ -86,20 +86,20 @@ jobs:
 
       - name: Open a new branch
         env:
-          VERSION_NUMBER: ${{ steps.version_number.outputs.version_number }}
+          VERSION_NUMBER: ${{ steps.create-new-version-number.outputs.version_number }}
         run: |
           git switch -c update/update-version-to-${VERSION_NUMBER}
 
       - name: Update backend version
         env:
-          VERSION_NUMBER: ${{ steps.version_number.outputs.version_number }}
+          VERSION_NUMBER: ${{ steps.create-new-version-number.outputs.version_number }}
         run: |
           cd backend
           sed -i "s/version = '.*'/version = '${VERSION_NUMBER}'/" build.gradle
 
       - name: Update frontend version
         env:
-          VERSION_NUMBER: ${{ steps.version_number.outputs.version_number }}
+          VERSION_NUMBER: ${{ steps.create-new-version-number.outputs.version_number }}
         run: |
           cd frontend
           npm version "${VERSION_NUMBER}" --no-git-tag-version
@@ -107,7 +107,7 @@ jobs:
       - name: Run Git operations
         id: git-operations
         env:
-          VERSION_NUMBER: ${{ steps.version_number.outputs.version_number }}
+          VERSION_NUMBER: ${{ steps.create-new-version-number.outputs.version_number }}
           UPDATE_LABEL: ${{ steps.update_label.outputs.update_label }}
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
@@ -140,14 +140,22 @@ jobs:
           # Merge PR and close branch
           gh pr merge update/update-version-to-${VERSION_NUMBER} --merge --delete-branch --auto
 
-      - name: Create new tag
+      - name: Create a new tag
+        id: create-new-tag
         if: ${{ steps.git-operations.outcome == 'success' }}
         env:
-          VERSION_NUMBER: ${{ steps.version_number.outputs.version_number }}
+          VERSION_NUMBER: ${{ steps.create-new-version-number.outputs.version_number }}
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           git switch main
           git pull origin main
           git tag v${VERSION_NUMBER}
           git push origin v${VERSION_NUMBER}
+
+      - name: Trigger deployment workflow
+        if: ${{ steps.create-new-tag.outcome == 'success' }}
+        env:
+          VERSION_NUMBER: ${{ steps.create-new-version-number.outputs.version_number }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
           gh workflow run cd-deploy-to-azure.yaml --ref v${VERSION_NUMBER}

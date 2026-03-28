@@ -4,6 +4,7 @@ description: Checks that feature PRs have an update version label
 on:
   pull_request:
     types: [synchronize, reopened, labeled, unlabeled]
+# Concurrency ensures workflow runs only once, even if a PR with two labels would trigger the workflow twice
 concurrency:
   group: version-label-check-${{ github.event.pull_request.number }}-${{ github.event.action }}
   cancel-in-progress: true
