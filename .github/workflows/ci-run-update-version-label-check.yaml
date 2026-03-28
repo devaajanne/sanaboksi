@@ -1,4 +1,4 @@
-name: CD / Run update version label check
+name: CI / Run update version label check
 description: Checks that feature PRs have an update version label
 
 on:
