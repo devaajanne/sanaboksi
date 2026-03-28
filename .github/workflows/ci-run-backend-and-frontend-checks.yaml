@@ -9,6 +9,7 @@ jobs:
   run-backend-formatting-check:
     name: BE formatting check
     runs-on: ubuntu-latest
+    # Run checks only on feature PRs, not on PRs that update version
     if: ${{ !startsWith(github.event.pull_request.head.ref, 'update/update-version-to-') }}
 
     steps:

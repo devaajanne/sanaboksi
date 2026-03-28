@@ -27,6 +27,7 @@ jobs:
   build-and-deploy-backend-container-to-azure:
     name: Build and deploy backend container to Azure
     runs-on: ubuntu-latest
+    # Needs job to make sure the correct tag is used for images
     needs: get-version-number-from-latest-tag
     env:
       VERSION_NUMBER: ${{ needs.get-version-number-from-latest-tag.outputs.version_number }}
@@ -43,7 +44,7 @@ jobs:
     - name: Build and deploy backend container
       uses: azure/container-apps-deploy-action@v2
       with:
-        acrUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME}}
+        acrUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
         acrPassword: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
         dockerfilePath: Dockerfile
         appSourcePath: ${{ github.workspace }}/backend
