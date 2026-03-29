@@ -13,14 +13,14 @@ jobs:
     name: Get version number from latest tag
     runs-on: ubuntu-latest
     outputs:
-        version_number: ${{ steps.version_number.outputs.VERSION_NUMBER }}
+        version_number: ${{ steps.get_version_number_from_latest_tag.outputs.VERSION_NUMBER }}
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v6
       
     - name: Get version number from latest tag
-      id: version_number
+      id: get_version_number_from_latest_tag
       run: |
         # Ref automatically set when triggered by workflow
         # Must be manually selected in GitHub when triggered manually
