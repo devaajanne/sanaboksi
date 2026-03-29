@@ -98,7 +98,6 @@ jobs:
       - name: Set up backend workflow environment
         uses: ./.github/actions/setup-backend-workflow-environment
 
-
       - name: Install SQLite3 for integration tests
         run: |
           sudo apt update && sudo apt install -y --no-install-recommends sqlite3
