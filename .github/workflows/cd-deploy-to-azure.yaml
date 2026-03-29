@@ -58,14 +58,14 @@ jobs:
     - name: Build and deploy backend container
       uses: azure/container-apps-deploy-action@v2
       with:
+        resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+        acrName: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
         acrUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
         acrPassword: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
+        containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
         dockerfilePath: Dockerfile
         appSourcePath: ${{ github.workspace }}/backend
-        acrName: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
         imageToBuild: ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/sanaboksi-backend:${{ env.VERSION_NUMBER }}
-        resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
-        containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
         containerAppName: sanaboksi-backend
         environmentVariables: CORS_ALLOWED_ORIGIN=https://sanaboksi.fi
         ingress: external
@@ -92,14 +92,14 @@ jobs:
     - name: Build and deploy frontend container
       uses: azure/container-apps-deploy-action@v2
       with:
+        resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+        acrName: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
         acrUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
         acrPassword: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
+        containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
         dockerfilePath: Dockerfile
         appSourcePath: ${{ github.workspace }}/frontend
-        acrName: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
         imageToBuild: ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/sanaboksi-frontend:${{ env.VERSION_NUMBER }}
-        resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
-        containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
         containerAppName: sanaboksi-frontend
         buildArguments: VITE_SERVER_URL=${{ secrets.AZURE_BACKEND_URL }}
         ingress: external
