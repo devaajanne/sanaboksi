@@ -4,7 +4,7 @@ description: Runs Azure deployments with latest pushed tag
 on:
   # Only workflow_dispatch trigger because cd-update-version.yaml creates a workflow_dispatch event for this workflow
   # Deployment workflow should only be run
-  # - automatically after successful version update and tag creation
+  # - automatically after successful tag creation
   # - manually from an existing tag
   workflow_dispatch:
 
@@ -13,27 +13,25 @@ jobs:
     name: Get version number from latest tag
     runs-on: ubuntu-latest
     outputs:
-        version_number: ${{ steps.get_version_number_from_latest_tag.outputs.VERSION_NUMBER }}
+        version_number: ${{ steps.version_number.outputs.VERSION_NUMBER }}
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v6
       
     - name: Get version number from latest tag
-      id: get_version_number_from_latest_tag
+      id: version_number
       run: |
         # Ref automatically set when triggered by workflow
         # Must be manually selected in GitHub when triggered manually
-        REF_NAME=${{ github.ref_name }}
+        LATEST_TAG=${{ github.ref_name }}
 
         # Original semver regular expression from https://semver.org/ - modified expression here
         SEMVER_REGEX="^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$"
 
-        if [[ ! ${REF_NAME} =~ ${SEMVER_REGEX} ]]; then
-          echo "Ref is not a valid tag"
+        if [[ ! ${LATEST_TAG} =~ ${SEMVER_REGEX} ]]; then
+          echo "Tag is not valid"
           exit 1
-        else
-          LATEST_TAG=${{ github.ref_name }}
         fi
 
         echo "VERSION_NUMBER=${LATEST_TAG#v}" >> $GITHUB_OUTPUT
@@ -58,14 +56,14 @@ jobs:
     - name: Build and deploy backend container
       uses: azure/container-apps-deploy-action@v2
       with:
-        resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
-        acrName: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
         acrUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
         acrPassword: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
-        containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
         dockerfilePath: Dockerfile
         appSourcePath: ${{ github.workspace }}/backend
+        acrName: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
         imageToBuild: ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/sanaboksi-backend:${{ env.VERSION_NUMBER }}
+        resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+        containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
         containerAppName: sanaboksi-backend
         environmentVariables: CORS_ALLOWED_ORIGIN=https://sanaboksi.fi
         ingress: external
@@ -92,14 +90,14 @@ jobs:
     - name: Build and deploy frontend container
       uses: azure/container-apps-deploy-action@v2
       with:
-        resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
-        acrName: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
         acrUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
         acrPassword: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
-        containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
         dockerfilePath: Dockerfile
         appSourcePath: ${{ github.workspace }}/frontend
+        acrName: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
         imageToBuild: ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/sanaboksi-frontend:${{ env.VERSION_NUMBER }}
+        resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+        containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
         containerAppName: sanaboksi-frontend
         buildArguments: VITE_SERVER_URL=${{ secrets.AZURE_BACKEND_URL }}
         ingress: external
