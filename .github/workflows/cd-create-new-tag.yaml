@@ -47,17 +47,17 @@ jobs:
         with:
           script: |
             const prLabels = context.payload.pull_request.labels.map(label => label.name);
-            let updateLabel;
+            let prUpdateLabel;
 
             if (prLabels.includes('major update')) {
-              updateLabel = 'major update';
+              prUpdateLabel = 'major update';
             } else if (prLabels.includes('minor update')) {
-              updateLabel = 'minor update';
+              prUpdateLabel = 'minor update';
             } else {
-              updateLabel = 'patch update';
+              prUpdateLabel = 'patch update';
             }
             
-            core.setOutput('update_label', updateLabel);
+            core.setOutput('update_label', prUpdateLabel);
 
   create-new-version-number:
     name: Create a new version number
@@ -76,32 +76,32 @@ jobs:
         with:
           script: |
             const currentVersionNumber = process.env.CURRENT_VERSION_NUMBER;
-            const updateLabel =  process.env.PR_UPDATE_LABEL;
+            const prUpdateLabel =  process.env.PR_UPDATE_LABEL;
 
-            let majorVersion = parseInt(currentVersionNumber.split(".")[0]);
-            let minorVersion = parseInt(currentVersionNumber.split(".")[1]);
-            let patchVersion = parseInt(currentVersionNumber.split(".")[2]);
+            let majorVersionNumber = parseInt(currentVersionNumber.split(".")[0]);
+            let minorVersionNumber = parseInt(currentVersionNumber.split(".")[1]);
+            let patchVersionNumber = parseInt(currentVersionNumber.split(".")[2]);
 
-            if (updateLabel === 'major update') {
-              majorVersion += 1;
-              minorVersion = 0;
-              patchVersion = 0;
-            } else if (updateLabel === 'minor update') {
-              minorVersion += 1;
-              patchVersion = 0;
-            } else if (updateLabel === 'patch update') {
-              patchVersion += 1;
+            if (prUpdateLabel === 'major update') {
+              majorVersionNumber += 1;
+              minorVersionNumber = 0;
+              patchVersionNumber = 0;
+            } else if (prUpdateLabel === 'minor update') {
+              minorVersionNumber += 1;
+              patchVersionNumber = 0;
+            } else if (prUpdateLabel === 'patch update') {
+              patchVersionNumber += 1;
             } else {
-              throw new Error("PR update label does not match 'major update', 'minor update' or 'patch update'");
+              throw new Error("Error: PR update label does not match 'major update', 'minor update' or 'patch update'!");
             }
 
-            const newVersionNumber = `${majorVersion}.${minorVersion}.${patchVersion}`;
+            const newVersionNumber = `${majorVersionNumber}.${minorVersionNumber}.${patchVersionNumber}`;
 
             // Original semver regular expression from https://semver.org/ - modified expression here for JS
             const semVerRegEx = /^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$/;
 
             if (!semVerRegEx.test(newVersionNumber)) {
-              throw new Error("New version number does not follow semantic versioning");
+              throw new Error("Error: New version number does not follow semantic versioning!");
             }
 
             core.setOutput('new_version_number', newVersionNumber);

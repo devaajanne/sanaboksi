@@ -1,5 +1,5 @@
 name: CD / Deploy to Azure
-description: Runs Azure deployments with latest pushed tag
+description: Runs automatic or manual Azure deployments with selected tag
 
 on:
   # Only workflow_dispatch trigger because cd-update-version.yaml creates a workflow_dispatch event for this workflow
@@ -9,42 +9,42 @@ on:
   workflow_dispatch:
 
 jobs:
-  get-version-number-from-latest-tag:
-    name: Get version number from latest tag
+  get-version-number-from-ref:
+    name: Get version number from ref
     runs-on: ubuntu-latest
     outputs:
-        version_number: ${{ steps.version_number.outputs.VERSION_NUMBER }}
+        version_number: ${{ steps.get-version-number-from-ref.outputs.version_number }}
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v6
       
-    - name: Get version number from latest tag
-      id: version_number
+    - name: Get version number from ref
+      id: get-version-number-from-ref
       run: |
         # Ref automatically set when triggered by workflow
         # Must be manually selected in GitHub when triggered manually
-        LATEST_TAG=${{ github.ref_name }}
+        TAG=${{ github.ref_name }}
 
         # Original semver regular expression from https://semver.org/ - modified expression here
         SEMVER_REGEX="^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$"
 
-        if [[ ! ${LATEST_TAG} =~ ${SEMVER_REGEX} ]]; then
+        if [[ ! ${TAG} =~ ${SEMVER_REGEX} ]]; then
           echo "Tag is not valid"
           exit 1
         fi
 
-        echo "VERSION_NUMBER=${LATEST_TAG#v}" >> $GITHUB_OUTPUT
+        echo "VERSION_NUMBER=${TAG#v}" >> $GITHUB_OUTPUT
 
   check-acr-images:
     name: Check ACR images
     runs-on: ubuntu-latest
-    needs: get-version-number-from-latest-tag
+    needs: get-version-number-from-ref
     outputs:
       backend_image_in_acr: ${{ steps.check-acr-image-tags.outputs.backend_image_in_acr }}
       frontend_image_in_acr: ${{ steps.check-acr-image-tags.outputs.frontend_image_in_acr }}
     env:
-      VERSION_NUMBER: ${{ needs.get-version-number-from-latest-tag.outputs.version_number }}
+      VERSION_NUMBER: ${{ needs.get-version-number-from-ref.outputs.version_number }}
 
     steps:
     - name: Login to Azure
@@ -56,24 +56,29 @@ jobs:
       id: check-acr-image-tags
       run: |
         if az acr repository show-tags --name ${{ secrets.AZURE_CONTAINER_REGISTRY }} --repository sanaboksi-backend --output tsv | grep -qFx ${{ env.VERSION_NUMBER }}; then
+          echo "Backend image tag ${{ env.VERSION_NUMBER }} found in ACR - deploying container from existing backend image"
           echo "BACKEND_IMAGE_IN_ACR=true" >> $GITHUB_OUTPUT
         else
+          echo "Backend image tag ${{ env.VERSION_NUMBER }} not found in ACR - building new backend image and deploying new container"
           echo "BACKEND_IMAGE_IN_ACR=false" >> $GITHUB_OUTPUT
         fi
 
         if az acr repository show-tags --name ${{ secrets.AZURE_CONTAINER_REGISTRY }} --repository sanaboksi-frontend --output tsv | grep -qFx ${{ env.VERSION_NUMBER }}; then
+          echo "Frontend image tag ${{ env.VERSION_NUMBER }} found in ACR - deploying container from existing frontend image"
           echo "FRONTEND_IMAGE_IN_ACR=true" >> $GITHUB_OUTPUT
         else
+          echo "Frontend image tag ${{ env.VERSION_NUMBER }} not found in ACR - building new frontend image and deploying new container"
           echo "FRONTEND_IMAGE_IN_ACR=false" >> $GITHUB_OUTPUT
         fi
 
-  build-and-deploy-backend-container-to-azure:
-    name: Build and deploy backend container to Azure
+
+  deploy-backend-container-to-azure:
+    name: Deploy backend container to Azure
     runs-on: ubuntu-latest
     # Needs job to make sure the correct tag is used for images
-    needs: [get-version-number-from-latest-tag, check-acr-images]
+    needs: [get-version-number-from-ref, check-acr-images]
     env:
-      VERSION_NUMBER: ${{ needs.get-version-number-from-latest-tag.outputs.version_number }}
+      VERSION_NUMBER: ${{ needs.get-version-number-from-ref.outputs.version_number }}
     
     steps:
     - name: Checkout code
@@ -114,13 +119,13 @@ jobs:
         targetPort: 8080
         disableTelemetry: true
 
-  build-and-deploy-frontend-container-to-azure:
-    name: Build and deploy frontend container to Azure
+  deploy-frontend-container-to-azure:
+    name: Deploy frontend container to Azure
     runs-on: ubuntu-latest
     # Needs jobs to make sure the correct tag is used for images and that backend is deployed
-    needs: [get-version-number-from-latest-tag, check-acr-images, build-and-deploy-backend-container-to-azure]
+    needs: [get-version-number-from-ref, check-acr-images, deploy-backend-container-to-azure]
     env:
-      VERSION_NUMBER: ${{ needs.get-version-number-from-latest-tag.outputs.version_number }}
+      VERSION_NUMBER: ${{ needs.get-version-number-from-ref.outputs.version_number }}
     
     steps:
     - name: Checkout code
