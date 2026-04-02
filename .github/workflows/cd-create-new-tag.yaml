@@ -1,5 +1,5 @@
 name: CD / Create new version tag
-description: Creates a new version tag based on merged PR update label and current semver version
+description: Creates a new version tag based on merged PR update label and latest tag
 
 on:
   pull_request:
@@ -7,30 +7,38 @@ on:
     branches: [main]
 
 jobs:
-  get-version-number-from-latest-tag:
-    name: Get version number from latest tag
+  get-latest-tag:
+    name: Get latest tag
     runs-on: ubuntu-latest
     # Runs only if PR was merged to main
     if: ${{ github.event.pull_request.merged == true }}
     outputs:
-      current_version_number: ${{ steps.get-version-number-from-latest-tag.outputs.version_number }}
+      latest_tag: ${{ steps.get-latest-tag.outputs.latest_tag }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Get version number from latest tag
-        id: get-version-number-from-latest-tag 
+      - name: Get latest tag
+        id: get-latest-tag 
         run: |
           git fetch origin --tags
           LATEST_TAG="$(git tag --list 'v*' --sort=-version:refname | head -n1)"
 
           if [ -z "$LATEST_TAG" ]; then
-            echo "Error: No tags matching 'v*' were found in the repository" >&2
+            echo "Error: No tags matching 'v*' were found in the repository!" >&2
             exit 1
           fi
 
-          echo "VERSION_NUMBER=${LATEST_TAG#v}" >> $GITHUB_OUTPUT
+          # Original semver regular expression from https://semver.org/ - modified expression here
+          SEMVER_REGEX="^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$"
+
+          if [[ ! ${LATEST_TAG} =~ ${SEMVER_REGEX} ]]; then
+            echo "Error: Tag is not valid!"
+            exit 1
+          fi
+
+          echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_OUTPUT
 
   get-pr-update-label:
     name: Get PR update label
@@ -59,24 +67,28 @@ jobs:
             
             core.setOutput('update_label', prUpdateLabel);
 
-  create-new-version-number:
-    name: Create a new version number
+  create-and-push-new-tag:
+    name: Create and push a new tag
     runs-on: ubuntu-latest
-    needs: [get-version-number-from-latest-tag, get-pr-update-label]
+    needs: [get-latest-tag, get-pr-update-label]
     env:
-      CURRENT_VERSION_NUMBER: ${{ needs.get-version-number-from-latest-tag.outputs.current_version_number }}
+      LATEST_TAG: ${{ needs.get-latest-tag.outputs.latest_tag }}
       PR_UPDATE_LABEL: ${{ needs.get-pr-update-label.outputs.pr_update_label }}
     outputs:
-      new_version_number: ${{ steps.create-new-version-number.outputs.new_version_number }}
-
+      new_tag: ${{ steps.create-new-tag.outputs.new_tag }}
+    
     steps:
-      - name: Create a new version number
-        id: create-new-version-number
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Create a new tag
+        id: create-new-tag
         uses: actions/github-script@v8
         with:
           script: |
-            const currentVersionNumber = process.env.CURRENT_VERSION_NUMBER;
+            const latestTag = process.env.LATEST_TAG;
             const prUpdateLabel =  process.env.PR_UPDATE_LABEL;
+            const currentVersionNumber = latestTag.substring(1);
 
             let majorVersionNumber = parseInt(currentVersionNumber.split(".")[0]);
             let minorVersionNumber = parseInt(currentVersionNumber.split(".")[1]);
@@ -95,48 +107,32 @@ jobs:
               throw new Error("Error: PR update label does not match 'major update', 'minor update' or 'patch update'!");
             }
 
-            const newVersionNumber = `${majorVersionNumber}.${minorVersionNumber}.${patchVersionNumber}`;
+            const newTag = `v${majorVersionNumber}.${minorVersionNumber}.${patchVersionNumber}`;
 
             // Original semver regular expression from https://semver.org/ - modified expression here for JS
-            const semVerRegEx = /^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$/;
+            const semVerRegEx = /^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$/;
 
-            if (!semVerRegEx.test(newVersionNumber)) {
-              throw new Error("Error: New version number does not follow semantic versioning!");
+            if (!semVerRegEx.test(newTag)) {
+              throw new Error("Error: New tag does not follow semantic versioning!");
             }
 
-            core.setOutput('new_version_number', newVersionNumber);
+            core.setOutput('new_tag', newTag);
 
-  create-new-tag:
-    name: Create a new tag
-    runs-on: ubuntu-latest
-    needs: create-new-version-number
-    env:
-      NEW_VERSION_NUMBER: ${{ needs.create-new-version-number.outputs.new_version_number }}
-    outputs:
-      new_tag: ${{ steps.create-new-tag.outputs.new_tag }}
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-
-      - name: Create a new tag
-        id: create-new-tag
+      - name: Push new tag
+        env:
+          NEW_TAG: ${{ steps.create-new-tag.outputs.new_tag }}
         run: |
-          NEW_TAG=v${NEW_VERSION_NUMBER}
-
           git switch main
           git pull origin main
           git tag ${NEW_TAG}
           git push origin ${NEW_TAG}
 
-          echo "NEW_TAG=${NEW_TAG}" >> $GITHUB_OUTPUT
-
   trigger-deployment-workflow:
     name: Trigger deployment workflow
     runs-on: ubuntu-latest
-    needs: create-new-tag
+    needs: create-and-push-new-tag
     env:
-      NEW_TAG: ${{ needs.create-new-tag.outputs.new_tag }}
+      NEW_TAG: ${{ needs.create-and-push-new-tag.outputs.new_tag }}
       GH_TOKEN: ${{ github.token }}
 
     steps:
