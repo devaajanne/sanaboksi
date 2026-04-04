@@ -1,5 +1,5 @@
 name: CI / Run update version label check
-description: Checks that feature PRs have an update version label
+description: Checks that PRs have an update version label
 
 on:
   pull_request:

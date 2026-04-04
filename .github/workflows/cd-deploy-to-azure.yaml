@@ -100,6 +100,7 @@ jobs:
         containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
         imageToDeploy: ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/sanaboksi-backend:${{ env.VERSION_NUMBER }}
         containerAppName: sanaboksi-backend
+        disableTelemetry: true
 
     - name: Build and deploy new backend container
       uses: azure/container-apps-deploy-action@v2
@@ -147,6 +148,7 @@ jobs:
         containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
         imageToDeploy: ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/sanaboksi-frontend:${{ env.VERSION_NUMBER }}
         containerAppName: sanaboksi-frontend
+        disableTelemetry: true
 
     - name: Build and deploy new frontend container
       uses: azure/container-apps-deploy-action@v2
