@@ -7,10 +7,6 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 if [ -f "/.dockerenv" ]; then
     echo "Reseeding database in a container..."
     DATABASE_DIRECTORY="/database"
-# Running script in GitHub Actions
-elif [ ${GITHUB_ACTIONS} ]; then
-    echo "Reseeding database in GitHub Actions..."
-    DATABASE_DIRECTORY="$SCRIPT_DIR/../database"
 else
     echo "Not reseeding database in a container or GitHub Actions, skipping..."
     exit 0
