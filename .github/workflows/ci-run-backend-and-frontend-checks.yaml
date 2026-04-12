@@ -17,7 +17,7 @@ jobs:
       - name: Set up backend workflow environment
         uses: ./.github/actions/setup-backend-workflow-environment
 
-      - name: Run BE formatting check 
+      - name: Run backend formatting check 
         run: cd backend && ./gradlew spotlessCheck
 
   run-frontend-formatting-check:
@@ -31,7 +31,7 @@ jobs:
       - name: Set up frontend workflow environment
         uses: ./.github/actions/setup-frontend-workflow-environment
 
-      - name: Run FE formatting check
+      - name: Run frontend formatting check
         run: cd frontend && npx prettier . --check
 
   run-frontend-linting-check:
@@ -45,7 +45,7 @@ jobs:
       - name: Set up frontend workflow environment
         uses: ./.github/actions/setup-frontend-workflow-environment
 
-      - name: Run FE linting check
+      - name: Run frontend linting check
         run: cd frontend && npx eslint .
 
   run-backend-unit-tests:
@@ -69,7 +69,7 @@ jobs:
           path: sanaboksi-backend-test.tar
           retention-days: 1
 
-      - name: Run BE unit tests in container
+      - name: Run backend unit tests in a container
         run: |
           mkdir -p "${{ github.workspace }}/backend/build/reports/tests"
           docker run --rm --name be-unit-tests \
@@ -100,14 +100,11 @@ jobs:
       - name: Load backend test image
         run: docker load -i sanaboksi-backend-test.tar
 
-      - name: Run BE integration tests in container
-        env:
-          CORS_ALLOWED_ORIGIN: http://localhost:5173
-          SQLITE_DB_PATH: /database/database.db
+      - name: Run backend integration tests in a container
         run: |
           mkdir -p "${{ github.workspace }}/backend/build/reports/tests"
           docker run --rm --name be-integration-tests \
-            -e CORS_ALLOWED_ORIGIN="${CORS_ALLOWED_ORIGIN}" -e SQLITE_DB_PATH="${SQLITE_DB_PATH}" \
+            -e SQLITE_DB_PATH="/database/database.db" \
             -v "${{ github.workspace }}/backend/build/reports/tests:/workdir/build/reports/tests" \
             sanaboksi-backend-test \
             sh -c "./databaseInit/reseed_database.sh && ./gradlew --no-daemon integrationTest"
@@ -147,9 +144,6 @@ jobs:
       - name: Show frontend logs on container build failure
         if: ${{ failure() }}
         run: docker logs sanaboksi_frontend
-
-      - name: Wait for frontend to be ready
-        run: until curl --output /dev/null --silent --head --fail http://localhost:5173; do sleep 5; done
 
       - name: Run end-to-end tests
         run: cd frontend && npx playwright test
