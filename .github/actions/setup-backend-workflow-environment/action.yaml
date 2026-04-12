@@ -12,6 +12,4 @@ runs:
 
     - name: Grant Gradle execute permissions
       shell: bash
-      run: |
-        cd backend
-        chmod +x ./gradlew
+      run: cd backend && chmod +x ./gradlew
