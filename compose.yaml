@@ -1,3 +1,5 @@
+# Docker compose file for prod environment
+# Run with 'docker compose -f compose.yaml up --build' from project root
 name: sanaboksi
 
 services:

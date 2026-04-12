@@ -3,15 +3,13 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-if [ -n "${DATABASE_DIRECTORY:-}" ]; then
-    # Running in GitHub Actions
-    DATABASE_DIRECTORY="$DATABASE_DIRECTORY"
-elif [ -f "/.dockerenv" ]; then
-    # Running in container
+# Running script in a container
+if [ -f "/.dockerenv" ]; then
+    echo "Reseeding database in a container..."
     DATABASE_DIRECTORY="/database"
 else
-    # Running locally
-    DATABASE_DIRECTORY="$SCRIPT_DIR/../database"
+    echo "Not reseeding database in a container or GitHub Actions, skipping..."
+    exit 0
 fi
 
 # Ensure the database directory exists before creating the database file

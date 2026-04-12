@@ -1,3 +1,5 @@
+# Docker compose file for dev environment
+# Run with 'docker compose -f compose.dev.yaml up --watch' from project root
 name: sanaboksi_dev
 
 services:
@@ -11,8 +13,6 @@ services:
       - "8080:8080"
     networks:
       - network_dev
-    volumes:
-      - ./backend/src/main/resources/database:/database
     environment:
       # Environment variables are passed to Spring Boot configuration
       CORS_ALLOWED_ORIGIN: http://localhost:5173
