@@ -51,7 +51,7 @@ jobs:
     steps:
       - name: Get PR update label
         id: get-pr-update-label
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const prLabels = context.payload.pull_request.labels.map(label => label.name);
@@ -83,7 +83,7 @@ jobs:
 
       - name: Create a new tag
         id: create-new-tag
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const latestTag = process.env.LATEST_TAG;

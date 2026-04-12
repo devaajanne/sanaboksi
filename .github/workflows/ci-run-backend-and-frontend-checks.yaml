@@ -37,7 +37,6 @@ jobs:
   run-frontend-linting-check:
     name: FE linting check
     runs-on: ubuntu-latest
-    needs: run-frontend-formatting-check
 
     steps:
       - name: Checkout code
@@ -52,7 +51,6 @@ jobs:
   run-backend-unit-tests:
     name: BE unit tests
     runs-on: ubuntu-latest
-    needs: run-backend-formatting-check
 
     steps:
       - name: Checkout code
@@ -60,6 +58,16 @@ jobs:
       
       - name: Build backend test image
         run: docker build -t sanaboksi-backend-test -f ./backend/Dockerfile.dev ./backend
+
+      - name: Export backend test image
+        run: docker save sanaboksi-backend-test -o sanaboksi-backend-test.tar
+
+      - name: Upload backend test image
+        uses: actions/upload-artifact@v7
+        with:
+          name: sanaboksi-backend-test-image
+          path: sanaboksi-backend-test.tar
+          retention-days: 1
 
       - name: Run BE unit tests in container
         run: |
@@ -70,7 +78,7 @@ jobs:
 
       - name: Upload unit test report on test failure
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: unit-test-report
           path: backend/build/reports/tests/unitTest/
@@ -84,8 +92,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Build backend test image
-        run: docker build -t sanaboksi-backend-test -f ./backend/Dockerfile.dev ./backend
+      - name: Download backend test image
+        uses: actions/download-artifact@v8
+        with:
+          name: sanaboksi-backend-test-image
+
+      - name: Load backend test image
+        run: docker load -i sanaboksi-backend-test.tar
 
       - name: Run BE integration tests in container
         env:
@@ -101,7 +114,7 @@ jobs:
 
       - name: Upload integration test report on test failure
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: integration-test-report
           path: backend/build/reports/tests/integrationTest/
@@ -109,7 +122,7 @@ jobs:
   run-end-to-end-tests:
     name: End-to-end tests
     runs-on: ubuntu-latest
-    needs: [run-frontend-linting-check, run-backend-integration-tests]
+    needs: [run-backend-integration-tests]
 
     steps:
       - name: Checkout code
@@ -143,7 +156,7 @@ jobs:
 
       - name: Upload Playwright report on test failure
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-report
           path: frontend/test-results/
