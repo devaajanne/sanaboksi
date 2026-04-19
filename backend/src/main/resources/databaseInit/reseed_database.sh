@@ -8,8 +8,8 @@ if [ -f "/.dockerenv" ]; then
     echo "Reseeding database in a container..."
     DATABASE_DIRECTORY="/database"
 else
-    echo "Not reseeding database in a container or GitHub Actions, skipping..."
-    exit 0
+    echo "Reseeding database locally..."
+    DATABASE_DIRECTORY="$SCRIPT_DIR/../database"
 fi
 
 # Ensure the database directory exists before creating the database file
@@ -21,15 +21,15 @@ SCHEMA_FILE="$SCRIPT_DIR/schema.sql"
 SEED_DIR="$SCRIPT_DIR/finnishWords"
 DATABASE_FILE="$DATABASE_DIRECTORY/database.db"
 
-# Remove database file if exists
-if [ -f "$DATABASE_FILE" ]; then
-    rm "$DATABASE_FILE"
-fi
-
 # Check that schema file exists
 if [ ! -f "$SCHEMA_FILE" ]; then
     echo "Database schema not found at $SCHEMA_FILE. Skipping creation."
     exit 1
+fi
+
+# Remove database file if exists
+if [ -f "$DATABASE_FILE" ]; then
+    rm "$DATABASE_FILE"
 fi
 
 # Create and seed database

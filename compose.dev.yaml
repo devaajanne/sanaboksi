@@ -11,18 +11,14 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - "8080:8080"
-    networks:
-      - network_dev
     environment:
-      # Environment variables are passed to Spring Boot configuration
-      CORS_ALLOWED_ORIGIN: http://localhost:5173
-      SQLITE_DB_PATH: /database/database.db
+      SPRING_PROFILES_ACTIVE: local-dev
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 30s
+      start_period: 15s
     develop:
       watch:
         - action: sync
@@ -38,8 +34,6 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - "5173:5173"
-    networks:
-      - network_dev
     environment:
       # Environment variables are passed to Vite configuration and API requests
       VITE_USE_POLLING: true
@@ -54,7 +48,3 @@ services:
           target: /workdir
           ignore:
             - node_modules/
-
-networks:
-  network_dev:
-    driver: bridge
