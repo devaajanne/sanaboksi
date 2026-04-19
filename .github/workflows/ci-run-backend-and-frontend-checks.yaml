@@ -59,6 +59,13 @@ jobs:
       - name: Build backend test image
         run: docker build -t sanaboksi-backend-test -f ./backend/Dockerfile.dev ./backend
 
+      - name: Run backend unit tests in a container
+        run: |
+          mkdir -p "${{ github.workspace }}/backend/build/reports/tests"
+          docker run --rm --name be-unit-tests \
+          -v "${{ github.workspace }}/backend/build/reports/tests:/workdir/build/reports/tests" \
+          sanaboksi-backend-test sh -c "./gradlew --no-daemon unitTest"
+
       - name: Export backend test image
         run: docker save sanaboksi-backend-test -o sanaboksi-backend-test.tar
 
@@ -68,13 +75,6 @@ jobs:
           name: sanaboksi-backend-test-image
           path: sanaboksi-backend-test.tar
           retention-days: 1
-
-      - name: Run backend unit tests in a container
-        run: |
-          mkdir -p "${{ github.workspace }}/backend/build/reports/tests"
-          docker run --rm --name be-unit-tests \
-          -v "${{ github.workspace }}/backend/build/reports/tests:/workdir/build/reports/tests" \
-          sanaboksi-backend-test sh -c "./gradlew --no-daemon unitTest"
 
       - name: Upload unit test report on test failure
         if: ${{ failure() }}
@@ -106,8 +106,7 @@ jobs:
           docker run --rm --name be-integration-tests \
             -e SQLITE_DB_PATH="/database/database.db" \
             -v "${{ github.workspace }}/backend/build/reports/tests:/workdir/build/reports/tests" \
-            sanaboksi-backend-test \
-            sh -c "./databaseInit/reseed_database.sh && ./gradlew --no-daemon integrationTest"
+            sanaboksi-backend-test sh -c "/workdir/src/main/resources/databaseInit/reseed_database.sh && ./gradlew --no-daemon integrationTest"
 
       - name: Upload integration test report on test failure
         if: ${{ failure() }}
@@ -119,7 +118,7 @@ jobs:
   run-end-to-end-tests:
     name: End-to-end tests
     runs-on: ubuntu-latest
-    needs: [run-backend-integration-tests]
+    needs: run-backend-integration-tests
 
     steps:
       - name: Checkout code

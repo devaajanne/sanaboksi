@@ -100,6 +100,12 @@ jobs:
         containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
         imageToDeploy: ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/sanaboksi-backend:${{ env.VERSION_NUMBER }}
         containerAppName: sanaboksi-backend
+        environmentVariables: >-
+          SPRING_PROFILES_ACTIVE=azure
+          SPRING_DATASOURCE_URL=${{ secrets.AZURE_SPRING_DATASOURCE_URL }}
+          SPRING_DATASOURCE_USERNAME=${{ secrets.AZURE_SPRING_DATASOURCE_USERNAME }}
+          SPRING_DATASOURCE_PASSWORD=${{ secrets.AZURE_SPRING_DATASOURCE_PASSWORD }}
+          CORS_ALLOWED_ORIGIN=https://sanaboksi.fi
         disableTelemetry: true
 
     - name: Build and deploy new backend container
@@ -115,7 +121,12 @@ jobs:
         appSourcePath: ${{ github.workspace }}/backend
         imageToBuild: ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/sanaboksi-backend:${{ env.VERSION_NUMBER }}
         containerAppName: sanaboksi-backend
-        environmentVariables: CORS_ALLOWED_ORIGIN=https://sanaboksi.fi
+        environmentVariables: >-
+          SPRING_PROFILES_ACTIVE=azure
+          SPRING_DATASOURCE_URL=${{ secrets.AZURE_SPRING_DATASOURCE_URL }}
+          SPRING_DATASOURCE_USERNAME=${{ secrets.AZURE_SPRING_DATASOURCE_USERNAME }}
+          SPRING_DATASOURCE_PASSWORD=${{ secrets.AZURE_SPRING_DATASOURCE_PASSWORD }}
+          CORS_ALLOWED_ORIGIN=https://sanaboksi.fi
         ingress: external
         targetPort: 8080
         disableTelemetry: true
