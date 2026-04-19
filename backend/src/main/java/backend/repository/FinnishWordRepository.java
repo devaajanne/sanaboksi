@@ -26,6 +26,20 @@ public interface FinnishWordRepository extends JpaRepository<FinnishWord, Long> 
       @Param("wordLength") int wordLength, @Param("wordCount") int wordCount);
 
   /**
+   * Retrieves a list of random Finnish words with the specified length.
+   *
+   * @param wordLength the length of each word
+   * @param wordCount the number of words to retrieve
+   * @return a list of randomly selected Finnish words
+   */
+  @Query(
+      value =
+          "SELECT TOP (:wordCount) * FROM finnish_words WHERE LEN(word) = :wordLength ORDER BY NEWID()",
+      nativeQuery = true)
+  List<FinnishWord> sqlserverFindRandomWordsByWordLengthAndCount(
+      @Param("wordLength") int wordLength, @Param("wordCount") int wordCount);
+
+  /**
    * Returns the count of Finnish words with the specified length.
    *
    * @param wordLength the length of each word
@@ -35,6 +49,17 @@ public interface FinnishWordRepository extends JpaRepository<FinnishWord, Long> 
       value = "SELECT COUNT(*) FROM finnish_words WHERE LENGTH(word) = :wordLength",
       nativeQuery = true)
   int countByWordLength(@Param("wordLength") int wordLength);
+
+  /**
+   * Returns the count of Finnish words with the specified length.
+   *
+   * @param wordLength the length of each word
+   * @return the number of Finnish words with the given length
+   */
+  @Query(
+      value = "SELECT COUNT(*) FROM finnish_words WHERE LEN(word) = :wordLength",
+      nativeQuery = true)
+  int sqlserverCountByWordLength(@Param("wordLength") int wordLength);
 
   /**
    * Validates whether a Finnish word exists in the repository (case-insensitive).
