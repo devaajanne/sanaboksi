@@ -140,5 +140,4 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Trigger deployment workflow
-        run: |
-          gh workflow run cd-deploy-to-azure.yaml --ref ${NEW_TAG}
+        run: gh workflow run cd-deploy-to-azure.yaml --ref ${NEW_TAG}
