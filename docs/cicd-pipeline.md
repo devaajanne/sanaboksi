@@ -36,7 +36,7 @@ This documentation describes the CI/CD pipeline for the **Sanaboksi** project wi
 ## Pre-commit Hook
 A pre-commit hook automatically formats and lints staged files before each commit to maintain code quality standards.
 
-### Location: [.githooks/pre-commit](../.githooks/pre-commit)
+### Location: [`.githooks/pre-commit`](../.githooks/pre-commit)
 
 ### Setup
 Run this command in project root to enable the pre-commit hook from a custom directory:
@@ -67,7 +67,7 @@ Project's Continuous Integration (CI) pipeline consists of two GitHub Actions wo
 ### Backend And Frontend Checks Workflow
 Automatically runs formatting and linting checks, backend unit and integration tests and end-to-end tests. These ensure that the code is of high quality and in a deployable state.
 
-#### Location: [.github/workflows/ci-run-backend-and-frontend-checks.yaml](../.github/workflows/ci-run-backend-and-frontend-checks.yaml)
+#### Location: [`.github/workflows/ci-run-backend-and-frontend-checks.yaml`](../.github/workflows/ci-run-backend-and-frontend-checks.yaml)
 
 #### Triggers
 Runs automatically on pull requests when
@@ -78,26 +78,26 @@ Runs automatically on pull requests when
 #### 1. Backend Formatting Check Job (`run-backend-formatting-check`)
 - **Purpose**: Ensures backend code follows formatting standards
 - **Steps**:
-  1. Sets up backend workflow environment using composite action [.github/actions/setup-backend-workflow-environment/action.yaml](../.github/actions/setup-backend-workflow-environment/action.yaml)
+  1. Sets up backend workflow environment using composite action [`.github/actions/setup-backend-workflow-environment/action.yaml`](../.github/actions/setup-backend-workflow-environment/action.yaml)
   2. Runs Spotless formatting check with `./gradlew spotlessCheck`
 
 #### 2. Frontend Formatting Check Job (`run-frontend-formatting-check`)
 - **Purpose**: Validates frontend code formatting
 - **Steps**:
-  1. Sets up frontend workflow environment using composite action [.github/actions/setup-frontend-workflow-environment/action.yaml](../.github/actions/setup-frontend-workflow-environment/action.yaml)
+  1. Sets up frontend workflow environment using composite action [`.github/actions/setup-frontend-workflow-environment/action.yaml`](../.github/actions/setup-frontend-workflow-environment/action.yaml)
   2. Runs Prettier formatting check with `npx prettier . --check`
 
 #### 3. Frontend Linting Check Job (`run-frontend-linting-check`)
 - **Purpose**: Validates frontend code quality and standards
 - **Steps**:
-  1. Sets up frontend workflow environment using composite action [.github/actions/setup-frontend-workflow-environment/action.yaml](../.github/actions/setup-frontend-workflow-environment/action.yaml)
+  1. Sets up frontend workflow environment using composite action [`.github/actions/setup-frontend-workflow-environment/action.yaml`](../.github/actions/setup-frontend-workflow-environment/action.yaml)
   2. Runs ESLint linting check with `npx eslint .`
 
 #### 4. Backend Unit Tests Job (`run-backend-unit-tests`)
 - **Purpose**: Runs backend unit tests in a container
 - **Steps**:
-  1. Builds the backend test image with Docker using [Dockerfile.dev](../backend/Dockerfile.dev)
-  2. Runs unit tests from [backend/src/test/java/backend/unit/](../backend/src/test/java/backend/unit/) via a custom Gradle task (from [build.gradle](../backend/build.gradle)) inside the container with `./gradlew --no-daemon unitTest`
+  1. Builds the backend test image with Docker using [`Dockerfile.dev`](../backend/Dockerfile.dev)
+  2. Runs unit tests from [`backend/src/test/java/backend/unit/`](../backend/src/test/java/backend/unit/) via a custom Gradle task (from [`build.gradle`](../backend/build.gradle)) inside the container with `./gradlew --no-daemon unitTest`
   3. Exports the test image as `sanaboksi-backend-test.tar`
   4. Uploads the image as the `sanaboksi-backend-test-image` artifact
   5. Uploads the unit test report from `backend/build/reports/tests/unitTest/` if the job fails
@@ -109,7 +109,7 @@ Runs automatically on pull requests when
   1. Downloads the `sanaboksi-backend-test-image` artifact created by `run-backend-unit-tests`
   2. Loads the backend test image with Docker
   3. Creates and reseeds the database inside the container
-  4. Runs integration tests [backend/src/test/java/backend/integration/](../backend/src/test/java/backend/integration/) via a custom Gradle task (from [build.gradle](../backend/build.gradle)) inside the container with `./gradlew --no-daemon integrationTest`
+  4. Runs integration tests [`backend/src/test/java/backend/integration/`](../backend/src/test/java/backend/integration/) via a custom Gradle task (from [`build.gradle`](../backend/build.gradle)) inside the container with `./gradlew --no-daemon integrationTest`
   5. Uploads the integration test report from `backend/build/reports/tests/integrationTest/` if the job fails
 
 #### 6. End-to-End Tests Job (`run-end-to-end-tests`)
@@ -120,13 +120,13 @@ Runs automatically on pull requests when
   2. Installs Playwright browsers (`npx playwright install --with-deps`)
   3. Builds and starts containers with `docker compose -f compose.yaml up --build -d`
   4. Waits until frontend health endpoint is reachable at `http://localhost:5173`
-  5. Runs E2E tests from [frontend/tests](../frontend/tests/) with `npx playwright test`
+  5. Runs E2E tests from [`frontend/tests`](../frontend/tests/) with `npx playwright test`
   6. Uploads Playwright report artifact on failure (`frontend/test-results/`)
 
 ### Version Update Label Check Workflow
 Automatically checks that PR includes exactly one version update label: `major update`, `minor update` or `patch update`. This label guides how the new tag is created after the PR is merged to `main`. If no version update label is present, the following workflow would fail.
 
-#### Location: [.github/workflows/ci-run-update-version-label-check.yaml](../.github/workflows/ci-run-update-version-label-check.yaml)
+#### Location: [`.github/workflows/ci-run-update-version-label-check.yaml`](../.github/workflows/ci-run-update-version-label-check.yaml)
 
 #### Triggers
 Runs automatically on pull requests when
@@ -150,7 +150,7 @@ Project's Continuous Deployment (CD) pipeline consists of two GitHub Actions wor
 ### Create And Push New Tag Workflow
 Automatically creates a new tag and pushes it to the repository. The closed PR's version update label decides the tag's new version number.
 
-#### Location: [.github/workflows/cd-create-new-tag.yaml](../.github/workflows/cd-create-new-tag.yaml)
+#### Location: [`.github/workflows/cd-create-new-tag.yaml`](../.github/workflows/cd-create-new-tag.yaml)
 
 #### Trigger
 Runs automatically when
@@ -189,7 +189,7 @@ Runs automatically when
 ### Azure Deployment Workflow
 Gets the newest tag in the repository. If an image matching the tag is found in Azure Container Registry (ACR), workflow deploys a container to Azure Container Apps from that image. If not, workflow creates and tags a new image and deploys a container from the new image.
 
-#### Location: [.github/workflows/cd-deploy-to-azure.yaml](../.github/workflows/cd-deploy-to-azure.yaml)
+#### Location: [`.github/workflows/cd-deploy-to-azure.yaml`](../.github/workflows/cd-deploy-to-azure.yaml)
 
 #### Trigger
 Triggered by the `cd-create-new-tag.yaml` workflow or manually via GitHub. Tag pushes from GitHub Actions workflows do not trigger other workflows, even when configured to trigger on tag push events.
@@ -215,14 +215,14 @@ Triggered by the `cd-create-new-tag.yaml` workflow or manually via GitHub. Tag p
 - **Dependencies**: Runs after getting the version number from ref and checking ACR images (`needs: [get-version-number-from-ref, check-acr-images]`)
 - **Steps**:
   1. Deploys container from an existing backend image from ACR if available
-  2. Otherwise builds a new backend image from [Dockerfile](../backend/Dockerfile) and deploys a new container from it
+  2. Otherwise builds a new backend image from [`Dockerfile`](../backend/Dockerfile) and deploys a new container from it
 
 #### 4. Deploy Frontend Container To Azure Job (`deploy-frontend-container-to-azure`)
 - **Purpose**: Deploys the frontend container app
 - **Dependencies**: Runs after getting the version number from ref, checking ACR images and deploying backend (`needs: [get-version-number-from-ref, check-acr-images, deploy-backend-container-to-azure]`)
 - **Steps**:
   1. Deploys container from an existing frontend image from ACR if available
-  2. Otherwise builds a new frontend image from [Dockerfile](../frontend/Dockerfile) and deploys a new container from it
+  2. Otherwise builds a new frontend image from [`Dockerfile`](../frontend/Dockerfile) and deploys a new container from it
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
