@@ -12,6 +12,7 @@ services:
     ports:
       - "8080:8080"
     environment:
+      # Set active Spring profile
       SPRING_PROFILES_ACTIVE: local-dev
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]

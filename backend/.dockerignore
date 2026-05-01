@@ -1,7 +1,8 @@
-# Gradle build outputs
+# Gradle
 build/
 .gradle/
 out/
+gradlew.bat
 
 # IDE files
 .idea/
@@ -13,6 +14,9 @@ out/
 .project
 .settings/
 bin/
+
+# Tests
+src/test/
 
 # Git
 .git/
