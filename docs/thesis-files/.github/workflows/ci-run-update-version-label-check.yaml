@@ -1,0 +1,35 @@
+name: CI / Run update version label check
+description: Checks that PRs have an update version label
+
+on:
+  pull_request:
+    types: [synchronize, reopened, labeled, unlabeled]
+# Concurrency ensures workflow runs only once, even if a PR with two labels would trigger the workflow twice
+concurrency:
+  group: version-label-check-${{ github.event.pull_request.number }}-${{ github.event.action }}
+  cancel-in-progress: true
+
+jobs:
+  run-version-update-labels-check:
+    name: Version update labels check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Check version update labels
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const prUpdateLabels = ['major update', 'minor update', 'patch update'];
+            const prLabels = context.payload.pull_request.labels.map(label => label.name);
+            const prUpdateLabelsCount = prLabels.filter(label => prUpdateLabels.includes(label)).length;
+            
+            if (prUpdateLabelsCount === 0) {
+              throw new Error('Error: PR has no update label! PR must have exactly one of these labels: major update, minor update, patch update');
+            }
+
+            if (prUpdateLabelsCount > 1) {
+              throw new Error('Error: PR has more than one update label! PR must have exactly one of these labels: major update, minor update, patch update');
+            }

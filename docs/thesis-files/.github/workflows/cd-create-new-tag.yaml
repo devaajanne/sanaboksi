@@ -1,0 +1,143 @@
+name: CD / Create new version tag
+description: Creates a new version tag based on merged PR update label and latest tag
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  get-latest-tag:
+    name: Get latest tag
+    runs-on: ubuntu-latest
+    # Runs only if PR was merged to main
+    if: ${{ github.event.pull_request.merged == true }}
+    outputs:
+      latest_tag: ${{ steps.get-latest-tag.outputs.latest_tag }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Get latest tag
+        id: get-latest-tag 
+        run: |
+          git fetch origin --tags
+          LATEST_TAG="$(git tag --list 'v*' --sort=-version:refname | head -n1)"
+
+          if [ -z "$LATEST_TAG" ]; then
+            echo "Error: No tags matching 'v*' were found in the repository!" >&2
+            exit 1
+          fi
+
+          # Original semver regular expression from https://semver.org/ - modified expression here
+          SEMVER_REGEX="^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$"
+
+          if [[ ! ${LATEST_TAG} =~ ${SEMVER_REGEX} ]]; then
+            echo "Error: Tag is not valid!"
+            exit 1
+          fi
+
+          echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_OUTPUT
+
+  get-pr-update-label:
+    name: Get PR update label
+    runs-on: ubuntu-latest
+    # Runs only if PR was merged to main
+    if: ${{ github.event.pull_request.merged == true }}
+    outputs:
+      pr_update_label: ${{ steps.get-pr-update-label.outputs.update_label }}
+
+    steps:
+      - name: Get PR update label
+        id: get-pr-update-label
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const prLabels = context.payload.pull_request.labels.map(label => label.name);
+            let prUpdateLabel;
+
+            if (prLabels.includes('major update')) {
+              prUpdateLabel = 'major update';
+            } else if (prLabels.includes('minor update')) {
+              prUpdateLabel = 'minor update';
+            } else {
+              prUpdateLabel = 'patch update';
+            }
+            
+            core.setOutput('update_label', prUpdateLabel);
+
+  create-and-push-new-tag:
+    name: Create and push a new tag
+    runs-on: ubuntu-latest
+    needs: [get-latest-tag, get-pr-update-label]
+    env:
+      LATEST_TAG: ${{ needs.get-latest-tag.outputs.latest_tag }}
+      PR_UPDATE_LABEL: ${{ needs.get-pr-update-label.outputs.pr_update_label }}
+    outputs:
+      new_tag: ${{ steps.create-new-tag.outputs.new_tag }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Create a new tag
+        id: create-new-tag
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const latestTag = process.env.LATEST_TAG;
+            const prUpdateLabel =  process.env.PR_UPDATE_LABEL;
+            const currentVersionNumber = latestTag.substring(1);
+
+            let majorVersionNumber = parseInt(currentVersionNumber.split(".")[0]);
+            let minorVersionNumber = parseInt(currentVersionNumber.split(".")[1]);
+            let patchVersionNumber = parseInt(currentVersionNumber.split(".")[2]);
+
+            if (prUpdateLabel === 'major update') {
+              majorVersionNumber += 1;
+              minorVersionNumber = 0;
+              patchVersionNumber = 0;
+            } else if (prUpdateLabel === 'minor update') {
+              minorVersionNumber += 1;
+              patchVersionNumber = 0;
+            } else if (prUpdateLabel === 'patch update') {
+              patchVersionNumber += 1;
+            } else {
+              throw new Error("Error: PR update label does not match 'major update', 'minor update' or 'patch update'!");
+            }
+
+            const newTag = `v${majorVersionNumber}.${minorVersionNumber}.${patchVersionNumber}`;
+
+            // Original semver regular expression from https://semver.org/ - modified expression here for JS
+            const semVerRegEx = /^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$/;
+
+            if (!semVerRegEx.test(newTag)) {
+              throw new Error("Error: New tag does not follow semantic versioning!");
+            }
+
+            core.setOutput('new_tag', newTag);
+
+      - name: Push new tag
+        env:
+          NEW_TAG: ${{ steps.create-new-tag.outputs.new_tag }}
+        run: |
+          git switch main
+          git pull origin main
+          git tag ${NEW_TAG}
+          git push origin ${NEW_TAG}
+
+  trigger-deployment-workflow:
+    name: Trigger deployment workflow
+    runs-on: ubuntu-latest
+    needs: create-and-push-new-tag
+    env:
+      NEW_TAG: ${{ needs.create-and-push-new-tag.outputs.new_tag }}
+      GH_TOKEN: ${{ github.token }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Trigger deployment workflow
+        run: gh workflow run cd-deploy-to-azure.yaml --ref ${NEW_TAG}

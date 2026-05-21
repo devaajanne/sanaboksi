@@ -1,0 +1,155 @@
+name: CI / Run backend and frontend checks
+description: Runs formatting and linting checks as well as unit, integration and end-to-end tests on PRs
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  run-backend-formatting-check:
+    name: BE formatting check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up backend workflow environment
+        uses: ./.github/actions/setup-backend-workflow-environment
+
+      - name: Run backend formatting check 
+        run: cd backend && ./gradlew spotlessCheck
+
+  run-frontend-formatting-check:
+    name: FE formatting check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up frontend workflow environment
+        uses: ./.github/actions/setup-frontend-workflow-environment
+
+      - name: Run frontend formatting check
+        run: cd frontend && npx prettier . --check
+
+  run-frontend-linting-check:
+    name: FE linting check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up frontend workflow environment
+        uses: ./.github/actions/setup-frontend-workflow-environment
+
+      - name: Run frontend linting check
+        run: cd frontend && npx eslint .
+
+  run-backend-unit-tests:
+    name: BE unit tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      
+      - name: Build backend test image
+        run: docker build -t sanaboksi-backend-test -f ./backend/Dockerfile.dev ./backend
+
+      - name: Run backend unit tests in a container
+        run: |
+          mkdir -p "${{ github.workspace }}/backend/build/reports/tests"
+          docker run --rm --name be-unit-tests \
+          -v "${{ github.workspace }}/backend/build/reports/tests:/workdir/build/reports/tests" \
+          sanaboksi-backend-test sh -c "./gradlew --no-daemon unitTest"
+
+      - name: Export backend test image
+        run: docker save sanaboksi-backend-test -o sanaboksi-backend-test.tar
+
+      - name: Upload backend test image
+        uses: actions/upload-artifact@v7
+        with:
+          name: sanaboksi-backend-test-image
+          path: sanaboksi-backend-test.tar
+          retention-days: 1
+
+      - name: Upload unit test report on test failure
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: unit-test-report
+          path: backend/build/reports/tests/unitTest/
+  
+  run-backend-integration-tests:
+    name: BE integration tests
+    runs-on: ubuntu-latest
+    needs: run-backend-unit-tests
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Download backend test image
+        uses: actions/download-artifact@v8
+        with:
+          name: sanaboksi-backend-test-image
+
+      - name: Load backend test image
+        run: docker load -i sanaboksi-backend-test.tar
+
+      - name: Run backend integration tests in a container
+        run: |
+          mkdir -p "${{ github.workspace }}/backend/build/reports/tests"
+          docker run --rm --name be-integration-tests \
+            -e SQLITE_DB_PATH="/database/database.db" \
+            -v "${{ github.workspace }}/backend/build/reports/tests:/workdir/build/reports/tests" \
+            sanaboksi-backend-test sh -c "/workdir/src/main/resources/databaseInit/reseed_database.sh && ./gradlew --no-daemon integrationTest"
+
+      - name: Upload integration test report on test failure
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: integration-test-report
+          path: backend/build/reports/tests/integrationTest/
+
+  run-end-to-end-tests:
+    name: End-to-end tests
+    runs-on: ubuntu-latest
+    needs: run-backend-integration-tests
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up frontend workflow environment
+        uses: ./.github/actions/setup-frontend-workflow-environment
+
+      - name: Install Playwright Browsers
+        run: cd frontend && npx playwright install --with-deps
+
+      - name: Build Docker containers
+        run: docker compose -f compose.yaml up --build -d
+        env:
+          CORS_ALLOWED_ORIGIN: http://localhost:5173
+          VITE_SERVER_URL: http://localhost:8080
+    
+      - name: Show backend logs on container build failure
+        if: ${{ failure() }}
+        run: docker logs sanaboksi_backend
+
+      - name: Show frontend logs on container build failure
+        if: ${{ failure() }}
+        run: docker logs sanaboksi_frontend
+
+      - name: Run end-to-end tests
+        run: cd frontend && npx playwright test
+
+      - name: Upload Playwright report on test failure
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: frontend/test-results/

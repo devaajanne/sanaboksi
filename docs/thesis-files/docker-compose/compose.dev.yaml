@@ -1,0 +1,51 @@
+# Docker compose file for dev environment
+# Run with 'docker compose -f compose.dev.yaml up --watch' from project root
+name: sanaboksi_dev
+
+services:
+
+  backend_dev:
+    container_name: sanaboksi_backend_dev
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    environment:
+      # Set active Spring profile
+      SPRING_PROFILES_ACTIVE: local-dev
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    develop:
+      watch:
+        - action: sync
+          path: ./backend/src
+          target: /workdir/src
+          ignore:
+            - "**/*.class"
+
+  frontend_dev:
+    container_name: sanaboksi_frontend_dev
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173"
+    environment:
+      # Environment variables are passed to Vite configuration and API requests
+      VITE_USE_POLLING: true
+      VITE_SERVER_URL: http://localhost:8080
+    depends_on:
+      backend_dev:
+        condition: service_healthy
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend
+          target: /workdir
+          ignore:
+            - node_modules/
