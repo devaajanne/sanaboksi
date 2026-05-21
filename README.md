@@ -1,11 +1,20 @@
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/devaajanne/sanaboksi?style=for-the-badge)
-![GitHub Tag](https://img.shields.io/github/v/tag/devaajanne/sanaboksi?sort=semver&style=for-the-badge)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/devaajanne/sanaboksi/main?style=for-the-badge)
-![GitHub License](https://img.shields.io/github/license/devaajanne/sanaboksi?style=for-the-badge)
+<a id="top"></a>
 
-# Sanaboksi: A game where you fill in a box with words based on given letters in correct places
+<div style="text-align:center">
+ <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/devaajanne/sanaboksi?style=for-the-badge">
+ <img alt="GitHub Tag" src="https://img.shields.io/github/v/tag/devaajanne/sanaboksi?sort=semver&style=for-the-badge">
+ <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/devaajanne/sanaboksi/main?style=for-the-badge">
+ <img alt="GitHub License" src="https://img.shields.io/github/license/devaajanne/sanaboksi?style=for-the-badge">
+</div>
 
-## About the project
+<br>
+<br>
+
+<h1 align="center">Sanaboksi</h1>
+
+### A game where you fill in a letter grid with words based on given letters in the correct positions. Play Sanaboksi at [sanaboksi.fi](https://sanaboksi.fi)!
+
+## About Sanaboksi
 
 Sanaboksi is a word game where your goal is to fill in the game grid with valid Finnish words. Each row contains one fixed letter, and your task is to find a Finnish word where the given fixed letter is in the correct position.
 
@@ -116,5 +125,5 @@ Sanaboksi's documentation can be found in [docs](./docs/). The documentation inc
 [github-copilot-url]: https://github.com/copilot
 [vs-code-logo]: https://custom-icon-badges.demolab.com/badge/Visual%20Studio%20Code-0078d7.svg?logo=vsc&logoColor=white&style=for-the-badge
 [vs-code-url]: https://code.visualstudio.com/
-[azure-logo]:https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white
+[azure-logo]:https://custom-icon-badges.demolab.com/badge/Microsoft%20Azure-0089D6?logo=msazure&logoColor=white&style=for-the-badge
 [azure-url]: https://azure.microsoft.com/en-us
