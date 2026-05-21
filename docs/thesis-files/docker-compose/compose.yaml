@@ -1,0 +1,36 @@
+# Docker compose file for prod environment
+# Run with 'docker compose -f compose.yaml up --build' from project root
+name: sanaboksi
+
+services:
+
+  backend:
+    container_name: sanaboksi_backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      # Set active Spring profile
+      SPRING_PROFILES_ACTIVE: local-prod
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  frontend:
+    container_name: sanaboksi_frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # Environment variables are passed to API requests
+        VITE_SERVER_URL: http://localhost:8080
+    ports:
+      - "5173:80"
+    depends_on:
+      backend:
+        condition: service_healthy

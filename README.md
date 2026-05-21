@@ -83,6 +83,7 @@ Sanaboksi's documentation can be found in [docs](./docs/). The documentation inc
 - Containerization ([containerization.md](./docs/containerization.md))
 - Database ([database.md](./docs/database.md))
 - Requirements ([requirements.md](./docs/requirements.md))
+- Relevant thesis files at the time of submission ([thesis-files](./docs/thesis-files/))
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
