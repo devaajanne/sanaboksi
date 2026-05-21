@@ -11,9 +11,11 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 
 /** Unit tests for {@link UtilityService}. */
 @Tag("unitTest")
+@ActiveProfiles("test")
 public class UtilityServiceUnitTests {
 
   private final UtilityService utilityService = new UtilityService();

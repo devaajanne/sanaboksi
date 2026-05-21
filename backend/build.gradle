@@ -75,7 +75,6 @@ tasks.register('integrationTest', Test) {
     classpath = sourceSets.test.runtimeClasspath
 
     systemProperty 'spring.profiles.active', 'test'
-	systemProperty 'SQLITE_DB_PATH', System.getenv('SQLITE_DB_PATH') ?: file("${projectDir}/src/main/resources/database/database.db").absolutePath.replace('\\', '/')
 
     useJUnitPlatform {
         includeTags 'integrationTest'

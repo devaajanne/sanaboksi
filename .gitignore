@@ -3,3 +3,6 @@
 
 # Environment variable files
 .env
+
+# Act artifacts produced by nektos act
+.act-artifacts

@@ -1,6 +1,9 @@
 # Dependencies
 node_modules
 
+# Tests
+/tests
+
 # Build outputs
 dist
 

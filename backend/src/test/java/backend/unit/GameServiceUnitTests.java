@@ -24,9 +24,11 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 
 /** Unit tests for {@link GameService}. */
 @Tag("unitTest")
+@ActiveProfiles("test")
 public class GameServiceUnitTests {
 
   private RepositoryService mockRepositoryService;

@@ -19,9 +19,11 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 
 /** Unit tests for {@link RepositoryService}. */
 @Tag("unitTest")
+@ActiveProfiles("test")
 public class RepositoryServiceUnitTests {
 
   private RepositoryService repositoryService;
