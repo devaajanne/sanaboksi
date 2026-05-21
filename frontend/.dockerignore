@@ -2,7 +2,7 @@
 node_modules
 
 # Tests
-/test
+/tests
 
 # Build outputs
 dist
