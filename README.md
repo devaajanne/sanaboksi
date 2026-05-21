@@ -2,8 +2,8 @@
 
 <div align="center">
  <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/devaajanne/sanaboksi?style=for-the-badge">
+ <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/devaajanne/sanaboksi?style=for-the-badge">
  <img alt="GitHub Tag" src="https://img.shields.io/github/v/tag/devaajanne/sanaboksi?sort=semver&style=for-the-badge">
- <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/devaajanne/sanaboksi/main?style=for-the-badge">
  <img alt="GitHub License" src="https://img.shields.io/github/license/devaajanne/sanaboksi?style=for-the-badge">
 </div>
 
