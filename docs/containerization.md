@@ -109,7 +109,7 @@ Production configuration is meant to build an immutable image which can be used 
 - **Build Dockerfile**: [`Dockerfile`](../frontend/Dockerfile)
 - **Build Args**: build arguments for Vite
 - **Ports**: Host `5173` mapped to container port `80` (`5173:80`)
-- **Dependencies**: Waits for cbackend` health check
+- **Dependencies**: Waits for `backend` health check
 
 ### Usage
 ```bash

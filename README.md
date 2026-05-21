@@ -7,7 +7,7 @@
 
 ## About the project
 
-Sanaboksi is a word game where your goal is to fill in the game grid with valid Finnish words. Each row contains one or more fixed letters, and your task is to find Finnish words where the given fixed letter is in the correct position. 
+Sanaboksi is a word game where your goal is to fill in the game grid with valid Finnish words. Each row contains one fixed letter, and your task is to find a Finnish word where the given fixed letter is in the correct position.
 
 For example, if the row is "_ _ H _ _", you could play words "K A H V I" or "V E H N Ä", because both words have the given fixed letter in the correct position. No duplicate words though!
 

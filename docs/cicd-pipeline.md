@@ -119,9 +119,8 @@ Runs automatically on pull requests when
   1. Sets up frontend workflow environment
   2. Installs Playwright browsers (`npx playwright install --with-deps`)
   3. Builds and starts containers with `docker compose -f compose.yaml up --build -d`
-  4. Waits until frontend health endpoint is reachable at `http://localhost:5173`
-  5. Runs E2E tests from [`frontend/tests`](../frontend/tests/) with `npx playwright test`
-  6. Uploads Playwright report artifact on failure (`frontend/test-results/`)
+  4. Runs E2E tests from [`frontend/tests`](../frontend/tests/) with `npx playwright test`
+  5. Uploads Playwright report artifact on failure (`frontend/test-results/`)
 
 ### Version Update Label Check Workflow
 Automatically checks that PR includes exactly one version update label: `major update`, `minor update` or `patch update`. This label guides how the new tag is created after the PR is merged to `main`. If no version update label is present, the following workflow would fail.
