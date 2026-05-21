@@ -21,7 +21,7 @@ Sanaboksi is a word game where your goal is to fill in the game grid with valid 
 
 For example, if the row is "_ _ H _ _", you could play words "K A H V I" or "V E H N Ä", because both words have the given fixed letter in the correct position. No duplicate words though!
 
-The project consists of a Java backend and React/TypeScript frontend. CI/CD automations have been created with GitHub Actions, and the selected cloud provider is Azure.
+The project consists of a Java backend and a React/TypeScript frontend. CI/CD automations have been created with GitHub Actions, and the selected cloud provider is Microsoft Azure.
 
 The project is a part of my Bachelor's thesis at Haaga-Helia University of Applied Sciences. While my thesis focused on DevOps and CI/CD pipelines, this app was crucial in developing and testing an automated CI/CD pipeline. You can read the thesis (in Finnish) in Theseus here: [Web-sovelluksen CI/CD-putken toteutus osana DevOps-pohjaista kehitysprosessia](https://www.theseus.fi/handle/10024/920463)
 
