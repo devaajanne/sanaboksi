@@ -10,7 +10,7 @@
 <br>
 
 <h1 align="center">Sanaboksi</h1>
-<h3 align="center">A game where you fill in a letter grid with words based on given letters in the correct positions. Play Sanaboksi at <a href="https://sanaboksi.fi">sanaboksi.fi</a>!
+<h3 align="center">A game where you fill in a letter grid with words based on given letters in the correct positions. Play Sanaboksi at <a href="https://sanaboksi.fi">sanaboksi.fi</a>!</h3>
 
 <br>
 <br>
