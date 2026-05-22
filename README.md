@@ -36,6 +36,7 @@ The project is a part of my Bachelor's thesis at Haaga-Helia University of Appli
 Sanaboksi has been inspired by Sanuli, another word game developed by Haaga-Helia students. Sanuli can be played here: [sanuli.fi](https://sanuli.fi/)
 
 ### Used technologies
+
 [![Java][java-logo]][java-url]
 [![Spring Boot][spring-logo]][spring-url]
 [![Gradle][gradle-logo]][gradle-url]
@@ -60,36 +61,41 @@ Sanaboksi has been inspired by Sanuli, another word game developed by Haaga-Heli
 To run Sanaboksi locally, you need to have the following installed:
 - Docker (download from [docker.com](https://www.docker.com/))
 
+The backend and frontend Dockerfiles contain all the build/runtime dependencies you need and initialize the database via an entrypoint script.
+
 Clone the repository:
 ```bash
 git clone https://github.com/devaajanne/sanaboksi.git
 ```
 
-Or fork it on GitHub.
-
-Run Sanaboksi in production environment with these Docker commands:
+Run Sanaboksi in a production environment with these Docker commands:
 ```bash
 # Start app containers
 docker compose -f compose.yaml up --build
-
+```
+```bash
 # Stop app containers
 docker compose -f compose.yaml down
-
+```
+```bash
 # Stop app containers and remove images
 docker compose -f compose.yaml down --rmi local
 ```
 
-Run Sanaboksi in development environment with these Docker commands:
+Run Sanaboksi in a development environment with these Docker commands:
 ```bash
 # Start app containers
 docker compose -f compose.dev.yaml up --watch
-
+```
+```bash
 # Stop app containers
 docker compose -f compose.dev.yaml down
-
+```
+```bash
 # Stop app containers and remove images
 docker compose -f compose.dev.yaml down --rmi local
 ```
+
 After starting the containers, open the app at `localhost:5173`.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
