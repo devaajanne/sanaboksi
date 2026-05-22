@@ -1,16 +1,24 @@
 <a id="top"></a>
 
 <div align="center">
- <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/devaajanne/sanaboksi?style=for-the-badge">
- <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/devaajanne/sanaboksi?style=for-the-badge">
- <img alt="GitHub Tag" src="https://img.shields.io/github/v/tag/devaajanne/sanaboksi?sort=semver&style=for-the-badge">
- <img alt="GitHub License" src="https://img.shields.io/github/license/devaajanne/sanaboksi?style=for-the-badge">
+ <a href="https://github.com/devaajanne/sanaboksi/issues">
+  <img alt="GitHub Open Issues" src="https://img.shields.io/github/issues/devaajanne/sanaboksi?style=for-the-badge">
+ </a>
+ <a href="https://github.com/devaajanne/sanaboksi/commits/main/">
+  <img alt="GitHub Last Commit in main Branch" src="https://img.shields.io/github/last-commit/devaajanne/sanaboksi/main?style=for-the-badge">
+ </a>
+ <a href="https://github.com/devaajanne/sanaboksi/tags">
+  <img alt="GitHub Latest Version" src="https://img.shields.io/github/v/tag/devaajanne/sanaboksi?sort=semver&label=LATEST%20VERSION&style=for-the-badge">
+ </a>
+ <a href="LICENSE.md">
+  <img alt="GitHub License" src="https://img.shields.io/github/license/devaajanne/sanaboksi?style=for-the-badge">
+ </a>
 </div>
 
 <br>
 
 <h1 align="center">Sanaboksi</h1>
-<h3 align="center">A game where you fill in a letter grid with words based on given letters in the correct positions. Play Sanaboksi at <a href="https://sanaboksi.fi">sanaboksi.fi</a>!</h3>
+<h3 align="center">A game where you fill in a letter grid with Finnish words based on given letters in the correct positions. Play Sanaboksi at <a href="https://sanaboksi.fi">sanaboksi.fi</a>!</h3>
 
 <br>
 <br>
@@ -28,6 +36,7 @@ The project is a part of my Bachelor's thesis at Haaga-Helia University of Appli
 Sanaboksi has been inspired by Sanuli, another word game developed by Haaga-Helia students. Sanuli can be played here: [sanuli.fi](https://sanuli.fi/)
 
 ### Used technologies
+
 [![Java][java-logo]][java-url]
 [![Spring Boot][spring-logo]][spring-url]
 [![Gradle][gradle-logo]][gradle-url]
@@ -52,36 +61,41 @@ Sanaboksi has been inspired by Sanuli, another word game developed by Haaga-Heli
 To run Sanaboksi locally, you need to have the following installed:
 - Docker (download from [docker.com](https://www.docker.com/))
 
+The backend and frontend Dockerfiles contain all the build/runtime dependencies you need and initialize the database via an entrypoint script.
+
 Clone the repository:
 ```bash
 git clone https://github.com/devaajanne/sanaboksi.git
 ```
 
-Or fork it on GitHub.
-
-Run Sanaboksi in production environment with these Docker commands:
+Run Sanaboksi in a production environment with these Docker commands:
 ```bash
 # Start app containers
 docker compose -f compose.yaml up --build
-
+```
+```bash
 # Stop app containers
 docker compose -f compose.yaml down
-
+```
+```bash
 # Stop app containers and remove images
 docker compose -f compose.yaml down --rmi local
 ```
 
-Run Sanaboksi in development environment with these Docker commands:
+Run Sanaboksi in a development environment with these Docker commands:
 ```bash
 # Start app containers
 docker compose -f compose.dev.yaml up --watch
-
+```
+```bash
 # Stop app containers
 docker compose -f compose.dev.yaml down
-
+```
+```bash
 # Stop app containers and remove images
 docker compose -f compose.dev.yaml down --rmi local
 ```
+
 After starting the containers, open the app at `localhost:5173`.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
