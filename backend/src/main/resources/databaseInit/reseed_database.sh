@@ -35,8 +35,8 @@ fi
 # Create and seed database
 sqlite3 "$DATABASE_FILE" < "$SCHEMA_FILE"
 
-for WORD_FILE in 5 6 7; do
-    SEED_FILE="$SEED_DIR/finnish-${WORD_FILE}-letter-words.sql"
+for WORD_LENGTH in 4 5 6 7; do
+    SEED_FILE="$SEED_DIR/finnish-${WORD_LENGTH}-letter-words.sql"
     if [ -f "$SEED_FILE" ]; then
         sqlite3 "$DATABASE_FILE" < "$SEED_FILE"
     else
