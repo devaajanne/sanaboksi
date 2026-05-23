@@ -20,7 +20,15 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
 
   const handleChange = (val: string) => {
     const numValue = Number(val);
-    if (!isNaN(numValue) && [4, 5, 6, 7].includes(numValue)) {
+    if (
+      !isNaN(numValue) &&
+      [
+        gameConstants.WORD_LENGTH_4,
+        gameConstants.WORD_LENGTH_5,
+        gameConstants.WORD_LENGTH_6,
+        gameConstants.WORD_LENGTH_7,
+      ].includes(numValue)
+    ) {
       setWordLength(numValue);
     }
   };
