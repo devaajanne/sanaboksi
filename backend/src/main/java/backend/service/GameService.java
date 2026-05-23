@@ -33,7 +33,7 @@ public class GameService {
    * based on language, word length, and word count.
    *
    * @param language the language for the game
-   * @param wordLength the length of each word (must be 5-7)
+   * @param wordLength the length of each word (must be 4-7)
    * @param wordCount the number of words in the grid (must be positive)
    * @return a {@link FixedLetterResponse} with fixed letters and word length
    * @throws IllegalArgumentException if wordCount is negative or zero, or wordLength is out of

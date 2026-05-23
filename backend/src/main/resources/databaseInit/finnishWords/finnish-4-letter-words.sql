@@ -1,4 +1,4 @@
-﻿-- Original data from Kotus (CC BY 4.0): https://kotus.fi/sanakirjat/kielitoimiston-sanakirja/nykysuomen-sana-aineistot/nykysuomen-sanalista/
+-- Original data from Kotus (CC BY 4.0): https://kotus.fi/sanakirjat/kielitoimiston-sanakirja/nykysuomen-sana-aineistot/nykysuomen-sanalista/
 -- Modified to fit this project's needs:
 --      1) removed all words with fewer or more than 4 letters
 --      2) removed words with diacritics (i.e. é,  è,  š)    
