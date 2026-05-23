@@ -57,6 +57,9 @@
     "SixLetters": "6 kirjainta",
     "SevenLetters": "7 kirjainta"
   },
+  "GameInfoModal": {
+    "InfoAboutSanaboksi": "Tietoa Sanaboksista"
+  },
   "AriaLabel": {
     "SanaboksiGameGrid": "Sanaboksi-ruudukko",
     "Word": "Sana",
@@ -66,6 +69,7 @@
     "DuplicateWordIcon": "Toistuvan sanan merkki",
     "OpenGameInstructions": "Avaa peliohjeet",
     "ToggleLightDarkMode": "Vaihda vaalea/tumma tila",
-    "OpenGameSettings": "Avaa pelin asetukset"
+    "OpenGameSettings": "Avaa pelin asetukset",
+    "ReadGameInfo": "Lue tietoa pelistä"
   }
 }

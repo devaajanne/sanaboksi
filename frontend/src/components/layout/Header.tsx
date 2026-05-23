@@ -11,10 +11,12 @@ import {
   IconMoon,
   IconSettings,
   IconHelpCircle,
+  IconInfoCircle,
 } from "@tabler/icons-react";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { GameInstructionsModal } from "../modals/GameInstructionsModal";
 import { GameSettingsModal } from "../modals/GameSettingsModal";
+import { GameInfoModal } from "../modals/GameInfoModal";
 import { useDisclosure } from "@mantine/hooks";
 import { useTranslation } from "react-i18next";
 import {
@@ -39,6 +41,8 @@ export default function Header() {
     openedGameSettings,
     { open: openGameSettings, close: closeGameSettings },
   ] = useDisclosure(false);
+  const [openedGameInfo, { open: openGameInfo, close: closeGameInfo }] =
+    useDisclosure(false);
 
   return (
     <Container
@@ -111,6 +115,24 @@ export default function Header() {
               />
             )}
           </ActionIcon>
+          <ActionIcon
+            aria-label={t("AriaLabel.ReadGameInfo")}
+            variant="subtle"
+            size={iconSize}
+            onClick={() => openGameInfo()}
+            styles={{
+              root: {
+                backgroundColor:
+                  colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+                color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+              },
+            }}
+          >
+            <IconInfoCircle
+              size={iconSize}
+              strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
+            />
+          </ActionIcon>
         </Group>
       </Stack>
       <GameInstructionsModal
@@ -121,6 +143,7 @@ export default function Header() {
         opened={openedGameSettings}
         onClose={closeGameSettings}
       />
+      <GameInfoModal opened={openedGameInfo} onClose={closeGameInfo} />
     </Container>
   );
 }
