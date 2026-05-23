@@ -1,4 +1,5 @@
 import { useMantineTheme, useMantineColorScheme } from "@mantine/core";
+import { stylingConstants } from "../utility/Constants";
 
 /**
  * Custom hook to get the current color palette (light or dark) from Mantine theme.
@@ -19,7 +20,7 @@ export function useColorPalette() {
 
   const colors = theme.colors as CustomColors;
 
-  return colorScheme === "light"
+  return colorScheme === stylingConstants.COLOR_SCHEME_LIGHT
     ? colors.lightModePalette
     : colors.darkModePalette;
 }

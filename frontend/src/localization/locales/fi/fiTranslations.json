@@ -1,6 +1,7 @@
 {
   "Actions": {
-    "Close": "Sulje"
+    "Close": "Sulje",
+    "BackToGame": "Takaisin peliin"
   },
   "GameGridButton": {
     "NewGame": "Uusi peli",

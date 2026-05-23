@@ -12,7 +12,7 @@ import {
   gameGridContainsOnlyUniqueWords,
   gameGridContainsOnlyCorrectWords,
 } from "../../utility/UtilityFunctions";
-import { Button, Container, Space, Stack } from "@mantine/core";
+import { Button, Container, Space, Stack, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import NotificationModal from "../modals/NotificationModal";
 import { useColorPalette } from "../../hooks/useColorPalette";
@@ -20,6 +20,7 @@ import {
   colorPaletteConstants,
   gameConstants,
   languageConstants,
+  stylingConstants,
 } from "../../utility/Constants";
 import { useTranslation } from "react-i18next";
 import { useGameSettings } from "../../context/GameSettingsContext";
@@ -271,11 +272,11 @@ export default function SanaboksiGameGrid() {
                   colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
                 borderColor:
                   colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-                borderWidth: 3,
+                borderWidth: stylingConstants.BORDER_WIDTH,
               },
             }}
           >
-            {t("GameGridButton.NewGame")}
+            <Text span>{t("GameGridButton.NewGame")}</Text>
           </Button>
         ) : (
           <Button
@@ -296,11 +297,11 @@ export default function SanaboksiGameGrid() {
                   colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
                 borderColor:
                   colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-                borderWidth: 3,
+                borderWidth: stylingConstants.BORDER_WIDTH,
               },
             }}
           >
-            {t("GameGridButton.ValidateWords")}
+            <Text span>{t("GameGridButton.ValidateWords")}</Text>
           </Button>
         )}
       </Container>

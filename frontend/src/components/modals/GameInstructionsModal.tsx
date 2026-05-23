@@ -4,7 +4,10 @@ import { IconCheck, IconX, IconCopy } from "@tabler/icons-react";
 import SanaboksiGameRow from "../game/SanaboksiGameRow";
 import type { FixedLetter } from "../../types/Types";
 import { useTranslation } from "react-i18next";
-import { colorPaletteConstants } from "../../utility/Constants";
+import {
+  colorPaletteConstants,
+  stylingConstants,
+} from "../../utility/Constants";
 
 interface GameInstructionsModalProps {
   opened: boolean;
@@ -19,14 +22,12 @@ export function GameInstructionsModal({
   const { t } = useTranslation();
   const {
     iconSize,
-    iconStrokeWidth,
     textMarginTop,
     textMarginBottom,
     iconMarginTop,
     iconMarginBottom,
   } = {
     iconSize: 30,
-    iconStrokeWidth: 2,
     textMarginTop: 10,
     textMarginBottom: 10,
     iconMarginTop: 5,
@@ -40,7 +41,16 @@ export function GameInstructionsModal({
       onClose={onClose}
       size="lg"
       title={t("GameInstructionModal.HowToPlaySanaboksi")}
-      withCloseButton={false}
+      closeButtonProps={{
+        "aria-label": t("Actions.Close"),
+        icon: (
+          <IconX
+            aria-hidden
+            stroke={stylingConstants.ICON_STROKE_WIDTH}
+            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+          />
+        ),
+      }}
       styles={{
         header: {
           backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
@@ -50,7 +60,7 @@ export function GameInstructionsModal({
           backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
           color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
         },
-        title: { fontSize: 24 },
+        title: { fontSize: stylingConstants.MODAL_TITLE_FONT_SIZE },
       }}
     >
       <Text styles={{ root: { marginTop: textMarginTop } }}>
@@ -139,32 +149,35 @@ export function GameInstructionsModal({
         <Group
           align="center"
           gap="sm"
+          wrap="nowrap"
           styles={{ root: { marginTop: iconMarginTop } }}
         >
           <IconCheck
             aria-label={t("AriaLabel.CorrectWordIcon")}
             color={colorPalette[colorPaletteConstants.CORRECT_GREEN_3]}
             size={iconSize}
-            strokeWidth={2}
+            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
           />
           <Text>{t("GameInstructionModal.TheWordIsCorrect")}</Text>
         </Group>
         <Group
           align="center"
           gap="sm"
+          wrap="nowrap"
           styles={{ root: { marginTop: iconMarginTop } }}
         >
           <IconX
             aria-label={t("AriaLabel.IncorrectWordIcon")}
             color={colorPalette[colorPaletteConstants.INCORRECT_RED_4]}
             size={iconSize}
-            strokeWidth={iconStrokeWidth}
+            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
           />
           <Text>{t("GameInstructionModal.TheWordIsIncorrect")}</Text>
         </Group>
         <Group
           align="center"
           gap="sm"
+          wrap="nowrap"
           styles={{
             root: { marginTop: iconMarginTop, marginBottom: iconMarginBottom },
           }}
@@ -173,7 +186,7 @@ export function GameInstructionsModal({
             aria-label={t("AriaLabel.DuplicateWordIcon")}
             color={colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]}
             size={iconSize}
-            strokeWidth={iconStrokeWidth}
+            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
           />
           <Text>{t("GameInstructionModal.TheWordIsADuplicate")}</Text>
         </Group>
@@ -182,10 +195,12 @@ export function GameInstructionsModal({
       <Text styles={{ root: { marginTop: textMarginTop + 5 } }}>
         {t("GameInstructionModal.HaveFunWithSanaboksi")}
       </Text>
-      <Group style={{ width: "100%", justifyContent: "flex-end" }}>
+      <Group justify="flex-end">
         <Button
+          aria-label={t("Actions.BackToGame")}
           onClick={onClose}
           color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
+          style={{ marginTop: textMarginTop }}
           styles={{
             label: {
               color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
@@ -195,11 +210,11 @@ export function GameInstructionsModal({
                 colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
               borderColor:
                 colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-              borderWidth: 3,
+              borderWidth: stylingConstants.BORDER_WIDTH,
             },
           }}
         >
-          {t("Actions.Close")}
+          <Text span>{t("Actions.BackToGame")}</Text>
         </Button>
       </Group>
     </Modal>

@@ -2,7 +2,11 @@ import { Button, Group, Modal, Text } from "@mantine/core";
 import { NotificationModalSource } from "../../types/Types";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { useTranslation } from "react-i18next";
-import { colorPaletteConstants } from "../../utility/Constants";
+import {
+  colorPaletteConstants,
+  stylingConstants,
+} from "../../utility/Constants";
+import { IconX } from "@tabler/icons-react";
 
 interface NotificationModalProps {
   source: NotificationModalSource;
@@ -79,7 +83,16 @@ export default function NotificationModal({
       opened={opened}
       onClose={onClose}
       title={t(notificationModalTitle)}
-      withCloseButton={false}
+      closeButtonProps={{
+        "aria-label": t("Actions.Close"),
+        icon: (
+          <IconX
+            aria-hidden
+            stroke={stylingConstants.ICON_STROKE_WIDTH}
+            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+          />
+        ),
+      }}
       styles={{
         header: {
           backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
@@ -89,7 +102,7 @@ export default function NotificationModal({
           backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
           color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
         },
-        title: { fontSize: 24 },
+        title: { fontSize: stylingConstants.MODAL_TITLE_FONT_SIZE },
       }}
     >
       <Text
@@ -99,8 +112,9 @@ export default function NotificationModal({
       >
         {t(notificationModalMessage)}
       </Text>
-      <Group style={{ width: "100%", justifyContent: "flex-end" }}>
+      <Group justify="flex-end">
         <Button
+          aria-label={t("Actions.BackToGame")}
           onClick={onClose}
           color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
           styles={{
@@ -112,11 +126,11 @@ export default function NotificationModal({
                 colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
               borderColor:
                 colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-              borderWidth: 3,
+              borderWidth: stylingConstants.BORDER_WIDTH,
             },
           }}
         >
-          {t("Actions.Close")}
+          <Text span>{t("Actions.BackToGame")}</Text>
         </Button>
       </Group>
     </Modal>

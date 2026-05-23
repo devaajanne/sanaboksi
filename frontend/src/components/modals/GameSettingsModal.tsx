@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import { colorPaletteConstants, gameConstants } from "../../utility/Constants";
 import { Button, Group, Modal, SegmentedControl, Text } from "@mantine/core";
 import { useGameSettings } from "../../context/GameSettingsContext";
+import { IconX } from "@tabler/icons-react";
+import { stylingConstants } from "../../utility/Constants";
 
 interface GameSettingsModalProps {
   opened: boolean;
@@ -39,6 +41,16 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
       onClose={onClose}
       size="lg"
       title={t("GameSettingsModal.Settings")}
+      closeButtonProps={{
+        "aria-label": t("Actions.Close"),
+        icon: (
+          <IconX
+            aria-hidden
+            stroke={stylingConstants.ICON_STROKE_WIDTH}
+            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+          />
+        ),
+      }}
       styles={{
         header: {
           backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
@@ -48,7 +60,7 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
           backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
           color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
         },
-        title: { fontSize: 24 },
+        title: { fontSize: stylingConstants.MODAL_TITLE_FONT_SIZE },
       }}
     >
       <Text
@@ -111,10 +123,12 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
         color={colorPalette[colorPaletteConstants.TERTIARY_COLOR_2]}
         size={"xl"}
       />
-      <Group style={{ width: "100%", justifyContent: "flex-end" }}>
+      <Group justify="flex-end">
         <Button
+          aria-label={t("Actions.BackToGame")}
           onClick={onClose}
           color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
+          style={{ marginTop: textMarginTop }}
           styles={{
             label: {
               color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
@@ -124,13 +138,11 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
                 colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
               borderColor:
                 colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-              borderWidth: 3,
-              marginTop: textMarginTop,
-              marginBottom: textMarginBottom,
+              borderWidth: stylingConstants.BORDER_WIDTH,
             },
           }}
         >
-          {t("Actions.Close")}
+          <Text span>{t("Actions.BackToGame")}</Text>
         </Button>
       </Group>
     </Modal>

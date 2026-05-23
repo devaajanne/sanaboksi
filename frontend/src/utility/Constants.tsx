@@ -18,3 +18,11 @@ export const gameConstants = {
 export const languageConstants = {
   FI: "fi",
 };
+
+export const stylingConstants = {
+  ICON_STROKE_WIDTH: 2,
+  BORDER_WIDTH: 2,
+  COLOR_SCHEME_LIGHT: "light",
+  COLOR_SCHEME_DARK: "dark",
+  MODAL_TITLE_FONT_SIZE: 24,
+};
