@@ -48,6 +48,14 @@
     "TheWordIsADuplicate": "Sana esiintyy ruudukossa useammin kuin kerran",
     "HaveFunWithSanaboksi": "Hauskoja pelihetkiä Sanaboksin parissa!"
   },
+  "GameSettingsModal": {
+    "Settings": "Asetukset",
+    "ChooseDifficulty": "Valitse vaikeustaso",
+    "FourLetters": "4 kirjainta",
+    "FiveLetters": "5 kirjainta",
+    "SixLetters": "6 kirjainta",
+    "SevenLetters": "7 kirjainta"
+  },
   "AriaLabel": {
     "SanaboksiGameGrid": "Sanaboksi-ruudukko",
     "Word": "Sana",
@@ -56,6 +64,7 @@
     "IncorrectWordIcon": "Väärän sanan merkki",
     "DuplicateWordIcon": "Toistuvan sanan merkki",
     "OpenGameInstructions": "Avaa peliohjeet",
-    "ToggleLightDarkMode": "Vaihda vaalea/tumma tila"
+    "ToggleLightDarkMode": "Vaihda vaalea/tumma tila",
+    "OpenGameSettings": "Avaa pelin asetukset"
   }
 }

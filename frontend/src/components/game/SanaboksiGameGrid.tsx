@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   type FixedLetters,
   type GameGrid,
@@ -22,6 +22,7 @@ import {
   languageConstants,
 } from "../../utility/Constants";
 import { useTranslation } from "react-i18next";
+import { useGameSettings } from "../../context/GameSettingsContext";
 
 /**
  * Main component for rendering and managing the Sanaboksi game grid.
@@ -31,13 +32,11 @@ import { useTranslation } from "react-i18next";
 export default function SanaboksiGameGrid() {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
+  const { wordLength } = useGameSettings();
   // Store the fixed letters configuration for each row (which index has which fixed letter)
   const [fixedLetters, setFixedLetters] = useState<FixedLetters>([]);
   // Store the actual game grid data (2D array of characters with dynamic dimensions)
   const [gameGrid, setGameGrid] = useState<GameGrid>([]);
-  const [wordLength, setWordLength] = useState<number>(
-    gameConstants.WORD_LENGTH_5,
-  );
   const [validationResults, setValidationResults] =
     useState<ValidationResults>(undefined);
   // Game grid is valid if all rows have no empty fields
@@ -55,39 +54,40 @@ export default function SanaboksiGameGrid() {
    * @param wordLength Number of letters (columns) to fetch.
    * @param wordCount Number of words (rows) to fetch.
    */
-  const fetchFixedLetters = async (
-    language: string,
-    wordLength: number,
-    wordCount: number,
-  ) => {
-    try {
-      setIsLoading(true);
-      const data = await getFixedLetters(language, wordLength, wordCount);
-      const fixedLetterData = data ? data.fixedLetters : [];
+  const fetchFixedLetters = useCallback(
+    async (language: string, wordCount: number) => {
+      try {
+        setIsLoading(true);
+        setGameGrid([]);
+        setFixedLetters([]);
+        const data = await getFixedLetters(language, wordLength, wordCount);
+        const fixedLetterData = data ? data.fixedLetters : [];
 
-      setFixedLetters(fixedLetterData);
-      setWordLength(wordLength);
-      setGameGrid(
-        fixedLetterData.map((item) =>
-          Array(wordLength)
-            .fill("")
-            .map((_, i) =>
-              i === item.fixedIndex ? item.fixedLetter.toUpperCase() : "",
-            ),
-        ),
-      );
-      setValidationResults(undefined);
-      setIsValidGameGrid(false);
-      setIsCorrectGameGrid(false);
-      setIsLoading(false);
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        throw new Error(error.message);
-      } else {
-        throw new Error("Failed to fetch fixed letters: Unknown error");
+        setFixedLetters(fixedLetterData);
+        setGameGrid(
+          fixedLetterData.map((item) =>
+            Array(wordLength)
+              .fill("")
+              .map((_, i) =>
+                i === item.fixedIndex ? item.fixedLetter.toUpperCase() : "",
+              ),
+          ),
+        );
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          throw new Error(error.message);
+        } else {
+          throw new Error("Failed to fetch fixed letters: Unknown error");
+        }
+      } finally {
+        setValidationResults(undefined);
+        setIsValidGameGrid(false);
+        setIsCorrectGameGrid(false);
+        setIsLoading(false);
       }
-    }
-  };
+    },
+    [wordLength],
+  );
 
   /**
    * Updates the value of a specific field in the game grid.
@@ -195,14 +195,10 @@ export default function SanaboksiGameGrid() {
    */
   useEffect(() => {
     const initialFetch = async () => {
-      await fetchFixedLetters(
-        languageConstants.FI,
-        gameConstants.WORD_LENGTH_5,
-        gameConstants.WORD_COUNT_5,
-      );
+      await fetchFixedLetters(languageConstants.FI, gameConstants.WORD_COUNT_5);
     };
     initialFetch();
-  }, []);
+  }, [fetchFixedLetters]);
 
   return (
     <>
@@ -210,14 +206,16 @@ export default function SanaboksiGameGrid() {
         <Stack gap={9} styles={{ root: { position: "relative" } }}>
           {fixedLetters.length === 0
             ? // Render empty game grid rows
-              Array.from({ length: wordLength }).map((_, index) => (
-                <SanaboksiGameRow
-                  key={index}
-                  rowIndex={index}
-                  isPlaceholder={true}
-                  rowLength={wordLength}
-                />
-              ))
+              Array.from({ length: gameConstants.WORD_COUNT_5 }).map(
+                (_, index) => (
+                  <SanaboksiGameRow
+                    key={index}
+                    rowIndex={index}
+                    isPlaceholder={true}
+                    rowLength={wordLength}
+                  />
+                ),
+              )
             : // Render game grid with fixed letters
               fixedLetters.map((fixedLetter, rowIndex) => (
                 <SanaboksiGameRow
@@ -254,7 +252,6 @@ export default function SanaboksiGameGrid() {
             onClick={() =>
               fetchFixedLetters(
                 languageConstants.FI,
-                gameConstants.WORD_LENGTH_5,
                 gameConstants.WORD_COUNT_5,
               )
             }

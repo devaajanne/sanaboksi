@@ -6,6 +6,7 @@ import "@mantine/core/styles.css";
 import { useMemo } from "react";
 import "@fontsource/arvo";
 import "../localization/i18n.ts";
+import { GameSettingsProvider } from "../context/GameSettingsProvider";
 
 export default function Main() {
   const theme = useMemo(
@@ -26,7 +27,9 @@ export default function Main() {
 
   return (
     <MantineProvider theme={theme}>
-      <App />
+      <GameSettingsProvider>
+        <App />
+      </GameSettingsProvider>
     </MantineProvider>
   );
 }

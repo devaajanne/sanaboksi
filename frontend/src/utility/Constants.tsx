@@ -8,7 +8,10 @@ export const colorPaletteConstants = {
 };
 
 export const gameConstants = {
+  WORD_LENGTH_4: 4,
   WORD_LENGTH_5: 5,
+  WORD_LENGTH_6: 6,
+  WORD_LENGTH_7: 7,
   WORD_COUNT_5: 5,
 };
 
