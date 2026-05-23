@@ -1,11 +1,17 @@
 import {
-  Grid,
   Container,
   Title,
   ActionIcon,
   useMantineColorScheme,
+  Stack,
+  Group,
 } from "@mantine/core";
-import { IconSunMoon, IconInfoCircle, IconSettings } from "@tabler/icons-react";
+import {
+  IconSun,
+  IconMoon,
+  IconSettings,
+  IconHelpCircle,
+} from "@tabler/icons-react";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { GameInstructionsModal } from "../modals/GameInstructionsModal";
 import { GameSettingsModal } from "../modals/GameSettingsModal";
@@ -16,13 +22,12 @@ import { colorPaletteConstants } from "../../utility/Constants";
 export default function Header() {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
-  const { toggleColorScheme } = useMantineColorScheme();
-  const { headerMargin, headerGutter, iconSize, iconStrokeWidth, iconGap } = {
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const { headerMargin, iconSize, iconStrokeWidth, iconGap } = {
     headerMargin: 20,
-    headerGutter: "clamp(20px, 12vw, 200px)",
     iconSize: "clamp(20px, 6vw, 35px)",
     iconStrokeWidth: 2,
-    iconGap: 12,
+    iconGap: 80,
   };
   const [
     openedGameInstructions,
@@ -38,11 +43,11 @@ export default function Header() {
       fluid
       style={{ marginTop: headerMargin, marginBottom: headerMargin }}
     >
-      <Grid align="center" gutter={headerGutter}>
-        <Grid.Col
-          span={4}
-          style={{ display: "flex", justifyContent: "center", gap: iconGap }}
-        >
+      <Stack align="center">
+        <Title c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}>
+          Sanaboksi
+        </Title>
+        <Group gap={iconGap}>
           <ActionIcon
             aria-label={t("AriaLabel.OpenGameInstructions")}
             variant="subtle"
@@ -56,7 +61,7 @@ export default function Header() {
               },
             }}
           >
-            <IconInfoCircle size={iconSize} strokeWidth={iconStrokeWidth} />
+            <IconHelpCircle size={iconSize} strokeWidth={iconStrokeWidth} />
           </ActionIcon>
           <ActionIcon
             aria-label={t("AriaLabel.OpenGameSettings")}
@@ -73,19 +78,6 @@ export default function Header() {
           >
             <IconSettings size={iconSize} strokeWidth={iconStrokeWidth} />
           </ActionIcon>
-        </Grid.Col>
-        <Grid.Col
-          span={4}
-          style={{ display: "flex", justifyContent: "center" }}
-        >
-          <Title c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}>
-            Sanaboksi
-          </Title>
-        </Grid.Col>
-        <Grid.Col
-          span={4}
-          style={{ display: "flex", justifyContent: "center", gap: iconGap }}
-        >
           <ActionIcon
             aria-label={t("AriaLabel.ToggleLightDarkMode")}
             variant="subtle"
@@ -99,10 +91,14 @@ export default function Header() {
               },
             }}
           >
-            <IconSunMoon size={iconSize} strokeWidth={iconStrokeWidth} />
+            {colorScheme === "light" ? (
+              <IconMoon size={iconSize} strokeWidth={iconStrokeWidth} />
+            ) : (
+              <IconSun size={iconSize} strokeWidth={iconStrokeWidth} />
+            )}
           </ActionIcon>
-        </Grid.Col>
-      </Grid>
+        </Group>
+      </Stack>
       <GameInstructionsModal
         opened={openedGameInstructions}
         onClose={closeGameInstructions}

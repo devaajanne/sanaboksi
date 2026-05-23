@@ -3,6 +3,7 @@ import { NotificationModalSource } from "../../types/Types";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { useTranslation } from "react-i18next";
 import { colorPaletteConstants } from "../../utility/Constants";
+import { IconX } from "@tabler/icons-react";
 
 interface NotificationModalProps {
   source: NotificationModalSource;
@@ -79,7 +80,15 @@ export default function NotificationModal({
       opened={opened}
       onClose={onClose}
       title={t(notificationModalTitle)}
-      withCloseButton={false}
+      closeButtonProps={{
+        icon: (
+          <IconX
+            aria-label={t("Actions.Close")}
+            stroke={2}
+            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+          />
+        ),
+      }}
       styles={{
         header: {
           backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
@@ -99,8 +108,9 @@ export default function NotificationModal({
       >
         {t(notificationModalMessage)}
       </Text>
-      <Group style={{ width: "100%", justifyContent: "flex-end" }}>
+      <Group justify="flex-end">
         <Button
+          aria-label={t("Actions.BackToGame")}
           onClick={onClose}
           color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
           styles={{
@@ -116,7 +126,7 @@ export default function NotificationModal({
             },
           }}
         >
-          {t("Actions.Close")}
+          <Text>{t("Actions.BackToGame")}</Text>
         </Button>
       </Group>
     </Modal>

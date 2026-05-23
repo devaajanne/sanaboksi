@@ -12,7 +12,7 @@ import {
   gameGridContainsOnlyUniqueWords,
   gameGridContainsOnlyCorrectWords,
 } from "../../utility/UtilityFunctions";
-import { Button, Container, Space, Stack } from "@mantine/core";
+import { Button, Container, Space, Stack, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import NotificationModal from "../modals/NotificationModal";
 import { useColorPalette } from "../../hooks/useColorPalette";
@@ -275,7 +275,7 @@ export default function SanaboksiGameGrid() {
               },
             }}
           >
-            {t("GameGridButton.NewGame")}
+            <Text>{t("GameGridButton.NewGame")}</Text>
           </Button>
         ) : (
           <Button
@@ -300,7 +300,7 @@ export default function SanaboksiGameGrid() {
               },
             }}
           >
-            {t("GameGridButton.ValidateWords")}
+            <Text>{t("GameGridButton.ValidateWords")}</Text>
           </Button>
         )}
       </Container>

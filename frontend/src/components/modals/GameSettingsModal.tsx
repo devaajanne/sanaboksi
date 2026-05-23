@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { colorPaletteConstants, gameConstants } from "../../utility/Constants";
 import { Button, Group, Modal, SegmentedControl, Text } from "@mantine/core";
 import { useGameSettings } from "../../context/GameSettingsContext";
+import { IconX } from "@tabler/icons-react";
 
 interface GameSettingsModalProps {
   opened: boolean;
@@ -39,6 +40,15 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
       onClose={onClose}
       size="lg"
       title={t("GameSettingsModal.Settings")}
+      closeButtonProps={{
+        icon: (
+          <IconX
+            aria-label={t("Actions.Close")}
+            stroke={2}
+            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+          />
+        ),
+      }}
       styles={{
         header: {
           backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
@@ -111,10 +121,12 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
         color={colorPalette[colorPaletteConstants.TERTIARY_COLOR_2]}
         size={"xl"}
       />
-      <Group style={{ width: "100%", justifyContent: "flex-end" }}>
+      <Group justify="flex-end">
         <Button
+          aria-label={t("Actions.BackToGame")}
           onClick={onClose}
           color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
+          style={{ marginTop: textMarginTop }}
           styles={{
             label: {
               color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
@@ -124,13 +136,11 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
                 colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
               borderColor:
                 colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-              borderWidth: 3,
-              marginTop: textMarginTop,
-              marginBottom: textMarginBottom,
+              borderWidth: 2,
             },
           }}
         >
-          {t("Actions.Close")}
+          <Text>{t("Actions.BackToGame")}</Text>
         </Button>
       </Group>
     </Modal>
