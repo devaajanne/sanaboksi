@@ -32,7 +32,7 @@ public class GameController {
    * Retrieves fixed letters for the game grid based on language, word length, and word count.
    *
    * @param language the language for the game
-   * @param wordLength the length of each word (5-7)
+   * @param wordLength the length of each word (4-7)
    * @param wordCount the number of words in the grid
    * @return a {@link FixedLetterResponse} containing the fixed letters
    */

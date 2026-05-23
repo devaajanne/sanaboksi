@@ -1,5 +1,6 @@
 package backend.dto;
 
+import backend.domain.Constants;
 import backend.domain.FixedLetter;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -17,9 +18,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class FixedLetterResponse {
 
-  /** The length of each word in the game grid. Must be between 5 and 7 (inclusive). */
-  @Min(value = 5, message = "Word length minimum value is 5.")
-  @Max(value = 7, message = "Word length maximum value is 7.")
+  /** The length of each word in the game grid. Must be between 4 and 7 (inclusive). */
+  @Min(
+      value = Constants.WORD_MIN_LENGTH,
+      message = "Word length minimum value is " + Constants.WORD_MIN_LENGTH + ".")
+  @Max(
+      value = Constants.WORD_MAX_LENGTH,
+      message = "Word length maximum value is " + Constants.WORD_MAX_LENGTH + ".")
   private int wordLength;
 
   /** The list of fixed letters for the game grid. Cannot be null. */

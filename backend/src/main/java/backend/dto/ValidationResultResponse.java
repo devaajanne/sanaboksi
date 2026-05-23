@@ -1,5 +1,6 @@
 package backend.dto;
 
+import backend.domain.Constants;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -25,8 +26,19 @@ public class ValidationResultResponse {
    * result.
    */
   private Map<
-          @Min(value = 0, message = "Validation result row index minimum value is 0.")
-          @Max(value = 6, message = "Validation result row index maximum value is 6.") Integer,
+          @Min(
+              value = Constants.FIXED_INDEX_MIN_VALUE,
+              message =
+                  "Validation result row index minimum value is "
+                      + Constants.FIXED_INDEX_MIN_VALUE
+                      + ".")
+          @Max(
+              value = Constants.FIXED_INDEX_MAX_VALUE,
+              message =
+                  "Validation result row index maximum value is "
+                      + Constants.FIXED_INDEX_MAX_VALUE
+                      + ".")
+          Integer,
           Map<
               @NotNull(
                   message =
