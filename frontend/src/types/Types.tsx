@@ -32,3 +32,8 @@ export const NotificationModalSource = {
 
 export type NotificationModalSource =
   (typeof NotificationModalSource)[keyof typeof NotificationModalSource];
+
+export type GameSettingsContextType = {
+  wordLength: number;
+  setWordLength: (len: number) => void;
+};

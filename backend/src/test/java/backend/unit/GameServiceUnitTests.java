@@ -214,7 +214,7 @@ public class GameServiceUnitTests {
   public void getFixedLetterResponseShouldThrowExceptionIfWordLengthIsTooShort() {
     assertThrows(
         IllegalArgumentException.class,
-        () -> gameService.getFixedLetterResponse(language, 4, wordCount));
+        () -> gameService.getFixedLetterResponse(language, 3, wordCount));
   }
 
   @Test

@@ -1,6 +1,6 @@
 import type { MantineColorsTuple } from "@mantine/core";
 
-const lightModePalette = [
+export const lightModePalette = [
   "#FFFAFA", // 0 light main color - backgrounds, buttons, game grid
   "#242424", // 1 dark main color - text, border, icons
   "#D3D3D3", // 2 light gray - fixed letter background
@@ -13,7 +13,7 @@ const lightModePalette = [
   "#FFFFFF", // 9 NOT USED
 ] as MantineColorsTuple;
 
-const darkModePalette = [
+export const darkModePalette = [
   "#242424", // 0 dark main color - backgrounds, buttons, game grid
   "#FFFAFA", // 1 light main color - text, border, icons
   "#696969", // 2 dark gray - fixed letter background
@@ -25,5 +25,3 @@ const darkModePalette = [
   "#000000", // 8 NOT USED
   "#000000", // 9 NOT USED
 ] as MantineColorsTuple;
-
-export { lightModePalette, darkModePalette };

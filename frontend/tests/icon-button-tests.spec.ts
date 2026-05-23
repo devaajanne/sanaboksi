@@ -27,3 +27,9 @@ test("Clicking info button opens game instruction modal", async ({ page }) => {
     page.getByRole("heading", { name: "Kuinka pelata Sanaboksia" }),
   ).toBeVisible();
 });
+
+test("Clicking settings button opens game settings modal", async ({ page }) => {
+  await page.getByRole("button", { name: "Avaa pelin asetukset" }).click();
+
+  await expect(page.getByRole("heading", { name: "Asetukset" })).toBeVisible();
+});

@@ -1,5 +1,6 @@
 package backend.service;
 
+import backend.domain.Constants;
 import backend.domain.FixedLetter;
 import backend.domain.Language;
 import backend.domain.entities.Word;
@@ -32,7 +33,7 @@ public class GameService {
    * based on language, word length, and word count.
    *
    * @param language the language for the game
-   * @param wordLength the length of each word (must be 5-7)
+   * @param wordLength the length of each word (must be 4-7)
    * @param wordCount the number of words in the grid (must be positive)
    * @return a {@link FixedLetterResponse} with fixed letters and word length
    * @throws IllegalArgumentException if wordCount is negative or zero, or wordLength is out of
@@ -53,8 +54,13 @@ public class GameService {
     }
 
     // Throw error if requested word length is outside the supported range
-    if (wordLength < 5 || wordLength > 7) {
-      throw new IllegalArgumentException("wordLength must be 5-7.");
+    if (wordLength < Constants.WORD_MIN_LENGTH || wordLength > Constants.WORD_MAX_LENGTH) {
+      throw new IllegalArgumentException(
+          "wordLength must be "
+              + Constants.WORD_MIN_LENGTH
+              + " to "
+              + Constants.WORD_MAX_LENGTH
+              + " (inclusive).");
     }
 
     int repositorySizeForLanguageAndWordLength =
@@ -63,7 +69,7 @@ public class GameService {
 
     if (repositorySizeForLanguageAndWordLength == 0) {
       throw new IllegalStateException(
-          "Repository is empty for language " + language + " and word length " + wordLength);
+          "Repository is empty for language " + language + " and word length " + wordLength + ".");
     }
 
     // Return the whole repository word count if the requested word count is larger than there are

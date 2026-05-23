@@ -1,5 +1,6 @@
 package backend.domain.entities;
 
+import backend.domain.Constants;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,9 +26,17 @@ public class FinnishWord implements Word {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  /** The Finnish word. Must be 5 to 7 letters and cannot be blank. */
+  /** The Finnish word. Must be 4 to 7 letters and cannot be blank. */
   @NotBlank(message = "Word cannot be blank.")
-  @Size(min = 5, max = 7, message = "Word must have 5 to 7 letters.")
+  @Size(
+      min = Constants.WORD_MIN_LENGTH,
+      max = Constants.WORD_MAX_LENGTH,
+      message =
+          "Word must have "
+              + Constants.WORD_MIN_LENGTH
+              + " to "
+              + Constants.WORD_MAX_LENGTH
+              + " letters.")
   @Column(name = "word", nullable = false, unique = true)
   private String word;
 
