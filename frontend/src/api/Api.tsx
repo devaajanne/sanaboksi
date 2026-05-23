@@ -8,7 +8,7 @@ import { addWaitTime } from "../utility/UtilityFunctions";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
-const getFixedLetters = async (
+export const getFixedLetters = async (
   language: string,
   wordLength: number,
   wordCount: number,
@@ -28,7 +28,7 @@ const getFixedLetters = async (
   }
 };
 
-const validateGameGrid = async (
+export const validateGameGrid = async (
   gameGrid: GameGrid,
   language: string,
 ): Promise<ValidationResults | undefined> => {
@@ -54,5 +54,3 @@ const validateGameGrid = async (
     }
   }
 };
-
-export { getFixedLetters, validateGameGrid };

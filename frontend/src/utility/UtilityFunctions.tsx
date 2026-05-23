@@ -5,7 +5,7 @@ import type { GameGrid, ValidationResults } from "../types/Types";
  * @param gameGrid The game grid to check.
  * @returns true if all fields are filled, false otherwise.
  */
-const checkGameGridValidity = (gameGrid: GameGrid) => {
+export const checkGameGridValidity = (gameGrid: GameGrid) => {
   if (!gameGrid || gameGrid.length === 0) {
     return false;
   }
@@ -32,7 +32,7 @@ const checkGameGridValidity = (gameGrid: GameGrid) => {
  * @param validationResults Validation results map to check.
  * @returns true if game grid does not contain duplicates, false otherwise.
  */
-const gameGridContainsOnlyUniqueWords = (
+export const gameGridContainsOnlyUniqueWords = (
   validationResults: ValidationResults,
 ) => {
   if (!validationResults) {
@@ -50,7 +50,7 @@ const gameGridContainsOnlyUniqueWords = (
  * @param validationResults Validation results map to check.
  * @returns true if all words are correct, false otherwise.
  */
-const gameGridContainsOnlyCorrectWords = (
+export const gameGridContainsOnlyCorrectWords = (
   validationResults: ValidationResults,
 ) => {
   if (!validationResults) {
@@ -69,13 +69,6 @@ const gameGridContainsOnlyCorrectWords = (
  * @param delay The delay in milliseconds before the promise resolves.
  * @returns A promise that resolves after the given delay.
  */
-function addWaitTime(delay: number): Promise<void> {
+export function addWaitTime(delay: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, delay));
 }
-
-export {
-  checkGameGridValidity,
-  gameGridContainsOnlyUniqueWords,
-  gameGridContainsOnlyCorrectWords,
-  addWaitTime,
-};
