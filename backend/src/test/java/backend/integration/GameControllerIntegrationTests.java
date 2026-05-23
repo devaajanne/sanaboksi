@@ -31,6 +31,16 @@ public class GameControllerIntegrationTests {
   @Autowired private FinnishWordRepository finnishWordRepository;
 
   @Test
+  public void getFixedLettersShouldReturn200ResponseWhenRequestedWordLengthIsFour()
+      throws Exception {
+    mockMvc
+        .perform(get("/api/fixed-letters/FI/4/5"))
+        .andExpect(status().isOk()) // HTTP 200
+        .andExpect(jsonPath("$.fixedLetters").isArray())
+        .andExpect(jsonPath("$.wordLength").value(4));
+  }
+
+  @Test
   public void getFixedLettersShouldReturn200ResponseWhenRequestedWordLengthIsFive()
       throws Exception {
     mockMvc
@@ -80,7 +90,7 @@ public class GameControllerIntegrationTests {
   public void getFixedLettersShouldReturn400ResponseWhenRequestedWordLengthIsTooLong()
       throws Exception {
     mockMvc
-        .perform(get("/api/fixed-letters/FI/9/5"))
+        .perform(get("/api/fixed-letters/FI/8/5"))
         .andExpect(status().isBadRequest()); // HTTP 400
   }
 
@@ -88,7 +98,7 @@ public class GameControllerIntegrationTests {
   public void getFixedLettersShouldReturn400ResponseWhenRequestedLanguageIsNotInLanguageEnums()
       throws Exception {
     mockMvc
-        .perform(get("/api/fixed-letters/JP/9/5"))
+        .perform(get("/api/fixed-letters/JP/5/5"))
         .andExpect(status().isBadRequest()); // HTTP 400
   }
 
@@ -96,7 +106,7 @@ public class GameControllerIntegrationTests {
   public void getFixedLettersShouldReturn400ResponseWhenRequestedLanguageIsNotProvidedInUpperCase()
       throws Exception {
     mockMvc
-        .perform(get("/api/fixed-letters/fi/9/5"))
+        .perform(get("/api/fixed-letters/fi/5/5"))
         .andExpect(status().isBadRequest()); // HTTP 400
   }
 
