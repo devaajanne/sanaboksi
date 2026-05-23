@@ -62,6 +62,7 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
         value={String(wordLength)}
         onChange={handleChange}
         withItemsBorders={false}
+        aria-label={t("GameSettingsModal.ChooseDifficulty")}
         data={[
           {
             label: (
