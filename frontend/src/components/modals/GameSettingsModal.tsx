@@ -4,6 +4,7 @@ import { colorPaletteConstants, gameConstants } from "../../utility/Constants";
 import { Button, Group, Modal, SegmentedControl, Text } from "@mantine/core";
 import { useGameSettings } from "../../context/GameSettingsContext";
 import { IconX } from "@tabler/icons-react";
+import { stylingConstants } from "../../utility/Constants";
 
 interface GameSettingsModalProps {
   opened: boolean;
@@ -41,10 +42,11 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
       size="lg"
       title={t("GameSettingsModal.Settings")}
       closeButtonProps={{
+        "aria-label": t("Actions.Close"),
         icon: (
           <IconX
-            aria-label={t("Actions.Close")}
-            stroke={2}
+            aria-hidden
+            stroke={stylingConstants.ICON_STROKE_WIDTH}
             color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
           />
         ),
@@ -58,7 +60,7 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
           backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
           color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
         },
-        title: { fontSize: 24 },
+        title: { fontSize: stylingConstants.MODAL_TITLE_FONT_SIZE },
       }}
     >
       <Text
@@ -136,11 +138,11 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
                 colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
               borderColor:
                 colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-              borderWidth: 2,
+              borderWidth: stylingConstants.BORDER_WIDTH,
             },
           }}
         >
-          <Text>{t("Actions.BackToGame")}</Text>
+          <Text span>{t("Actions.BackToGame")}</Text>
         </Button>
       </Group>
     </Modal>

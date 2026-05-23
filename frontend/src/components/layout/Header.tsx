@@ -17,16 +17,18 @@ import { GameInstructionsModal } from "../modals/GameInstructionsModal";
 import { GameSettingsModal } from "../modals/GameSettingsModal";
 import { useDisclosure } from "@mantine/hooks";
 import { useTranslation } from "react-i18next";
-import { colorPaletteConstants } from "../../utility/Constants";
+import {
+  colorPaletteConstants,
+  stylingConstants,
+} from "../../utility/Constants";
 
 export default function Header() {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const { headerMargin, iconSize, iconStrokeWidth, iconGap } = {
+  const { headerMargin, iconSize, iconGap } = {
     headerMargin: 20,
     iconSize: "clamp(20px, 6vw, 35px)",
-    iconStrokeWidth: 2,
     iconGap: 80,
   };
   const [
@@ -61,7 +63,10 @@ export default function Header() {
               },
             }}
           >
-            <IconHelpCircle size={iconSize} strokeWidth={iconStrokeWidth} />
+            <IconHelpCircle
+              size={iconSize}
+              strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
+            />
           </ActionIcon>
           <ActionIcon
             aria-label={t("AriaLabel.OpenGameSettings")}
@@ -76,7 +81,10 @@ export default function Header() {
               },
             }}
           >
-            <IconSettings size={iconSize} strokeWidth={iconStrokeWidth} />
+            <IconSettings
+              size={iconSize}
+              strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
+            />
           </ActionIcon>
           <ActionIcon
             aria-label={t("AriaLabel.ToggleLightDarkMode")}
@@ -91,10 +99,16 @@ export default function Header() {
               },
             }}
           >
-            {colorScheme === "light" ? (
-              <IconMoon size={iconSize} strokeWidth={iconStrokeWidth} />
+            {colorScheme === stylingConstants.COLOR_SCHEME_LIGHT ? (
+              <IconMoon
+                size={iconSize}
+                strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
+              />
             ) : (
-              <IconSun size={iconSize} strokeWidth={iconStrokeWidth} />
+              <IconSun
+                size={iconSize}
+                strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
+              />
             )}
           </ActionIcon>
         </Group>

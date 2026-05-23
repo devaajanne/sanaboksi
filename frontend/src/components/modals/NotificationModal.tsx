@@ -2,7 +2,10 @@ import { Button, Group, Modal, Text } from "@mantine/core";
 import { NotificationModalSource } from "../../types/Types";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { useTranslation } from "react-i18next";
-import { colorPaletteConstants } from "../../utility/Constants";
+import {
+  colorPaletteConstants,
+  stylingConstants,
+} from "../../utility/Constants";
 import { IconX } from "@tabler/icons-react";
 
 interface NotificationModalProps {
@@ -81,10 +84,11 @@ export default function NotificationModal({
       onClose={onClose}
       title={t(notificationModalTitle)}
       closeButtonProps={{
+        "aria-label": t("Actions.Close"),
         icon: (
           <IconX
-            aria-label={t("Actions.Close")}
-            stroke={2}
+            aria-hidden
+            stroke={stylingConstants.ICON_STROKE_WIDTH}
             color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
           />
         ),
@@ -98,7 +102,7 @@ export default function NotificationModal({
           backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
           color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
         },
-        title: { fontSize: 24 },
+        title: { fontSize: stylingConstants.MODAL_TITLE_FONT_SIZE },
       }}
     >
       <Text
@@ -122,11 +126,11 @@ export default function NotificationModal({
                 colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
               borderColor:
                 colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-              borderWidth: 3,
+              borderWidth: stylingConstants.BORDER_WIDTH,
             },
           }}
         >
-          <Text>{t("Actions.BackToGame")}</Text>
+          <Text span>{t("Actions.BackToGame")}</Text>
         </Button>
       </Group>
     </Modal>

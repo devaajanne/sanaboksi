@@ -4,7 +4,10 @@ import { IconCheck, IconX, IconCopy } from "@tabler/icons-react";
 import SanaboksiGameRow from "../game/SanaboksiGameRow";
 import type { FixedLetter } from "../../types/Types";
 import { useTranslation } from "react-i18next";
-import { colorPaletteConstants } from "../../utility/Constants";
+import {
+  colorPaletteConstants,
+  stylingConstants,
+} from "../../utility/Constants";
 
 interface GameInstructionsModalProps {
   opened: boolean;
@@ -19,14 +22,12 @@ export function GameInstructionsModal({
   const { t } = useTranslation();
   const {
     iconSize,
-    iconStrokeWidth,
     textMarginTop,
     textMarginBottom,
     iconMarginTop,
     iconMarginBottom,
   } = {
     iconSize: 30,
-    iconStrokeWidth: 2,
     textMarginTop: 10,
     textMarginBottom: 10,
     iconMarginTop: 5,
@@ -41,10 +42,11 @@ export function GameInstructionsModal({
       size="lg"
       title={t("GameInstructionModal.HowToPlaySanaboksi")}
       closeButtonProps={{
+        "aria-label": t("Actions.Close"),
         icon: (
           <IconX
-            aria-label={t("Actions.Close")}
-            stroke={2}
+            aria-hidden
+            stroke={stylingConstants.ICON_STROKE_WIDTH}
             color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
           />
         ),
@@ -58,7 +60,7 @@ export function GameInstructionsModal({
           backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
           color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
         },
-        title: { fontSize: 24 },
+        title: { fontSize: stylingConstants.MODAL_TITLE_FONT_SIZE },
       }}
     >
       <Text styles={{ root: { marginTop: textMarginTop } }}>
@@ -154,7 +156,7 @@ export function GameInstructionsModal({
             aria-label={t("AriaLabel.CorrectWordIcon")}
             color={colorPalette[colorPaletteConstants.CORRECT_GREEN_3]}
             size={iconSize}
-            strokeWidth={2}
+            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
           />
           <Text>{t("GameInstructionModal.TheWordIsCorrect")}</Text>
         </Group>
@@ -168,7 +170,7 @@ export function GameInstructionsModal({
             aria-label={t("AriaLabel.IncorrectWordIcon")}
             color={colorPalette[colorPaletteConstants.INCORRECT_RED_4]}
             size={iconSize}
-            strokeWidth={iconStrokeWidth}
+            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
           />
           <Text>{t("GameInstructionModal.TheWordIsIncorrect")}</Text>
         </Group>
@@ -184,7 +186,7 @@ export function GameInstructionsModal({
             aria-label={t("AriaLabel.DuplicateWordIcon")}
             color={colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]}
             size={iconSize}
-            strokeWidth={iconStrokeWidth}
+            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
           />
           <Text>{t("GameInstructionModal.TheWordIsADuplicate")}</Text>
         </Group>
@@ -208,11 +210,11 @@ export function GameInstructionsModal({
                 colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
               borderColor:
                 colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-              borderWidth: 2,
+              borderWidth: stylingConstants.BORDER_WIDTH,
             },
           }}
         >
-          <Text>{t("Actions.BackToGame")}</Text>
+          <Text span>{t("Actions.BackToGame")}</Text>
         </Button>
       </Group>
     </Modal>

@@ -20,6 +20,7 @@ import {
   colorPaletteConstants,
   gameConstants,
   languageConstants,
+  stylingConstants,
 } from "../../utility/Constants";
 import { useTranslation } from "react-i18next";
 import { useGameSettings } from "../../context/GameSettingsContext";
@@ -271,11 +272,11 @@ export default function SanaboksiGameGrid() {
                   colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
                 borderColor:
                   colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-                borderWidth: 3,
+                borderWidth: stylingConstants.BORDER_WIDTH,
               },
             }}
           >
-            <Text>{t("GameGridButton.NewGame")}</Text>
+            <Text span>{t("GameGridButton.NewGame")}</Text>
           </Button>
         ) : (
           <Button
@@ -296,11 +297,11 @@ export default function SanaboksiGameGrid() {
                   colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
                 borderColor:
                   colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-                borderWidth: 3,
+                borderWidth: stylingConstants.BORDER_WIDTH,
               },
             }}
           >
-            <Text>{t("GameGridButton.ValidateWords")}</Text>
+            <Text span>{t("GameGridButton.ValidateWords")}</Text>
           </Button>
         )}
       </Container>

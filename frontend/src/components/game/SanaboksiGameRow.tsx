@@ -5,7 +5,10 @@ import type { FixedLetter } from "../../types/Types";
 import { IconCheck, IconX, IconCopy } from "@tabler/icons-react";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { useTranslation } from "react-i18next";
-import { colorPaletteConstants } from "../../utility/Constants";
+import {
+  colorPaletteConstants,
+  stylingConstants,
+} from "../../utility/Constants";
 
 /**
  * Props for the SanaboksiGameRow component.
@@ -50,9 +53,8 @@ export default function SanaboksiGameRow({
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const { iconSize, iconStrokeWidth, iconPositionRight } = {
+  const { iconSize, iconPositionRight } = {
     iconSize: "clamp(25px, 12vw, 35px)",
-    iconStrokeWidth: 2,
     iconPositionRight: -40,
   };
 
@@ -163,7 +165,7 @@ export default function SanaboksiGameRow({
                     ? colorPalette[colorPaletteConstants.TERTIARY_COLOR_2]
                     : colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
                   borderColor: correctBorderColor,
-                  borderWidth: 3,
+                  borderWidth: stylingConstants.BORDER_WIDTH,
                   color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
                 },
               }}
@@ -191,7 +193,7 @@ export default function SanaboksiGameRow({
           aria-label={t("AriaLabel.DuplicateWordIcon")}
           color={colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]}
           size={iconSize}
-          strokeWidth={iconStrokeWidth}
+          strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
           style={{ position: "absolute", right: iconPositionRight }}
         />
       ) : isCorrect !== undefined ? (
@@ -200,7 +202,7 @@ export default function SanaboksiGameRow({
             aria-label={t("AriaLabel.CorrectWordIcon")}
             color={colorPalette[colorPaletteConstants.CORRECT_GREEN_3]}
             size={iconSize}
-            strokeWidth={2}
+            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
             style={{ position: "absolute", right: iconPositionRight }}
           />
         ) : (
@@ -208,7 +210,7 @@ export default function SanaboksiGameRow({
             aria-label={t("AriaLabel.IncorrectWordIcon")}
             color={colorPalette[colorPaletteConstants.INCORRECT_RED_4]}
             size={iconSize}
-            strokeWidth={iconStrokeWidth}
+            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
             style={{ position: "absolute", right: iconPositionRight }}
           />
         )
