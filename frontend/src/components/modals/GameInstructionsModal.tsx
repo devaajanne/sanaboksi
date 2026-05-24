@@ -20,19 +20,6 @@ export function GameInstructionsModal({
 }: GameInstructionsModalProps) {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
-  const {
-    iconSize,
-    textMarginTop,
-    textMarginBottom,
-    iconMarginTop,
-    iconMarginBottom,
-  } = {
-    iconSize: 30,
-    textMarginTop: 10,
-    textMarginBottom: 10,
-    iconMarginTop: 5,
-    iconMarginBottom: 15,
-  };
   const fixedLetter: FixedLetter = { fixedIndex: 2, fixedLetter: "H" };
 
   return (
@@ -63,13 +50,14 @@ export function GameInstructionsModal({
         title: { fontSize: stylingConstants.MODAL_TITLE_FONT_SIZE },
       }}
     >
-      <Text styles={{ root: { marginTop: textMarginTop } }}>
-        {t("GameInstructionModal.GameDescription")}
-      </Text>
+      <Text>{t("GameInstructionModal.GameDescription")}</Text>
 
       <Text
         styles={{
-          root: { marginTop: textMarginTop, marginBottom: textMarginBottom },
+          root: {
+            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
+            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
+          },
         }}
       >
         {t("GameInstructionModal.ForExampleIfGivenRowIs")}
@@ -85,7 +73,10 @@ export function GameInstructionsModal({
 
       <Text
         styles={{
-          root: { marginTop: textMarginTop, marginBottom: textMarginBottom },
+          root: {
+            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
+            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
+          },
         }}
       >
         {t("GameInstructionModal.FittingWordsCouldBe")}
@@ -101,7 +92,10 @@ export function GameInstructionsModal({
 
       <Text
         styles={{
-          root: { marginTop: textMarginTop, marginBottom: textMarginBottom },
+          root: {
+            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
+            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
+          },
         }}
       >
         {t("GameInstructionModal.And")}
@@ -115,23 +109,31 @@ export function GameInstructionsModal({
         rowData={["K", "A", "H", "V", "I"]}
       ></SanaboksiGameRow>
 
-      <Text styles={{ root: { marginTop: textMarginTop } }}>
+      <Text
+        styles={{ root: { marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP } }}
+      >
         {t(
           "GameInstructionModal.BecauseFixedLetterIsInTheCorrectPositionInBothWords",
         )}
       </Text>
 
-      <Text styles={{ root: { marginTop: textMarginTop } }}>
+      <Text
+        styles={{ root: { marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP } }}
+      >
         {t("GameInstructionModal.GamePlayInstructions")}
       </Text>
 
-      <Text styles={{ root: { marginTop: textMarginTop } }}>
+      <Text
+        styles={{ root: { marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP } }}
+      >
         {t("GameInstructionModal.AfterValidationInstructions")}
       </Text>
 
       <Text
         styles={{
-          root: { marginTop: textMarginTop, marginBottom: textMarginBottom },
+          root: {
+            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
+          },
         }}
       >
         {t(
@@ -139,23 +141,31 @@ export function GameInstructionsModal({
         )}
       </Text>
 
-      <Divider color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]} />
+      <Divider
+        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+        styles={{
+          root: {
+            marginTop: stylingConstants.MODAL_DIVIDER_MARGIN_TOP,
+            marginBottom: stylingConstants.MODAL_DIVIDER_MARGIN_BOTTOM,
+          },
+        }}
+      />
 
-      <Text styles={{ root: { marginTop: textMarginTop } }}>
-        {t("GameInstructionModal.BeMindfulOfTheseIconsAndColors")}:
-      </Text>
+      <Text>{t("GameInstructionModal.BeMindfulOfTheseIconsAndColors")}:</Text>
 
       <Stack>
         <Group
           align="center"
           gap="sm"
           wrap="nowrap"
-          styles={{ root: { marginTop: iconMarginTop } }}
+          styles={{
+            root: { marginTop: stylingConstants.MODAL_ICON_MARGIN_TOP },
+          }}
         >
           <IconCheck
             aria-label={t("AriaLabel.CorrectWordIcon")}
             color={colorPalette[colorPaletteConstants.CORRECT_GREEN_3]}
-            size={iconSize}
+            size={stylingConstants.MODAL_ICON_SIZE}
             strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
           />
           <Text>{t("GameInstructionModal.TheWordIsCorrect")}</Text>
@@ -164,43 +174,49 @@ export function GameInstructionsModal({
           align="center"
           gap="sm"
           wrap="nowrap"
-          styles={{ root: { marginTop: iconMarginTop } }}
+          styles={{
+            root: {
+              marginTop: stylingConstants.MODAL_ICON_MARGIN_TOP,
+              marginBottom: stylingConstants.MODAL_ICON_MARGIN_BOTTOM,
+            },
+          }}
         >
           <IconX
             aria-label={t("AriaLabel.IncorrectWordIcon")}
             color={colorPalette[colorPaletteConstants.INCORRECT_RED_4]}
-            size={iconSize}
+            size={stylingConstants.MODAL_ICON_SIZE}
             strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
           />
           <Text>{t("GameInstructionModal.TheWordIsIncorrect")}</Text>
         </Group>
-        <Group
-          align="center"
-          gap="sm"
-          wrap="nowrap"
-          styles={{
-            root: { marginTop: iconMarginTop, marginBottom: iconMarginBottom },
-          }}
-        >
+        <Group align="center" gap="sm" wrap="nowrap">
           <IconCopy
             aria-label={t("AriaLabel.DuplicateWordIcon")}
             color={colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]}
-            size={iconSize}
+            size={stylingConstants.MODAL_ICON_SIZE}
             strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
           />
           <Text>{t("GameInstructionModal.TheWordIsADuplicate")}</Text>
         </Group>
       </Stack>
-      <Divider color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]} />
-      <Text styles={{ root: { marginTop: textMarginTop + 5 } }}>
-        {t("GameInstructionModal.HaveFunWithSanaboksi")}
-      </Text>
+
+      <Divider
+        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+        styles={{
+          root: {
+            marginTop: stylingConstants.MODAL_DIVIDER_MARGIN_TOP,
+            marginBottom: stylingConstants.MODAL_DIVIDER_MARGIN_BOTTOM,
+          },
+        }}
+      />
+
+      <Text>{t("GameInstructionModal.HaveFunWithSanaboksi")}</Text>
+
       <Group justify="flex-end">
         <Button
           aria-label={t("Actions.BackToGame")}
           onClick={onClose}
           color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
-          style={{ marginTop: textMarginTop }}
           styles={{
             label: {
               color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
@@ -211,6 +227,7 @@ export function GameInstructionsModal({
               borderColor:
                 colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
               borderWidth: stylingConstants.BORDER_WIDTH,
+              marginTop: stylingConstants.MODAL_BUTTON_MARGN_TOP,
             },
           }}
         >

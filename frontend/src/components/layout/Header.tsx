@@ -28,8 +28,7 @@ export default function Header() {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const { headerMargin, iconSize, iconGap } = {
-    headerMargin: 20,
+  const { iconSize, iconGap } = {
     iconSize: "clamp(20px, 6vw, 35px)",
     iconGap: 80,
   };
@@ -47,7 +46,12 @@ export default function Header() {
   return (
     <Container
       fluid
-      style={{ marginTop: headerMargin, marginBottom: headerMargin }}
+      styles={{
+        root: {
+          marginTop: stylingConstants.HEADER_MARGIN_TOP,
+          marginBottom: stylingConstants.HEADER_MARGIN_BOTTOM,
+        },
+      }}
     >
       <Stack align="center">
         <Title c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}>

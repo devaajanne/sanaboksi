@@ -73,10 +73,6 @@ export default function NotificationModal({
   const { notificationModalTitle, notificationModalMessage } =
     notificationModalContent[source] ||
     notificationModalContent[NotificationModalSource.NoSource];
-  const { textMarginTop, textMarginBottom } = {
-    textMarginTop: 10,
-    textMarginBottom: 10,
-  };
 
   return (
     <Modal
@@ -107,7 +103,10 @@ export default function NotificationModal({
     >
       <Text
         styles={{
-          root: { marginTop: textMarginTop, marginBottom: textMarginBottom },
+          root: {
+            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
+            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
+          },
         }}
       >
         {t(notificationModalMessage)}
