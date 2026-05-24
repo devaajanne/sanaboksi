@@ -15,10 +15,6 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
   const { wordLength, setWordLength } = useGameSettings();
-  const { textMarginTop, textMarginBottom } = {
-    textMarginTop: 10,
-    textMarginBottom: 10,
-  };
 
   const handleChange = (val: string) => {
     const numValue = Number(val);
@@ -65,7 +61,10 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
     >
       <Text
         styles={{
-          root: { marginTop: textMarginTop, marginBottom: textMarginBottom },
+          root: {
+            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
+            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
+          },
         }}
       >
         {t("GameSettingsModal.ChooseDifficulty")}
@@ -128,7 +127,6 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
           aria-label={t("Actions.BackToGame")}
           onClick={onClose}
           color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
-          style={{ marginTop: textMarginTop }}
           styles={{
             label: {
               color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
@@ -139,6 +137,7 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
               borderColor:
                 colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
               borderWidth: stylingConstants.BORDER_WIDTH,
+              marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
             },
           }}
         >
