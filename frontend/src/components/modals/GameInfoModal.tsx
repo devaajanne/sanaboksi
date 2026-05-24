@@ -4,8 +4,24 @@ import {
   colorPaletteConstants,
   stylingConstants,
 } from "../../utility/Constants";
-import { IconX } from "@tabler/icons-react";
-import { Button, Group, Modal, Text } from "@mantine/core";
+import {
+  IconBook2,
+  IconBrandGithub,
+  IconHelpCircle,
+  IconX,
+  IconSun,
+  IconMoon,
+  IconSettings,
+} from "@tabler/icons-react";
+import {
+  Anchor,
+  Button,
+  Divider,
+  Group,
+  Modal,
+  Stack,
+  Text,
+} from "@mantine/core";
 
 interface GameInfoModalProps {
   opened: boolean;
@@ -15,16 +31,13 @@ interface GameInfoModalProps {
 export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
-  const { textMarginTop } = {
-    textMarginTop: 10,
-  };
 
   return (
     <Modal
       opened={opened}
       onClose={onClose}
       size="lg"
-      title={t("GameInfoModal.InfoAboutSanaboksi")}
+      title={t("GameInfoModal.WhatSanaboksi")}
       closeButtonProps={{
         "aria-label": t("Actions.Close"),
         icon: (
@@ -47,12 +60,174 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
         title: { fontSize: stylingConstants.MODAL_TITLE_FONT_SIZE },
       }}
     >
+      <Text>{t("GameInfoModal.InfoAboutSanaboksi")}</Text>
+
+      <Text
+        styles={{
+          root: {
+            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
+            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
+          },
+        }}
+      >
+        {t("GameInfoModal.InfoAboutThesis")}
+      </Text>
+
+      <Text
+        styles={{
+          root: {
+            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
+            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
+          },
+        }}
+      >
+        {t("GameInfoModal.YouCanFindGameInstructionsByClicking")}
+        <IconHelpCircle
+          aria-label={t("AriaLabel.OpenGameInstructions")}
+          style={{ verticalAlign: "top" }}
+        />
+      </Text>
+
+      <Text
+        styles={{
+          root: {
+            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
+            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
+          },
+        }}
+      >
+        {t("GameInfoModal.YouCanFindDifficultyLevelsByClicking")}
+        <IconSettings
+          aria-label={t("AriaLabel.OpenGameSettings")}
+          style={{ verticalAlign: "top" }}
+        />
+      </Text>
+
+      <Text
+        styles={{
+          root: {
+            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
+            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
+          },
+        }}
+      >
+        {t("GameInfoModal.YouCanSwitchBetweenLightAndDarkModeByClicking")}
+        <IconSun
+          aria-label={t("AriaLabel.ToggleLightDarkMode")}
+          style={{ verticalAlign: "top" }}
+        />
+        {t("GameInfoModal.And")}{" "}
+        <IconMoon
+          aria-label={t("AriaLabel.ToggleLightDarkMode")}
+          style={{ verticalAlign: "top" }}
+        />
+      </Text>
+
+      <Text
+        styles={{
+          root: {
+            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
+            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
+          },
+        }}
+      >
+        Sanaboksin on luonut{" "}
+        <Anchor
+          href="https://github.com/devaajanne"
+          c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+          underline="always"
+        >
+          Janne Airaksinen
+        </Anchor>{" "}
+        (2026), ja se on lisensoitu{" "}
+        <Anchor
+          href="https://github.com/devaajanne/sanaboksi?tab=MIT-1-ov-file"
+          c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+          underline="always"
+        >
+          MIT-lisenssillä
+        </Anchor>
+        .
+      </Text>
+
+      <Divider
+        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+        styles={{
+          root: {
+            marginTop: stylingConstants.MODAL_DIVIDER_MARGIN_TOP,
+            marginBottom: stylingConstants.MODAL_DIVIDER_MARGIN_BOTTOM,
+          },
+        }}
+      />
+
+      <Stack>
+        <Group
+          align="center"
+          gap="sm"
+          wrap="nowrap"
+          styles={{
+            root: {
+              marginBottom: stylingConstants.MODAL_ICON_MARGIN_BOTTOM,
+            },
+          }}
+        >
+          <IconBook2
+            aria-hidden
+            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+            size={stylingConstants.MODAL_ICON_SIZE}
+            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
+          />
+          <Anchor
+            href="https://www.theseus.fi/handle/10024/920463"
+            c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+            underline="always"
+          >
+            {t("GameInfoModal.ReadThesisInTheseus")}
+          </Anchor>
+        </Group>
+        <Group
+          align="center"
+          gap="sm"
+          wrap="nowrap"
+          styles={{
+            root: {
+              marginTop: stylingConstants.MODAL_ICON_MARGIN_TOP,
+            },
+          }}
+        >
+          <IconBrandGithub
+            aria-hidden
+            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+            size={stylingConstants.MODAL_ICON_SIZE}
+            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
+          />
+          <Anchor
+            href="https://github.com/devaajanne/sanaboksi"
+            c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+            underline="always"
+          >
+            {t("GameInfoModal.SeeSourceCodeInGitHub")}
+          </Anchor>
+        </Group>
+      </Stack>
+
+      <Divider
+        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+        styles={{
+          root: {
+            marginTop: stylingConstants.MODAL_DIVIDER_MARGIN_TOP,
+            marginBottom: stylingConstants.MODAL_DIVIDER_MARGIN_BOTTOM,
+          },
+        }}
+      />
+
+      <Text>{t("GameInfoModal.HaveFunWithSanaboksi")}</Text>
+
       <Group justify="flex-end">
         <Button
           aria-label={t("Actions.BackToGame")}
           onClick={onClose}
           color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
-          style={{ marginTop: textMarginTop }}
           styles={{
             label: {
               color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
@@ -63,6 +238,7 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
               borderColor:
                 colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
               borderWidth: stylingConstants.BORDER_WIDTH,
+              marginTop: stylingConstants.MODAL_BUTTON_MARGN_TOP,
             },
           }}
         >

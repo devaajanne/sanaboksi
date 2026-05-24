@@ -58,7 +58,16 @@
     "SevenLetters": "7 kirjainta"
   },
   "GameInfoModal": {
-    "InfoAboutSanaboksi": "Tietoa Sanaboksista"
+    "WhatSanaboksi": "Mikä Sanaboksi?",
+    "InfoAboutSanaboksi": "Sanaboksi on Haaga-Helia ammattikorkeakoulussa tekemäni opinnäytetyön osana tehty sanapeli, jossa etsit sopivia suomen kielen sanoja vaihtelevilla vaikeustasoilla.",
+    "InfoAboutThesis": "Opinnäytetyöni keskittyy DevOpsiin ja CI/CD-putkiin, ja osana opinnäytetyötä laadin toimivan CI/CD-putken samanaikaisesti kehitetylle Sanaboksi-sovellukselle.",
+    "YouCanFindGameInstructionsByClicking": "Peliohjeet löydät klikkaamalla ",
+    "YouCanFindDifficultyLevelsByClicking": "Eri vaikeustasot löydät klikkaamalla ",
+    "YouCanSwitchBetweenLightAndDarkModeByClicking": "Vaaleaa ja tumma tilaa voit vaihtaa klikkaamalla ",
+    "And": " ja ",
+    "ReadThesisInTheseus": "Lue opinnäytetyö Theseuksessa",
+    "SeeSourceCodeInGitHub": "Tutustu lähdekoodiin GitHubissa",
+    "HaveFunWithSanaboksi": "Hauskoja pelihetkiä Sanaboksin parissa!"
   },
   "AriaLabel": {
     "SanaboksiGameGrid": "Sanaboksi-ruudukko",
