@@ -13,15 +13,7 @@ import {
   IconMoon,
   IconSettings,
 } from "@tabler/icons-react";
-import {
-  Anchor,
-  Button,
-  Divider,
-  Group,
-  Modal,
-  Stack,
-  Text,
-} from "@mantine/core";
+import { Anchor, Button, Divider, Group, Modal, Text } from "@mantine/core";
 
 interface GameInfoModalProps {
   opened: boolean;
@@ -66,18 +58,16 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
         styles={{
           root: {
             marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
           },
         }}
       >
-        {t("GameInfoModal.InfoAboutThesis")}
+        {t("GameInfoModal.GamePitch")}
       </Text>
 
       <Text
         styles={{
           root: {
             marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
           },
         }}
       >
@@ -92,7 +82,6 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
         styles={{
           root: {
             marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
           },
         }}
       >
@@ -107,7 +96,6 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
         styles={{
           root: {
             marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
           },
         }}
       >
@@ -123,14 +111,45 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
         />
       </Text>
 
-      <Text
+      <Divider
+        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
         styles={{
           root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
+            marginTop: stylingConstants.MODAL_DIVIDER_MARGIN_TOP,
+            marginBottom: stylingConstants.MODAL_DIVIDER_MARGIN_BOTTOM,
+          },
+        }}
+      />
+
+      <Text>{t("GameInfoModal.InfoAboutThesis")}</Text>
+
+      <Group
+        align="center"
+        gap="sm"
+        wrap="nowrap"
+        styles={{
+          root: {
+            marginTop: stylingConstants.MODAL_ICON_MARGIN_TOP,
+            marginBottom: stylingConstants.MODAL_ICON_MARGIN_BOTTOM,
           },
         }}
       >
+        <IconBook2
+          aria-hidden
+          color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+          size={stylingConstants.MODAL_ICON_SIZE}
+          strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
+        />
+        <Anchor
+          href="https://www.theseus.fi/handle/10024/920463"
+          c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+          underline="always"
+        >
+          {t("GameInfoModal.ReadThesisInTheseus")}
+        </Anchor>
+      </Group>
+
+      <Text>
         Sanaboksin on luonut{" "}
         <Anchor
           href="https://github.com/devaajanne"
@@ -150,66 +169,30 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
         .
       </Text>
 
-      <Divider
-        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+      <Group
+        align="center"
+        gap="sm"
+        wrap="nowrap"
         styles={{
           root: {
-            marginTop: stylingConstants.MODAL_DIVIDER_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_DIVIDER_MARGIN_BOTTOM,
+            marginTop: stylingConstants.MODAL_ICON_MARGIN_TOP,
           },
         }}
-      />
-
-      <Stack>
-        <Group
-          align="center"
-          gap="sm"
-          wrap="nowrap"
-          styles={{
-            root: {
-              marginBottom: stylingConstants.MODAL_ICON_MARGIN_BOTTOM,
-            },
-          }}
+      >
+        <IconBrandGithub
+          aria-hidden
+          color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+          size={stylingConstants.MODAL_ICON_SIZE}
+          strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
+        />
+        <Anchor
+          href="https://github.com/devaajanne/sanaboksi"
+          c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+          underline="always"
         >
-          <IconBook2
-            aria-hidden
-            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-            size={stylingConstants.MODAL_ICON_SIZE}
-            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-          />
-          <Anchor
-            href="https://www.theseus.fi/handle/10024/920463"
-            c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-            underline="always"
-          >
-            {t("GameInfoModal.ReadThesisInTheseus")}
-          </Anchor>
-        </Group>
-        <Group
-          align="center"
-          gap="sm"
-          wrap="nowrap"
-          styles={{
-            root: {
-              marginTop: stylingConstants.MODAL_ICON_MARGIN_TOP,
-            },
-          }}
-        >
-          <IconBrandGithub
-            aria-hidden
-            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-            size={stylingConstants.MODAL_ICON_SIZE}
-            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-          />
-          <Anchor
-            href="https://github.com/devaajanne/sanaboksi"
-            c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-            underline="always"
-          >
-            {t("GameInfoModal.SeeSourceCodeInGitHub")}
-          </Anchor>
-        </Group>
-      </Stack>
+          {t("GameInfoModal.SeeSourceCodeInGitHub")}
+        </Anchor>
+      </Group>
 
       <Divider
         color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
