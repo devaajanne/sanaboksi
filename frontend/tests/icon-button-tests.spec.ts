@@ -33,3 +33,11 @@ test("Clicking settings button opens game settings modal", async ({ page }) => {
 
   await expect(page.getByRole("heading", { name: "Asetukset" })).toBeVisible();
 });
+
+test("Clicking info button opens game info modal", async ({ page }) => {
+  await page.getByRole("button", { name: "Lue tietoa pelistä" }).click();
+
+  await expect(
+    page.getByRole("heading", { name: "Mikä Sanaboksi?" }),
+  ).toBeVisible();
+});
