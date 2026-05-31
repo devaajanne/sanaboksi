@@ -39,6 +39,12 @@ export default function Header() {
   const [openedGameInfo, { open: openGameInfo, close: closeGameInfo }] =
     useDisclosure(false);
   const isSmViewport = useMediaQuery(stylingConstants.SM_VIEWPORT_MAX_WIDTH);
+  const headerTitleFontSize = isSmViewport
+    ? stylingConstants.HEADER_TITLE_FONT_SIZE_SMALL
+    : stylingConstants.HEADER_TITLE_FONT_SIZE_LARGE;
+  const headerIconSize = isSmViewport
+    ? stylingConstants.HEADER_ICON_SIZE_SMALL
+    : stylingConstants.HEADER_ICON_SIZE_LARGE;
 
   return (
     <Container
@@ -55,9 +61,7 @@ export default function Header() {
           styles={{
             root: {
               color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-              fontSize: isSmViewport
-                ? stylingConstants.HEADER_TITLE_FONT_SIZE_SMALL
-                : stylingConstants.HEADER_TITLE_FONT_SIZE_LARGE,
+              fontSize: headerTitleFontSize,
             },
           }}
         >
@@ -73,11 +77,7 @@ export default function Header() {
           <ActionIcon
             aria-label={t("AriaLabel.OpenGameInstructions")}
             variant="subtle"
-            size={
-              isSmViewport
-                ? stylingConstants.HEADER_ICON_SIZE_SMALL
-                : stylingConstants.HEADER_ICON_SIZE_LARGE
-            }
+            size={headerIconSize}
             onClick={() => openGameInstructions()}
             styles={{
               root: {
@@ -88,22 +88,14 @@ export default function Header() {
             }}
           >
             <IconHelpCircle
-              size={
-                isSmViewport
-                  ? stylingConstants.HEADER_ICON_SIZE_SMALL
-                  : stylingConstants.HEADER_ICON_SIZE_LARGE
-              }
+              size={headerIconSize}
               strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
             />
           </ActionIcon>
           <ActionIcon
             aria-label={t("AriaLabel.OpenGameSettings")}
             variant="subtle"
-            size={
-              isSmViewport
-                ? stylingConstants.HEADER_ICON_SIZE_SMALL
-                : stylingConstants.HEADER_ICON_SIZE_LARGE
-            }
+            size={headerIconSize}
             onClick={() => openGameSettings()}
             styles={{
               root: {
@@ -114,22 +106,14 @@ export default function Header() {
             }}
           >
             <IconSettings
-              size={
-                isSmViewport
-                  ? stylingConstants.HEADER_ICON_SIZE_SMALL
-                  : stylingConstants.HEADER_ICON_SIZE_LARGE
-              }
+              size={headerIconSize}
               strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
             />
           </ActionIcon>
           <ActionIcon
             aria-label={t("AriaLabel.ToggleLightDarkMode")}
             variant="subtle"
-            size={
-              isSmViewport
-                ? stylingConstants.HEADER_ICON_SIZE_SMALL
-                : stylingConstants.HEADER_ICON_SIZE_LARGE
-            }
+            size={headerIconSize}
             onClick={() => toggleColorScheme()}
             styles={{
               root: {
@@ -141,20 +125,12 @@ export default function Header() {
           >
             {colorScheme === stylingConstants.COLOR_SCHEME_LIGHT ? (
               <IconMoon
-                size={
-                  isSmViewport
-                    ? stylingConstants.HEADER_ICON_SIZE_SMALL
-                    : stylingConstants.HEADER_ICON_SIZE_LARGE
-                }
+                size={headerIconSize}
                 strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
               />
             ) : (
               <IconSun
-                size={
-                  isSmViewport
-                    ? stylingConstants.HEADER_ICON_SIZE_SMALL
-                    : stylingConstants.HEADER_ICON_SIZE_LARGE
-                }
+                size={headerIconSize}
                 strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
               />
             )}
@@ -162,11 +138,7 @@ export default function Header() {
           <ActionIcon
             aria-label={t("AriaLabel.ReadGameInfo")}
             variant="subtle"
-            size={
-              isSmViewport
-                ? stylingConstants.HEADER_ICON_SIZE_SMALL
-                : stylingConstants.HEADER_ICON_SIZE_LARGE
-            }
+            size={headerIconSize}
             onClick={() => openGameInfo()}
             styles={{
               root: {
@@ -177,11 +149,7 @@ export default function Header() {
             }}
           >
             <IconInfoCircle
-              size={
-                isSmViewport
-                  ? stylingConstants.HEADER_ICON_SIZE_SMALL
-                  : stylingConstants.HEADER_ICON_SIZE_LARGE
-              }
+              size={headerIconSize}
               strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
             />
           </ActionIcon>

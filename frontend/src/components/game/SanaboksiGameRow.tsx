@@ -55,7 +55,18 @@ export default function SanaboksiGameRow({
   const { t } = useTranslation();
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const isSmViewport = useMediaQuery(stylingConstants.SM_VIEWPORT_MAX_WIDTH);
-  const iconPositionRight = isSmViewport ? "-1.75rem" : "-3rem";
+  const textInputSize = isSmViewport
+    ? stylingConstants.TEXT_INPUT_SIZE_SMALL
+    : stylingConstants.TEXT_INPUT_SIZE_LARGE;
+  const textInputFontSize = isSmViewport
+    ? stylingConstants.TEXT_INPUT_FONT_SIZE_SMALL
+    : stylingConstants.TEXT_INPUT_FONT_SIZE_LARGE;
+  const rowValidationIconSize = isSmViewport
+    ? stylingConstants.ROW_VALIDATION_ICON_SIZE_SMALL
+    : stylingConstants.ROW_VALIDATION_ICON_SIZE_LARGE;
+  const rowValidationIconPosition = isSmViewport
+    ? stylingConstants.ROW_VALIDATION_ICON_OFFSET_SMALL
+    : stylingConstants.ROW_VALIDATION_ICON_OFFSET_LARGE;
 
   /**
    * Handles user input and moves the cursor to the next available field.
@@ -155,15 +166,9 @@ export default function SanaboksiGameRow({
               }}
               styles={{
                 input: {
-                  width: isSmViewport
-                    ? stylingConstants.TEXT_INPUT_SIZE_SMALL
-                    : stylingConstants.TEXT_INPUT_SIZE_LARGE,
-                  height: isSmViewport
-                    ? stylingConstants.TEXT_INPUT_SIZE_SMALL
-                    : stylingConstants.TEXT_INPUT_SIZE_LARGE,
-                  fontSize: isSmViewport
-                    ? stylingConstants.TEXT_INPUT_FONT_SIZE_SMALL
-                    : stylingConstants.TEXT_INPUT_FONT_SIZE_LARGE,
+                  width: textInputSize,
+                  height: textInputSize,
+                  fontSize: textInputFontSize,
                   textAlign: "center",
                   fontWeight: isFixedLetter ? "bold" : "normal",
                   backgroundColor: isFixedLetter
@@ -197,38 +202,26 @@ export default function SanaboksiGameRow({
         <IconCopy
           aria-label={t("AriaLabel.DuplicateWordIcon")}
           color={colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]}
-          size={
-            isSmViewport
-              ? stylingConstants.HEADER_ICON_SIZE_SMALL
-              : stylingConstants.HEADER_ICON_SIZE_LARGE
-          }
+          size={rowValidationIconSize}
           strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-          style={{ position: "absolute", right: iconPositionRight }}
+          style={{ position: "absolute", right: rowValidationIconPosition }}
         />
       ) : isCorrect !== undefined ? (
         isCorrect ? (
           <IconCheck
             aria-label={t("AriaLabel.CorrectWordIcon")}
             color={colorPalette[colorPaletteConstants.CORRECT_GREEN_3]}
-            size={
-              isSmViewport
-                ? stylingConstants.HEADER_ICON_SIZE_SMALL
-                : stylingConstants.HEADER_ICON_SIZE_LARGE
-            }
+            size={rowValidationIconSize}
             strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-            style={{ position: "absolute", right: iconPositionRight }}
+            style={{ position: "absolute", right: rowValidationIconPosition }}
           />
         ) : (
           <IconX
             aria-label={t("AriaLabel.IncorrectWordIcon")}
             color={colorPalette[colorPaletteConstants.INCORRECT_RED_4]}
-            size={
-              isSmViewport
-                ? stylingConstants.HEADER_ICON_SIZE_SMALL
-                : stylingConstants.HEADER_ICON_SIZE_LARGE
-            }
+            size={rowValidationIconSize}
             strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-            style={{ position: "absolute", right: iconPositionRight }}
+            style={{ position: "absolute", right: rowValidationIconPosition }}
           />
         )
       ) : null}
