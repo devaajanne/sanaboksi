@@ -70,6 +70,12 @@
     "SeeSourceCodeInGitHub": "Tutustu lähdekoodiin GitHubissa",
     "HaveFunWithSanaboksi": "Hauskoja pelihetkiä Sanaboksin parissa!"
   },
+  "Tooltip": {
+    "GameInstructionsModalTooltip": "Avaa peliohjeet",
+    "GameSettingsModalTooltip": "Avaa peliasetukset",
+    "LightDarkModeToggleTooltip": "Vaihda vaaleaa/tummaa tilaa",
+    "GameInfoModalTooltip": "Lue tietoa pelistä"
+  },
   "AriaLabel": {
     "SanaboksiGameGrid": "Sanaboksi-ruudukko",
     "Word": "Sana",
