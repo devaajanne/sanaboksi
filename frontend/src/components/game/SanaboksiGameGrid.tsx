@@ -24,6 +24,7 @@ import {
 } from "../../utility/Constants";
 import { useTranslation } from "react-i18next";
 import { useGameSettings } from "../../context/GameSettingsContext";
+import { useViewport } from "../../context/ViewportContext";
 
 /**
  * Main component for rendering and managing the Sanaboksi game grid.
@@ -34,6 +35,7 @@ export default function SanaboksiGameGrid() {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
   const { wordLength } = useGameSettings();
+  const { isSmViewport } = useViewport();
   // Store the fixed letters configuration for each row (which index has which fixed letter)
   const [fixedLetters, setFixedLetters] = useState<FixedLetters>([]);
   // Store the actual game grid data (2D array of characters with dynamic dimensions)
@@ -204,7 +206,14 @@ export default function SanaboksiGameGrid() {
   return (
     <>
       <Container strategy="grid" aria-label={t("AriaLabel.SanaBoksiGameGrid")}>
-        <Stack gap={9} styles={{ root: { position: "relative" } }}>
+        <Stack
+          gap={
+            isSmViewport
+              ? stylingConstants.GAME_GRID_ROW_GAP_SMALL
+              : stylingConstants.GAME_GRID_ROW_GAP_LARGE
+          }
+          styles={{ root: { position: "relative" } }}
+        >
           {fixedLetters.length === 0
             ? // Render empty game grid rows
               Array.from({ length: gameConstants.WORD_COUNT_5 }).map(
@@ -245,7 +254,7 @@ export default function SanaboksiGameGrid() {
         </Stack>
       </Container>
 
-      <Space h="lg" />
+      <Space h={isSmViewport ? "sm" : "lg"} />
 
       <Container strategy="grid">
         {isValidGameGrid && isCorrectGameGrid ? (

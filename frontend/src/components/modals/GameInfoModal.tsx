@@ -71,7 +71,7 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
           },
         }}
       >
-        {t("GameInfoModal.YouCanFindGameInstructionsByClicking")}
+        {t("GameInfoModal.YouCanReadGameInstructionsByClicking")}
         <IconHelpCircle
           aria-label={t("AriaLabel.OpenGameInstructions")}
           style={{ verticalAlign: "top" }}
@@ -85,7 +85,7 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
           },
         }}
       >
-        {t("GameInfoModal.YouCanFindDifficultyLevelsByClicking")}
+        {t("GameInfoModal.YouCanSwitchDifficultyLevelsByClicking")}
         <IconSettings
           aria-label={t("AriaLabel.OpenGameSettings")}
           style={{ verticalAlign: "top" }}
@@ -221,7 +221,7 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
               borderColor:
                 colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
               borderWidth: stylingConstants.BORDER_WIDTH,
-              marginTop: stylingConstants.MODAL_BUTTON_MARGN_TOP,
+              marginTop: stylingConstants.MODAL_BUTTON_MARGIN_TOP,
             },
           }}
         >

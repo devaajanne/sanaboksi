@@ -37,3 +37,7 @@ export type GameSettingsContextType = {
   wordLength: number;
   setWordLength: (len: number) => void;
 };
+
+export type ViewportContextType = {
+  isSmViewport: boolean;
+};

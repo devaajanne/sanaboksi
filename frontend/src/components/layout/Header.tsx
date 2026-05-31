@@ -1,10 +1,11 @@
 import {
   Container,
-  Title,
+  Text,
   ActionIcon,
   useMantineColorScheme,
   Stack,
   Group,
+  Tooltip,
 } from "@mantine/core";
 import {
   IconSun,
@@ -23,15 +24,13 @@ import {
   colorPaletteConstants,
   stylingConstants,
 } from "../../utility/Constants";
+import { useViewport } from "../../context/ViewportContext";
 
 export default function Header() {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const { iconSize, iconGap } = {
-    iconSize: "clamp(20px, 6vw, 35px)",
-    iconGap: 80,
-  };
+  const { isSmViewport } = useViewport();
   const [
     openedGameInstructions,
     { open: openGameInstructions, close: closeGameInstructions },
@@ -42,6 +41,13 @@ export default function Header() {
   ] = useDisclosure(false);
   const [openedGameInfo, { open: openGameInfo, close: closeGameInfo }] =
     useDisclosure(false);
+  const headerTitleFontSize = isSmViewport
+    ? stylingConstants.HEADER_TITLE_FONT_SIZE_SMALL
+    : stylingConstants.HEADER_TITLE_FONT_SIZE_LARGE;
+  const headerIconSize = isSmViewport
+    ? stylingConstants.HEADER_ICON_SIZE_SMALL
+    : stylingConstants.HEADER_ICON_SIZE_LARGE;
+  const tooltipPosition = "bottom";
 
   return (
     <Container
@@ -53,90 +59,147 @@ export default function Header() {
         },
       }}
     >
-      <Stack align="center">
-        <Title c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}>
+      <Stack align="center" gap={stylingConstants.HEADER_MARGIN_BOTTOM}>
+        <Text
+          styles={{
+            root: {
+              color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+              fontSize: headerTitleFontSize,
+            },
+          }}
+        >
           Sanaboksi
-        </Title>
-        <Group gap={iconGap}>
-          <ActionIcon
-            aria-label={t("AriaLabel.OpenGameInstructions")}
-            variant="subtle"
-            size={iconSize}
-            onClick={() => openGameInstructions()}
+        </Text>
+        <Group
+          justify="space-between"
+          wrap="nowrap"
+          styles={{
+            root: { width: "150%" },
+          }}
+        >
+          <Tooltip
+            label={t("Tooltip.GameInstructionsModalTooltip")}
+            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+            position={tooltipPosition}
             styles={{
-              root: {
-                backgroundColor:
-                  colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-                color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+              tooltip: {
+                color: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
               },
             }}
           >
-            <IconHelpCircle
-              size={iconSize}
-              strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-            />
-          </ActionIcon>
-          <ActionIcon
-            aria-label={t("AriaLabel.OpenGameSettings")}
-            variant="subtle"
-            size={iconSize}
-            onClick={() => openGameSettings()}
-            styles={{
-              root: {
-                backgroundColor:
-                  colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-                color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-              },
-            }}
-          >
-            <IconSettings
-              size={iconSize}
-              strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-            />
-          </ActionIcon>
-          <ActionIcon
-            aria-label={t("AriaLabel.ToggleLightDarkMode")}
-            variant="subtle"
-            size={iconSize}
-            onClick={() => toggleColorScheme()}
-            styles={{
-              root: {
-                backgroundColor:
-                  colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-                color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-              },
-            }}
-          >
-            {colorScheme === stylingConstants.COLOR_SCHEME_LIGHT ? (
-              <IconMoon
-                size={iconSize}
+            <ActionIcon
+              aria-label={t("AriaLabel.OpenGameInstructions")}
+              variant="subtle"
+              size={headerIconSize}
+              onClick={openGameInstructions}
+              styles={{
+                root: {
+                  backgroundColor:
+                    colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+                  color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+                },
+              }}
+            >
+              <IconHelpCircle
+                size={headerIconSize}
                 strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
               />
-            ) : (
-              <IconSun
-                size={iconSize}
-                strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-              />
-            )}
-          </ActionIcon>
-          <ActionIcon
-            aria-label={t("AriaLabel.ReadGameInfo")}
-            variant="subtle"
-            size={iconSize}
-            onClick={() => openGameInfo()}
+            </ActionIcon>
+          </Tooltip>
+          <Tooltip
+            label={t("Tooltip.GameSettingsModalTooltip")}
+            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+            position={tooltipPosition}
             styles={{
-              root: {
-                backgroundColor:
-                  colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-                color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+              tooltip: {
+                color: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
               },
             }}
           >
-            <IconInfoCircle
-              size={iconSize}
-              strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-            />
-          </ActionIcon>
+            <ActionIcon
+              aria-label={t("AriaLabel.OpenGameSettings")}
+              variant="subtle"
+              size={headerIconSize}
+              onClick={openGameSettings}
+              styles={{
+                root: {
+                  backgroundColor:
+                    colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+                  color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+                },
+              }}
+            >
+              <IconSettings
+                size={headerIconSize}
+                strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
+              />
+            </ActionIcon>
+          </Tooltip>
+          <Tooltip
+            label={t("Tooltip.LightDarkModeToggleTooltip")}
+            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+            position={tooltipPosition}
+            styles={{
+              tooltip: {
+                color: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+              },
+            }}
+          >
+            <ActionIcon
+              aria-label={t("AriaLabel.ToggleLightDarkMode")}
+              variant="subtle"
+              size={headerIconSize}
+              onClick={toggleColorScheme}
+              styles={{
+                root: {
+                  backgroundColor:
+                    colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+                  color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+                },
+              }}
+            >
+              {colorScheme === stylingConstants.COLOR_SCHEME_LIGHT ? (
+                <IconMoon
+                  size={headerIconSize}
+                  strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
+                />
+              ) : (
+                <IconSun
+                  size={headerIconSize}
+                  strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
+                />
+              )}
+            </ActionIcon>
+          </Tooltip>
+          <Tooltip
+            label={t("Tooltip.GameInfoModalTooltip")}
+            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+            position={tooltipPosition}
+            styles={{
+              tooltip: {
+                color: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+              },
+            }}
+          >
+            <ActionIcon
+              aria-label={t("AriaLabel.ReadGameInfo")}
+              variant="subtle"
+              size={headerIconSize}
+              onClick={openGameInfo}
+              styles={{
+                root: {
+                  backgroundColor:
+                    colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+                  color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+                },
+              }}
+            >
+              <IconInfoCircle
+                size={headerIconSize}
+                strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
+              />
+            </ActionIcon>
+          </Tooltip>
         </Group>
       </Stack>
       <GameInstructionsModal

@@ -9,6 +9,7 @@ import {
   colorPaletteConstants,
   stylingConstants,
 } from "../../utility/Constants";
+import { useViewport } from "../../context/ViewportContext";
 
 /**
  * Props for the SanaboksiGameRow component.
@@ -52,11 +53,20 @@ export default function SanaboksiGameRow({
 }: SanaboksiGameRowProps) {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
+  const { isSmViewport } = useViewport();
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const { iconSize, iconPositionRight } = {
-    iconSize: "clamp(25px, 12vw, 35px)",
-    iconPositionRight: -40,
-  };
+  const textInputSize = isSmViewport
+    ? stylingConstants.TEXT_INPUT_SIZE_SMALL
+    : stylingConstants.TEXT_INPUT_SIZE_LARGE;
+  const textInputFontSize = isSmViewport
+    ? stylingConstants.TEXT_INPUT_FONT_SIZE_SMALL
+    : stylingConstants.TEXT_INPUT_FONT_SIZE_LARGE;
+  const rowValidationIconSize = isSmViewport
+    ? stylingConstants.ROW_VALIDATION_ICON_SIZE_SMALL
+    : stylingConstants.ROW_VALIDATION_ICON_SIZE_LARGE;
+  const rowValidationIconPosition = isSmViewport
+    ? stylingConstants.ROW_VALIDATION_ICON_OFFSET_SMALL
+    : stylingConstants.ROW_VALIDATION_ICON_OFFSET_LARGE;
 
   /**
    * Handles user input and moves the cursor to the next available field.
@@ -156,9 +166,9 @@ export default function SanaboksiGameRow({
               }}
               styles={{
                 input: {
-                  width: "clamp(30px, 12vw, 72px)",
-                  height: "clamp(30px, 12vw, 72px)",
-                  fontSize: "clamp(12px, 5vw, 36px)",
+                  width: textInputSize,
+                  height: textInputSize,
+                  fontSize: textInputFontSize,
                   textAlign: "center",
                   fontWeight: isFixedLetter ? "bold" : "normal",
                   backgroundColor: isFixedLetter
@@ -192,26 +202,26 @@ export default function SanaboksiGameRow({
         <IconCopy
           aria-label={t("AriaLabel.DuplicateWordIcon")}
           color={colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]}
-          size={iconSize}
+          size={rowValidationIconSize}
           strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-          style={{ position: "absolute", right: iconPositionRight }}
+          style={{ position: "absolute", right: rowValidationIconPosition }}
         />
       ) : isCorrect !== undefined ? (
         isCorrect ? (
           <IconCheck
             aria-label={t("AriaLabel.CorrectWordIcon")}
             color={colorPalette[colorPaletteConstants.CORRECT_GREEN_3]}
-            size={iconSize}
+            size={rowValidationIconSize}
             strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-            style={{ position: "absolute", right: iconPositionRight }}
+            style={{ position: "absolute", right: rowValidationIconPosition }}
           />
         ) : (
           <IconX
             aria-label={t("AriaLabel.IncorrectWordIcon")}
             color={colorPalette[colorPaletteConstants.INCORRECT_RED_4]}
-            size={iconSize}
+            size={rowValidationIconSize}
             strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-            style={{ position: "absolute", right: iconPositionRight }}
+            style={{ position: "absolute", right: rowValidationIconPosition }}
           />
         )
       ) : null}

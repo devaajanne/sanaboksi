@@ -7,6 +7,7 @@ import { useMemo } from "react";
 import "@fontsource/arvo";
 import "../localization/i18n.ts";
 import { GameSettingsProvider } from "../context/GameSettingsProvider";
+import { ViewportProvider } from "../context/ViewportProvider";
 
 export default function Main() {
   const theme = useMemo(
@@ -27,9 +28,11 @@ export default function Main() {
 
   return (
     <MantineProvider theme={theme}>
-      <GameSettingsProvider>
-        <App />
-      </GameSettingsProvider>
+      <ViewportProvider>
+        <GameSettingsProvider>
+          <App />
+        </GameSettingsProvider>
+      </ViewportProvider>
     </MantineProvider>
   );
 }
