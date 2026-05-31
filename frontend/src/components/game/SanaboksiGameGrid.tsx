@@ -50,6 +50,9 @@ export default function SanaboksiGameGrid() {
     useState<NotificationModalSource>(NotificationModalSource.NoSource);
   const [opened, { open, close }] = useDisclosure(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const buttonTextFontSize = isSmViewport
+    ? stylingConstants.BUTTON_TEXT_FONT_SIZE_SMALL
+    : stylingConstants.BUTTON_TEXT_FONT_SIZE_LARGE;
 
   /**
    * Fetches fixed letters from the API and initializes the game grid.
@@ -270,7 +273,7 @@ export default function SanaboksiGameGrid() {
               type: "dots",
               color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
             }}
-            size="lg"
+            size={isSmViewport ? "lg" : "xl"}
             color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
             styles={{
               label: {
@@ -285,7 +288,17 @@ export default function SanaboksiGameGrid() {
               },
             }}
           >
-            <Text span>{t("GameGridButton.NewGame")}</Text>
+            <Text
+              span
+              styles={{
+                root: {
+                  color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+                  fontSize: buttonTextFontSize,
+                },
+              }}
+            >
+              {t("GameGridButton.NewGame")}
+            </Text>
           </Button>
         ) : (
           <Button
@@ -295,7 +308,7 @@ export default function SanaboksiGameGrid() {
               type: "dots",
               color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
             }}
-            size="lg"
+            size={isSmViewport ? "lg" : "xl"}
             color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
             styles={{
               label: {
@@ -310,7 +323,17 @@ export default function SanaboksiGameGrid() {
               },
             }}
           >
-            <Text span>{t("GameGridButton.ValidateWords")}</Text>
+            <Text
+              span
+              styles={{
+                root: {
+                  color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+                  fontSize: buttonTextFontSize,
+                },
+              }}
+            >
+              {t("GameGridButton.ValidateWords")}
+            </Text>
           </Button>
         )}
       </Container>
