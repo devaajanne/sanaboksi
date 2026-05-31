@@ -189,7 +189,16 @@ export function GameInstructionsModal({
           />
           <Text>{t("GameInstructionModal.TheWordIsIncorrect")}</Text>
         </Group>
-        <Group align="center" gap="sm" wrap="nowrap">
+        <Group
+          align="center"
+          gap="sm"
+          wrap="nowrap"
+          styles={{
+            root: {
+              marginBottom: stylingConstants.MODAL_ICON_MARGIN_BOTTOM,
+            },
+          }}
+        >
           <IconCopy
             aria-label={t("AriaLabel.DuplicateWordIcon")}
             color={colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]}

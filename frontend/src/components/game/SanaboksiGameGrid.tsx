@@ -13,7 +13,7 @@ import {
   gameGridContainsOnlyCorrectWords,
 } from "../../utility/UtilityFunctions";
 import { Button, Container, Space, Stack, Text } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import NotificationModal from "../modals/NotificationModal";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import {
@@ -48,6 +48,7 @@ export default function SanaboksiGameGrid() {
     useState<NotificationModalSource>(NotificationModalSource.NoSource);
   const [opened, { open, close }] = useDisclosure(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const isSmViewport = useMediaQuery(stylingConstants.SM_VIEWPORT_MAX_WIDTH);
 
   /**
    * Fetches fixed letters from the API and initializes the game grid.
@@ -245,7 +246,7 @@ export default function SanaboksiGameGrid() {
         </Stack>
       </Container>
 
-      <Space h="lg" />
+      <Space h={isSmViewport ? "sm" : "lg"} />
 
       <Container strategy="grid">
         {isValidGameGrid && isCorrectGameGrid ? (

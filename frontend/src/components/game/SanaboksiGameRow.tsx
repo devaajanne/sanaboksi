@@ -9,6 +9,7 @@ import {
   colorPaletteConstants,
   stylingConstants,
 } from "../../utility/Constants";
+import { useMediaQuery } from "@mantine/hooks";
 
 /**
  * Props for the SanaboksiGameRow component.
@@ -53,10 +54,8 @@ export default function SanaboksiGameRow({
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const { iconSize, iconPositionRight } = {
-    iconSize: "clamp(25px, 12vw, 35px)",
-    iconPositionRight: -40,
-  };
+  const isSmViewport = useMediaQuery(stylingConstants.SM_VIEWPORT_MAX_WIDTH);
+  const iconPositionRight = isSmViewport ? "-1.75rem" : "-3rem";
 
   /**
    * Handles user input and moves the cursor to the next available field.
@@ -156,9 +155,15 @@ export default function SanaboksiGameRow({
               }}
               styles={{
                 input: {
-                  width: "clamp(30px, 12vw, 72px)",
-                  height: "clamp(30px, 12vw, 72px)",
-                  fontSize: "clamp(12px, 5vw, 36px)",
+                  width: isSmViewport
+                    ? stylingConstants.TEXT_INPUT_SIZE_SMALL
+                    : stylingConstants.TEXT_INPUT_SIZE_LARGE,
+                  height: isSmViewport
+                    ? stylingConstants.TEXT_INPUT_SIZE_SMALL
+                    : stylingConstants.TEXT_INPUT_SIZE_LARGE,
+                  fontSize: isSmViewport
+                    ? stylingConstants.TEXT_INPUT_FONT_SIZE_SMALL
+                    : stylingConstants.TEXT_INPUT_FONT_SIZE_LARGE,
                   textAlign: "center",
                   fontWeight: isFixedLetter ? "bold" : "normal",
                   backgroundColor: isFixedLetter
@@ -192,7 +197,11 @@ export default function SanaboksiGameRow({
         <IconCopy
           aria-label={t("AriaLabel.DuplicateWordIcon")}
           color={colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]}
-          size={iconSize}
+          size={
+            isSmViewport
+              ? stylingConstants.HEADER_ICON_SIZE_SMALL
+              : stylingConstants.HEADER_ICON_SIZE_LARGE
+          }
           strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
           style={{ position: "absolute", right: iconPositionRight }}
         />
@@ -201,7 +210,11 @@ export default function SanaboksiGameRow({
           <IconCheck
             aria-label={t("AriaLabel.CorrectWordIcon")}
             color={colorPalette[colorPaletteConstants.CORRECT_GREEN_3]}
-            size={iconSize}
+            size={
+              isSmViewport
+                ? stylingConstants.HEADER_ICON_SIZE_SMALL
+                : stylingConstants.HEADER_ICON_SIZE_LARGE
+            }
             strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
             style={{ position: "absolute", right: iconPositionRight }}
           />
@@ -209,7 +222,11 @@ export default function SanaboksiGameRow({
           <IconX
             aria-label={t("AriaLabel.IncorrectWordIcon")}
             color={colorPalette[colorPaletteConstants.INCORRECT_RED_4]}
-            size={iconSize}
+            size={
+              isSmViewport
+                ? stylingConstants.HEADER_ICON_SIZE_SMALL
+                : stylingConstants.HEADER_ICON_SIZE_LARGE
+            }
             strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
             style={{ position: "absolute", right: iconPositionRight }}
           />
