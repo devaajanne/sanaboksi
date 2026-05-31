@@ -9,7 +9,7 @@ import {
   colorPaletteConstants,
   stylingConstants,
 } from "../../utility/Constants";
-import { useMediaQuery } from "@mantine/hooks";
+import { useViewport } from "../../context/ViewportContext";
 
 /**
  * Props for the SanaboksiGameRow component.
@@ -53,8 +53,8 @@ export default function SanaboksiGameRow({
 }: SanaboksiGameRowProps) {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
+  const { isSmViewport } = useViewport();
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const isSmViewport = useMediaQuery(stylingConstants.SM_VIEWPORT_MAX_WIDTH);
   const textInputSize = isSmViewport
     ? stylingConstants.TEXT_INPUT_SIZE_SMALL
     : stylingConstants.TEXT_INPUT_SIZE_LARGE;

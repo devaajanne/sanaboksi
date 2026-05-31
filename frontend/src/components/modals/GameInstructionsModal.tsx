@@ -236,7 +236,7 @@ export function GameInstructionsModal({
               borderColor:
                 colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
               borderWidth: stylingConstants.BORDER_WIDTH,
-              marginTop: stylingConstants.MODAL_BUTTON_MARGN_TOP,
+              marginTop: stylingConstants.MODAL_BUTTON_MARGIN_TOP,
             },
           }}
         >

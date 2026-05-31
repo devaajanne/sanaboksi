@@ -18,17 +18,19 @@ import { useColorPalette } from "../../hooks/useColorPalette";
 import { GameInstructionsModal } from "../modals/GameInstructionsModal";
 import { GameSettingsModal } from "../modals/GameSettingsModal";
 import { GameInfoModal } from "../modals/GameInfoModal";
-import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import { useDisclosure } from "@mantine/hooks";
 import { useTranslation } from "react-i18next";
 import {
   colorPaletteConstants,
   stylingConstants,
 } from "../../utility/Constants";
+import { useViewport } from "../../context/ViewportContext";
 
 export default function Header() {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const { isSmViewport } = useViewport();
   const [
     openedGameInstructions,
     { open: openGameInstructions, close: closeGameInstructions },
@@ -39,7 +41,6 @@ export default function Header() {
   ] = useDisclosure(false);
   const [openedGameInfo, { open: openGameInfo, close: closeGameInfo }] =
     useDisclosure(false);
-  const isSmViewport = useMediaQuery(stylingConstants.SM_VIEWPORT_MAX_WIDTH);
   const headerTitleFontSize = isSmViewport
     ? stylingConstants.HEADER_TITLE_FONT_SIZE_SMALL
     : stylingConstants.HEADER_TITLE_FONT_SIZE_LARGE;

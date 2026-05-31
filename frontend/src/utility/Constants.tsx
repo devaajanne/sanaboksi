@@ -47,5 +47,7 @@ export const stylingConstants = {
   MODAL_ICON_SIZE: "3rem",
   MODAL_ICON_MARGIN_TOP: "0.25rem",
   MODAL_ICON_MARGIN_BOTTOM: "0.25rem",
-  MODAL_BUTTON_MARGN_TOP: "1rem",
+  MODAL_BUTTON_MARGIN_TOP: "1rem",
+  GAME_GRID_ROW_GAP_SMALL: "0.5rem",
+  GAME_GRID_ROW_GAP_LARGE: "1rem",
 };
