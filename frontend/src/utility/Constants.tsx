@@ -23,7 +23,7 @@ export const stylingConstants = {
   COLOR_SCHEME_LIGHT: "light",
   COLOR_SCHEME_DARK: "dark",
   SM_VIEWPORT_MAX_WIDTH: "(max-width: 48em)",
-  ICON_STROKE_WIDTH: 2,
+  ICON_STROKE_WIDTH: 1,
   BORDER_WIDTH: 2,
   HEADER_MARGIN_TOP: "2vh",
   HEADER_MARGIN_BOTTOM: "3vh",
@@ -52,4 +52,9 @@ export const stylingConstants = {
   MODAL_BUTTON_MARGIN_TOP: "1rem",
   GAME_GRID_ROW_GAP_SMALL: "0.5rem",
   GAME_GRID_ROW_GAP_LARGE: "1rem",
+  GAME_GRID_BUTTON_MARGIN_TOP_SMALL: "0.25rem",
+  GAME_GRID_BUTTON_MARGIN_TOP_LARGE: "0.5rem",
+  GAME_GRID_BUTTON_MARGIN_BOTTOM_SMALL: "1.5rem",
+  GAME_GRID_BUTTON_MARGIN_BOTTOM_LARGE: "3rem",
+  TOOLTIP_POSITION: "bottom" as const,
 };

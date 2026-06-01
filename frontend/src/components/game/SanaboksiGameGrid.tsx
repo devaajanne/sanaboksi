@@ -12,7 +12,16 @@ import {
   gameGridContainsOnlyUniqueWords,
   gameGridContainsOnlyCorrectWords,
 } from "../../utility/UtilityFunctions";
-import { Button, Container, Space, Stack, Text } from "@mantine/core";
+import {
+  ActionIcon,
+  Button,
+  Center,
+  Container,
+  Space,
+  Stack,
+  Text,
+  Tooltip,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import NotificationModal from "../modals/NotificationModal";
 import { useColorPalette } from "../../hooks/useColorPalette";
@@ -25,6 +34,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useGameSettings } from "../../context/GameSettingsContext";
 import { useViewport } from "../../context/ViewportContext";
+import { IconReload } from "@tabler/icons-react";
 
 /**
  * Main component for rendering and managing the Sanaboksi game grid.
@@ -53,6 +63,10 @@ export default function SanaboksiGameGrid() {
   const buttonTextFontSize = isSmViewport
     ? stylingConstants.BUTTON_TEXT_FONT_SIZE_SMALL
     : stylingConstants.BUTTON_TEXT_FONT_SIZE_LARGE;
+  const headerIconSize = isSmViewport
+    ? stylingConstants.HEADER_ICON_SIZE_SMALL
+    : stylingConstants.HEADER_ICON_SIZE_LARGE;
+  const tooltipPosition = stylingConstants.TOOLTIP_POSITION;
 
   /**
    * Fetches fixed letters from the API and initializes the game grid.
@@ -259,7 +273,19 @@ export default function SanaboksiGameGrid() {
 
       <Space h={isSmViewport ? "sm" : "lg"} />
 
-      <Container strategy="grid">
+      <Container
+        strategy="grid"
+        styles={{
+          root: {
+            marginTop: isSmViewport
+              ? stylingConstants.GAME_GRID_BUTTON_MARGIN_TOP_SMALL
+              : stylingConstants.GAME_GRID_BUTTON_MARGIN_TOP_LARGE,
+            marginBottom: isSmViewport
+              ? stylingConstants.GAME_GRID_BUTTON_MARGIN_BOTTOM_SMALL
+              : stylingConstants.GAME_GRID_BUTTON_MARGIN_BOTTOM_LARGE,
+          },
+        }}
+      >
         {isValidGameGrid && isCorrectGameGrid ? (
           <Button
             onClick={() =>
@@ -337,6 +363,43 @@ export default function SanaboksiGameGrid() {
           </Button>
         )}
       </Container>
+
+      <Center>
+        <Tooltip
+          label={t("Tooltip.LoadNewGameGrid")}
+          color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+          position={tooltipPosition}
+          styles={{
+            tooltip: {
+              color: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+            },
+          }}
+        >
+          <ActionIcon
+            aria-label={t("AriaLabel.LoadNewGameGrid")}
+            variant="subtle"
+            size={headerIconSize}
+            onClick={() =>
+              fetchFixedLetters(
+                languageConstants.FI,
+                gameConstants.WORD_COUNT_5,
+              )
+            }
+            styles={{
+              root: {
+                backgroundColor:
+                  colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+                color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+              },
+            }}
+          >
+            <IconReload
+              size={headerIconSize}
+              strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
+            />
+          </ActionIcon>
+        </Tooltip>
+      </Center>
 
       <NotificationModal
         source={notificationModalSource}

@@ -74,7 +74,8 @@
     "GameInstructionsModalTooltip": "Avaa peliohjeet",
     "GameSettingsModalTooltip": "Avaa peliasetukset",
     "LightDarkModeToggleTooltip": "Vaihda vaaleaa/tummaa tilaa",
-    "GameInfoModalTooltip": "Lue tietoa pelistä"
+    "GameInfoModalTooltip": "Lue tietoa pelistä",
+    "LoadNewGameGrid": "Lataa uusi peliruudukko"
   },
   "AriaLabel": {
     "SanaboksiGameGrid": "Sanaboksi-ruudukko",
@@ -86,6 +87,7 @@
     "OpenGameInstructions": "Avaa peliohjeet",
     "OpenGameSettings": "Avaa pelin asetukset",
     "ToggleLightDarkMode": "Vaihda vaalea/tumma tila",
-    "ReadGameInfo": "Lue tietoa pelistä"
+    "ReadGameInfo": "Lue tietoa pelistä",
+    "LoadNewGameGrid": "Lataa uusi peliruudukko"
   }
 }
