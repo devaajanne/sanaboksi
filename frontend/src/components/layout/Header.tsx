@@ -47,7 +47,7 @@ export default function Header() {
   const headerIconSize = isSmViewport
     ? stylingConstants.HEADER_ICON_SIZE_SMALL
     : stylingConstants.HEADER_ICON_SIZE_LARGE;
-  const tooltipPosition = "bottom";
+  const tooltipPosition = stylingConstants.TOOLTIP_POSITION;
 
   return (
     <Container
