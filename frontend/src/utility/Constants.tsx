@@ -23,7 +23,7 @@ export const stylingConstants = {
   COLOR_SCHEME_LIGHT: "light",
   COLOR_SCHEME_DARK: "dark",
   SM_VIEWPORT_MAX_WIDTH: "(max-width: 48em)",
-  ICON_STROKE_WIDTH: 2,
+  ICON_STROKE_WIDTH: 1,
   BORDER_WIDTH: 2,
   HEADER_MARGIN_TOP: "2vh",
   HEADER_MARGIN_BOTTOM: "3vh",

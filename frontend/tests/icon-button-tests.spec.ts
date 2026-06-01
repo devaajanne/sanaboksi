@@ -41,3 +41,30 @@ test("Clicking info button opens game info modal", async ({ page }) => {
     page.getByRole("heading", { name: "Mikä Sanaboksi?" }),
   ).toBeVisible();
 });
+
+test("Clicking reload button reloads new game grid", async ({ page }) => {
+  const initialGrid: string[][] = [];
+  for (let i = 1; i <= 5; i++) {
+    const letters = await page
+      .getByRole("textbox", { name: `Sana ${i}` })
+      .evaluateAll((inputs) =>
+        inputs.map((input) => (input as HTMLInputElement).value),
+      );
+    initialGrid.push(letters);
+  }
+
+  await page.getByRole("button", { name: "Lataa uusi peliruudukko" }).click();
+  await page.waitForTimeout(1500);
+
+  const reloadedGrid: string[][] = [];
+  for (let i = 1; i <= 5; i++) {
+    const letters = await page
+      .getByRole("textbox", { name: `Sana ${i}` })
+      .evaluateAll((inputs) =>
+        inputs.map((input) => (input as HTMLInputElement).value),
+      );
+    reloadedGrid.push(letters);
+  }
+
+  expect(initialGrid).not.toEqual(reloadedGrid);
+});

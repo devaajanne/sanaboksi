@@ -251,9 +251,11 @@ test("Player can play another game after validating a correct game grid", async 
     .getByRole("button", { name: "Takaisin peliin" })
     .click();
 
-  await expect(page.getByRole("button", { name: "Uusi peli" })).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Uusi peli", exact: true }),
+  ).toBeVisible();
 
-  await page.getByRole("button", { name: "Uusi peli" }).click();
+  await page.getByRole("button", { name: "Uusi peli", exact: true }).click();
 
   await expect(
     page.getByRole("button", { name: "Tarkista sanat" }),
