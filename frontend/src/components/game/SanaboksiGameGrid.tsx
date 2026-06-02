@@ -387,6 +387,7 @@ export default function SanaboksiGameGrid() {
                 ? t("AriaLabel.LoadNewGameGridByPressingNewGame")
                 : t("AriaLabel.LoadNewGameGrid")
             }
+            aria-disabled={reloadIconDisabled}
             variant="subtle"
             disabled={reloadIconDisabled}
             size={headerIconSize}

@@ -290,7 +290,7 @@ INSERT INTO finnish_words(word) VALUES
 INSERT INTO finnish_words(word) VALUES
 ('raaja'), ('raaka'), ('raami'), ('raana'), ('raani'), ('raanu'), ('raape'), ('raasu'), ('raate'), ('raati'),
 ('raato'), ('rabbi'), ('radio'), ('radon'), ('rafla'), ('raguu'), ('rahje'), ('rahka'), ('rahna'), ('rahti'),
-('rahtu'), ('raide'), ('railo'), ('raina'), ('raisu'), ('raita'), ('raito'), ('raivo'), ('rakas'),('rakka'), 
+('rahtu'), ('raide'), ('railo'), ('raina'), ('raisu'), ('raita'), ('raito'), ('raivo'), ('rakas'), ('rakka'), 
 ('rakki'), ('rakko'), ('raksa'), ('raksi'), ('raksu'), ('ralli'), ('rambo'), ('ramen'), ('rampa'), ('randi'),
 ('rangi'), ('ranka'), ('ranki'), ('ranko'), ('ranne'), ('ranta'), ('rantu'), ('rapea'), ('rappu'), ('rapse'),
 ('rapsi'), ('rapsu'), ('rasia'), ('raski'), ('rasko'), ('raspi'), ('rassi'), ('rassu'), ('rasta'), ('rasti'),
