@@ -67,6 +67,7 @@ export default function SanaboksiGameGrid() {
     ? stylingConstants.HEADER_ICON_SIZE_SMALL
     : stylingConstants.HEADER_ICON_SIZE_LARGE;
   const tooltipPosition = stylingConstants.TOOLTIP_POSITION;
+  const reloadIconDisabled = isLoading || isCorrectGameGrid;
 
   /**
    * Fetches fixed letters from the API and initializes the game grid.
@@ -366,7 +367,12 @@ export default function SanaboksiGameGrid() {
 
       <Center>
         <Tooltip
-          label={t("Tooltip.LoadNewGameGrid")}
+          label={
+            isCorrectGameGrid
+              ? t("Tooltip.LoadNewGameGridByPressingNewGame")
+              : t("Tooltip.LoadNewGameGrid")
+          }
+          disabled={isLoading}
           color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
           position={tooltipPosition}
           styles={{
@@ -376,20 +382,29 @@ export default function SanaboksiGameGrid() {
           }}
         >
           <ActionIcon
-            aria-label={t("AriaLabel.LoadNewGameGrid")}
-            variant="subtle"
-            size={headerIconSize}
-            onClick={() =>
-              fetchFixedLetters(
-                languageConstants.FI,
-                gameConstants.WORD_COUNT_5,
-              )
+            aria-label={
+              isCorrectGameGrid
+                ? t("AriaLabel.LoadNewGameGridByPressingNewGame")
+                : t("AriaLabel.LoadNewGameGrid")
             }
+            aria-disabled={reloadIconDisabled}
+            variant="subtle"
+            disabled={reloadIconDisabled}
+            size={headerIconSize}
+            onClick={() => {
+              if (!reloadIconDisabled)
+                fetchFixedLetters(
+                  languageConstants.FI,
+                  gameConstants.WORD_COUNT_5,
+                );
+            }}
             styles={{
               root: {
                 backgroundColor:
                   colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-                color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+                color: reloadIconDisabled
+                  ? colorPalette[colorPaletteConstants.TERTIARY_COLOR_2]
+                  : colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
               },
             }}
           >

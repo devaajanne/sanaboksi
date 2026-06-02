@@ -75,7 +75,9 @@
     "GameSettingsModalTooltip": "Avaa peliasetukset",
     "LightDarkModeToggleTooltip": "Vaihda vaaleaa/tummaa tilaa",
     "GameInfoModalTooltip": "Lue tietoa pelistä",
-    "LoadNewGameGrid": "Lataa uusi peliruudukko"
+    "LoadNewGameGrid": "Lataa uusi peliruudukko",
+    "CannotLoadNewGameGrid": "Uutta peliruudukkoa ei voida ladata",
+    "LoadNewGameGridByPressingNewGame": "Lataa uusi peliruudukko painamalla 'Uusi peli'"
   },
   "AriaLabel": {
     "SanaboksiGameGrid": "Sanaboksi-ruudukko",
@@ -88,6 +90,8 @@
     "OpenGameSettings": "Avaa pelin asetukset",
     "ToggleLightDarkMode": "Vaihda vaalea/tumma tila",
     "ReadGameInfo": "Lue tietoa pelistä",
-    "LoadNewGameGrid": "Lataa uusi peliruudukko"
+    "LoadNewGameGrid": "Lataa uusi peliruudukko",
+    "CannotLoadNewGameGrid": "Uutta peliruudukkoa ei voida ladata",
+    "LoadNewGameGridByPressingNewGame": "Lataa uusi peliruudukko painamalla 'Uusi peli'"
   }
 }
