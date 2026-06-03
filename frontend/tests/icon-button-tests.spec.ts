@@ -4,20 +4,38 @@ test.beforeEach(async ({ page }) => {
   await page.goto("/");
 });
 
-test("Toggles light/dark mode when dark/light mode icon is clicked", async ({
+test("Toggles dark mode on when dark mode icon is clicked in light mode", async ({
   page,
 }) => {
   const initialMode = await page
     .locator("html")
     .getAttribute("data-mantine-color-scheme");
 
-  await page.getByRole("button", { name: "Vaihda vaalea/tumma tila" }).click();
+  await page.getByRole("button", { name: "Vaihda tummaan tilaan" }).click();
 
   const newMode = await page
     .locator("html")
     .getAttribute("data-mantine-color-scheme");
 
   expect(newMode).not.toBe(initialMode);
+});
+
+test("Toggles light mode on when light mode icon is clicked in dark mode", async ({
+  page,
+}) => {
+  const initialMode = await page
+    .locator("html")
+    .getAttribute("data-mantine-color-scheme");
+
+  await page.getByRole("button", { name: "Vaihda tummaan tilaan" }).click();
+
+  await page.getByRole("button", { name: "Vaihda vaaleaan tilaan" }).click();
+
+  const newMode = await page
+    .locator("html")
+    .getAttribute("data-mantine-color-scheme");
+
+  expect(newMode).toBe(initialMode);
 });
 
 test("Clicking info button opens game instruction modal", async ({ page }) => {
