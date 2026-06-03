@@ -136,7 +136,11 @@ export default function Header() {
             </ActionIcon>
           </Tooltip>
           <Tooltip
-            label={t("Tooltip.LightDarkModeToggleTooltip")}
+            label={
+              colorScheme === stylingConstants.COLOR_SCHEME_LIGHT
+                ? t("Tooltip.ToggleDarkModeTooltip")
+                : t("Tooltip.ToggleLightModeTooltip")
+            }
             color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
             position={tooltipPosition}
             styles={{
@@ -146,7 +150,11 @@ export default function Header() {
             }}
           >
             <ActionIcon
-              aria-label={t("AriaLabel.ToggleLightDarkMode")}
+              aria-label={
+                colorScheme === stylingConstants.COLOR_SCHEME_LIGHT
+                  ? t("AriaLabel.ToggleDarkMode")
+                  : t("AriaLabel.ToggleLightMode")
+              }
               variant="subtle"
               size={headerIconSize}
               onClick={toggleColorScheme}

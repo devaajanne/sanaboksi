@@ -369,8 +369,8 @@ export default function SanaboksiGameGrid() {
         <Tooltip
           label={
             isCorrectGameGrid
-              ? t("Tooltip.LoadNewGameGridByPressingNewGame")
-              : t("Tooltip.LoadNewGameGrid")
+              ? t("Tooltip.LoadNewGameGridByPressingNewGameTooltip")
+              : t("Tooltip.LoadNewGameGridTooltip")
           }
           disabled={isLoading}
           color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
