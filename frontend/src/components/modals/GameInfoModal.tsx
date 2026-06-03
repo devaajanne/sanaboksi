@@ -11,7 +11,6 @@ import {
   IconX,
   IconSun,
   IconMoon,
-  IconSettings,
 } from "@tabler/icons-react";
 import { Anchor, Button, Divider, Group, Modal, Text } from "@mantine/core";
 
@@ -85,28 +84,14 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
           },
         }}
       >
-        {t("GameInfoModal.YouCanSwitchDifficultyLevelsByClicking")}
-        <IconSettings
-          aria-label={t("AriaLabel.OpenGameSettings")}
-          style={{ verticalAlign: "top" }}
-        />
-      </Text>
-
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-          },
-        }}
-      >
         {t("GameInfoModal.YouCanSwitchBetweenLightAndDarkModeByClicking")}
         <IconSun
-          aria-label={t("AriaLabel.ToggleLightDarkMode")}
+          aria-label={t("AriaLabel.ToggleDarkMode")}
           style={{ verticalAlign: "top" }}
         />
         {t("GameInfoModal.And")}{" "}
         <IconMoon
-          aria-label={t("AriaLabel.ToggleLightDarkMode")}
+          aria-label={t("AriaLabel.ToggleLightMode")}
           style={{ verticalAlign: "top" }}
         />
       </Text>

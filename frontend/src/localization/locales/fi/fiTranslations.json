@@ -43,6 +43,8 @@
     "GamePlayInstructions": "Voit tarkistaa sanat, kun olet täyttänyt kaikki rivit. Sanat tulee kirjoittaa perusmuodossa, eikä sama sana saa esiintyä ruudukossa useammin kuin kerran.",
     "AfterValidationInstructions": "Tarkistuksen jälkeen peli kertoo, mitkä sanat olivat oikein, mitkä väärin ja mitkä sanat esiintyivät ruudukossa useammin kuin kerran. Voit korjata sanoja kunnes saat kaikki sanat oikein.",
     "OnceYouFillInTheGridWithCorrectWordsYouCanPlayANewGame": "Täytettyäsi ruudukon hyväksytyillä sanoilla voit pelata uuden pelin.",
+    "YouCanLoadANewGameGridByClicking": "Halutessasi voit ladata uuden peliruudukon klikkaamalla ",
+    "DifficultySettings": "Sanaboksissa on eri vaikeustasoja. Oletusvaikeustaso on 5-kirjaimiset sanat, mutta voit pelata myös 4-, 6- ja 7-kirjaimisia sanoja. Vaikeustasoa voit vaihtaa klikkaamalla ",
     "BeMindfulOfTheseIconsAndColors": "Kiinnitä huomiota näihin merkkeihin ja väreihin",
     "TheWordIsCorrect": "Sana on oikein (eli sana on oikea suomen kielen sana)",
     "TheWordIsIncorrect": "Sana on väärin (eli sanaa ei löydy suomen kielen sanastosta)",
@@ -63,7 +65,6 @@
     "InfoAboutThesis": "Opinnäytetyöni keskittyy DevOpsiin ja CI/CD-putkiin, ja osana opinnäytetyötä laadin toimivan CI/CD-putken samanaikaisesti kehitetylle Sanaboksi-sovellukselle.",
     "GamePitch": "Sanaboksi haastaa sanavarastoasi kielitaidostasi riippumatta. Lähde liikkeelle 4-kirjaimisista sanoista ja testaa taitosi myös 7-kirjaimisissa sanoissa!",
     "YouCanReadGameInstructionsByClicking": "Peliohjeet voit lukea klikkaamalla ",
-    "YouCanSwitchDifficultyLevelsByClicking": "Vaikeustasoa voit vaihtaa klikkaamalla ",
     "YouCanSwitchBetweenLightAndDarkModeByClicking": "Vaalean ja tumman tilan voit vaihtaa klikkaamalla ",
     "And": " ja ",
     "ReadThesisInTheseus": "Lue opinnäytetyö Theseuksessa",
@@ -73,11 +74,11 @@
   "Tooltip": {
     "GameInstructionsModalTooltip": "Avaa peliohjeet",
     "GameSettingsModalTooltip": "Avaa peliasetukset",
-    "LightDarkModeToggleTooltip": "Vaihda vaaleaa/tummaa tilaa",
+    "ToggleLightModeTooltip": "Vaihda vaaleaan tilaan",
+    "ToggleDarkModeTooltip": "Vaihda tummaan tilaan",
     "GameInfoModalTooltip": "Lue tietoa pelistä",
-    "LoadNewGameGrid": "Lataa uusi peliruudukko",
-    "CannotLoadNewGameGrid": "Uutta peliruudukkoa ei voida ladata",
-    "LoadNewGameGridByPressingNewGame": "Lataa uusi peliruudukko painamalla 'Uusi peli'"
+    "LoadNewGameGridTooltip": "Lataa uusi peliruudukko",
+    "LoadNewGameGridByPressingNewGameTooltip": "Lataa uusi peliruudukko painamalla 'Uusi peli'"
   },
   "AriaLabel": {
     "SanaboksiGameGrid": "Sanaboksi-ruudukko",
@@ -88,10 +89,10 @@
     "DuplicateWordIcon": "Toistuvan sanan merkki",
     "OpenGameInstructions": "Avaa peliohjeet",
     "OpenGameSettings": "Avaa pelin asetukset",
-    "ToggleLightDarkMode": "Vaihda vaalea/tumma tila",
+    "ToggleLightMode": "Vaihda vaaleaan tilaan",
+    "ToggleDarkMode": "Vaihda tummaan tilaan",
     "ReadGameInfo": "Lue tietoa pelistä",
     "LoadNewGameGrid": "Lataa uusi peliruudukko",
-    "CannotLoadNewGameGrid": "Uutta peliruudukkoa ei voida ladata",
     "LoadNewGameGridByPressingNewGame": "Lataa uusi peliruudukko painamalla 'Uusi peli'"
   }
 }

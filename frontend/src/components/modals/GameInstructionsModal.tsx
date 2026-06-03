@@ -1,6 +1,12 @@
 import { Button, Divider, Group, Modal, Stack, Text } from "@mantine/core";
 import { useColorPalette } from "../../hooks/useColorPalette";
-import { IconCheck, IconX, IconCopy } from "@tabler/icons-react";
+import {
+  IconCheck,
+  IconX,
+  IconCopy,
+  IconReload,
+  IconSettings,
+} from "@tabler/icons-react";
 import SanaboksiGameRow from "../game/SanaboksiGameRow";
 import type { FixedLetter } from "../../types/Types";
 import { useTranslation } from "react-i18next";
@@ -124,6 +130,20 @@ export function GameInstructionsModal({
       </Text>
 
       <Text
+        styles={{
+          root: {
+            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
+          },
+        }}
+      >
+        {t("GameInstructionModal.YouCanLoadANewGameGridByClicking")}
+        <IconReload
+          aria-label={t("AriaLabel.LoadNewGameGrid")}
+          style={{ verticalAlign: "top" }}
+        />
+      </Text>
+
+      <Text
         styles={{ root: { marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP } }}
       >
         {t("GameInstructionModal.AfterValidationInstructions")}
@@ -139,6 +159,19 @@ export function GameInstructionsModal({
         {t(
           "GameInstructionModal.OnceYouFillInTheGridWithCorrectWordsYouCanPlayANewGame",
         )}
+      </Text>
+      <Text
+        styles={{
+          root: {
+            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
+          },
+        }}
+      >
+        {t("GameInstructionModal.DifficultySettings")}
+        <IconSettings
+          aria-label={t("AriaLabel.OpenGameSettings")}
+          style={{ verticalAlign: "top" }}
+        />
       </Text>
 
       <Divider
