@@ -12,6 +12,7 @@ interface NotificationModalProps {
   source: NotificationModalSource;
   opened: boolean;
   onClose: () => void;
+  onNewGridLoad: () => void;
 }
 
 const notificationModalContent: Record<
@@ -46,6 +47,12 @@ const notificationModalContent: Record<
     notificationModalMessage:
       "NotificationModal.Correct.CongratulationsYourGameGridIsCorrect",
   },
+  [NotificationModalSource.UnfinishedGrid]: {
+    notificationModalTitle:
+      "NotificationModal.UnfinishedGrid.GameGridIsUnfinished",
+    notificationModalMessage:
+      "NotificationModal.UnfinishedGrid.AreYouSureYouWantToLoadNewGridYouWillLoseYourProgress",
+  },
   [NotificationModalSource.NoSource]: {
     notificationModalTitle:
       "NotificationModal.NoSource.UnknownErrorHasOccurred",
@@ -67,6 +74,7 @@ export default function NotificationModal({
   source,
   opened,
   onClose,
+  onNewGridLoad,
 }: NotificationModalProps) {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
@@ -112,6 +120,30 @@ export default function NotificationModal({
         {t(notificationModalMessage)}
       </Text>
       <Group justify="flex-end">
+        {source === NotificationModalSource.UnfinishedGrid && (
+          <Button
+            aria-label={t("Actions.LoadNewGameGrid")}
+            onClick={() => {
+              onNewGridLoad();
+              onClose();
+            }}
+            color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
+            styles={{
+              label: {
+                color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+              },
+              root: {
+                backgroundColor:
+                  colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+                borderColor:
+                  colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+                borderWidth: stylingConstants.BORDER_WIDTH,
+              },
+            }}
+          >
+            <Text span>{t("Actions.LoadNewGameGrid")}</Text>
+          </Button>
+        )}
         <Button
           aria-label={t("Actions.BackToGame")}
           onClick={onClose}

@@ -1,7 +1,8 @@
 {
   "Actions": {
     "Close": "Sulje",
-    "BackToGame": "Takaisin peliin"
+    "BackToGame": "Takaisin peliin",
+    "LoadNewGameGrid": "Lataa uusi peliruudukko"
   },
   "GameGridButton": {
     "NewGame": "Uusi peli",
@@ -27,6 +28,10 @@
     "Correct": {
       "AllWordsInGameGridAreCorrect": "Kaikki ruudukon sanat ovat oikein!",
       "CongratulationsYourGameGridIsCorrect": "Onnittelut! Ruudukkosi on oikein! "
+    },
+    "UnfinishedGrid": {
+      "GameGridIsUnfinished": "Ruudukkosi on kesken!",
+      "AreYouSureYouWantToLoadNewGridYouWillLoseYourProgress": "Oletko varma, että haluat ladata uuden ruudukon? Menetät edistymisesi tässä ruudukossa."
     },
     "NoSource": {
       "UnknownErrorHasOccurred": "Tapahtui odottamaton virhe.",

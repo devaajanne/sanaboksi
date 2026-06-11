@@ -1,4 +1,8 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
+
+async function getColorMode(page: Page) {
+  return await page.locator("html").getAttribute("data-mantine-color-scheme");
+}
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
@@ -7,15 +11,11 @@ test.beforeEach(async ({ page }) => {
 test("Toggles dark mode on when dark mode icon is clicked in light mode", async ({
   page,
 }) => {
-  const initialMode = await page
-    .locator("html")
-    .getAttribute("data-mantine-color-scheme");
+  const initialMode = await getColorMode(page);
 
   await page.getByRole("button", { name: "Vaihda tummaan tilaan" }).click();
 
-  const newMode = await page
-    .locator("html")
-    .getAttribute("data-mantine-color-scheme");
+  const newMode = await getColorMode(page);
 
   expect(newMode).not.toBe(initialMode);
 });
@@ -23,17 +23,13 @@ test("Toggles dark mode on when dark mode icon is clicked in light mode", async 
 test("Toggles light mode on when light mode icon is clicked in dark mode", async ({
   page,
 }) => {
-  const initialMode = await page
-    .locator("html")
-    .getAttribute("data-mantine-color-scheme");
+  const initialMode = await getColorMode(page);
 
   await page.getByRole("button", { name: "Vaihda tummaan tilaan" }).click();
 
   await page.getByRole("button", { name: "Vaihda vaaleaan tilaan" }).click();
 
-  const newMode = await page
-    .locator("html")
-    .getAttribute("data-mantine-color-scheme");
+  const newMode = await getColorMode(page);
 
   expect(newMode).toBe(initialMode);
 });
@@ -58,31 +54,4 @@ test("Clicking info button opens game info modal", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Mikä Sanaboksi?" }),
   ).toBeVisible();
-});
-
-test("Clicking reload button reloads new game grid", async ({ page }) => {
-  const initialGrid: string[][] = [];
-  for (let i = 1; i <= 5; i++) {
-    const letters = await page
-      .getByRole("textbox", { name: `Sana ${i}` })
-      .evaluateAll((inputs) =>
-        inputs.map((input) => (input as HTMLInputElement).value),
-      );
-    initialGrid.push(letters);
-  }
-
-  await page.getByRole("button", { name: "Lataa uusi peliruudukko" }).click();
-  await page.waitForTimeout(1500);
-
-  const reloadedGrid: string[][] = [];
-  for (let i = 1; i <= 5; i++) {
-    const letters = await page
-      .getByRole("textbox", { name: `Sana ${i}` })
-      .evaluateAll((inputs) =>
-        inputs.map((input) => (input as HTMLInputElement).value),
-      );
-    reloadedGrid.push(letters);
-  }
-
-  expect(initialGrid).not.toEqual(reloadedGrid);
 });

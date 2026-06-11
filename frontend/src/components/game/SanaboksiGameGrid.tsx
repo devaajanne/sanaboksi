@@ -11,6 +11,7 @@ import {
   checkGameGridValidity,
   gameGridContainsOnlyUniqueWords,
   gameGridContainsOnlyCorrectWords,
+  gameGridIsFilledIn,
 } from "../../utility/UtilityFunctions";
 import {
   ActionIcon,
@@ -196,6 +197,25 @@ export default function SanaboksiGameGrid() {
         throw new Error(error.message);
       } else {
         throw new Error("Failed to handle game grid validation: Unknown error");
+      }
+    }
+  };
+
+  const handleNewGameGridLoading = () => {
+    try {
+      if (gameGridIsFilledIn(gameGrid)) {
+        handleNotificationModalOpen(NotificationModalSource.UnfinishedGrid);
+      } else {
+        if (!reloadIconDisabled)
+          fetchFixedLetters(languageConstants.FI, gameConstants.WORD_COUNT_5);
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      } else {
+        throw new Error(
+          "Failed to handle new game grid loading: Unknown error",
+        );
       }
     }
   };
@@ -391,13 +411,7 @@ export default function SanaboksiGameGrid() {
             variant="subtle"
             disabled={reloadIconDisabled}
             size={headerIconSize}
-            onClick={() => {
-              if (!reloadIconDisabled)
-                fetchFixedLetters(
-                  languageConstants.FI,
-                  gameConstants.WORD_COUNT_5,
-                );
-            }}
+            onClick={handleNewGameGridLoading}
             styles={{
               root: {
                 backgroundColor:
@@ -420,6 +434,9 @@ export default function SanaboksiGameGrid() {
         source={notificationModalSource}
         opened={opened}
         onClose={close}
+        onNewGridLoad={() =>
+          fetchFixedLetters(languageConstants.FI, gameConstants.WORD_COUNT_5)
+        }
       />
     </>
   );
