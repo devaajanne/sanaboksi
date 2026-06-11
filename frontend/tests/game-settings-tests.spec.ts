@@ -3,7 +3,7 @@ import { test, expect, Page } from "@playwright/test";
 async function getGridLetters(page: Page) {
   const gridLetters: string[][] = [];
 
-  for (let i = 1; i < 5; i++) {
+  for (let i = 1; i <= 5; i++) {
     const letters = await page
       .getByRole("textbox", { name: `Sana ${i}` })
       .evaluateAll((inputs) =>
