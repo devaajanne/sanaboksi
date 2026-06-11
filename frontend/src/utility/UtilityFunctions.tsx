@@ -28,6 +28,20 @@ export const checkGameGridValidity = (gameGrid: GameGrid) => {
 };
 
 /**
+ * Checks if the game grid is partially filled (i.e., at least one field in addition to fixed letters is filled).
+ * @param gameGrid The game grid to check.
+ * @returns true if in addition to fixed letters at least one field is filled, false otherwise.
+ */
+export const gameGridIsFilledIn = (gameGrid: GameGrid) => {
+  for (let rowIndex: number = 0; rowIndex < gameGrid.length; rowIndex++) {
+    if (gameGrid[rowIndex].join("").length > 1) {
+      return true;
+    }
+  }
+  return false;
+};
+
+/**
  * Checks if all words in the game grid are not duplicates based on validation results.
  * @param validationResults Validation results map to check.
  * @returns true if game grid does not contain duplicates, false otherwise.
