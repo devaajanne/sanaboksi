@@ -122,7 +122,7 @@ export default function NotificationModal({
       <Group justify="flex-end">
         {source === NotificationModalSource.UnfinishedGrid && (
           <Button
-            aria-label={t("Actions.LoadNewGameGrid")}
+            aria-label={t("AriaLabel.LoadNewGame")}
             onClick={() => {
               onNewGridLoad();
               onClose();

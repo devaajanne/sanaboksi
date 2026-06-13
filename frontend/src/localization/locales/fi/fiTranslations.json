@@ -48,7 +48,7 @@
     "GamePlayInstructions": "Voit tarkistaa sanat, kun olet täyttänyt kaikki rivit. Sanat tulee kirjoittaa perusmuodossa, eikä sama sana saa esiintyä ruudukossa useammin kuin kerran.",
     "AfterValidationInstructions": "Tarkistuksen jälkeen peli kertoo, mitkä sanat olivat oikein, mitkä väärin ja mitkä sanat esiintyivät ruudukossa useammin kuin kerran. Voit korjata sanoja kunnes saat kaikki sanat oikein.",
     "OnceYouFillInTheGridWithCorrectWordsYouCanPlayANewGame": "Täytettyäsi ruudukon hyväksytyillä sanoilla voit pelata uuden pelin.",
-    "YouCanLoadANewGameGridByClicking": "Halutessasi voit ladata uuden peliruudukon klikkaamalla ",
+    "YouCanLoadANewGameByClicking": "Halutessasi voit ladata uuden peliruudukon klikkaamalla ",
     "DifficultySettings": "Sanaboksissa on eri vaikeustasoja. Oletusvaikeustaso on 5-kirjaimiset sanat, mutta voit pelata myös 4-, 6- ja 7-kirjaimisia sanoja. Vaikeustasoa voit vaihtaa klikkaamalla ",
     "BeMindfulOfTheseIconsAndColors": "Kiinnitä huomiota näihin merkkeihin ja väreihin",
     "TheWordIsCorrect": "Sana on oikein (eli sana on oikea suomen kielen sana)",
@@ -82,8 +82,8 @@
     "ToggleLightModeTooltip": "Vaihda vaaleaan tilaan",
     "ToggleDarkModeTooltip": "Vaihda tummaan tilaan",
     "GameInfoModalTooltip": "Lue tietoa pelistä",
-    "LoadNewGameGridTooltip": "Lataa uusi peliruudukko",
-    "LoadNewGameGridByPressingNewGameTooltip": "Lataa uusi peliruudukko painamalla 'Uusi peli'"
+    "LoadNewGameTooltip": "Lataa uusi peli",
+    "LoadNewGameByPressingNewGameTooltip": "Lataa uusi peli painamalla 'Uusi peli'"
   },
   "AriaLabel": {
     "SanaboksiGameGrid": "Sanaboksi-ruudukko",
@@ -97,7 +97,7 @@
     "ToggleLightMode": "Vaihda vaaleaan tilaan",
     "ToggleDarkMode": "Vaihda tummaan tilaan",
     "ReadGameInfo": "Lue tietoa pelistä",
-    "LoadNewGameGrid": "Lataa uusi peli",
-    "LoadNewGameGridByPressingNewGame": "Lataa uusi peliruudukko painamalla 'Uusi peli'"
+    "LoadNewGame": "Lataa uusi peli",
+    "LoadNewGameByPressingNewGame": "Lataa uusi peli painamalla 'Uusi peli'"
   }
 }

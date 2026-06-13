@@ -136,9 +136,9 @@ export function GameInstructionsModal({
           },
         }}
       >
-        {t("GameInstructionModal.YouCanLoadANewGameGridByClicking")}
+        {t("GameInstructionModal.YouCanLoadANewGameByClicking")}
         <IconReload
-          aria-label={t("AriaLabel.LoadNewGameGrid")}
+          aria-label={t("AriaLabel.LoadNewGame")}
           style={{ verticalAlign: "top" }}
         />
       </Text>

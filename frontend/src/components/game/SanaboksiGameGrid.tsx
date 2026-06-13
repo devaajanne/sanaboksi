@@ -389,8 +389,8 @@ export default function SanaboksiGameGrid() {
         <Tooltip
           label={
             isCorrectGameGrid
-              ? t("Tooltip.LoadNewGameGridByPressingNewGameTooltip")
-              : t("Tooltip.LoadNewGameGridTooltip")
+              ? t("Tooltip.LoadNewGameByPressingNewGameTooltip")
+              : t("Tooltip.LoadNewGameTooltip")
           }
           disabled={isLoading}
           color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
@@ -404,8 +404,8 @@ export default function SanaboksiGameGrid() {
           <ActionIcon
             aria-label={
               isCorrectGameGrid
-                ? t("AriaLabel.LoadNewGameGridByPressingNewGame")
-                : t("AriaLabel.LoadNewGameGrid")
+                ? t("AriaLabel.LoadNewGameByPressingNewGame")
+                : t("AriaLabel.LoadNewGame")
             }
             aria-disabled={reloadIconDisabled}
             variant="subtle"
