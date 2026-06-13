@@ -24,13 +24,13 @@ import {
   colorPaletteConstants,
   stylingConstants,
 } from "../../utility/Constants";
-import { useViewport } from "../../context/ViewportContext";
+import { useViewportContext } from "../../context/ViewportContext";
 
 export default function Header() {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const { isSmViewport } = useViewport();
+  const { isSmViewport } = useViewportContext();
   const [
     openedGameInstructions,
     { open: openGameInstructions, close: closeGameInstructions },

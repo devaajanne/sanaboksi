@@ -40,7 +40,7 @@ test("Clicking load new grid button reloads new game grid", async ({
 }) => {
   const initialGrid = await getGridLetters(page);
 
-  await page.getByRole("button", { name: "Lataa uusi peliruudukko" }).click();
+  await page.getByRole("button", { name: "Lataa uusi peli" }).click();
 
   await page.waitForTimeout(1500);
 
@@ -54,7 +54,7 @@ test("Clicking load new grid button triggers confirmation modal when user has st
 }) => {
   await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
 
-  await page.getByRole("button", { name: "Lataa uusi peliruudukko" }).click();
+  await page.getByRole("button", { name: "Lataa uusi peli" }).click();
 
   await expect(
     page.getByRole("heading", { name: "Ruudukkosi on kesken!" }),
@@ -68,7 +68,7 @@ test("Confirming grid reload loads a new grid when user has started to fill in t
 
   const initialGrid = await getGridLetters(page);
 
-  await page.getByRole("button", { name: "Lataa uusi peliruudukko" }).click();
+  await page.getByRole("button", { name: "Lataa uusi peli" }).click();
 
   await expect(
     page.getByRole("heading", { name: "Ruudukkosi on kesken!" }),
@@ -76,7 +76,7 @@ test("Confirming grid reload loads a new grid when user has started to fill in t
 
   await page
     .getByRole("dialog", { name: "Ruudukkosi on kesken!" })
-    .getByLabel("Lataa uusi peliruudukko")
+    .getByLabel("Lataa uusi peli")
     .click();
 
   const reloadedGrid = await getGridLetters(page);
@@ -91,7 +91,7 @@ test("Closing new grid load confirmation modal does not load a new grid", async 
 
   const initialGrid = await getGridLetters(page);
 
-  await page.getByRole("button", { name: "Lataa uusi peliruudukko" }).click();
+  await page.getByRole("button", { name: "Lataa uusi peli" }).click();
 
   await expect(
     page.getByRole("heading", { name: "Ruudukkosi on kesken!" }),

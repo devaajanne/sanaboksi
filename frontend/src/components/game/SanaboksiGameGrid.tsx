@@ -33,8 +33,8 @@ import {
   stylingConstants,
 } from "../../utility/Constants";
 import { useTranslation } from "react-i18next";
-import { useGameSettings } from "../../context/GameSettingsContext";
-import { useViewport } from "../../context/ViewportContext";
+import { useGameContext } from "../../context/GameContext";
+import { useViewportContext } from "../../context/ViewportContext";
 import { IconReload } from "@tabler/icons-react";
 
 /**
@@ -45,8 +45,9 @@ import { IconReload } from "@tabler/icons-react";
 export default function SanaboksiGameGrid() {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
-  const { wordLength } = useGameSettings();
-  const { isSmViewport } = useViewport();
+  const { wordLength, notificationModalSource, setNotificationModalSource } =
+    useGameContext();
+  const { isSmViewport } = useViewportContext();
   // Store the fixed letters configuration for each row (which index has which fixed letter)
   const [fixedLetters, setFixedLetters] = useState<FixedLetters>([]);
   // Store the actual game grid data (2D array of characters with dynamic dimensions)
@@ -57,8 +58,6 @@ export default function SanaboksiGameGrid() {
   const [isValidGameGrid, setIsValidGameGrid] = useState<boolean>(false);
   // Game grid is correct if all rows have a validated and correct word
   const [isCorrectGameGrid, setIsCorrectGameGrid] = useState<boolean>(false);
-  const [notificationModalSource, setNotificationModalSource] =
-    useState<NotificationModalSource>(NotificationModalSource.NoSource);
   const [opened, { open, close }] = useDisclosure(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const buttonTextFontSize = isSmViewport
@@ -389,8 +388,8 @@ export default function SanaboksiGameGrid() {
         <Tooltip
           label={
             isCorrectGameGrid
-              ? t("Tooltip.LoadNewGameGridByPressingNewGameTooltip")
-              : t("Tooltip.LoadNewGameGridTooltip")
+              ? t("Tooltip.LoadNewGameByPressingNewGameTooltip")
+              : t("Tooltip.LoadNewGameTooltip")
           }
           disabled={isLoading}
           color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
@@ -404,8 +403,8 @@ export default function SanaboksiGameGrid() {
           <ActionIcon
             aria-label={
               isCorrectGameGrid
-                ? t("AriaLabel.LoadNewGameGridByPressingNewGame")
-                : t("AriaLabel.LoadNewGameGrid")
+                ? t("AriaLabel.LoadNewGameByPressingNewGame")
+                : t("AriaLabel.LoadNewGame")
             }
             aria-disabled={reloadIconDisabled}
             variant="subtle"

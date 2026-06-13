@@ -51,7 +51,7 @@ const notificationModalContent: Record<
     notificationModalTitle:
       "NotificationModal.UnfinishedGrid.GameGridIsUnfinished",
     notificationModalMessage:
-      "NotificationModal.UnfinishedGrid.AreYouSureYouWantToLoadNewGridYouWillLoseYourProgress",
+      "NotificationModal.UnfinishedGrid.AreYouSureYouWantToLoadNewGameYouWillLoseYourProgressInThisGrid",
   },
   [NotificationModalSource.NoSource]: {
     notificationModalTitle:
@@ -122,7 +122,7 @@ export default function NotificationModal({
       <Group justify="flex-end">
         {source === NotificationModalSource.UnfinishedGrid && (
           <Button
-            aria-label={t("Actions.LoadNewGameGrid")}
+            aria-label={t("AriaLabel.LoadNewGame")}
             onClick={() => {
               onNewGridLoad();
               onClose();
@@ -141,7 +141,7 @@ export default function NotificationModal({
               },
             }}
           >
-            <Text span>{t("Actions.LoadNewGameGrid")}</Text>
+            <Text span>{t("Actions.LoadNewGame")}</Text>
           </Button>
         )}
         <Button

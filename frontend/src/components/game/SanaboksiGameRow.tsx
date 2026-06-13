@@ -9,7 +9,7 @@ import {
   colorPaletteConstants,
   stylingConstants,
 } from "../../utility/Constants";
-import { useViewport } from "../../context/ViewportContext";
+import { useViewportContext } from "../../context/ViewportContext";
 
 /**
  * Props for the SanaboksiGameRow component.
@@ -53,7 +53,7 @@ export default function SanaboksiGameRow({
 }: SanaboksiGameRowProps) {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
-  const { isSmViewport } = useViewport();
+  const { isSmViewport } = useViewportContext();
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const textInputSize = isSmViewport
     ? stylingConstants.TEXT_INPUT_SIZE_SMALL

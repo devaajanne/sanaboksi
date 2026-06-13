@@ -6,8 +6,8 @@ import "@mantine/core/styles.css";
 import { useMemo } from "react";
 import "@fontsource/arvo";
 import "../localization/i18n.ts";
-import { GameSettingsProvider } from "../context/GameSettingsProvider";
-import { ViewportProvider } from "../context/ViewportProvider";
+import { ViewportContextProvider } from "../context/ViewportContextProvider";
+import { GameContextProvider } from "../context/GameContextProvider";
 
 export default function Main() {
   const theme = useMemo(
@@ -28,11 +28,11 @@ export default function Main() {
 
   return (
     <MantineProvider theme={theme}>
-      <ViewportProvider>
-        <GameSettingsProvider>
+      <ViewportContextProvider>
+        <GameContextProvider>
           <App />
-        </GameSettingsProvider>
-      </ViewportProvider>
+        </GameContextProvider>
+      </ViewportContextProvider>
     </MantineProvider>
   );
 }
