@@ -2,7 +2,7 @@
   "Actions": {
     "Close": "Sulje",
     "BackToGame": "Takaisin peliin",
-    "LoadNewGameGrid": "Lataa uusi peliruudukko"
+    "LoadNewGame": "Lataa uusi peli"
   },
   "GameGridButton": {
     "NewGame": "Uusi peli",
@@ -31,7 +31,7 @@
     },
     "UnfinishedGrid": {
       "GameGridIsUnfinished": "Ruudukkosi on kesken!",
-      "AreYouSureYouWantToLoadNewGridYouWillLoseYourProgress": "Oletko varma, että haluat ladata uuden ruudukon? Menetät edistymisesi tässä ruudukossa."
+      "AreYouSureYouWantToLoadNewGameYouWillLoseYourProgressInThisGrid": "Oletko varma, että haluat ladata uuden pelin? Menetät edistymisesi tässä ruudukossa."
     },
     "NoSource": {
       "UnknownErrorHasOccurred": "Tapahtui odottamaton virhe.",
