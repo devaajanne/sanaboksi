@@ -76,7 +76,7 @@ test("Confirming grid reload loads a new grid when user has started to fill in t
 
   await page
     .getByRole("dialog", { name: "Ruudukkosi on kesken!" })
-    .getByLabel("Lataa uusi peliruudukko")
+    .getByLabel("Lataa uusi peli")
     .click();
 
   const reloadedGrid = await getGridLetters(page);

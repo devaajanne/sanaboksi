@@ -97,7 +97,7 @@
     "ToggleLightMode": "Vaihda vaaleaan tilaan",
     "ToggleDarkMode": "Vaihda tummaan tilaan",
     "ReadGameInfo": "Lue tietoa pelistä",
-    "LoadNewGameGrid": "Lataa uusi peliruudukko",
+    "LoadNewGameGrid": "Lataa uusi peli",
     "LoadNewGameGridByPressingNewGame": "Lataa uusi peliruudukko painamalla 'Uusi peli'"
   }
 }
