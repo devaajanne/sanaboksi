@@ -1,4 +1,4 @@
-import { Button, Divider, Group, Modal, Stack, Text } from "@mantine/core";
+import { Divider, Group, Modal, Stack, Text } from "@mantine/core";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import {
   IconCheck,
@@ -14,6 +14,7 @@ import {
   colorPaletteConstants,
   stylingConstants,
 } from "../../utility/Constants";
+import StyledButton from "../styledComponents/StyledButton";
 
 interface GameInstructionsModalProps {
   opened: boolean;
@@ -255,26 +256,11 @@ export function GameInstructionsModal({
       <Text>{t("GameInstructionModal.HaveFunWithSanaboksi")}</Text>
 
       <Group justify="flex-end">
-        <Button
-          aria-label={t("Actions.BackToGame")}
+        <StyledButton
+          ariaLabel={t("Actions.BackToGame")}
           onClick={onClose}
-          color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
-          styles={{
-            label: {
-              color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-            },
-            root: {
-              backgroundColor:
-                colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-              borderColor:
-                colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-              borderWidth: stylingConstants.BORDER_WIDTH,
-              marginTop: stylingConstants.MODAL_BUTTON_MARGIN_TOP,
-            },
-          }}
-        >
-          <Text span>{t("Actions.BackToGame")}</Text>
-        </Button>
+          buttonText={t("Actions.BackToGame")}
+        />
       </Group>
     </Modal>
   );

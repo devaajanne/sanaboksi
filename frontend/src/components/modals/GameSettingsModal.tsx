@@ -1,10 +1,11 @@
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { useTranslation } from "react-i18next";
 import { colorPaletteConstants, gameConstants } from "../../utility/Constants";
-import { Button, Group, Modal, SegmentedControl, Text } from "@mantine/core";
+import { Group, Modal, SegmentedControl, Text } from "@mantine/core";
 import { useGameContext } from "../../context/GameContext";
 import { IconX } from "@tabler/icons-react";
 import { stylingConstants } from "../../utility/Constants";
+import StyledButton from "../styledComponents/StyledButton";
 
 interface GameSettingsModalProps {
   opened: boolean;
@@ -123,26 +124,11 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
         size={"xl"}
       />
       <Group justify="flex-end">
-        <Button
-          aria-label={t("Actions.BackToGame")}
+        <StyledButton
+          ariaLabel={t("Actions.BackToGame")}
           onClick={onClose}
-          color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
-          styles={{
-            label: {
-              color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-            },
-            root: {
-              backgroundColor:
-                colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-              borderColor:
-                colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-              borderWidth: stylingConstants.BORDER_WIDTH,
-              marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-            },
-          }}
-        >
-          <Text span>{t("Actions.BackToGame")}</Text>
-        </Button>
+          buttonText={t("Actions.BackToGame")}
+        />
       </Group>
     </Modal>
   );

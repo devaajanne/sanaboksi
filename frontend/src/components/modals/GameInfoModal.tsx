@@ -12,7 +12,8 @@ import {
   IconSun,
   IconMoon,
 } from "@tabler/icons-react";
-import { Anchor, Button, Divider, Group, Modal, Text } from "@mantine/core";
+import { Anchor, Divider, Group, Modal, Text } from "@mantine/core";
+import StyledButton from "../styledComponents/StyledButton";
 
 interface GameInfoModalProps {
   opened: boolean;
@@ -192,26 +193,11 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
       <Text>{t("GameInfoModal.HaveFunWithSanaboksi")}</Text>
 
       <Group justify="flex-end">
-        <Button
-          aria-label={t("Actions.BackToGame")}
+        <StyledButton
+          ariaLabel={t("Actions.BackToGame")}
           onClick={onClose}
-          color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
-          styles={{
-            label: {
-              color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-            },
-            root: {
-              backgroundColor:
-                colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-              borderColor:
-                colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-              borderWidth: stylingConstants.BORDER_WIDTH,
-              marginTop: stylingConstants.MODAL_BUTTON_MARGIN_TOP,
-            },
-          }}
-        >
-          <Text span>{t("Actions.BackToGame")}</Text>
-        </Button>
+          buttonText={t("Actions.BackToGame")}
+        />
       </Group>
     </Modal>
   );
