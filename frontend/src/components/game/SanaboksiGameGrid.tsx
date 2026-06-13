@@ -21,7 +21,6 @@ import {
   Space,
   Stack,
   Text,
-  Tooltip,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import NotificationModal from "../modals/NotificationModal";
@@ -36,6 +35,7 @@ import { useTranslation } from "react-i18next";
 import { useGameContext } from "../../context/GameContext";
 import { useViewportContext } from "../../context/ViewportContext";
 import { IconReload } from "@tabler/icons-react";
+import StyledTooltip from "../styledComponents/StyledTooltip";
 
 /**
  * Main component for rendering and managing the Sanaboksi game grid.
@@ -63,10 +63,9 @@ export default function SanaboksiGameGrid() {
   const buttonTextFontSize = isSmViewport
     ? stylingConstants.BUTTON_TEXT_FONT_SIZE_SMALL
     : stylingConstants.BUTTON_TEXT_FONT_SIZE_LARGE;
-  const headerIconSize = isSmViewport
-    ? stylingConstants.HEADER_ICON_SIZE_SMALL
-    : stylingConstants.HEADER_ICON_SIZE_LARGE;
-  const tooltipPosition = stylingConstants.TOOLTIP_POSITION;
+  const actionIconSize = isSmViewport
+    ? stylingConstants.ACTION_ICON_SIZE_SMALL
+    : stylingConstants.ACTION_ICON_SIZE_LARGE;
   const reloadIconDisabled = isLoading || isCorrectGameGrid;
 
   /**
@@ -385,20 +384,13 @@ export default function SanaboksiGameGrid() {
       </Container>
 
       <Center>
-        <Tooltip
+        <StyledTooltip
           label={
             isCorrectGameGrid
               ? t("Tooltip.LoadNewGameByPressingNewGameTooltip")
               : t("Tooltip.LoadNewGameTooltip")
           }
           disabled={isLoading}
-          color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-          position={tooltipPosition}
-          styles={{
-            tooltip: {
-              color: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-            },
-          }}
         >
           <ActionIcon
             aria-label={
@@ -409,7 +401,7 @@ export default function SanaboksiGameGrid() {
             aria-disabled={reloadIconDisabled}
             variant="subtle"
             disabled={reloadIconDisabled}
-            size={headerIconSize}
+            size={actionIconSize}
             onClick={handleNewGameGridLoading}
             styles={{
               root: {
@@ -422,11 +414,11 @@ export default function SanaboksiGameGrid() {
             }}
           >
             <IconReload
-              size={headerIconSize}
+              size={actionIconSize}
               strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
             />
           </ActionIcon>
-        </Tooltip>
+        </StyledTooltip>
       </Center>
 
       <NotificationModal
