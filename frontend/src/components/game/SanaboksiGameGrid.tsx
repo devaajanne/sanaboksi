@@ -45,7 +45,8 @@ import { IconReload } from "@tabler/icons-react";
 export default function SanaboksiGameGrid() {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
-  const { wordLength } = useGameContext();
+  const { wordLength, notificationModalSource, setNotificationModalSource } =
+    useGameContext();
   const { isSmViewport } = useViewportContext();
   // Store the fixed letters configuration for each row (which index has which fixed letter)
   const [fixedLetters, setFixedLetters] = useState<FixedLetters>([]);
@@ -57,8 +58,6 @@ export default function SanaboksiGameGrid() {
   const [isValidGameGrid, setIsValidGameGrid] = useState<boolean>(false);
   // Game grid is correct if all rows have a validated and correct word
   const [isCorrectGameGrid, setIsCorrectGameGrid] = useState<boolean>(false);
-  const [notificationModalSource, setNotificationModalSource] =
-    useState<NotificationModalSource>(NotificationModalSource.NoSource);
   const [opened, { open, close }] = useDisclosure(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const buttonTextFontSize = isSmViewport

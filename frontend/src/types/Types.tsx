@@ -37,6 +37,10 @@ export type NotificationModalSource =
 export type GameContextType = {
   wordLength: number;
   setWordLength: (wordLength: number) => void;
+  notificationModalSource: NotificationModalSource;
+  setNotificationModalSource: (
+    notificationModalSource: NotificationModalSource,
+  ) => void;
 };
 
 export type ViewportContextType = {
