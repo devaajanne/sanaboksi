@@ -2,7 +2,8 @@
   "Actions": {
     "Close": "Sulje",
     "BackToGame": "Takaisin peliin",
-    "LoadNewGame": "Lataa uusi peli"
+    "LoadNewGame": "Lataa uusi peli",
+    "Confirm": "Vahvista"
   },
   "GameGridButton": {
     "NewGame": "Uusi peli",
@@ -62,7 +63,8 @@
     "FourLetters": "4 kirjainta",
     "FiveLetters": "5 kirjainta",
     "SixLetters": "6 kirjainta",
-    "SevenLetters": "7 kirjainta"
+    "SevenLetters": "7 kirjainta",
+    "IfYouChangeDifficultyYouWillLoseYourProgress": "Jos muutat vaikeustasoa, menetät mahdollisen edistymisesi tässä ruudukossa!"
   },
   "GameInfoModal": {
     "WhatSanaboksi": "Mikä Sanaboksi?",
@@ -98,6 +100,7 @@
     "ToggleDarkMode": "Vaihda tummaan tilaan",
     "ReadGameInfo": "Lue tietoa pelistä",
     "LoadNewGame": "Lataa uusi peli",
-    "LoadNewGameByPressingNewGame": "Lataa uusi peli painamalla 'Uusi peli'"
+    "LoadNewGameByPressingNewGame": "Lataa uusi peli painamalla 'Uusi peli'",
+    "AlertIcon": "Huomiomerkki"
   }
 }
