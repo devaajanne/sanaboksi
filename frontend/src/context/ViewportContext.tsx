@@ -5,10 +5,12 @@ export const ViewportContext = createContext<ViewportContextType | undefined>(
   undefined,
 );
 
-export function useViewport() {
+export function useViewportContext() {
   const context = useContext(ViewportContext);
   if (!context) {
-    throw new Error("useViewport must be used within ViewportProvider");
+    throw new Error(
+      "useViewportContext must be used within ViewportContextProvider",
+    );
   }
   return context;
 }

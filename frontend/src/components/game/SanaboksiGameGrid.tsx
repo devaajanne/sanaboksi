@@ -33,8 +33,8 @@ import {
   stylingConstants,
 } from "../../utility/Constants";
 import { useTranslation } from "react-i18next";
-import { useGameSettings } from "../../context/GameSettingsContext";
-import { useViewport } from "../../context/ViewportContext";
+import { useGameContext } from "../../context/GameContext";
+import { useViewportContext } from "../../context/ViewportContext";
 import { IconReload } from "@tabler/icons-react";
 
 /**
@@ -45,8 +45,8 @@ import { IconReload } from "@tabler/icons-react";
 export default function SanaboksiGameGrid() {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
-  const { wordLength } = useGameSettings();
-  const { isSmViewport } = useViewport();
+  const { wordLength } = useGameContext();
+  const { isSmViewport } = useViewportContext();
   // Store the fixed letters configuration for each row (which index has which fixed letter)
   const [fixedLetters, setFixedLetters] = useState<FixedLetters>([]);
   // Store the actual game grid data (2D array of characters with dynamic dimensions)

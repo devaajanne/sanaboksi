@@ -2,7 +2,7 @@ import { useColorPalette } from "../../hooks/useColorPalette";
 import { useTranslation } from "react-i18next";
 import { colorPaletteConstants, gameConstants } from "../../utility/Constants";
 import { Button, Group, Modal, SegmentedControl, Text } from "@mantine/core";
-import { useGameSettings } from "../../context/GameSettingsContext";
+import { useGameContext } from "../../context/GameContext";
 import { IconX } from "@tabler/icons-react";
 import { stylingConstants } from "../../utility/Constants";
 
@@ -14,7 +14,7 @@ interface GameSettingsModalProps {
 export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
-  const { wordLength, setWordLength } = useGameSettings();
+  const { wordLength, setWordLength } = useGameContext();
 
   const handleChange = (val: string) => {
     const numValue = Number(val);
