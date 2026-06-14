@@ -22,7 +22,6 @@ export default function StyledButton({
   const colorPalette = useColorPalette();
   const { isSmViewport } = useViewportContext();
   const BUTTON_BORDER_WIDTH = 2;
-  const BUTTON_MARGIN_TOP = "1rem";
   const BUTTON_TEXT_FONT_SIZE_SMALL = "1rem";
   const BUTTON_TEXT_FONT_SIZE_LARGE = "2rem";
   const buttonTextFontSize = isSmViewport
@@ -47,7 +46,6 @@ export default function StyledButton({
               colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
             borderColor: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
             borderWidth: BUTTON_BORDER_WIDTH,
-            marginTop: BUTTON_MARGIN_TOP,
           },
         }}
       >
