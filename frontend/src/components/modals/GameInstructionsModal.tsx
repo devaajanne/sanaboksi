@@ -1,4 +1,4 @@
-import { Group, Stack, Text } from "@mantine/core";
+import { Group, Stack } from "@mantine/core";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import {
   IconCheck,
@@ -10,14 +10,12 @@ import {
 import SanaboksiGameRow from "../game/SanaboksiGameRow";
 import type { FixedLetter } from "../../types/Types";
 import { useTranslation } from "react-i18next";
-import {
-  colorPaletteConstants,
-  stylingConstants,
-} from "../../utility/Constants";
+import { colorPaletteConstants } from "../../utility/Constants";
 import StyledButton from "../styledComponents/StyledButton";
 import StyledDivider from "../styledComponents/StyledDivider";
 import StyledModal from "../styledComponents/StyledModal";
 import StyledText from "../styledComponents/StyledText";
+import StyledIconTextRow from "../styledComponents/StyledIconTextRow";
 
 interface GameInstructionsModalProps {
   opened: boolean;
@@ -109,59 +107,24 @@ export function GameInstructionsModal({
       />
 
       <Stack>
-        <Group
-          align="center"
-          gap="sm"
-          wrap="nowrap"
-          styles={{
-            root: { marginTop: stylingConstants.MODAL_ICON_MARGIN_TOP },
-          }}
-        >
-          <IconCheck
-            aria-label={t("AriaLabel.CorrectWordIcon")}
-            color={colorPalette[colorPaletteConstants.CORRECT_GREEN_3]}
-            size={stylingConstants.MODAL_ICON_SIZE}
-            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-          />
-          <Text>{t("GameInstructionModal.TheWordIsCorrect")}</Text>
-        </Group>
-        <Group
-          align="center"
-          gap="sm"
-          wrap="nowrap"
-          styles={{
-            root: {
-              marginTop: stylingConstants.MODAL_ICON_MARGIN_TOP,
-              marginBottom: stylingConstants.MODAL_ICON_MARGIN_BOTTOM,
-            },
-          }}
-        >
-          <IconX
-            aria-label={t("AriaLabel.IncorrectWordIcon")}
-            color={colorPalette[colorPaletteConstants.INCORRECT_RED_4]}
-            size={stylingConstants.MODAL_ICON_SIZE}
-            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-          />
-          <Text>{t("GameInstructionModal.TheWordIsIncorrect")}</Text>
-        </Group>
-        <Group
-          align="center"
-          gap="sm"
-          wrap="nowrap"
-          styles={{
-            root: {
-              marginBottom: stylingConstants.MODAL_ICON_MARGIN_BOTTOM,
-            },
-          }}
-        >
-          <IconCopy
-            aria-label={t("AriaLabel.DuplicateWordIcon")}
-            color={colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]}
-            size={stylingConstants.MODAL_ICON_SIZE}
-            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-          />
-          <Text>{t("GameInstructionModal.TheWordIsADuplicate")}</Text>
-        </Group>
+        <StyledIconTextRow
+          ariaLabel={t("AriaLabel.CorrectWordIcon")}
+          icon={IconCheck}
+          color={colorPalette[colorPaletteConstants.CORRECT_GREEN_3]}
+          text={t("GameInstructionModal.TheWordIsCorrect")}
+        />
+        <StyledIconTextRow
+          ariaLabel={t("AriaLabel.IncorrectWordIcon")}
+          icon={IconX}
+          color={colorPalette[colorPaletteConstants.INCORRECT_RED_4]}
+          text={t("GameInstructionModal.TheWordIsIncorrect")}
+        />
+        <StyledIconTextRow
+          ariaLabel={t("AriaLabel.DuplicateWordIcon")}
+          icon={IconCopy}
+          color={colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]}
+          text={t("GameInstructionModal.TheWordIsADuplicate")}
+        />
       </Stack>
 
       <StyledDivider />

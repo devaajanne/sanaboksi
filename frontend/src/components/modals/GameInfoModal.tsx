@@ -1,9 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useColorPalette } from "../../hooks/useColorPalette";
-import {
-  colorPaletteConstants,
-  stylingConstants,
-} from "../../utility/Constants";
+import { colorPaletteConstants } from "../../utility/Constants";
 import {
   IconBook2,
   IconBrandGithub,
@@ -11,11 +8,12 @@ import {
   IconSun,
   IconMoon,
 } from "@tabler/icons-react";
-import { Anchor, Group } from "@mantine/core";
+import { Group } from "@mantine/core";
 import StyledButton from "../styledComponents/StyledButton";
 import StyledDivider from "../styledComponents/StyledDivider";
 import StyledModal from "../styledComponents/StyledModal";
 import StyledText from "../styledComponents/StyledText";
+import StyledIconAnchorRow from "../styledComponents/StyledIconAnchorRow";
 
 interface GameInfoModalProps {
   opened: boolean;
@@ -64,31 +62,12 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
 
       <StyledText text={t("GameInfoModal.InfoAboutThesis")} />
 
-      <Group
-        align="center"
-        gap="sm"
-        wrap="nowrap"
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_ICON_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_ICON_MARGIN_BOTTOM,
-          },
-        }}
-      >
-        <IconBook2
-          aria-hidden
-          color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-          size={stylingConstants.MODAL_ICON_SIZE}
-          strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-        />
-        <Anchor
-          href="https://www.theseus.fi/handle/10024/920463"
-          c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-          underline="always"
-        >
-          {t("GameInfoModal.ReadThesisInTheseus")}
-        </Anchor>
-      </Group>
+      <StyledIconAnchorRow
+        icon={IconBook2}
+        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+        text={t("GameInfoModal.ReadThesisInTheseus")}
+        href="https://www.theseus.fi/handle/10024/920463"
+      />
 
       <StyledText
         text={t(
@@ -96,30 +75,12 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
         )}
       />
 
-      <Group
-        align="center"
-        gap="sm"
-        wrap="nowrap"
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_ICON_MARGIN_TOP,
-          },
-        }}
-      >
-        <IconBrandGithub
-          aria-hidden
-          color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-          size={stylingConstants.MODAL_ICON_SIZE}
-          strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-        />
-        <Anchor
-          href="https://github.com/devaajanne/sanaboksi"
-          c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-          underline="always"
-        >
-          {t("GameInfoModal.SeeSourceCodeInGitHub")}
-        </Anchor>
-      </Group>
+      <StyledIconAnchorRow
+        icon={IconBrandGithub}
+        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+        text={t("GameInfoModal.SeeSourceCodeInGitHub")}
+        href="https://github.com/devaajanne/sanaboksi"
+      />
 
       <StyledDivider />
 
