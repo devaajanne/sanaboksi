@@ -1,27 +1,29 @@
 import { ActionIcon } from "@mantine/core";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { useViewportContext } from "../../context/ViewportContext";
-import {
-  colorPaletteConstants,
-  stylingConstants,
-} from "../../utility/Constants";
+import { colorPaletteConstants } from "../../utility/Constants";
 
 interface StyledActionIconProps {
   ariaLabel: string;
   onClick: () => void;
   icon?: React.ComponentType<{ size: string | number; strokeWidth: number }>;
+  disabled?: boolean;
 }
 
 export default function StyledActionIcon({
   ariaLabel,
   onClick,
   icon: Icon,
+  disabled,
 }: StyledActionIconProps) {
   const colorPalette = useColorPalette();
   const { isSmViewport } = useViewportContext();
+  const ICON_STROKE_WIDTH = 1.5;
+  const ACTION_ICON_SIZE_SMALL = "2.25rem";
+  const ACTION_ICON_SIZE_LARGE = "4.5rem";
   const actionIconSize = isSmViewport
-    ? stylingConstants.ACTION_ICON_SIZE_SMALL
-    : stylingConstants.ACTION_ICON_SIZE_LARGE;
+    ? ACTION_ICON_SIZE_SMALL
+    : ACTION_ICON_SIZE_LARGE;
 
   return (
     <>
@@ -30,6 +32,7 @@ export default function StyledActionIcon({
         variant="subtle"
         size={actionIconSize}
         onClick={onClick}
+        disabled={disabled}
         styles={{
           root: {
             backgroundColor:
@@ -38,12 +41,7 @@ export default function StyledActionIcon({
           },
         }}
       >
-        {Icon && (
-          <Icon
-            size={actionIconSize}
-            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-          />
-        )}
+        {Icon && <Icon size={actionIconSize} strokeWidth={ICON_STROKE_WIDTH} />}
       </ActionIcon>
     </>
   );
