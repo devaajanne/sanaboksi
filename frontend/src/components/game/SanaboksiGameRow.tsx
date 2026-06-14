@@ -10,6 +10,7 @@ import {
   stylingConstants,
 } from "../../utility/Constants";
 import { useViewportContext } from "../../context/ViewportContext";
+import StyledRowValidationIcon from "../styledComponents/StyledRowValidationIcon";
 
 /**
  * Props for the SanaboksiGameRow component.
@@ -61,12 +62,6 @@ export default function SanaboksiGameRow({
   const textInputFontSize = isSmViewport
     ? stylingConstants.TEXT_INPUT_FONT_SIZE_SMALL
     : stylingConstants.TEXT_INPUT_FONT_SIZE_LARGE;
-  const rowValidationIconSize = isSmViewport
-    ? stylingConstants.ROW_VALIDATION_ICON_SIZE_SMALL
-    : stylingConstants.ROW_VALIDATION_ICON_SIZE_LARGE;
-  const rowValidationIconPosition = isSmViewport
-    ? stylingConstants.ROW_VALIDATION_ICON_OFFSET_SMALL
-    : stylingConstants.ROW_VALIDATION_ICON_OFFSET_LARGE;
 
   /**
    * Handles user input and moves the cursor to the next available field.
@@ -199,29 +194,23 @@ export default function SanaboksiGameRow({
       </Group>
 
       {isDuplicate === true ? (
-        <IconCopy
-          aria-label={t("AriaLabel.DuplicateWordIcon")}
+        <StyledRowValidationIcon
+          ariaLabel={t("AriaLabel.DuplicateWordIcon")}
+          icon={IconCopy}
           color={colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]}
-          size={rowValidationIconSize}
-          strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-          style={{ position: "absolute", right: rowValidationIconPosition }}
         />
       ) : isCorrect !== undefined ? (
         isCorrect ? (
-          <IconCheck
-            aria-label={t("AriaLabel.CorrectWordIcon")}
+          <StyledRowValidationIcon
+            ariaLabel={t("AriaLabel.CorrectWordIcon")}
+            icon={IconCheck}
             color={colorPalette[colorPaletteConstants.CORRECT_GREEN_3]}
-            size={rowValidationIconSize}
-            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-            style={{ position: "absolute", right: rowValidationIconPosition }}
           />
         ) : (
-          <IconX
-            aria-label={t("AriaLabel.IncorrectWordIcon")}
+          <StyledRowValidationIcon
+            ariaLabel={t("AriaLabel.IncorrectWordIcon")}
+            icon={IconX}
             color={colorPalette[colorPaletteConstants.INCORRECT_RED_4]}
-            size={rowValidationIconSize}
-            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-            style={{ position: "absolute", right: rowValidationIconPosition }}
           />
         )
       ) : null}
