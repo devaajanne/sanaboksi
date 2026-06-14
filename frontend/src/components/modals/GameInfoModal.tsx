@@ -11,10 +11,11 @@ import {
   IconSun,
   IconMoon,
 } from "@tabler/icons-react";
-import { Anchor, Group, Text } from "@mantine/core";
+import { Anchor, Group } from "@mantine/core";
 import StyledButton from "../styledComponents/StyledButton";
 import StyledDivider from "../styledComponents/StyledDivider";
 import StyledModal from "../styledComponents/StyledModal";
+import StyledText from "../styledComponents/StyledText";
 
 interface GameInfoModalProps {
   opened: boolean;
@@ -31,40 +32,23 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
       onClose={onClose}
       title={t("GameInfoModal.WhatSanaboksi")}
     >
-      <Text>{t("GameInfoModal.InfoAboutSanaboksi")}</Text>
+      <StyledText text={t("GameInfoModal.InfoAboutSanaboksi")} />
 
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-          },
-        }}
-      >
-        {t("GameInfoModal.GamePitch")}
-      </Text>
+      <StyledText text={t("GameInfoModal.GamePitch")} />
 
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-          },
-        }}
+      <StyledText
+        text={t("GameInfoModal.YouCanReadGameInstructionsByClicking")}
       >
         {t("GameInfoModal.YouCanReadGameInstructionsByClicking")}
         <IconHelpCircle
           aria-label={t("AriaLabel.OpenGameInstructions")}
           style={{ verticalAlign: "top" }}
         />
-      </Text>
+      </StyledText>
 
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-          },
-        }}
+      <StyledText
+        text={t("GameInfoModal.YouCanSwitchBetweenLightAndDarkModeByClicking")}
       >
-        {t("GameInfoModal.YouCanSwitchBetweenLightAndDarkModeByClicking")}
         <IconSun
           aria-label={t("AriaLabel.ToggleDarkMode")}
           style={{ verticalAlign: "top" }}
@@ -74,11 +58,11 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
           aria-label={t("AriaLabel.ToggleLightMode")}
           style={{ verticalAlign: "top" }}
         />
-      </Text>
+      </StyledText>
 
       <StyledDivider />
 
-      <Text>{t("GameInfoModal.InfoAboutThesis")}</Text>
+      <StyledText text={t("GameInfoModal.InfoAboutThesis")} />
 
       <Group
         align="center"
@@ -106,25 +90,11 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
         </Anchor>
       </Group>
 
-      <Text>
-        Sanaboksin on luonut{" "}
-        <Anchor
-          href="https://github.com/devaajanne"
-          c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-          underline="always"
-        >
-          Janne Airaksinen
-        </Anchor>{" "}
-        (2026), ja se on lisensoitu{" "}
-        <Anchor
-          href="https://github.com/devaajanne/sanaboksi?tab=MIT-1-ov-file"
-          c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-          underline="always"
-        >
-          MIT-lisenssillä
-        </Anchor>
-        .
-      </Text>
+      <StyledText
+        text={t(
+          "GameInfoModal.SanaboksiHasBeenCreatedByJanneAiraksinenAndItIsLicencedWithMITLicense",
+        )}
+      />
 
       <Group
         align="center"
@@ -153,7 +123,7 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
 
       <StyledDivider />
 
-      <Text>{t("GameInfoModal.HaveFunWithSanaboksi")}</Text>
+      <StyledText text={t("GameInfoModal.HaveFunWithSanaboksi")} />
 
       <Group justify="flex-end">
         <StyledButton

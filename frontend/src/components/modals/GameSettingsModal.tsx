@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import { colorPaletteConstants, gameConstants } from "../../utility/Constants";
 import { Group, SegmentedControl, Text } from "@mantine/core";
 import { useGameContext } from "../../context/GameContext";
-import { stylingConstants } from "../../utility/Constants";
 import StyledButton from "../styledComponents/StyledButton";
 import StyledModal from "../styledComponents/StyledModal";
+import StyledText from "../styledComponents/StyledText";
 
 interface GameSettingsModalProps {
   opened: boolean;
@@ -38,16 +38,8 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
       onClose={onClose}
       title={t("GameSettingsModal.Settings")}
     >
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
-          },
-        }}
-      >
-        {t("GameSettingsModal.ChooseDifficulty")}
-      </Text>
+      <StyledText text={t("GameSettingsModal.ChooseDifficulty")} />
+
       <SegmentedControl
         value={String(wordLength)}
         onChange={handleChange}

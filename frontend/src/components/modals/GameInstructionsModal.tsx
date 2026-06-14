@@ -17,6 +17,7 @@ import {
 import StyledButton from "../styledComponents/StyledButton";
 import StyledDivider from "../styledComponents/StyledDivider";
 import StyledModal from "../styledComponents/StyledModal";
+import StyledText from "../styledComponents/StyledText";
 
 interface GameInstructionsModalProps {
   opened: boolean;
@@ -37,18 +38,9 @@ export function GameInstructionsModal({
       onClose={onClose}
       title={t("GameInstructionModal.HowToPlaySanaboksi")}
     >
-      <Text>{t("GameInstructionModal.GameDescription")}</Text>
+      <StyledText text={t("GameInstructionModal.GameDescription")} />
 
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
-          },
-        }}
-      >
-        {t("GameInstructionModal.ForExampleIfGivenRowIs")}
-      </Text>
+      <StyledText text={t("GameInstructionModal.ForExampleIfGivenRowIs")} />
 
       <SanaboksiGameRow
         fixedLetter={fixedLetter}
@@ -58,16 +50,7 @@ export function GameInstructionsModal({
         rowData={["", "", "H", "", ""]}
       ></SanaboksiGameRow>
 
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
-          },
-        }}
-      >
-        {t("GameInstructionModal.FittingWordsCouldBe")}
-      </Text>
+      <StyledText text={t("GameInstructionModal.FittingWordsCouldBe")} />
 
       <SanaboksiGameRow
         fixedLetter={fixedLetter}
@@ -77,16 +60,7 @@ export function GameInstructionsModal({
         rowData={["V", "E", "H", "N", "Ä"]}
       ></SanaboksiGameRow>
 
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
-          },
-        }}
-      >
-        {t("GameInstructionModal.And")}
-      </Text>
+      <StyledText text={t("GameInstructionModal.And")} />
 
       <SanaboksiGameRow
         fixedLetter={fixedLetter}
@@ -96,68 +70,43 @@ export function GameInstructionsModal({
         rowData={["K", "A", "H", "V", "I"]}
       ></SanaboksiGameRow>
 
-      <Text
-        styles={{ root: { marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP } }}
-      >
-        {t(
+      <StyledText
+        text={t(
           "GameInstructionModal.BecauseFixedLetterIsInTheCorrectPositionInBothWords",
         )}
-      </Text>
+      />
 
-      <Text
-        styles={{ root: { marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP } }}
-      >
-        {t("GameInstructionModal.GamePlayInstructions")}
-      </Text>
+      <StyledText text={t("GameInstructionModal.GamePlayInstructions")} />
 
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-          },
-        }}
-      >
-        {t("GameInstructionModal.YouCanLoadANewGameByClicking")}
+      <StyledText text={t("GameInstructionModal.YouCanLoadANewGameByClicking")}>
         <IconReload
           aria-label={t("AriaLabel.LoadNewGame")}
           style={{ verticalAlign: "top" }}
         />
-      </Text>
+      </StyledText>
 
-      <Text
-        styles={{ root: { marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP } }}
-      >
-        {t("GameInstructionModal.AfterValidationInstructions")}
-      </Text>
+      <StyledText
+        text={t("GameInstructionModal.AfterValidationInstructions")}
+      />
 
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-          },
-        }}
-      >
-        {t(
+      <StyledText
+        text={t(
           "GameInstructionModal.OnceYouFillInTheGridWithCorrectWordsYouCanPlayANewGame",
         )}
-      </Text>
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-          },
-        }}
-      >
-        {t("GameInstructionModal.DifficultySettings")}
+      />
+
+      <StyledText text={t("GameInstructionModal.DifficultySettings")}>
         <IconSettings
           aria-label={t("AriaLabel.OpenGameSettings")}
           style={{ verticalAlign: "top" }}
         />
-      </Text>
+      </StyledText>
 
       <StyledDivider />
 
-      <Text>{t("GameInstructionModal.BeMindfulOfTheseIconsAndColors")}:</Text>
+      <StyledText
+        text={t("GameInstructionModal.BeMindfulOfTheseIconsAndColors")}
+      />
 
       <Stack>
         <Group
@@ -217,7 +166,7 @@ export function GameInstructionsModal({
 
       <StyledDivider />
 
-      <Text>{t("GameInstructionModal.HaveFunWithSanaboksi")}</Text>
+      <StyledText text={t("GameInstructionModal.HaveFunWithSanaboksi")} />
 
       <Group justify="flex-end">
         <StyledButton

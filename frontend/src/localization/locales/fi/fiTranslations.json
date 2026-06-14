@@ -51,7 +51,7 @@
     "OnceYouFillInTheGridWithCorrectWordsYouCanPlayANewGame": "Täytettyäsi ruudukon hyväksytyillä sanoilla voit pelata uuden pelin.",
     "YouCanLoadANewGameByClicking": "Halutessasi voit ladata uuden peliruudukon klikkaamalla ",
     "DifficultySettings": "Sanaboksissa on eri vaikeustasoja. Oletusvaikeustaso on 5-kirjaimiset sanat, mutta voit pelata myös 4-, 6- ja 7-kirjaimisia sanoja. Vaikeustasoa voit vaihtaa klikkaamalla ",
-    "BeMindfulOfTheseIconsAndColors": "Kiinnitä huomiota näihin merkkeihin ja väreihin",
+    "BeMindfulOfTheseIconsAndColors": "Kiinnitä huomiota näihin merkkeihin ja väreihin:",
     "TheWordIsCorrect": "Sana on oikein (eli sana on oikea suomen kielen sana)",
     "TheWordIsIncorrect": "Sana on väärin (eli sanaa ei löydy suomen kielen sanastosta)",
     "TheWordIsADuplicate": "Sana esiintyy ruudukossa useammin kuin kerran",
@@ -75,6 +75,7 @@
     "YouCanSwitchBetweenLightAndDarkModeByClicking": "Vaalean ja tumman tilan voit vaihtaa klikkaamalla ",
     "And": " ja ",
     "ReadThesisInTheseus": "Lue opinnäytetyö Theseuksessa",
+    "SanaboksiHasBeenCreatedByJanneAiraksinenAndItIsLicencedWithMITLicense": "Sanaboksin on luonut Janne Airaksinen ja se on lisensoitu MIT-lisenssillä.",
     "SeeSourceCodeInGitHub": "Tutustu lähdekoodiin GitHubissa",
     "HaveFunWithSanaboksi": "Hauskoja pelihetkiä Sanaboksin parissa!"
   },

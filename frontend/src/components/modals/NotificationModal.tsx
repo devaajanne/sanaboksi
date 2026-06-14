@@ -1,11 +1,9 @@
-import { Group, Text } from "@mantine/core";
+import { Group } from "@mantine/core";
 import { NotificationModalSource } from "../../types/Types";
-
 import { useTranslation } from "react-i18next";
-import { stylingConstants } from "../../utility/Constants";
-
 import StyledButton from "../styledComponents/StyledButton";
 import StyledModal from "../styledComponents/StyledModal";
+import StyledText from "../styledComponents/StyledText";
 
 interface NotificationModalProps {
   source: NotificationModalSource;
@@ -86,16 +84,8 @@ export default function NotificationModal({
       onClose={onClose}
       title={t(notificationModalTitle)}
     >
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
-          },
-        }}
-      >
-        {t(notificationModalMessage)}
-      </Text>
+      <StyledText text={t(notificationModalMessage)} />
+
       <Group justify="flex-end">
         {source === NotificationModalSource.UnfinishedGrid && (
           <StyledButton
