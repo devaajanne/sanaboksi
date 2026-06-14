@@ -18,12 +18,12 @@ export default function StyledActionIcon({
 }: StyledActionIconProps) {
   const colorPalette = useColorPalette();
   const { isSmViewport } = useViewportContext();
-  const ICON_STROKE_WIDTH = 1.5;
-  const ACTION_ICON_SIZE_SMALL = "2.25rem";
-  const ACTION_ICON_SIZE_LARGE = "4.5rem";
+  const strokeWidth = 1.5;
+  const actionIconSizeSmall = "2.25rem";
+  const actionIconSizeLarge = "4.5rem";
   const actionIconSize = isSmViewport
-    ? ACTION_ICON_SIZE_SMALL
-    : ACTION_ICON_SIZE_LARGE;
+    ? actionIconSizeSmall
+    : actionIconSizeLarge;
 
   return (
     <>
@@ -41,7 +41,7 @@ export default function StyledActionIcon({
           },
         }}
       >
-        {Icon && <Icon size={actionIconSize} strokeWidth={ICON_STROKE_WIDTH} />}
+        {Icon && <Icon size={actionIconSize} strokeWidth={strokeWidth} />}
       </ActionIcon>
     </>
   );

@@ -41,21 +41,25 @@ export default function Header() {
   ] = useDisclosure(false);
   const [openedGameInfo, { open: openGameInfo, close: closeGameInfo }] =
     useDisclosure(false);
+  const headerTitleFontSizeSmall = "2rem";
+  const headerTitleFontSizeLarge = "4rem";
   const headerTitleFontSize = isSmViewport
-    ? stylingConstants.HEADER_TITLE_FONT_SIZE_SMALL
-    : stylingConstants.HEADER_TITLE_FONT_SIZE_LARGE;
+    ? headerTitleFontSizeSmall
+    : headerTitleFontSizeLarge;
+  const headerMarginTop = "2vh";
+  const headerMarginBottom = "3vh";
 
   return (
     <Container
       fluid
       styles={{
         root: {
-          marginTop: stylingConstants.HEADER_MARGIN_TOP,
-          marginBottom: stylingConstants.HEADER_MARGIN_BOTTOM,
+          marginTop: headerMarginTop,
+          marginBottom: headerMarginBottom,
         },
       }}
     >
-      <Stack align="center" gap={stylingConstants.HEADER_MARGIN_BOTTOM}>
+      <Stack align="center" gap={headerMarginBottom}>
         <Text
           styles={{
             root: {

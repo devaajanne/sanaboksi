@@ -19,8 +19,8 @@ export default function StyledModal({
 }: StyledModalProps) {
   const { t } = useTranslation();
   const colorPalette = useColorPalette();
-  const MODAL_TITLE_FONT_SIZE = "1.5rem";
-  const ICON_STROKE_WIDTH = 1.5;
+  const titleFontSize = "1.5rem";
+  const strokeWidth = 1.5;
   return (
     <>
       <Modal
@@ -33,7 +33,7 @@ export default function StyledModal({
           icon: (
             <IconX
               aria-hidden
-              stroke={ICON_STROKE_WIDTH}
+              stroke={strokeWidth}
               color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
             />
           ),
@@ -49,7 +49,7 @@ export default function StyledModal({
               colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
             color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
           },
-          title: { fontSize: MODAL_TITLE_FONT_SIZE },
+          title: { fontSize: titleFontSize },
         }}
       >
         {children}

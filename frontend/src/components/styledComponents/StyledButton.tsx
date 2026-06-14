@@ -23,16 +23,16 @@ export default function StyledButton({
 }: StyledButtonProps) {
   const colorPalette = useColorPalette();
   const { isSmViewport } = useViewportContext();
-  const BUTTON_BORDER_WIDTH = 2;
-  const BUTTON_MARGIN_TOP = "1rem";
-  const BUTTON_TEXT_FONT_SIZE_SMALL = "1rem";
-  const BUTTON_TEXT_FONT_SIZE_LARGE = "2rem";
+  const borderWidth = 2;
+  const margintop = "1rem";
+  const smallFontSize = "1rem";
+  const largeFontSize = "2rem";
   const buttonTextFontSize =
     renderLocation === "modal"
       ? undefined
       : isSmViewport
-        ? BUTTON_TEXT_FONT_SIZE_SMALL
-        : BUTTON_TEXT_FONT_SIZE_LARGE;
+        ? smallFontSize
+        : largeFontSize;
 
   return (
     <>
@@ -51,8 +51,8 @@ export default function StyledButton({
             backgroundColor:
               colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
             borderColor: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-            borderWidth: BUTTON_BORDER_WIDTH,
-            marginTop: BUTTON_MARGIN_TOP,
+            borderWidth: borderWidth,
+            marginTop: margintop,
           },
         }}
       >

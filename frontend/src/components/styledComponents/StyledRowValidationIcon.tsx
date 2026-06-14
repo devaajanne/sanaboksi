@@ -22,7 +22,6 @@ export default function StyledRowValidationIcon({
   const iconSizeLarge = "2rem";
   const iconPositionOffsetSmall = "-1.1rem";
   const iconPositionOffsetLarge = "-2.2rem";
-
   const iconSize = isSmViewport ? iconSizeSmall : iconSizeLarge;
   const iconPositionOffset = isSmViewport
     ? iconPositionOffsetSmall

@@ -6,15 +6,15 @@ interface StyledTextProps {
 }
 
 export default function StyledText({ text, children }: StyledTextProps) {
-  const TEXT_MARGIN = "1rem";
+  const margin = "1rem";
 
   return (
     <>
       <Text
         styles={{
           root: {
-            marginTop: TEXT_MARGIN,
-            marginBottom: TEXT_MARGIN,
+            marginTop: margin,
+            marginBottom: margin,
           },
         }}
       >

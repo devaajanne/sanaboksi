@@ -21,7 +21,6 @@ import {
   colorPaletteConstants,
   gameConstants,
   languageConstants,
-  stylingConstants,
 } from "../../utility/Constants";
 import { useTranslation } from "react-i18next";
 import { useGameContext } from "../../context/GameContext";
@@ -55,6 +54,12 @@ export default function SanaboksiGameGrid() {
   const [opened, { open, close }] = useDisclosure(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const reloadIconDisabled = isLoading || isCorrectGameGrid;
+  const gameGridRowGapSmall = "0.5rem";
+  const gameGridRowGapLarge = "1rem";
+  const marginTopSmall = "0.25rem";
+  const marginTopLarge = "0.5rem";
+  const marginBottomSmall = "1.5rem";
+  const marginBottomLarge = "3rem";
 
   /**
    * Fetches fixed letters from the API and initializes the game grid.
@@ -231,11 +236,7 @@ export default function SanaboksiGameGrid() {
     <>
       <Container strategy="grid" aria-label={t("AriaLabel.SanaBoksiGameGrid")}>
         <Stack
-          gap={
-            isSmViewport
-              ? stylingConstants.GAME_GRID_ROW_GAP_SMALL
-              : stylingConstants.GAME_GRID_ROW_GAP_LARGE
-          }
+          gap={isSmViewport ? gameGridRowGapSmall : gameGridRowGapLarge}
           styles={{ root: { position: "relative" } }}
         >
           {fixedLetters.length === 0
@@ -284,12 +285,8 @@ export default function SanaboksiGameGrid() {
         strategy="grid"
         styles={{
           root: {
-            marginTop: isSmViewport
-              ? stylingConstants.GAME_GRID_BUTTON_MARGIN_TOP_SMALL
-              : stylingConstants.GAME_GRID_BUTTON_MARGIN_TOP_LARGE,
-            marginBottom: isSmViewport
-              ? stylingConstants.GAME_GRID_BUTTON_MARGIN_BOTTOM_SMALL
-              : stylingConstants.GAME_GRID_BUTTON_MARGIN_BOTTOM_LARGE,
+            marginTop: isSmViewport ? marginTopSmall : marginTopLarge,
+            marginBottom: isSmViewport ? marginBottomSmall : marginBottomLarge,
           },
         }}
       >

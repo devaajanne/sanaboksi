@@ -5,10 +5,7 @@ import type { FixedLetter } from "../../types/Types";
 import { IconCheck, IconX, IconCopy } from "@tabler/icons-react";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { useTranslation } from "react-i18next";
-import {
-  colorPaletteConstants,
-  stylingConstants,
-} from "../../utility/Constants";
+import { colorPaletteConstants } from "../../utility/Constants";
 import { useViewportContext } from "../../context/ViewportContext";
 import StyledRowValidationIcon from "../styledComponents/StyledRowValidationIcon";
 
@@ -56,12 +53,15 @@ export default function SanaboksiGameRow({
   const { t } = useTranslation();
   const { isSmViewport } = useViewportContext();
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const textInputSize = isSmViewport
-    ? stylingConstants.TEXT_INPUT_SIZE_SMALL
-    : stylingConstants.TEXT_INPUT_SIZE_LARGE;
+  const textInputSizeSmall = "3rem";
+  const textInputSizelarge = "6rem";
+  const textInputSize = isSmViewport ? textInputSizeSmall : textInputSizelarge;
+  const textInputFontSizeSmall = "1.25rem";
+  const textInputFontSizeLarge = "2.5rem";
   const textInputFontSize = isSmViewport
-    ? stylingConstants.TEXT_INPUT_FONT_SIZE_SMALL
-    : stylingConstants.TEXT_INPUT_FONT_SIZE_LARGE;
+    ? textInputFontSizeSmall
+    : textInputFontSizeLarge;
+  const borderWidth = 2;
 
   /**
    * Handles user input and moves the cursor to the next available field.
@@ -170,7 +170,7 @@ export default function SanaboksiGameRow({
                     ? colorPalette[colorPaletteConstants.TERTIARY_COLOR_2]
                     : colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
                   borderColor: correctBorderColor,
-                  borderWidth: stylingConstants.BORDER_WIDTH,
+                  borderWidth: borderWidth,
                   color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
                 },
               }}
