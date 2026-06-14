@@ -224,6 +224,7 @@ export function GameInstructionsModal({
           ariaLabel={t("Actions.BackToGame")}
           onClick={onClose}
           buttonText={t("Actions.BackToGame")}
+          renderLocation="modal"
         />
       </Group>
     </StyledModal>

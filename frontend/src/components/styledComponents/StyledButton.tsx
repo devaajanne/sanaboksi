@@ -7,6 +7,7 @@ interface StyledButtonProps {
   ariaLabel: string;
   onClick: () => void;
   buttonText: string;
+  renderLocation?: string;
   size?: string;
   loading?: boolean;
   loaderProps?: LoaderProps;
@@ -15,6 +16,7 @@ export default function StyledButton({
   ariaLabel,
   onClick,
   buttonText,
+  renderLocation,
   size,
   loading,
   loaderProps,
@@ -24,9 +26,12 @@ export default function StyledButton({
   const BUTTON_BORDER_WIDTH = 2;
   const BUTTON_TEXT_FONT_SIZE_SMALL = "1rem";
   const BUTTON_TEXT_FONT_SIZE_LARGE = "2rem";
-  const buttonTextFontSize = isSmViewport
-    ? BUTTON_TEXT_FONT_SIZE_SMALL
-    : BUTTON_TEXT_FONT_SIZE_LARGE;
+  const buttonTextFontSize =
+    renderLocation === "modal"
+      ? undefined
+      : isSmViewport
+        ? BUTTON_TEXT_FONT_SIZE_SMALL
+        : BUTTON_TEXT_FONT_SIZE_LARGE;
 
   return (
     <>
