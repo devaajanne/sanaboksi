@@ -12,8 +12,9 @@ import {
   IconSun,
   IconMoon,
 } from "@tabler/icons-react";
-import { Anchor, Divider, Group, Modal, Text } from "@mantine/core";
+import { Anchor, Group, Modal, Text } from "@mantine/core";
 import StyledButton from "../styledComponents/StyledButton";
+import StyledDivider from "../styledComponents/StyledDivider";
 
 interface GameInfoModalProps {
   opened: boolean;
@@ -97,15 +98,7 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
         />
       </Text>
 
-      <Divider
-        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_DIVIDER_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_DIVIDER_MARGIN_BOTTOM,
-          },
-        }}
-      />
+      <StyledDivider />
 
       <Text>{t("GameInfoModal.InfoAboutThesis")}</Text>
 
@@ -180,15 +173,7 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
         </Anchor>
       </Group>
 
-      <Divider
-        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_DIVIDER_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_DIVIDER_MARGIN_BOTTOM,
-          },
-        }}
-      />
+      <StyledDivider />
 
       <Text>{t("GameInfoModal.HaveFunWithSanaboksi")}</Text>
 

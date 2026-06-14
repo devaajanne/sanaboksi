@@ -1,4 +1,4 @@
-import { Divider, Group, Modal, Stack, Text } from "@mantine/core";
+import { Group, Modal, Stack, Text } from "@mantine/core";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import {
   IconCheck,
@@ -15,6 +15,7 @@ import {
   stylingConstants,
 } from "../../utility/Constants";
 import StyledButton from "../styledComponents/StyledButton";
+import StyledDivider from "../styledComponents/StyledDivider";
 
 interface GameInstructionsModalProps {
   opened: boolean;
@@ -175,15 +176,7 @@ export function GameInstructionsModal({
         />
       </Text>
 
-      <Divider
-        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_DIVIDER_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_DIVIDER_MARGIN_BOTTOM,
-          },
-        }}
-      />
+      <StyledDivider />
 
       <Text>{t("GameInstructionModal.BeMindfulOfTheseIconsAndColors")}:</Text>
 
@@ -243,15 +236,7 @@ export function GameInstructionsModal({
         </Group>
       </Stack>
 
-      <Divider
-        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_DIVIDER_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_DIVIDER_MARGIN_BOTTOM,
-          },
-        }}
-      />
+      <StyledDivider />
 
       <Text>{t("GameInstructionModal.HaveFunWithSanaboksi")}</Text>
 
