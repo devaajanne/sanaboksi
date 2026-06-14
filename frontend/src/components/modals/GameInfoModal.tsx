@@ -8,13 +8,13 @@ import {
   IconBook2,
   IconBrandGithub,
   IconHelpCircle,
-  IconX,
   IconSun,
   IconMoon,
 } from "@tabler/icons-react";
-import { Anchor, Group, Modal, Text } from "@mantine/core";
+import { Anchor, Group, Text } from "@mantine/core";
 import StyledButton from "../styledComponents/StyledButton";
 import StyledDivider from "../styledComponents/StyledDivider";
+import StyledModal from "../styledComponents/StyledModal";
 
 interface GameInfoModalProps {
   opened: boolean;
@@ -26,32 +26,10 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
   const { t } = useTranslation();
 
   return (
-    <Modal
+    <StyledModal
       opened={opened}
       onClose={onClose}
-      size="lg"
       title={t("GameInfoModal.WhatSanaboksi")}
-      closeButtonProps={{
-        "aria-label": t("Actions.Close"),
-        icon: (
-          <IconX
-            aria-hidden
-            stroke={stylingConstants.ICON_STROKE_WIDTH}
-            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-          />
-        ),
-      }}
-      styles={{
-        header: {
-          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-        },
-        body: {
-          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-        },
-        title: { fontSize: stylingConstants.MODAL_TITLE_FONT_SIZE },
-      }}
     >
       <Text>{t("GameInfoModal.InfoAboutSanaboksi")}</Text>
 
@@ -184,6 +162,6 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
           buttonText={t("Actions.BackToGame")}
         />
       </Group>
-    </Modal>
+    </StyledModal>
   );
 }

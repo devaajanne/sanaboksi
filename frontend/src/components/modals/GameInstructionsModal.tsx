@@ -1,4 +1,4 @@
-import { Group, Modal, Stack, Text } from "@mantine/core";
+import { Group, Stack, Text } from "@mantine/core";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import {
   IconCheck,
@@ -16,6 +16,7 @@ import {
 } from "../../utility/Constants";
 import StyledButton from "../styledComponents/StyledButton";
 import StyledDivider from "../styledComponents/StyledDivider";
+import StyledModal from "../styledComponents/StyledModal";
 
 interface GameInstructionsModalProps {
   opened: boolean;
@@ -31,32 +32,10 @@ export function GameInstructionsModal({
   const fixedLetter: FixedLetter = { fixedIndex: 2, fixedLetter: "H" };
 
   return (
-    <Modal
+    <StyledModal
       opened={opened}
       onClose={onClose}
-      size="lg"
       title={t("GameInstructionModal.HowToPlaySanaboksi")}
-      closeButtonProps={{
-        "aria-label": t("Actions.Close"),
-        icon: (
-          <IconX
-            aria-hidden
-            stroke={stylingConstants.ICON_STROKE_WIDTH}
-            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-          />
-        ),
-      }}
-      styles={{
-        header: {
-          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-        },
-        body: {
-          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-        },
-        title: { fontSize: stylingConstants.MODAL_TITLE_FONT_SIZE },
-      }}
     >
       <Text>{t("GameInstructionModal.GameDescription")}</Text>
 
@@ -247,6 +226,6 @@ export function GameInstructionsModal({
           buttonText={t("Actions.BackToGame")}
         />
       </Group>
-    </Modal>
+    </StyledModal>
   );
 }

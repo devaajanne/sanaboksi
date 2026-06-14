@@ -1,13 +1,11 @@
-import { Group, Modal, Text } from "@mantine/core";
+import { Group, Text } from "@mantine/core";
 import { NotificationModalSource } from "../../types/Types";
-import { useColorPalette } from "../../hooks/useColorPalette";
+
 import { useTranslation } from "react-i18next";
-import {
-  colorPaletteConstants,
-  stylingConstants,
-} from "../../utility/Constants";
-import { IconX } from "@tabler/icons-react";
+import { stylingConstants } from "../../utility/Constants";
+
 import StyledButton from "../styledComponents/StyledButton";
+import StyledModal from "../styledComponents/StyledModal";
 
 interface NotificationModalProps {
   source: NotificationModalSource;
@@ -77,38 +75,16 @@ export default function NotificationModal({
   onClose,
   onNewGridLoad,
 }: NotificationModalProps) {
-  const colorPalette = useColorPalette();
   const { t } = useTranslation();
   const { notificationModalTitle, notificationModalMessage } =
     notificationModalContent[source] ||
     notificationModalContent[NotificationModalSource.NoSource];
 
   return (
-    <Modal
+    <StyledModal
       opened={opened}
       onClose={onClose}
       title={t(notificationModalTitle)}
-      closeButtonProps={{
-        "aria-label": t("Actions.Close"),
-        icon: (
-          <IconX
-            aria-hidden
-            stroke={stylingConstants.ICON_STROKE_WIDTH}
-            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-          />
-        ),
-      }}
-      styles={{
-        header: {
-          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-        },
-        body: {
-          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-        },
-        title: { fontSize: stylingConstants.MODAL_TITLE_FONT_SIZE },
-      }}
     >
       <Text
         styles={{
@@ -137,6 +113,6 @@ export default function NotificationModal({
           buttonText={t("Actions.BackToGame")}
         />
       </Group>
-    </Modal>
+    </StyledModal>
   );
 }
