@@ -14,9 +14,6 @@ export default function Main() {
     () =>
       createTheme({
         fontFamily: "Arvo, serif",
-        headings: {
-          fontFamily: "Arvo, serif",
-        },
         colors: {
           lightModePalette: lightModePalette as MantineColorsTuple,
           darkModePalette: darkModePalette as MantineColorsTuple,

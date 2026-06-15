@@ -5,11 +5,9 @@ import type { FixedLetter } from "../../types/Types";
 import { IconCheck, IconX, IconCopy } from "@tabler/icons-react";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { useTranslation } from "react-i18next";
-import {
-  colorPaletteConstants,
-  stylingConstants,
-} from "../../utility/Constants";
+import { colorPaletteConstants } from "../../utility/Constants";
 import { useViewportContext } from "../../context/ViewportContext";
+import StyledRowValidationIcon from "../styledComponents/StyledRowValidationIcon";
 
 /**
  * Props for the SanaboksiGameRow component.
@@ -55,18 +53,15 @@ export default function SanaboksiGameRow({
   const { t } = useTranslation();
   const { isSmViewport } = useViewportContext();
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const textInputSize = isSmViewport
-    ? stylingConstants.TEXT_INPUT_SIZE_SMALL
-    : stylingConstants.TEXT_INPUT_SIZE_LARGE;
+  const textInputSizeSmall = "3rem";
+  const textInputSizelarge = "6rem";
+  const textInputSize = isSmViewport ? textInputSizeSmall : textInputSizelarge;
+  const textInputFontSizeSmall = "1.25rem";
+  const textInputFontSizeLarge = "2.5rem";
   const textInputFontSize = isSmViewport
-    ? stylingConstants.TEXT_INPUT_FONT_SIZE_SMALL
-    : stylingConstants.TEXT_INPUT_FONT_SIZE_LARGE;
-  const rowValidationIconSize = isSmViewport
-    ? stylingConstants.ROW_VALIDATION_ICON_SIZE_SMALL
-    : stylingConstants.ROW_VALIDATION_ICON_SIZE_LARGE;
-  const rowValidationIconPosition = isSmViewport
-    ? stylingConstants.ROW_VALIDATION_ICON_OFFSET_SMALL
-    : stylingConstants.ROW_VALIDATION_ICON_OFFSET_LARGE;
+    ? textInputFontSizeSmall
+    : textInputFontSizeLarge;
+  const borderWidth = 2;
 
   /**
    * Handles user input and moves the cursor to the next available field.
@@ -175,7 +170,7 @@ export default function SanaboksiGameRow({
                     ? colorPalette[colorPaletteConstants.TERTIARY_COLOR_2]
                     : colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
                   borderColor: correctBorderColor,
-                  borderWidth: stylingConstants.BORDER_WIDTH,
+                  borderWidth: borderWidth,
                   color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
                 },
               }}
@@ -199,29 +194,23 @@ export default function SanaboksiGameRow({
       </Group>
 
       {isDuplicate === true ? (
-        <IconCopy
-          aria-label={t("AriaLabel.DuplicateWordIcon")}
+        <StyledRowValidationIcon
+          ariaLabel={t("AriaLabel.DuplicateWordIcon")}
+          icon={IconCopy}
           color={colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]}
-          size={rowValidationIconSize}
-          strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-          style={{ position: "absolute", right: rowValidationIconPosition }}
         />
       ) : isCorrect !== undefined ? (
         isCorrect ? (
-          <IconCheck
-            aria-label={t("AriaLabel.CorrectWordIcon")}
+          <StyledRowValidationIcon
+            ariaLabel={t("AriaLabel.CorrectWordIcon")}
+            icon={IconCheck}
             color={colorPalette[colorPaletteConstants.CORRECT_GREEN_3]}
-            size={rowValidationIconSize}
-            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-            style={{ position: "absolute", right: rowValidationIconPosition }}
           />
         ) : (
-          <IconX
-            aria-label={t("AriaLabel.IncorrectWordIcon")}
+          <StyledRowValidationIcon
+            ariaLabel={t("AriaLabel.IncorrectWordIcon")}
+            icon={IconX}
             color={colorPalette[colorPaletteConstants.INCORRECT_RED_4]}
-            size={rowValidationIconSize}
-            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-            style={{ position: "absolute", right: rowValidationIconPosition }}
           />
         )
       ) : null}

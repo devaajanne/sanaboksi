@@ -1,10 +1,14 @@
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { useTranslation } from "react-i18next";
 import { colorPaletteConstants, gameConstants } from "../../utility/Constants";
-import { Button, Group, Modal, SegmentedControl, Text } from "@mantine/core";
+import { Group, Text } from "@mantine/core";
 import { useGameContext } from "../../context/GameContext";
-import { IconX } from "@tabler/icons-react";
-import { stylingConstants } from "../../utility/Constants";
+import StyledButton from "../styledComponents/StyledButton";
+import StyledModal from "../styledComponents/StyledModal";
+import StyledText from "../styledComponents/StyledText";
+import StyledSegmentedControl from "../styledComponents/StyledSegmentedControl";
+import StyledIconTextRow from "../styledComponents/StyledIconTextRow";
+import { IconAlertCircle } from "@tabler/icons-react";
 
 interface GameSettingsModalProps {
   opened: boolean;
@@ -16,8 +20,8 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
   const { t } = useTranslation();
   const { wordLength, setWordLength } = useGameContext();
 
-  const handleChange = (val: string) => {
-    const numValue = Number(val);
+  const handleDifficultyChange = (value: string) => {
+    const numValue = Number(value);
     if (
       !isNaN(numValue) &&
       [
@@ -32,118 +36,55 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
   };
 
   return (
-    <Modal
+    <StyledModal
       opened={opened}
       onClose={onClose}
-      size="lg"
       title={t("GameSettingsModal.Settings")}
-      closeButtonProps={{
-        "aria-label": t("Actions.Close"),
-        icon: (
-          <IconX
-            aria-hidden
-            stroke={stylingConstants.ICON_STROKE_WIDTH}
-            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-          />
-        ),
-      }}
-      styles={{
-        header: {
-          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-        },
-        body: {
-          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-        },
-        title: { fontSize: stylingConstants.MODAL_TITLE_FONT_SIZE },
-      }}
     >
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
-          },
-        }}
-      >
-        {t("GameSettingsModal.ChooseDifficulty")}
-      </Text>
-      <SegmentedControl
+      <StyledIconTextRow
+        ariaLabel={t("AriaLabe.AlertIcon")}
+        icon={IconAlertCircle}
+        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+        text={t(
+          "GameSettingsModal.IfYouChangeDifficultyYouWillLoseYourProgress",
+        )}
+      />
+
+      <StyledText text={t("GameSettingsModal.ChooseDifficulty")} />
+
+      <StyledSegmentedControl
+        ariaLabel={t("GameSettingsModal.ChooseDifficulty")}
         value={String(wordLength)}
-        onChange={handleChange}
-        withItemsBorders={false}
-        orientation="vertical"
-        aria-label={t("GameSettingsModal.ChooseDifficulty")}
+        onChange={handleDifficultyChange}
         data={[
           {
-            label: (
-              <Group justify="center">
-                <Text>{t("GameSettingsModal.FourLetters")}</Text>
-              </Group>
-            ),
+            label: <Text>{t("GameSettingsModal.FourLetters")}</Text>,
             value: String(gameConstants.WORD_LENGTH_4),
           },
           {
-            label: (
-              <Group justify="center">
-                <Text>{t("GameSettingsModal.FiveLetters")}</Text>
-              </Group>
-            ),
+            label: <Text>{t("GameSettingsModal.FiveLetters")}</Text>,
             value: String(gameConstants.WORD_LENGTH_5),
           },
           {
-            label: (
-              <Group justify="center">
-                <Text>{t("GameSettingsModal.SixLetters")}</Text>
-              </Group>
-            ),
+            label: <Text>{t("GameSettingsModal.SixLetters")}</Text>,
             value: String(gameConstants.WORD_LENGTH_6),
           },
           {
-            label: (
-              <Group justify="center">
-                <Text>{t("GameSettingsModal.SevenLetters")}</Text>
-              </Group>
-            ),
+            label: <Text>{t("GameSettingsModal.SevenLetters")}</Text>,
             value: String(gameConstants.WORD_LENGTH_7),
           },
         ]}
-        fullWidth
-        styles={{
-          root: {
-            backgroundColor:
-              colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-          },
-          label: {
-            color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-          },
-        }}
-        color={colorPalette[colorPaletteConstants.TERTIARY_COLOR_2]}
-        size={"xl"}
+        orientation="vertical"
       />
+
       <Group justify="flex-end">
-        <Button
-          aria-label={t("Actions.BackToGame")}
+        <StyledButton
+          ariaLabel={t("Actions.BackToGame")}
           onClick={onClose}
-          color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
-          styles={{
-            label: {
-              color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-            },
-            root: {
-              backgroundColor:
-                colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-              borderColor:
-                colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-              borderWidth: stylingConstants.BORDER_WIDTH,
-              marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-            },
-          }}
-        >
-          <Text span>{t("Actions.BackToGame")}</Text>
-        </Button>
+          buttonText={t("Actions.BackToGame")}
+          renderLocation="modal"
+        />
       </Group>
-    </Modal>
+    </StyledModal>
   );
 }

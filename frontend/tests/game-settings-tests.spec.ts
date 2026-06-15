@@ -27,7 +27,7 @@ test("Changing game difficulty to four letters loads a correct new game grid", a
 
   await page.getByText("4 kirjainta").click();
 
-  await page.getByRole("button", { name: "Takaisin peliin" }).click();
+  await page.getByRole("button", { name: "Sulje" }).click();
 
   await page.waitForTimeout(1_000);
 
@@ -48,7 +48,7 @@ test("Changing game difficulty to six letters loads a correct new game grid", as
 
   await page.getByText("6 kirjainta").click();
 
-  await page.getByRole("button", { name: "Takaisin peliin" }).click();
+  await page.getByRole("button", { name: "Sulje" }).click();
 
   await page.waitForTimeout(1_000);
 
@@ -69,7 +69,7 @@ test("Changing game difficulty to seven letters loads a correct new game grid", 
 
   await page.getByText("7 kirjainta").click();
 
-  await page.getByRole("button", { name: "Takaisin peliin" }).click();
+  await page.getByRole("button", { name: "Sulje" }).click();
 
   await page.waitForTimeout(1_000);
 

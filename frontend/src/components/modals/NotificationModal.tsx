@@ -1,12 +1,9 @@
-import { Button, Group, Modal, Text } from "@mantine/core";
+import { Group } from "@mantine/core";
 import { NotificationModalSource } from "../../types/Types";
-import { useColorPalette } from "../../hooks/useColorPalette";
 import { useTranslation } from "react-i18next";
-import {
-  colorPaletteConstants,
-  stylingConstants,
-} from "../../utility/Constants";
-import { IconX } from "@tabler/icons-react";
+import StyledButton from "../styledComponents/StyledButton";
+import StyledModal from "../styledComponents/StyledModal";
+import StyledText from "../styledComponents/StyledText";
 
 interface NotificationModalProps {
   source: NotificationModalSource;
@@ -76,94 +73,38 @@ export default function NotificationModal({
   onClose,
   onNewGridLoad,
 }: NotificationModalProps) {
-  const colorPalette = useColorPalette();
   const { t } = useTranslation();
   const { notificationModalTitle, notificationModalMessage } =
     notificationModalContent[source] ||
     notificationModalContent[NotificationModalSource.NoSource];
 
   return (
-    <Modal
+    <StyledModal
       opened={opened}
       onClose={onClose}
       title={t(notificationModalTitle)}
-      closeButtonProps={{
-        "aria-label": t("Actions.Close"),
-        icon: (
-          <IconX
-            aria-hidden
-            stroke={stylingConstants.ICON_STROKE_WIDTH}
-            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-          />
-        ),
-      }}
-      styles={{
-        header: {
-          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-        },
-        body: {
-          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-        },
-        title: { fontSize: stylingConstants.MODAL_TITLE_FONT_SIZE },
-      }}
     >
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
-          },
-        }}
-      >
-        {t(notificationModalMessage)}
-      </Text>
+      <StyledText text={t(notificationModalMessage)} />
+
       <Group justify="flex-end">
         {source === NotificationModalSource.UnfinishedGrid && (
-          <Button
-            aria-label={t("AriaLabel.LoadNewGame")}
+          <StyledButton
+            ariaLabel={t("Actions.LoadNewGame")}
             onClick={() => {
               onNewGridLoad();
               onClose();
             }}
-            color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
-            styles={{
-              label: {
-                color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-              },
-              root: {
-                backgroundColor:
-                  colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-                borderColor:
-                  colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-                borderWidth: stylingConstants.BORDER_WIDTH,
-              },
-            }}
-          >
-            <Text span>{t("Actions.LoadNewGame")}</Text>
-          </Button>
+            buttonText={t("Actions.LoadNewGame")}
+            renderLocation="modal"
+          />
         )}
-        <Button
-          aria-label={t("Actions.BackToGame")}
+        <StyledButton
+          ariaLabel={t("Actions.Close")}
           onClick={onClose}
-          color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
-          styles={{
-            label: {
-              color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-            },
-            root: {
-              backgroundColor:
-                colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-              borderColor:
-                colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-              borderWidth: stylingConstants.BORDER_WIDTH,
-            },
-          }}
-        >
-          <Text span>{t("Actions.BackToGame")}</Text>
-        </Button>
+          buttonText={t("Actions.Close")}
+          renderLocation="modal"
+        />
       </Group>
-    </Modal>
+    </StyledModal>
   );
 }

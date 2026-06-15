@@ -1,4 +1,4 @@
-import { Button, Divider, Group, Modal, Stack, Text } from "@mantine/core";
+import { Group, Stack } from "@mantine/core";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import {
   IconCheck,
@@ -10,10 +10,12 @@ import {
 import SanaboksiGameRow from "../game/SanaboksiGameRow";
 import type { FixedLetter } from "../../types/Types";
 import { useTranslation } from "react-i18next";
-import {
-  colorPaletteConstants,
-  stylingConstants,
-} from "../../utility/Constants";
+import { colorPaletteConstants } from "../../utility/Constants";
+import StyledButton from "../styledComponents/StyledButton";
+import StyledDivider from "../styledComponents/StyledDivider";
+import StyledModal from "../styledComponents/StyledModal";
+import StyledText from "../styledComponents/StyledText";
+import StyledIconTextRow from "../styledComponents/StyledIconTextRow";
 
 interface GameInstructionsModalProps {
   opened: boolean;
@@ -29,45 +31,14 @@ export function GameInstructionsModal({
   const fixedLetter: FixedLetter = { fixedIndex: 2, fixedLetter: "H" };
 
   return (
-    <Modal
+    <StyledModal
       opened={opened}
       onClose={onClose}
-      size="lg"
       title={t("GameInstructionModal.HowToPlaySanaboksi")}
-      closeButtonProps={{
-        "aria-label": t("Actions.Close"),
-        icon: (
-          <IconX
-            aria-hidden
-            stroke={stylingConstants.ICON_STROKE_WIDTH}
-            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-          />
-        ),
-      }}
-      styles={{
-        header: {
-          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-        },
-        body: {
-          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-        },
-        title: { fontSize: stylingConstants.MODAL_TITLE_FONT_SIZE },
-      }}
     >
-      <Text>{t("GameInstructionModal.GameDescription")}</Text>
+      <StyledText text={t("GameInstructionModal.GameDescription")} />
 
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
-          },
-        }}
-      >
-        {t("GameInstructionModal.ForExampleIfGivenRowIs")}
-      </Text>
+      <StyledText text={t("GameInstructionModal.ForExampleIfGivenRowIs")} />
 
       <SanaboksiGameRow
         fixedLetter={fixedLetter}
@@ -75,18 +46,9 @@ export function GameInstructionsModal({
         rowLength={5}
         isReadOnly={true}
         rowData={["", "", "H", "", ""]}
-      ></SanaboksiGameRow>
+      />
 
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
-          },
-        }}
-      >
-        {t("GameInstructionModal.FittingWordsCouldBe")}
-      </Text>
+      <StyledText text={t("GameInstructionModal.FittingWordsCouldBe")} />
 
       <SanaboksiGameRow
         fixedLetter={fixedLetter}
@@ -94,18 +56,9 @@ export function GameInstructionsModal({
         rowLength={5}
         isReadOnly={true}
         rowData={["V", "E", "H", "N", "Ä"]}
-      ></SanaboksiGameRow>
+      />
 
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_TEXT_MARGIN_BOTTOM,
-          },
-        }}
-      >
-        {t("GameInstructionModal.And")}
-      </Text>
+      <StyledText text={t("GameInstructionModal.And")} />
 
       <SanaboksiGameRow
         fixedLetter={fixedLetter}
@@ -113,169 +66,79 @@ export function GameInstructionsModal({
         rowLength={5}
         isReadOnly={true}
         rowData={["K", "A", "H", "V", "I"]}
-      ></SanaboksiGameRow>
+      />
 
-      <Text
-        styles={{ root: { marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP } }}
-      >
-        {t(
+      <StyledText
+        text={t(
           "GameInstructionModal.BecauseFixedLetterIsInTheCorrectPositionInBothWords",
         )}
-      </Text>
+      />
 
-      <Text
-        styles={{ root: { marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP } }}
-      >
-        {t("GameInstructionModal.GamePlayInstructions")}
-      </Text>
+      <StyledText text={t("GameInstructionModal.GamePlayInstructions")} />
 
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-          },
-        }}
-      >
-        {t("GameInstructionModal.YouCanLoadANewGameByClicking")}
+      <StyledText text={t("GameInstructionModal.YouCanLoadANewGameByClicking")}>
         <IconReload
           aria-label={t("AriaLabel.LoadNewGame")}
           style={{ verticalAlign: "top" }}
         />
-      </Text>
+      </StyledText>
 
-      <Text
-        styles={{ root: { marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP } }}
-      >
-        {t("GameInstructionModal.AfterValidationInstructions")}
-      </Text>
+      <StyledText
+        text={t("GameInstructionModal.AfterValidationInstructions")}
+      />
 
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-          },
-        }}
-      >
-        {t(
+      <StyledText
+        text={t(
           "GameInstructionModal.OnceYouFillInTheGridWithCorrectWordsYouCanPlayANewGame",
         )}
-      </Text>
-      <Text
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_TEXT_MARGIN_TOP,
-          },
-        }}
-      >
-        {t("GameInstructionModal.DifficultySettings")}
+      />
+
+      <StyledText text={t("GameInstructionModal.DifficultySettings")}>
         <IconSettings
           aria-label={t("AriaLabel.OpenGameSettings")}
           style={{ verticalAlign: "top" }}
         />
-      </Text>
+      </StyledText>
 
-      <Divider
-        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_DIVIDER_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_DIVIDER_MARGIN_BOTTOM,
-          },
-        }}
+      <StyledDivider />
+
+      <StyledText
+        text={t("GameInstructionModal.BeMindfulOfTheseIconsAndColors")}
       />
-
-      <Text>{t("GameInstructionModal.BeMindfulOfTheseIconsAndColors")}:</Text>
 
       <Stack>
-        <Group
-          align="center"
-          gap="sm"
-          wrap="nowrap"
-          styles={{
-            root: { marginTop: stylingConstants.MODAL_ICON_MARGIN_TOP },
-          }}
-        >
-          <IconCheck
-            aria-label={t("AriaLabel.CorrectWordIcon")}
-            color={colorPalette[colorPaletteConstants.CORRECT_GREEN_3]}
-            size={stylingConstants.MODAL_ICON_SIZE}
-            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-          />
-          <Text>{t("GameInstructionModal.TheWordIsCorrect")}</Text>
-        </Group>
-        <Group
-          align="center"
-          gap="sm"
-          wrap="nowrap"
-          styles={{
-            root: {
-              marginTop: stylingConstants.MODAL_ICON_MARGIN_TOP,
-              marginBottom: stylingConstants.MODAL_ICON_MARGIN_BOTTOM,
-            },
-          }}
-        >
-          <IconX
-            aria-label={t("AriaLabel.IncorrectWordIcon")}
-            color={colorPalette[colorPaletteConstants.INCORRECT_RED_4]}
-            size={stylingConstants.MODAL_ICON_SIZE}
-            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-          />
-          <Text>{t("GameInstructionModal.TheWordIsIncorrect")}</Text>
-        </Group>
-        <Group
-          align="center"
-          gap="sm"
-          wrap="nowrap"
-          styles={{
-            root: {
-              marginBottom: stylingConstants.MODAL_ICON_MARGIN_BOTTOM,
-            },
-          }}
-        >
-          <IconCopy
-            aria-label={t("AriaLabel.DuplicateWordIcon")}
-            color={colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]}
-            size={stylingConstants.MODAL_ICON_SIZE}
-            strokeWidth={stylingConstants.ICON_STROKE_WIDTH}
-          />
-          <Text>{t("GameInstructionModal.TheWordIsADuplicate")}</Text>
-        </Group>
+        <StyledIconTextRow
+          ariaLabel={t("AriaLabel.CorrectWordIcon")}
+          icon={IconCheck}
+          color={colorPalette[colorPaletteConstants.CORRECT_GREEN_3]}
+          text={t("GameInstructionModal.TheWordIsCorrect")}
+        />
+        <StyledIconTextRow
+          ariaLabel={t("AriaLabel.IncorrectWordIcon")}
+          icon={IconX}
+          color={colorPalette[colorPaletteConstants.INCORRECT_RED_4]}
+          text={t("GameInstructionModal.TheWordIsIncorrect")}
+        />
+        <StyledIconTextRow
+          ariaLabel={t("AriaLabel.DuplicateWordIcon")}
+          icon={IconCopy}
+          color={colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]}
+          text={t("GameInstructionModal.TheWordIsADuplicate")}
+        />
       </Stack>
 
-      <Divider
-        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-        styles={{
-          root: {
-            marginTop: stylingConstants.MODAL_DIVIDER_MARGIN_TOP,
-            marginBottom: stylingConstants.MODAL_DIVIDER_MARGIN_BOTTOM,
-          },
-        }}
-      />
+      <StyledDivider />
 
-      <Text>{t("GameInstructionModal.HaveFunWithSanaboksi")}</Text>
+      <StyledText text={t("GameInstructionModal.HaveFunWithSanaboksi")} />
 
       <Group justify="flex-end">
-        <Button
-          aria-label={t("Actions.BackToGame")}
+        <StyledButton
+          ariaLabel={t("Actions.BackToGame")}
           onClick={onClose}
-          color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
-          styles={{
-            label: {
-              color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-            },
-            root: {
-              backgroundColor:
-                colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-              borderColor:
-                colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-              borderWidth: stylingConstants.BORDER_WIDTH,
-              marginTop: stylingConstants.MODAL_BUTTON_MARGIN_TOP,
-            },
-          }}
-        >
-          <Text span>{t("Actions.BackToGame")}</Text>
-        </Button>
+          buttonText={t("Actions.BackToGame")}
+          renderLocation="modal"
+        />
       </Group>
-    </Modal>
+    </StyledModal>
   );
 }
