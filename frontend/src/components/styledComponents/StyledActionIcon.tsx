@@ -37,7 +37,9 @@ export default function StyledActionIcon({
           root: {
             backgroundColor:
               colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-            color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+            color: disabled
+              ? colorPalette[colorPaletteConstants.TERTIARY_COLOR_2]
+              : colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
           },
         }}
       >
