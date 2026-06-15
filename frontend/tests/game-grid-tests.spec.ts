@@ -246,10 +246,7 @@ test("Player can play another game after validating a correct game grid", async 
     page.getByRole("heading", { name: "Kaikki ruudukon sanat ovat oikein!" }),
   ).toBeVisible();
 
-  await page
-    .getByRole("dialog", { name: "Kaikki ruudukon sanat ovat oikein!" })
-    .getByRole("button", { name: "Takaisin peliin" })
-    .click();
+  await page.locator("button").filter({ hasText: "Sulje" }).click();
 
   await expect(
     page.getByRole("button", { name: "Uusi peli", exact: true }),

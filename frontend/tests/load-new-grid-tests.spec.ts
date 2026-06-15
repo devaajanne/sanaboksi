@@ -97,10 +97,7 @@ test("Closing new grid load confirmation modal does not load a new grid", async 
     page.getByRole("heading", { name: "Ruudukkosi on kesken!" }),
   ).toBeVisible();
 
-  await page
-    .getByRole("dialog", { name: "Ruudukkosi on kesken!" })
-    .getByLabel("Takaisin peliin")
-    .click();
+  await page.locator("button").filter({ hasText: "Sulje" }).click();
 
   const reloadedGrid = await getGridLetters(page);
 
