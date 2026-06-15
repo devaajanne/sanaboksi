@@ -1,6 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { useColorPalette } from "../../hooks/useColorPalette";
-import { colorPaletteConstants } from "../../utility/Constants";
 import {
   IconBook2,
   IconBrandGithub,
@@ -21,7 +19,6 @@ interface GameInfoModalProps {
 }
 
 export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
-  const colorPalette = useColorPalette();
   const { t } = useTranslation();
 
   return (
@@ -37,7 +34,6 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
       <StyledText
         text={t("GameInfoModal.YouCanReadGameInstructionsByClicking")}
       >
-        {t("GameInfoModal.YouCanReadGameInstructionsByClicking")}
         <IconHelpCircle
           aria-label={t("AriaLabel.OpenGameInstructions")}
           style={{ verticalAlign: "top" }}
@@ -64,7 +60,6 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
 
       <StyledIconAnchorRow
         icon={IconBook2}
-        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
         text={t("GameInfoModal.ReadThesisInTheseus")}
         href="https://www.theseus.fi/handle/10024/920463"
       />
@@ -77,7 +72,6 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
 
       <StyledIconAnchorRow
         icon={IconBrandGithub}
-        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
         text={t("GameInfoModal.SeeSourceCodeInGitHub")}
         href="https://github.com/devaajanne/sanaboksi"
       />

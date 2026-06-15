@@ -1,4 +1,6 @@
 import { Group, Anchor } from "@mantine/core";
+import { useColorPalette } from "../../hooks/useColorPalette";
+import { colorPaletteConstants } from "../../utility/Constants";
 
 interface StyledIconAnchorRowProps {
   icon?: React.ComponentType<{
@@ -6,17 +8,17 @@ interface StyledIconAnchorRowProps {
     size: string | number;
     strokeWidth: number;
   }>;
-  color: string;
   text: string;
   href: string;
 }
 
 export default function StyledIconAnchorRow({
   icon: Icon,
-  color,
+
   text,
   href,
 }: StyledIconAnchorRowProps) {
+  const colorPalette = useColorPalette();
   const rowIconSize = "3rem";
   const rowMargin = "0.25rem";
   const strokeWidth = 1.5;
@@ -35,9 +37,17 @@ export default function StyledIconAnchorRow({
         }}
       >
         {Icon && (
-          <Icon color={color} size={rowIconSize} strokeWidth={strokeWidth} />
+          <Icon
+            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+            size={rowIconSize}
+            strokeWidth={strokeWidth}
+          />
         )}
-        <Anchor href={href} c={color} underline="always">
+        <Anchor
+          href={href}
+          c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+          underline="always"
+        >
           {text}
         </Anchor>
       </Group>

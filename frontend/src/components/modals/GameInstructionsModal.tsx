@@ -46,7 +46,7 @@ export function GameInstructionsModal({
         rowLength={5}
         isReadOnly={true}
         rowData={["", "", "H", "", ""]}
-      ></SanaboksiGameRow>
+      />
 
       <StyledText text={t("GameInstructionModal.FittingWordsCouldBe")} />
 
@@ -56,7 +56,7 @@ export function GameInstructionsModal({
         rowLength={5}
         isReadOnly={true}
         rowData={["V", "E", "H", "N", "Ä"]}
-      ></SanaboksiGameRow>
+      />
 
       <StyledText text={t("GameInstructionModal.And")} />
 
@@ -66,7 +66,7 @@ export function GameInstructionsModal({
         rowLength={5}
         isReadOnly={true}
         rowData={["K", "A", "H", "V", "I"]}
-      ></SanaboksiGameRow>
+      />
 
       <StyledText
         text={t(
