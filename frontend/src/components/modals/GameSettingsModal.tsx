@@ -1,11 +1,14 @@
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { useTranslation } from "react-i18next";
 import { colorPaletteConstants, gameConstants } from "../../utility/Constants";
-import { Group, SegmentedControl, Text } from "@mantine/core";
+import { Group, Text } from "@mantine/core";
 import { useGameContext } from "../../context/GameContext";
 import StyledButton from "../styledComponents/StyledButton";
 import StyledModal from "../styledComponents/StyledModal";
 import StyledText from "../styledComponents/StyledText";
+import StyledSegmentedControl from "../styledComponents/StyledSegmentedControl";
+import StyledIconTextRow from "../styledComponents/StyledIconTextRow";
+import { IconAlertCircle } from "@tabler/icons-react";
 
 interface GameSettingsModalProps {
   opened: boolean;
@@ -17,8 +20,8 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
   const { t } = useTranslation();
   const { wordLength, setWordLength } = useGameContext();
 
-  const handleChange = (val: string) => {
-    const numValue = Number(val);
+  const handleDifficultyChange = (value: string) => {
+    const numValue = Number(value);
     if (
       !isNaN(numValue) &&
       [
@@ -38,61 +41,42 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
       onClose={onClose}
       title={t("GameSettingsModal.Settings")}
     >
+      <StyledIconTextRow
+        ariaLabel={t("AriaLabe.AlertIcon")}
+        icon={IconAlertCircle}
+        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+        text={t(
+          "GameSettingsModal.IfYouChangeDifficultyYouWillLoseYourProgress",
+        )}
+      />
+
       <StyledText text={t("GameSettingsModal.ChooseDifficulty")} />
 
-      <SegmentedControl
+      <StyledSegmentedControl
+        ariaLabel={t("GameSettingsModal.ChooseDifficulty")}
         value={String(wordLength)}
-        onChange={handleChange}
-        withItemsBorders={false}
-        orientation="vertical"
-        aria-label={t("GameSettingsModal.ChooseDifficulty")}
+        onChange={handleDifficultyChange}
         data={[
           {
-            label: (
-              <Group justify="center">
-                <Text>{t("GameSettingsModal.FourLetters")}</Text>
-              </Group>
-            ),
+            label: <Text>{t("GameSettingsModal.FourLetters")}</Text>,
             value: String(gameConstants.WORD_LENGTH_4),
           },
           {
-            label: (
-              <Group justify="center">
-                <Text>{t("GameSettingsModal.FiveLetters")}</Text>
-              </Group>
-            ),
+            label: <Text>{t("GameSettingsModal.FiveLetters")}</Text>,
             value: String(gameConstants.WORD_LENGTH_5),
           },
           {
-            label: (
-              <Group justify="center">
-                <Text>{t("GameSettingsModal.SixLetters")}</Text>
-              </Group>
-            ),
+            label: <Text>{t("GameSettingsModal.SixLetters")}</Text>,
             value: String(gameConstants.WORD_LENGTH_6),
           },
           {
-            label: (
-              <Group justify="center">
-                <Text>{t("GameSettingsModal.SevenLetters")}</Text>
-              </Group>
-            ),
+            label: <Text>{t("GameSettingsModal.SevenLetters")}</Text>,
             value: String(gameConstants.WORD_LENGTH_7),
           },
         ]}
-        fullWidth
-        styles={{
-          root: {
-            backgroundColor:
-              colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-          },
-          label: {
-            color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-          },
-        }}
-        color={colorPalette[colorPaletteConstants.TERTIARY_COLOR_2]}
-        size={"xl"}
+        orientation="vertical"
       />
+
       <Group justify="flex-end">
         <StyledButton
           ariaLabel={t("Actions.BackToGame")}
