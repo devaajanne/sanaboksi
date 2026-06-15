@@ -99,9 +99,9 @@ export default function NotificationModal({
           />
         )}
         <StyledButton
-          ariaLabel={t("Actions.BackToGame")}
+          ariaLabel={t("Actions.Close")}
           onClick={onClose}
-          buttonText={t("Actions.BackToGame")}
+          buttonText={t("Actions.Close")}
           renderLocation="modal"
         />
       </Group>
