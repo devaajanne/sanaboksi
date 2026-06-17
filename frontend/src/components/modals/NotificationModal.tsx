@@ -87,7 +87,8 @@ export default function NotificationModal({
       <StyledText text={t(notificationModalMessage)} />
 
       <Group justify="flex-end">
-        {source === NotificationModalSource.UnfinishedGrid && (
+        {(source === NotificationModalSource.UnfinishedGrid ||
+          source === NotificationModalSource.CorrectWords) && (
           <StyledButton
             ariaLabel={t("Actions.LoadNewGame")}
             onClick={() => {
