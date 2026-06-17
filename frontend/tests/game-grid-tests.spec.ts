@@ -266,3 +266,54 @@ test("Player can play another game after validating a correct game grid", async 
 
   await expect(letters).toContain("");
 });
+
+test("Player can diretly load another game after validating a correct game grid", async ({
+  page,
+}) => {
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 3" }).fill("H");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 4" }).fill("N");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 5" }).fill("Ä");
+
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 1" }).fill("S");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 3" }).fill("O");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 4" }).fill("L");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 5" }).fill("A");
+
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 1" }).fill("M");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 2" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 4" }).fill("T");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 5" }).fill("O");
+
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 1" }).fill("K");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 2" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 3" }).fill("H");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 5" }).fill("I");
+
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 1" }).fill("K");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 2" }).fill("E");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 3" }).fill("R");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 4" }).fill("M");
+
+  await page.getByRole("button", { name: "Tarkista sanat" }).click();
+
+  await expect(
+    page.getByRole("heading", { name: "Kaikki ruudukon sanat ovat oikein!" }),
+  ).toBeVisible();
+
+  await page
+    .getByRole("button", { name: "Lataa uusi peli", exact: true })
+    .click();
+
+  await expect(
+    page.getByRole("button", { name: "Tarkista sanat" }),
+  ).toBeVisible();
+
+  const letters = await page
+    .getByRole("textbox", { name: "Sana 1" })
+    .evaluateAll((inputs) =>
+      inputs.map((input) => (input as HTMLInputElement).value),
+    );
+
+  await expect(letters).toContain("");
+});
