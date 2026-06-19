@@ -9,11 +9,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import backend.domain.Language;
+import backend.domain.dto.FixedLetterResponse;
+import backend.domain.dto.GameGridRequest;
+import backend.domain.dto.ValidationResultResponse;
 import backend.domain.entities.FinnishWord;
 import backend.domain.entities.Word;
-import backend.dto.FixedLetterResponse;
-import backend.dto.GameGridRequest;
-import backend.dto.ValidationResultResponse;
 import backend.service.GameService;
 import backend.service.RepositoryService;
 import backend.service.UtilityService;

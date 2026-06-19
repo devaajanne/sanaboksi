@@ -1,4 +1,4 @@
-package backend.dto;
+package backend.domain.dto;
 
 import backend.domain.Constants;
 import backend.domain.FixedLetter;

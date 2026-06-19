@@ -6,10 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import backend.domain.Language;
+import backend.domain.dto.FixedLetterResponse;
+import backend.domain.dto.GameGridRequest;
+import backend.domain.dto.ValidationResultResponse;
 import backend.domain.entities.FinnishWord;
-import backend.dto.FixedLetterResponse;
-import backend.dto.GameGridRequest;
-import backend.dto.ValidationResultResponse;
 import backend.repository.FinnishWordRepository;
 import backend.service.GameService;
 import jakarta.transaction.Transactional;

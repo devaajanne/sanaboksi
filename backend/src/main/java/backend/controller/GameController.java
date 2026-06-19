@@ -1,9 +1,9 @@
 package backend.controller;
 
 import backend.domain.Language;
-import backend.dto.FixedLetterResponse;
-import backend.dto.GameGridRequest;
-import backend.dto.ValidationResultResponse;
+import backend.domain.dto.FixedLetterResponse;
+import backend.domain.dto.GameGridRequest;
+import backend.domain.dto.ValidationResultResponse;
 import backend.service.GameService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
