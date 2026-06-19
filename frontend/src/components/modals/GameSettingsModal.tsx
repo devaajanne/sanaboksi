@@ -1,6 +1,6 @@
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { useTranslation } from "react-i18next";
-import { colorPaletteConstants, gameConstants } from "../../utility/Constants";
+import { colorPaletteConstants, gameConstants } from "../../utils/Constants";
 import { Group, Text } from "@mantine/core";
 import { useGameContext } from "../../context/GameContext";
 import StyledButton from "../styledComponents/StyledButton";

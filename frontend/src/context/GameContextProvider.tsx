@@ -1,5 +1,5 @@
 import { useMemo, useState, type ReactNode } from "react";
-import { gameConstants } from "../utility/Constants";
+import { gameConstants } from "../utils/Constants";
 import { GameContext } from "./GameContext";
 import { NotificationModalSource } from "../types/Types";
 

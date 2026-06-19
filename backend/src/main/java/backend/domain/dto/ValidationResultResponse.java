@@ -1,6 +1,6 @@
-package backend.dto;
+package backend.domain.dto;
 
-import backend.domain.Constants;
+import backend.util.Constants;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

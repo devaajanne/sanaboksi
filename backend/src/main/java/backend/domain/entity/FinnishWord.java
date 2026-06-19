@@ -1,6 +1,6 @@
-package backend.domain.entities;
+package backend.domain.entity;
 
-import backend.domain.Constants;
+import backend.util.Constants;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

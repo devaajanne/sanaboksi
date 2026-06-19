@@ -5,13 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import backend.domain.Language;
-import backend.domain.entities.FinnishWord;
-import backend.dto.FixedLetterResponse;
-import backend.dto.GameGridRequest;
-import backend.dto.ValidationResultResponse;
+import backend.domain.dto.FixedLetterResponse;
+import backend.domain.dto.GameGridRequest;
+import backend.domain.dto.ValidationResultResponse;
+import backend.domain.entity.FinnishWord;
 import backend.repository.FinnishWordRepository;
 import backend.service.GameService;
+import backend.util.LanguageEnum;
 import jakarta.transaction.Transactional;
 import java.util.Arrays;
 import org.junit.jupiter.api.Tag;
@@ -30,7 +30,7 @@ public class GameServiceIntegrationTests {
 
   @Test
   public void getFixedLetterResponseShouldReturnValidResponse() {
-    FixedLetterResponse response = gameService.getFixedLetterResponse(Language.FI, 5, 5);
+    FixedLetterResponse response = gameService.getFixedLetterResponse(LanguageEnum.FI, 5, 5);
     assertEquals(5, response.getFixedLetters().size());
     assertEquals(5, response.getWordLength());
   }
@@ -46,7 +46,7 @@ public class GameServiceIntegrationTests {
             new FinnishWord(null, "suola"),
             new FinnishWord(null, "maito")));
 
-    FixedLetterResponse response = gameService.getFixedLetterResponse(Language.FI, 5, 10);
+    FixedLetterResponse response = gameService.getFixedLetterResponse(LanguageEnum.FI, 5, 10);
 
     assertEquals(3, response.getFixedLetters().size());
   }
@@ -55,28 +55,28 @@ public class GameServiceIntegrationTests {
   public void getFixedLetterResponseShouldThrowExceptionWhenWordCountIsNegative() {
     assertThrows(
         IllegalArgumentException.class,
-        () -> gameService.getFixedLetterResponse(Language.FI, 5, -5));
+        () -> gameService.getFixedLetterResponse(LanguageEnum.FI, 5, -5));
   }
 
   @Test
   public void getFixedLetterResponseShouldThrowExceptionWhenWordCountIsZero() {
     assertThrows(
         IllegalArgumentException.class,
-        () -> gameService.getFixedLetterResponse(Language.FI, 5, 0));
+        () -> gameService.getFixedLetterResponse(LanguageEnum.FI, 5, 0));
   }
 
   @Test
   public void getFixedLetterResponseShouldThrowExceptionWhenWordLengthIsTooShort() {
     assertThrows(
         IllegalArgumentException.class,
-        () -> gameService.getFixedLetterResponse(Language.FI, 3, 5));
+        () -> gameService.getFixedLetterResponse(LanguageEnum.FI, 3, 5));
   }
 
   @Test
   public void getFixedLetterResponseShouldThrowExceptionWhenWordLengthIsTooLong() {
     assertThrows(
         IllegalArgumentException.class,
-        () -> gameService.getFixedLetterResponse(Language.FI, 8, 5));
+        () -> gameService.getFixedLetterResponse(LanguageEnum.FI, 8, 5));
   }
 
   @Test
@@ -87,7 +87,8 @@ public class GameServiceIntegrationTests {
     assertEquals(0, finnishWordRepository.count());
 
     assertThrows(
-        IllegalStateException.class, () -> gameService.getFixedLetterResponse(Language.FI, 5, 5));
+        IllegalStateException.class,
+        () -> gameService.getFixedLetterResponse(LanguageEnum.FI, 5, 5));
   }
 
   @Test
@@ -102,7 +103,7 @@ public class GameServiceIntegrationTests {
             Arrays.asList("K", "E", "R", "M", "A"))); // correct
 
     ValidationResultResponse validationResultResponse =
-        gameService.validateGameGrid(gameGridRequest, Language.FI);
+        gameService.validateGameGrid(gameGridRequest, LanguageEnum.FI);
 
     for (int i = 0; i < gameGridRequest.getGameGrid().size(); i++) {
       assertTrue(validationResultResponse.getValidationResults().get(i).get("correctWord"));
@@ -121,7 +122,7 @@ public class GameServiceIntegrationTests {
             Arrays.asList("V", "E", "H", "N", "Ä"))); // duplicate
 
     ValidationResultResponse validationResultResponse =
-        gameService.validateGameGrid(gameGridRequest, Language.FI);
+        gameService.validateGameGrid(gameGridRequest, LanguageEnum.FI);
 
     for (int i = 0; i < gameGridRequest.getGameGrid().size(); i++) {
       assertTrue(validationResultResponse.getValidationResults().get(i).get("duplicateWord"));
@@ -140,7 +141,7 @@ public class GameServiceIntegrationTests {
             Arrays.asList("A", "E", "R", "M", "A"))); // incorrect
 
     ValidationResultResponse validationResultResponse =
-        gameService.validateGameGrid(gameGridRequest, Language.FI);
+        gameService.validateGameGrid(gameGridRequest, LanguageEnum.FI);
 
     for (int i = 0; i < gameGridRequest.getGameGrid().size(); i++) {
       assertFalse(validationResultResponse.getValidationResults().get(i).get("correctWord"));
@@ -159,7 +160,7 @@ public class GameServiceIntegrationTests {
             Arrays.asList("K", "E", "R", "M", "A"))); // correct
 
     ValidationResultResponse validationResultResponse =
-        gameService.validateGameGrid(gameGridRequest, Language.FI);
+        gameService.validateGameGrid(gameGridRequest, LanguageEnum.FI);
 
     assertTrue(validationResultResponse.getValidationResults().get(0).get("correctWord"));
     assertFalse(validationResultResponse.getValidationResults().get(1).get("correctWord"));
@@ -181,7 +182,7 @@ public class GameServiceIntegrationTests {
             Arrays.asList("K", "E", "R", "M", "A"))); // correct
 
     ValidationResultResponse validationResultResponse =
-        gameService.validateGameGrid(gameGridRequest, Language.FI);
+        gameService.validateGameGrid(gameGridRequest, LanguageEnum.FI);
 
     assertTrue(validationResultResponse.getValidationResults().get(0).get("correctWord"));
     assertTrue(validationResultResponse.getValidationResults().get(0).get("duplicateWord"));
@@ -212,6 +213,6 @@ public class GameServiceIntegrationTests {
 
     assertThrows(
         IllegalArgumentException.class,
-        () -> gameService.validateGameGrid(gameGridRequest, Language.FI));
+        () -> gameService.validateGameGrid(gameGridRequest, LanguageEnum.FI));
   }
 }

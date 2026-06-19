@@ -1,6 +1,6 @@
 import { Group, Anchor } from "@mantine/core";
 import { useColorPalette } from "../../hooks/useColorPalette";
-import { colorPaletteConstants } from "../../utility/Constants";
+import { colorPaletteConstants } from "../../utils/Constants";
 
 interface StyledIconAnchorRowProps {
   icon?: React.ComponentType<{

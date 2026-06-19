@@ -12,19 +12,16 @@ import {
   IconHelpCircle,
   IconInfoCircle,
 } from "@tabler/icons-react";
-import { useColorPalette } from "../../hooks/useColorPalette";
-import { GameInstructionsModal } from "../modals/GameInstructionsModal";
-import { GameSettingsModal } from "../modals/GameSettingsModal";
-import { GameInfoModal } from "../modals/GameInfoModal";
+import { useColorPalette } from "../hooks/useColorPalette";
+import { GameInstructionsModal } from "../components/modals/GameInstructionsModal";
+import { GameSettingsModal } from "../components/modals/GameSettingsModal";
+import { GameInfoModal } from "../components/modals/GameInfoModal";
 import { useDisclosure } from "@mantine/hooks";
 import { useTranslation } from "react-i18next";
-import {
-  colorPaletteConstants,
-  stylingConstants,
-} from "../../utility/Constants";
-import { useViewportContext } from "../../context/ViewportContext";
-import StyledActionIcon from "../styledComponents/StyledActionIcon";
-import StyledTooltip from "../styledComponents/StyledTooltip";
+import { colorPaletteConstants, stylingConstants } from "../utils/Constants";
+import { useViewportContext } from "../context/ViewportContext";
+import StyledActionIcon from "../components/styledComponents/StyledActionIcon";
+import StyledTooltip from "../components/styledComponents/StyledTooltip";
 
 export default function Header() {
   const colorPalette = useColorPalette();

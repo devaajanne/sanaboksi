@@ -1,5 +1,5 @@
 import { useMantineTheme, useMantineColorScheme } from "@mantine/core";
-import { stylingConstants } from "../utility/Constants";
+import { stylingConstants } from "../utils/Constants";
 
 /**
  * Custom hook to get the current color palette (light or dark) from Mantine theme.

@@ -6,11 +6,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import backend.domain.Language;
-import backend.domain.entities.FinnishWord;
-import backend.domain.entities.Word;
+import backend.domain.entity.FinnishWord;
+import backend.domain.entity.Word;
 import backend.repository.FinnishWordRepository;
 import backend.service.RepositoryService;
+import backend.util.LanguageEnum;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -44,7 +44,7 @@ public class RepositoryServiceUnitTests {
     when(mockFinnishWordRepository.findRandomWordsByWordLengthAndCount(5, 2)).thenReturn(mockWords);
 
     List<? extends Word> result =
-        repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(Language.FI, 5, 2);
+        repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(LanguageEnum.FI, 5, 2);
 
     assertEquals(mockWords, result);
     verify(mockFinnishWordRepository).findRandomWordsByWordLengthAndCount(5, 2);
@@ -58,7 +58,7 @@ public class RepositoryServiceUnitTests {
         RuntimeException.class,
         () ->
             repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(
-                Language.UNKNOWN, 5, 5));
+                LanguageEnum.UNKNOWN, 5, 5));
   }
 
   @Test
@@ -69,7 +69,8 @@ public class RepositoryServiceUnitTests {
     assertThrows(
         IllegalStateException.class,
         () ->
-            repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(Language.FI, 5, 5));
+            repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(
+                LanguageEnum.FI, 5, 5));
     verify(mockFinnishWordRepository).findRandomWordsByWordLengthAndCount(5, 5);
   }
 
@@ -82,7 +83,8 @@ public class RepositoryServiceUnitTests {
     assertThrows(
         IllegalStateException.class,
         () ->
-            repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(Language.FI, 5, 5));
+            repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(
+                LanguageEnum.FI, 5, 5));
     verify(mockFinnishWordRepository).findRandomWordsByWordLengthAndCount(5, 5);
   }
 
@@ -91,7 +93,8 @@ public class RepositoryServiceUnitTests {
     when(mockFinnishWordRepository.countByWordLength(5)).thenReturn(42);
 
     int result =
-        repositoryService.getRepositoryCountForWordsWithCorrectLanguageAndLength(Language.FI, 5);
+        repositoryService.getRepositoryCountForWordsWithCorrectLanguageAndLength(
+            LanguageEnum.FI, 5);
 
     assertEquals(42, result);
     verify(mockFinnishWordRepository).countByWordLength(5);
@@ -104,7 +107,7 @@ public class RepositoryServiceUnitTests {
         RuntimeException.class,
         () ->
             repositoryService.getRepositoryCountForWordsWithCorrectLanguageAndLength(
-                Language.UNKNOWN, 5));
+                LanguageEnum.UNKNOWN, 5));
   }
 
   @Test
@@ -116,7 +119,7 @@ public class RepositoryServiceUnitTests {
         IllegalStateException.class,
         () ->
             repositoryService.getRepositoryCountForWordsWithCorrectLanguageAndLength(
-                Language.FI, 5));
+                LanguageEnum.FI, 5));
     verify(mockFinnishWordRepository).countByWordLength(5);
   }
 
@@ -133,7 +136,7 @@ public class RepositoryServiceUnitTests {
       when(mockFinnishWordRepository.validateWord(word)).thenReturn(1);
     }
 
-    Map<Integer, Boolean> result = repositoryService.validateWords(testWords, Language.FI);
+    Map<Integer, Boolean> result = repositoryService.validateWords(testWords, LanguageEnum.FI);
 
     assertEquals(mockResultsMap, result);
     for (String word : testWords) {
@@ -146,6 +149,7 @@ public class RepositoryServiceUnitTests {
     List<String> testWords = Arrays.asList("vehnä", "suola", "maito", "kahvi", "kerma");
 
     assertThrows(
-        RuntimeException.class, () -> repositoryService.validateWords(testWords, Language.UNKNOWN));
+        RuntimeException.class,
+        () -> repositoryService.validateWords(testWords, LanguageEnum.UNKNOWN));
   }
 }

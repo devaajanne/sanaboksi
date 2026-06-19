@@ -5,14 +5,14 @@ import {
   type ValidationResults,
   NotificationModalSource,
 } from "../../types/Types";
-import { getFixedLetters, validateGameGrid } from "../../api/Api";
+import { getFixedLetters, validateGameGrid } from "../../services/ApiService";
 import SanaboksiGameRow from "./SanaboksiGameRow";
 import {
   checkGameGridValidity,
   gameGridContainsOnlyUniqueWords,
   gameGridContainsOnlyCorrectWords,
   gameGridIsFilledIn,
-} from "../../utility/UtilityFunctions";
+} from "../../utils/UtilityFunctions";
 import { Center, Container, Space, Stack } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import NotificationModal from "../modals/NotificationModal";
@@ -21,7 +21,7 @@ import {
   colorPaletteConstants,
   gameConstants,
   languageConstants,
-} from "../../utility/Constants";
+} from "../../utils/Constants";
 import { useTranslation } from "react-i18next";
 import { useGameContext } from "../../context/GameContext";
 import { useViewportContext } from "../../context/ViewportContext";

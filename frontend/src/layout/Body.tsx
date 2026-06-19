@@ -1,5 +1,5 @@
 import { Box, Center } from "@mantine/core";
-import SanaboksiGameGrid from "../game/SanaboksiGameGrid";
+import SanaboksiGameGrid from "../components/game/SanaboksiGameGrid";
 
 export default function Body() {
   return (

@@ -1,7 +1,7 @@
 import { ActionIcon } from "@mantine/core";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { useViewportContext } from "../../context/ViewportContext";
-import { colorPaletteConstants } from "../../utility/Constants";
+import { colorPaletteConstants } from "../../utils/Constants";
 
 interface StyledActionIconProps {
   ariaLabel: string;

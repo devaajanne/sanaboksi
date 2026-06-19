@@ -3,11 +3,11 @@ package backend.integration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import backend.domain.Language;
-import backend.domain.entities.FinnishWord;
-import backend.domain.entities.Word;
+import backend.domain.entity.FinnishWord;
+import backend.domain.entity.Word;
 import backend.repository.FinnishWordRepository;
 import backend.service.RepositoryService;
+import backend.util.LanguageEnum;
 import jakarta.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
@@ -29,14 +29,14 @@ public class RepositoryServiceIntegrationTests {
   @Test
   public void findRandomWordsShouldReturnWordListWithCorrectAmountOfWords() {
     List<? extends Word> wordList =
-        repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(Language.FI, 5, 5);
+        repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(LanguageEnum.FI, 5, 5);
     assertEquals(5, wordList.size());
   }
 
   @Test
   public void findRandomWordsShouldReturnWordListWithWordsOfCorrectLength() {
     List<? extends Word> wordList =
-        repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(Language.FI, 5, 5);
+        repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(LanguageEnum.FI, 5, 5);
 
     for (int i = 0; i < wordList.size(); i++) {
       assertEquals(5, wordList.get(i).getWord().length());
@@ -49,7 +49,7 @@ public class RepositoryServiceIntegrationTests {
         IllegalArgumentException.class,
         () ->
             repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(
-                Language.UNKNOWN, 5, 5));
+                LanguageEnum.UNKNOWN, 5, 5));
   }
 
   @Test
@@ -61,7 +61,8 @@ public class RepositoryServiceIntegrationTests {
     assertThrows(
         IllegalStateException.class,
         () ->
-            repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(Language.FI, 5, 5));
+            repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(
+                LanguageEnum.FI, 5, 5));
   }
 
   @Test
@@ -78,7 +79,8 @@ public class RepositoryServiceIntegrationTests {
             new FinnishWord(null, "kerma")));
 
     int wordCount =
-        repositoryService.getRepositoryCountForWordsWithCorrectLanguageAndLength(Language.FI, 5);
+        repositoryService.getRepositoryCountForWordsWithCorrectLanguageAndLength(
+            LanguageEnum.FI, 5);
 
     assertEquals(5, wordCount);
   }
@@ -90,7 +92,7 @@ public class RepositoryServiceIntegrationTests {
         IllegalArgumentException.class,
         () ->
             repositoryService.getRepositoryCountForWordsWithCorrectLanguageAndLength(
-                Language.UNKNOWN, 5));
+                LanguageEnum.UNKNOWN, 5));
   }
 
   @Test
@@ -104,7 +106,7 @@ public class RepositoryServiceIntegrationTests {
         IllegalStateException.class,
         () ->
             repositoryService.getRepositoryCountForWordsWithCorrectLanguageAndLength(
-                Language.FI, 5));
+                LanguageEnum.FI, 5));
   }
 
   @Test
@@ -112,7 +114,7 @@ public class RepositoryServiceIntegrationTests {
     List<String> gameGridWords = Arrays.asList("vehnä", "suola", "maito", "kahvi", "kerma");
     Map<Integer, Boolean> correctResponse = Map.of(0, true, 1, true, 2, true, 3, true, 4, true);
 
-    assertEquals(correctResponse, repositoryService.validateWords(gameGridWords, Language.FI));
+    assertEquals(correctResponse, repositoryService.validateWords(gameGridWords, LanguageEnum.FI));
   }
 
   @Test
@@ -120,6 +122,6 @@ public class RepositoryServiceIntegrationTests {
     List<String> gameGridWords = Arrays.asList("vehnä", "suola", "maito", "kahvi", "kerma");
     assertThrows(
         IllegalArgumentException.class,
-        () -> repositoryService.validateWords(gameGridWords, Language.UNKNOWN));
+        () -> repositoryService.validateWords(gameGridWords, LanguageEnum.UNKNOWN));
   }
 }

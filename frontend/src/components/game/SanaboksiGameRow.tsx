@@ -5,7 +5,7 @@ import type { FixedLetter } from "../../types/Types";
 import { IconCheck, IconX, IconCopy } from "@tabler/icons-react";
 import { useColorPalette } from "../../hooks/useColorPalette";
 import { useTranslation } from "react-i18next";
-import { colorPaletteConstants } from "../../utility/Constants";
+import { colorPaletteConstants } from "../../utils/Constants";
 import { useViewportContext } from "../../context/ViewportContext";
 import StyledRowValidationIcon from "../styledComponents/StyledRowValidationIcon";
 

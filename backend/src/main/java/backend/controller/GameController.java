@@ -1,10 +1,10 @@
 package backend.controller;
 
-import backend.domain.Language;
-import backend.dto.FixedLetterResponse;
-import backend.dto.GameGridRequest;
-import backend.dto.ValidationResultResponse;
+import backend.domain.dto.FixedLetterResponse;
+import backend.domain.dto.GameGridRequest;
+import backend.domain.dto.ValidationResultResponse;
 import backend.service.GameService;
+import backend.util.LanguageEnum;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +38,9 @@ public class GameController {
    */
   @GetMapping("/fixed-letters/{language}/{wordLength}/{wordCount}")
   public ResponseEntity<FixedLetterResponse> getFixedLetters(
-      @PathVariable Language language, @PathVariable int wordLength, @PathVariable int wordCount) {
+      @PathVariable LanguageEnum language,
+      @PathVariable int wordLength,
+      @PathVariable int wordCount) {
     return ResponseEntity.ok(gameService.getFixedLetterResponse(language, wordLength, wordCount));
   }
 
@@ -51,7 +53,7 @@ public class GameController {
    */
   @PostMapping("/validation/{language}")
   public ResponseEntity<ValidationResultResponse> validateGameGrid(
-      @Valid @RequestBody GameGridRequest gameGridRequest, @PathVariable Language language) {
+      @Valid @RequestBody GameGridRequest gameGridRequest, @PathVariable LanguageEnum language) {
     return ResponseEntity.ok(gameService.validateGameGrid(gameGridRequest, language));
   }
 }

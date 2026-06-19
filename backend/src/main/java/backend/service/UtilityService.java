@@ -1,6 +1,6 @@
 package backend.service;
 
-import backend.dto.GameGridRequest;
+import backend.domain.dto.GameGridRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

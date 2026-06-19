@@ -1,12 +1,12 @@
 package backend.service;
 
-import backend.domain.Constants;
 import backend.domain.FixedLetter;
-import backend.domain.Language;
-import backend.domain.entities.Word;
-import backend.dto.FixedLetterResponse;
-import backend.dto.GameGridRequest;
-import backend.dto.ValidationResultResponse;
+import backend.domain.dto.FixedLetterResponse;
+import backend.domain.dto.GameGridRequest;
+import backend.domain.dto.ValidationResultResponse;
+import backend.domain.entity.Word;
+import backend.util.Constants;
+import backend.util.LanguageEnum;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +41,7 @@ public class GameService {
    * @throws IllegalStateException if no words are available for the specified language and length
    */
   public FixedLetterResponse getFixedLetterResponse(
-      Language language, int wordLength, int wordCount) {
+      LanguageEnum language, int wordLength, int wordCount) {
 
     // Throw error if requested word count is negative
     if (wordCount < 0) {
@@ -108,7 +108,7 @@ public class GameService {
    * @return a {@link ValidationResultResponse} indicating validation results for each word
    */
   public ValidationResultResponse validateGameGrid(
-      GameGridRequest gameGridRequest, Language language) {
+      GameGridRequest gameGridRequest, LanguageEnum language) {
     List<String> gameGridWords = utilityService.getGameGridWords(gameGridRequest);
     ValidationResultResponse validationResultResponse = new ValidationResultResponse();
 
