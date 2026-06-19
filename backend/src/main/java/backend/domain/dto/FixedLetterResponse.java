@@ -1,7 +1,7 @@
 package backend.domain.dto;
 
-import backend.domain.Constants;
 import backend.domain.FixedLetter;
+import backend.util.Constants;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

@@ -1,8 +1,8 @@
 package backend.service;
 
-import backend.domain.Language;
 import backend.domain.entity.Word;
 import backend.repository.FinnishWordRepository;
+import backend.util.LanguageEnum;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,11 +39,11 @@ public class RepositoryService {
    * @throws IllegalStateException if the repository is empty or unseeded for the given parameters
    */
   public List<? extends Word> findRandomWordsWithCorrectLanguageLengthAndCount(
-      Language language, int wordLength, int wordCount) {
+      LanguageEnum language, int wordLength, int wordCount) {
     List<? extends Word> wordList = new ArrayList<>();
 
     switch (language) {
-      case Language.FI:
+      case LanguageEnum.FI:
         if (AZURE.equals(activeSpringProfile)) {
           wordList =
               finnishWordRepository.sqlserverFindRandomWordsByWordLengthAndCount(
@@ -78,11 +78,11 @@ public class RepositoryService {
    * @throws IllegalStateException if the repository is empty or unseeded for the given parameters
    */
   public int getRepositoryCountForWordsWithCorrectLanguageAndLength(
-      Language language, int wordLength) {
+      LanguageEnum language, int wordLength) {
     int wordCount;
 
     switch (language) {
-      case Language.FI:
+      case LanguageEnum.FI:
         if (AZURE.equals(activeSpringProfile)) {
           wordCount = finnishWordRepository.sqlserverCountByWordLength(wordLength);
         } else {
@@ -112,12 +112,12 @@ public class RepositoryService {
    * @return a map of word indices to validation results (true if valid, false otherwise)
    * @throws IllegalArgumentException if the requested language is not in language enums
    */
-  public Map<Integer, Boolean> validateWords(List<String> gameGridWords, Language language) {
+  public Map<Integer, Boolean> validateWords(List<String> gameGridWords, LanguageEnum language) {
     Map<Integer, Boolean> resultsMap = new HashMap<>();
     Boolean result;
 
     switch (language) {
-      case Language.FI:
+      case LanguageEnum.FI:
         for (int i = 0; i < gameGridWords.size(); i++) {
           result = (finnishWordRepository.validateWord(gameGridWords.get(i)) == 1);
           resultsMap.put(i, result);

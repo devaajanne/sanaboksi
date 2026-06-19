@@ -8,7 +8,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import backend.domain.Language;
 import backend.domain.dto.FixedLetterResponse;
 import backend.domain.dto.GameGridRequest;
 import backend.domain.dto.ValidationResultResponse;
@@ -17,6 +16,7 @@ import backend.domain.entity.Word;
 import backend.service.GameService;
 import backend.service.RepositoryService;
 import backend.service.UtilityService;
+import backend.util.LanguageEnum;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,7 +35,7 @@ public class GameServiceUnitTests {
   private UtilityService mockUtilityService;
   private GameService gameService;
 
-  private final Language language = Language.FI;
+  private final LanguageEnum language = LanguageEnum.FI;
   private final int wordLength = 5;
   private final int wordCount = 5;
 
