@@ -1,6 +1,6 @@
 import { Tooltip } from "@mantine/core";
 import { useColorPalette } from "../../hooks/useColorPalette";
-import { colorPaletteConstants } from "../../utility/Constants";
+import { colorPaletteConstants } from "../../utils/Constants";
 
 interface StyledTooltipProps {
   label: string;

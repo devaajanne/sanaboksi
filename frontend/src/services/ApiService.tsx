@@ -4,7 +4,7 @@ import type {
   GameGrid,
   ValidationResults,
 } from "../types/Types";
-import { addWaitTime } from "../utility/UtilityFunctions";
+import { addWaitTime } from "../utils/UtilityFunctions";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 

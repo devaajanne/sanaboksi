@@ -10,7 +10,7 @@ import {
 import SanaboksiGameRow from "../game/SanaboksiGameRow";
 import type { FixedLetter } from "../../types/Types";
 import { useTranslation } from "react-i18next";
-import { colorPaletteConstants } from "../../utility/Constants";
+import { colorPaletteConstants } from "../../utils/Constants";
 import StyledButton from "../styledComponents/StyledButton";
 import StyledDivider from "../styledComponents/StyledDivider";
 import StyledModal from "../styledComponents/StyledModal";

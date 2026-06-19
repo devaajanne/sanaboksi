@@ -1,5 +1,5 @@
 import { useColorPalette } from "../../hooks/useColorPalette";
-import { colorPaletteConstants } from "../../utility/Constants";
+import { colorPaletteConstants } from "../../utils/Constants";
 import { SegmentedControl, type SegmentedControlItem } from "@mantine/core";
 
 interface StyledSegmentedControlProps {

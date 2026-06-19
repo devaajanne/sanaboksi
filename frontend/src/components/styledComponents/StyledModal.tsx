@@ -1,6 +1,6 @@
 import { Modal } from "@mantine/core";
 import { useColorPalette } from "../../hooks/useColorPalette";
-import { colorPaletteConstants } from "../../utility/Constants";
+import { colorPaletteConstants } from "../../utils/Constants";
 import { IconX } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 
