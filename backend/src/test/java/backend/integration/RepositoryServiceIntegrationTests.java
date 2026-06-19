@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import backend.domain.Language;
-import backend.domain.entities.FinnishWord;
-import backend.domain.entities.Word;
+import backend.domain.entity.FinnishWord;
+import backend.domain.entity.Word;
 import backend.repository.FinnishWordRepository;
 import backend.service.RepositoryService;
 import jakarta.transaction.Transactional;

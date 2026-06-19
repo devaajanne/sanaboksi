@@ -6,7 +6,7 @@ import backend.domain.Language;
 import backend.domain.dto.FixedLetterResponse;
 import backend.domain.dto.GameGridRequest;
 import backend.domain.dto.ValidationResultResponse;
-import backend.domain.entities.Word;
+import backend.domain.entity.Word;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

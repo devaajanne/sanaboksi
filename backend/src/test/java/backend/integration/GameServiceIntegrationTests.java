@@ -9,7 +9,7 @@ import backend.domain.Language;
 import backend.domain.dto.FixedLetterResponse;
 import backend.domain.dto.GameGridRequest;
 import backend.domain.dto.ValidationResultResponse;
-import backend.domain.entities.FinnishWord;
+import backend.domain.entity.FinnishWord;
 import backend.repository.FinnishWordRepository;
 import backend.service.GameService;
 import jakarta.transaction.Transactional;

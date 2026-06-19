@@ -1,4 +1,4 @@
-package backend.domain.entities;
+package backend.domain.entity;
 
 import backend.domain.Constants;
 import jakarta.persistence.Column;

@@ -1,6 +1,6 @@
 package backend.repository;
 
-import backend.domain.entities.FinnishWord;
+import backend.domain.entity.FinnishWord;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

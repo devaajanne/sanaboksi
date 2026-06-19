@@ -1,7 +1,7 @@
 package backend.service;
 
 import backend.domain.Language;
-import backend.domain.entities.Word;
+import backend.domain.entity.Word;
 import backend.repository.FinnishWordRepository;
 import java.util.ArrayList;
 import java.util.HashMap;

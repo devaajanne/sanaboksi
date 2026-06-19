@@ -1,4 +1,4 @@
-package backend.domain.entities;
+package backend.domain.entity;
 
 /** Interface representing a word entity. Provides a method to retrieve the word as a string. */
 public interface Word {

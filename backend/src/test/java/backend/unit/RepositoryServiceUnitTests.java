@@ -7,8 +7,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import backend.domain.Language;
-import backend.domain.entities.FinnishWord;
-import backend.domain.entities.Word;
+import backend.domain.entity.FinnishWord;
+import backend.domain.entity.Word;
 import backend.repository.FinnishWordRepository;
 import backend.service.RepositoryService;
 import java.util.ArrayList;
