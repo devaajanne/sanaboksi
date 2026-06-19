@@ -1,9 +1,9 @@
 import { Container } from "@mantine/core";
-import Body from "./layout/Body";
-import Footer from "./layout/Footer";
-import Header from "./layout/Header";
 import { useColorPalette } from "./hooks/useColorPalette";
 import { colorPaletteConstants } from "./utils/Constants";
+import Header from "./layout/Header";
+import Body from "./layout/Body";
+import Footer from "./layout/Footer";
 
 function App() {
   const colorPalette = useColorPalette();
