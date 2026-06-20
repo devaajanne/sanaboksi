@@ -1,6 +1,11 @@
-import { Button, Text, type LoaderProps } from "@mantine/core";
-import { useColorPalette } from "../../hooks/useColorPalette";
-import { colorPaletteConstants } from "../../utils/Constants";
+import {
+  Button,
+  Text,
+  useMantineColorScheme,
+  useMantineTheme,
+  type LoaderProps,
+} from "@mantine/core";
+import { colors } from "../../utils/Constants";
 import { useViewportContext } from "../../context/ViewportContext";
 
 interface StyledButtonProps {
@@ -21,7 +26,10 @@ export default function StyledButton({
   loading,
   loaderProps,
 }: StyledButtonProps) {
-  const colorPalette = useColorPalette();
+  const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
+  const colorPalette =
+    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
   const { isSmViewport } = useViewportContext();
   const borderWidth = 2;
   const margintop = "1rem";
@@ -38,17 +46,17 @@ export default function StyledButton({
     <Button
       aria-label={ariaLabel}
       onClick={onClick}
-      color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
+      color={colorPalette[colors.PRIMARY_COLOR_0]}
       size={size}
       loading={loading}
       loaderProps={loaderProps}
       styles={{
         label: {
-          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+          color: colorPalette[colors.SECONDARY_COLOR_1],
         },
         root: {
-          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-          borderColor: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+          backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
+          borderColor: colorPalette[colors.SECONDARY_COLOR_1],
           borderWidth: borderWidth,
           marginTop: margintop,
         },
@@ -58,7 +66,7 @@ export default function StyledButton({
         span
         styles={{
           root: {
-            color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+            color: colorPalette[colors.SECONDARY_COLOR_1],
             fontSize: buttonTextFontSize,
           },
         }}

@@ -1,6 +1,10 @@
-import { useColorPalette } from "../../hooks/useColorPalette";
-import { colorPaletteConstants } from "../../utils/Constants";
-import { SegmentedControl, type SegmentedControlItem } from "@mantine/core";
+import { colors } from "../../utils/Constants";
+import {
+  SegmentedControl,
+  useMantineColorScheme,
+  useMantineTheme,
+  type SegmentedControlItem,
+} from "@mantine/core";
 
 interface StyledSegmentedControlProps {
   ariaLabel: string;
@@ -17,7 +21,10 @@ export default function StyledSegmentedControl({
   data,
   orientation,
 }: StyledSegmentedControlProps) {
-  const colorPalette = useColorPalette();
+  const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
+  const colorPalette =
+    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
   return (
     <SegmentedControl
       aria-label={ariaLabel}
@@ -29,13 +36,13 @@ export default function StyledSegmentedControl({
       fullWidth
       styles={{
         root: {
-          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+          backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
         },
         label: {
-          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+          color: colorPalette[colors.SECONDARY_COLOR_1],
         },
       }}
-      color={colorPalette[colorPaletteConstants.TERTIARY_COLOR_2]}
+      color={colorPalette[colors.TERTIARY_COLOR_2]}
       size={"xl"}
     ></SegmentedControl>
   );

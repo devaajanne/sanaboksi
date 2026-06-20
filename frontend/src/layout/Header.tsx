@@ -4,6 +4,7 @@ import {
   useMantineColorScheme,
   Stack,
   Group,
+  useMantineTheme,
 } from "@mantine/core";
 import {
   IconSun,
@@ -12,21 +13,22 @@ import {
   IconHelpCircle,
   IconInfoCircle,
 } from "@tabler/icons-react";
-import { useColorPalette } from "../hooks/useColorPalette";
 import { GameInstructionsModal } from "../components/modals/GameInstructionsModal";
 import { GameSettingsModal } from "../components/modals/GameSettingsModal";
 import { GameInfoModal } from "../components/modals/GameInfoModal";
 import { useDisclosure } from "@mantine/hooks";
 import { useTranslation } from "react-i18next";
-import { colorPaletteConstants, stylingConstants } from "../utils/Constants";
+import { colors } from "../utils/Constants";
 import { useViewportContext } from "../context/ViewportContext";
 import StyledActionIcon from "../components/styledComponents/StyledActionIcon";
 import StyledTooltip from "../components/styledComponents/StyledTooltip";
 
 export default function Header() {
-  const colorPalette = useColorPalette();
-  const { t } = useTranslation();
+  const theme = useMantineTheme();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const colorPalette =
+    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const { t } = useTranslation();
   const { isSmViewport } = useViewportContext();
   const [
     openedGameInstructions,
@@ -60,7 +62,7 @@ export default function Header() {
         <Text
           styles={{
             root: {
-              color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+              color: colorPalette[colors.SECONDARY_COLOR_1],
               fontSize: headerTitleFontSize,
             },
           }}
@@ -90,23 +92,19 @@ export default function Header() {
           </StyledTooltip>
           <StyledTooltip
             label={
-              colorScheme === stylingConstants.COLOR_SCHEME_LIGHT
+              colorScheme === "light"
                 ? t("Tooltip.ToggleDarkModeTooltip")
                 : t("Tooltip.ToggleLightModeTooltip")
             }
           >
             <StyledActionIcon
               ariaLabel={
-                colorScheme === stylingConstants.COLOR_SCHEME_LIGHT
+                colorScheme === "light"
                   ? t("AriaLabel.ToggleDarkMode")
                   : t("AriaLabel.ToggleLightMode")
               }
               onClick={toggleColorScheme}
-              icon={
-                colorScheme === stylingConstants.COLOR_SCHEME_LIGHT
-                  ? IconMoon
-                  : IconSun
-              }
+              icon={colorScheme === "light" ? IconMoon : IconSun}
             />
           </StyledTooltip>
           <StyledTooltip label={t("Tooltip.GameInfoModalTooltip")}>

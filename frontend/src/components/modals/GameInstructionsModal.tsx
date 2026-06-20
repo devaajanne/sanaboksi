@@ -1,5 +1,9 @@
-import { Group, Stack } from "@mantine/core";
-import { useColorPalette } from "../../hooks/useColorPalette";
+import {
+  Group,
+  Stack,
+  useMantineColorScheme,
+  useMantineTheme,
+} from "@mantine/core";
 import {
   IconCheck,
   IconX,
@@ -10,7 +14,7 @@ import {
 import SanaboksiGameRow from "../game/SanaboksiGameRow";
 import type { FixedLetter } from "../../types/Types";
 import { useTranslation } from "react-i18next";
-import { colorPaletteConstants } from "../../utils/Constants";
+import { colors } from "../../utils/Constants";
 import StyledButton from "../styledComponents/StyledButton";
 import StyledDivider from "../styledComponents/StyledDivider";
 import StyledModal from "../styledComponents/StyledModal";
@@ -26,7 +30,10 @@ export function GameInstructionsModal({
   opened,
   onClose,
 }: GameInstructionsModalProps) {
-  const colorPalette = useColorPalette();
+  const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
+  const colorPalette =
+    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
   const { t } = useTranslation();
   const fixedLetter: FixedLetter = { fixedIndex: 2, fixedLetter: "H" };
 
@@ -110,19 +117,19 @@ export function GameInstructionsModal({
         <StyledIconTextRow
           ariaLabel={t("AriaLabel.CorrectWordIcon")}
           icon={IconCheck}
-          color={colorPalette[colorPaletteConstants.CORRECT_GREEN_3]}
+          color={colorPalette[colors.CORRECT_GREEN_3]}
           text={t("GameInstructionModal.TheWordIsCorrect")}
         />
         <StyledIconTextRow
           ariaLabel={t("AriaLabel.IncorrectWordIcon")}
           icon={IconX}
-          color={colorPalette[colorPaletteConstants.INCORRECT_RED_4]}
+          color={colorPalette[colors.INCORRECT_RED_4]}
           text={t("GameInstructionModal.TheWordIsIncorrect")}
         />
         <StyledIconTextRow
           ariaLabel={t("AriaLabel.DuplicateWordIcon")}
           icon={IconCopy}
-          color={colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]}
+          color={colorPalette[colors.DUPLICATE_BLUE_5]}
           text={t("GameInstructionModal.TheWordIsADuplicate")}
         />
       </Stack>

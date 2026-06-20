@@ -1,7 +1,11 @@
-import { useColorPalette } from "../../hooks/useColorPalette";
 import { useTranslation } from "react-i18next";
-import { colorPaletteConstants, gameConstants } from "../../utils/Constants";
-import { Group, Text } from "@mantine/core";
+import { colors, gameConstants } from "../../utils/Constants";
+import {
+  Group,
+  Text,
+  useMantineColorScheme,
+  useMantineTheme,
+} from "@mantine/core";
 import { useGameContext } from "../../context/GameContext";
 import StyledButton from "../styledComponents/StyledButton";
 import StyledModal from "../styledComponents/StyledModal";
@@ -16,7 +20,10 @@ interface GameSettingsModalProps {
 }
 
 export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
-  const colorPalette = useColorPalette();
+  const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
+  const colorPalette =
+    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
   const { t } = useTranslation();
   const { wordLength, setWordLength } = useGameContext();
 
@@ -44,7 +51,7 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
       <StyledIconTextRow
         ariaLabel={t("AriaLabe.AlertIcon")}
         icon={IconAlertCircle}
-        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+        color={colorPalette[colors.SECONDARY_COLOR_1]}
         text={t(
           "GameSettingsModal.IfYouChangeDifficultyYouWillLoseYourProgress",
         )}

@@ -1,6 +1,5 @@
-import { Tooltip } from "@mantine/core";
-import { useColorPalette } from "../../hooks/useColorPalette";
-import { colorPaletteConstants } from "../../utils/Constants";
+import { Tooltip, useMantineColorScheme, useMantineTheme } from "@mantine/core";
+import { colors } from "../../utils/Constants";
 
 interface StyledTooltipProps {
   label: string;
@@ -13,18 +12,21 @@ export default function StyledTooltip({
   disabled,
   children,
 }: StyledTooltipProps) {
-  const colorPalette = useColorPalette();
+  const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
+  const colorPalette =
+    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
   const position = "bottom";
 
   return (
     <Tooltip
       label={label}
       disabled={disabled}
-      color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+      color={colorPalette[colors.SECONDARY_COLOR_1]}
       position={position}
       styles={{
         tooltip: {
-          color: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+          color: colorPalette[colors.PRIMARY_COLOR_0],
         },
       }}
     >

@@ -1,11 +1,15 @@
 import { useRef } from "react";
 import type { KeyboardEvent } from "react";
-import { TextInput, Group } from "@mantine/core";
+import {
+  TextInput,
+  Group,
+  useMantineTheme,
+  useMantineColorScheme,
+} from "@mantine/core";
 import type { FixedLetter } from "../../types/Types";
 import { IconCheck, IconX, IconCopy } from "@tabler/icons-react";
-import { useColorPalette } from "../../hooks/useColorPalette";
 import { useTranslation } from "react-i18next";
-import { colorPaletteConstants } from "../../utils/Constants";
+import { colors } from "../../utils/Constants";
 import { useViewportContext } from "../../context/ViewportContext";
 import StyledRowValidationIcon from "../styledComponents/StyledRowValidationIcon";
 
@@ -49,7 +53,10 @@ export default function SanaboksiGameRow({
   isDuplicate,
   isReadOnly,
 }: SanaboksiGameRowProps) {
-  const colorPalette = useColorPalette();
+  const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
+  const colorPalette =
+    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
   const { t } = useTranslation();
   const { isSmViewport } = useViewportContext();
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -137,12 +144,12 @@ export default function SanaboksiGameRow({
           const cellValue = isPlaceholder ? "" : (rowData[columnIndex] ?? "");
           const correctBorderColor =
             isDuplicate === true
-              ? colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]
+              ? colorPalette[colors.DUPLICATE_BLUE_5]
               : isCorrect === true
-                ? colorPalette[colorPaletteConstants.CORRECT_GREEN_3]
+                ? colorPalette[colors.CORRECT_GREEN_3]
                 : isCorrect === false
-                  ? colorPalette[colorPaletteConstants.INCORRECT_RED_4]
-                  : colorPalette[colorPaletteConstants.SECONDARY_COLOR_1];
+                  ? colorPalette[colors.INCORRECT_RED_4]
+                  : colorPalette[colors.SECONDARY_COLOR_1];
 
           return (
             <TextInput
@@ -167,11 +174,11 @@ export default function SanaboksiGameRow({
                   textAlign: "center",
                   fontWeight: isFixedLetter ? "bold" : "normal",
                   backgroundColor: isFixedLetter
-                    ? colorPalette[colorPaletteConstants.TERTIARY_COLOR_2]
-                    : colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+                    ? colorPalette[colors.TERTIARY_COLOR_2]
+                    : colorPalette[colors.PRIMARY_COLOR_0],
                   borderColor: correctBorderColor,
                   borderWidth: borderWidth,
-                  color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+                  color: colorPalette[colors.SECONDARY_COLOR_1],
                 },
               }}
               onChange={
@@ -197,20 +204,20 @@ export default function SanaboksiGameRow({
         <StyledRowValidationIcon
           ariaLabel={t("AriaLabel.DuplicateWordIcon")}
           icon={IconCopy}
-          color={colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]}
+          color={colorPalette[colors.DUPLICATE_BLUE_5]}
         />
       ) : isCorrect !== undefined ? (
         isCorrect ? (
           <StyledRowValidationIcon
             ariaLabel={t("AriaLabel.CorrectWordIcon")}
             icon={IconCheck}
-            color={colorPalette[colorPaletteConstants.CORRECT_GREEN_3]}
+            color={colorPalette[colors.CORRECT_GREEN_3]}
           />
         ) : (
           <StyledRowValidationIcon
             ariaLabel={t("AriaLabel.IncorrectWordIcon")}
             icon={IconX}
-            color={colorPalette[colorPaletteConstants.INCORRECT_RED_4]}
+            color={colorPalette[colors.INCORRECT_RED_4]}
           />
         )
       ) : null}

@@ -13,12 +13,18 @@ import {
   gameGridContainsOnlyCorrectWords,
   gameGridIsFilledIn,
 } from "../../utils/UtilityFunctions";
-import { Center, Container, Space, Stack } from "@mantine/core";
+import {
+  Center,
+  Container,
+  Space,
+  Stack,
+  useMantineColorScheme,
+  useMantineTheme,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import NotificationModal from "../modals/NotificationModal";
-import { useColorPalette } from "../../hooks/useColorPalette";
 import {
-  colorPaletteConstants,
+  colors,
   gameConstants,
   languageConstants,
 } from "../../utils/Constants";
@@ -36,7 +42,10 @@ import StyledActionIcon from "../styledComponents/StyledActionIcon";
  * @returns The rendered game grid and controls.
  */
 export default function SanaboksiGameGrid() {
-  const colorPalette = useColorPalette();
+  const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
+  const colorPalette =
+    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
   const { t } = useTranslation();
   const { wordLength, notificationModalSource, setNotificationModalSource } =
     useGameContext();
@@ -304,7 +313,7 @@ export default function SanaboksiGameGrid() {
             loading={isLoading}
             loaderProps={{
               type: "dots",
-              color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+              color: colorPalette[colors.SECONDARY_COLOR_1],
             }}
           />
         ) : (
@@ -316,7 +325,7 @@ export default function SanaboksiGameGrid() {
             loading={isLoading}
             loaderProps={{
               type: "dots",
-              color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+              color: colorPalette[colors.SECONDARY_COLOR_1],
             }}
           />
         )}

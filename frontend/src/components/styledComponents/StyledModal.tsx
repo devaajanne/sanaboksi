@@ -1,6 +1,5 @@
-import { Modal } from "@mantine/core";
-import { useColorPalette } from "../../hooks/useColorPalette";
-import { colorPaletteConstants } from "../../utils/Constants";
+import { Modal, useMantineColorScheme, useMantineTheme } from "@mantine/core";
+import { colors } from "../../utils/Constants";
 import { IconX } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 
@@ -17,8 +16,11 @@ export default function StyledModal({
   title,
   children,
 }: StyledModalProps) {
+  const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
+  const colorPalette =
+    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
   const { t } = useTranslation();
-  const colorPalette = useColorPalette();
   const titleFontSize = "1.5rem";
   const strokeWidth = 1.5;
   return (
@@ -33,18 +35,18 @@ export default function StyledModal({
           <IconX
             aria-hidden
             stroke={strokeWidth}
-            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+            color={colorPalette[colors.SECONDARY_COLOR_1]}
           />
         ),
       }}
       styles={{
         header: {
-          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+          backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
+          color: colorPalette[colors.SECONDARY_COLOR_1],
         },
         body: {
-          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+          backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
+          color: colorPalette[colors.SECONDARY_COLOR_1],
         },
         title: { fontSize: titleFontSize },
       }}
