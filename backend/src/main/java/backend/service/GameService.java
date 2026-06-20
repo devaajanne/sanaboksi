@@ -1,12 +1,12 @@
 package backend.service;
 
 import backend.domain.FixedLetter;
+import backend.domain.LanguageEnum;
 import backend.domain.dto.FixedLetterResponse;
 import backend.domain.dto.GameGridRequest;
 import backend.domain.dto.ValidationResultResponse;
 import backend.domain.entity.Word;
 import backend.util.Constants;
-import backend.util.LanguageEnum;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

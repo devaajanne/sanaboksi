@@ -1,10 +1,10 @@
 package backend.controller;
 
+import backend.domain.LanguageEnum;
 import backend.domain.dto.FixedLetterResponse;
 import backend.domain.dto.GameGridRequest;
 import backend.domain.dto.ValidationResultResponse;
 import backend.service.GameService;
-import backend.util.LanguageEnum;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

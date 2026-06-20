@@ -6,11 +6,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import backend.domain.LanguageEnum;
 import backend.domain.entity.FinnishWord;
 import backend.domain.entity.Word;
 import backend.repository.FinnishWordRepository;
 import backend.service.RepositoryService;
-import backend.util.LanguageEnum;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;

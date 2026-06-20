@@ -1,8 +1,8 @@
 package backend.service;
 
+import backend.domain.LanguageEnum;
 import backend.domain.entity.Word;
 import backend.repository.FinnishWordRepository;
-import backend.util.LanguageEnum;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

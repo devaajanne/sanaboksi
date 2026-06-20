@@ -5,13 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import backend.domain.LanguageEnum;
 import backend.domain.dto.FixedLetterResponse;
 import backend.domain.dto.GameGridRequest;
 import backend.domain.dto.ValidationResultResponse;
 import backend.domain.entity.FinnishWord;
 import backend.repository.FinnishWordRepository;
 import backend.service.GameService;
-import backend.util.LanguageEnum;
 import jakarta.transaction.Transactional;
 import java.util.Arrays;
 import org.junit.jupiter.api.Tag;

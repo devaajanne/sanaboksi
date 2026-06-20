@@ -1,4 +1,4 @@
-package backend.util;
+package backend.domain;
 
 /** Enum representing supported languages for the game. */
 public enum LanguageEnum {

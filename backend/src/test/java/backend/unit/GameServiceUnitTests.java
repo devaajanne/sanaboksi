@@ -8,6 +8,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import backend.domain.LanguageEnum;
 import backend.domain.dto.FixedLetterResponse;
 import backend.domain.dto.GameGridRequest;
 import backend.domain.dto.ValidationResultResponse;
@@ -16,7 +17,6 @@ import backend.domain.entity.Word;
 import backend.service.GameService;
 import backend.service.RepositoryService;
 import backend.service.UtilityService;
-import backend.util.LanguageEnum;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
