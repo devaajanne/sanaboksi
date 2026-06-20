@@ -19,4 +19,4 @@ spring:
       poll-interval: 2s
       quiet-period: 1s
 
-CorsAllowedOrigin: http://localhost:5173
+CorsAllowedOrigin: http://localhost:5174

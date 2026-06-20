@@ -145,7 +145,7 @@ Describes the Docker build setup for local development with hot reloading for bo
 6. Creates `/database` directory
 7. Normalizes line endings for shell scripts
 8. Sets executable permissions for scripts
-9. Exposes port 8080
+9. Exposes port 8081
 10. Starts the application using `entrypoint.sh`, which seeds the database if needed and runs two Gradle processes in parallel:
  - `./gradlew classes --continuous --no-daemon`
  - `./gradlew bootRun --no-daemon`
@@ -161,7 +161,7 @@ Describes the Docker build setup for local development with hot reloading for bo
 2. Copies `package*.json` for dependency caching
 3. Installs dependencies with `npm ci`
 4. Copies the full source code
-5. Exposes port 5173
+5. Exposes port 5174
 6. Starts the Vite development server with hot reloading
 7. File watching/polling is enabled via environment variable for container compatibility
 
@@ -177,7 +177,7 @@ Development configuration is designed to allow changes in local source code and 
 - **Container Name**: `sanaboksi_backend_dev`
 - **Build Context**: `./backend`
 - **Build Dockerfile**: [`Dockerfile.dev`](../backend/Dockerfile.dev)
-- **Port**: Host `8080` mapped to container port `8080` (`8080:8080`)
+- **Port**: Host `8081` mapped to container port `8081` (`8081:8081`)
 - **Environment**: environment variables for Spring Boot
 - **Healthcheck**: Actuator health endpoint check
 - **Hot Reloading**: Enabled via Docker Compose `watch` feature
@@ -188,7 +188,7 @@ Development configuration is designed to allow changes in local source code and 
 - **Container Name**: `sanaboksi_frontend_dev`
 - **Build Context**: `./frontend`
 - **Build Dockerfile**: [`Dockerfile.dev`](../frontend/Dockerfile.dev)
-- **Port**: Host `5173` mapped to container port `5173` (`5173:5173`)
+- **Port**: Host `5174` mapped to container port `5174` (`5174:5174`)
 - **Environment**: environment variables for Vite
 - **Dependencies**: Waits for `backend_dev` health check
 - **Hot Reloading**: Enabled via Docker Compose `watch` feature
@@ -239,7 +239,7 @@ Hot reloading enables developers to make changes in local source code and have t
 4. Browser hot-reloads automatically
 
 **Configuration**:
-- Polling enabled via `VITE_USE_POLLING=true` in [`compose.dev.yaml`](../compose.dev.yaml)
+- Polling enabled via `VITE_USE_POLLING="true"` in [`compose.dev.yaml`](../compose.dev.yaml)
 - Vite config: [`vite.config.ts`](../frontend/vite.config.ts)
 - File syncing: `develop.watch` in [`compose.dev.yaml`](../compose.dev.yaml)
 

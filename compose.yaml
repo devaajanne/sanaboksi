@@ -12,8 +12,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      # Set active Spring profile
-      SPRING_PROFILES_ACTIVE: local-prod
+      # Set active Spring profile and active port
+      SPRING_PROFILES_ACTIVE: "local-prod"
+      SERVER_PORT: "8080"
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
       interval: 10s
@@ -27,7 +28,9 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        # Environment variables are passed to API requests
+        # Environment variables are passed to Vite configuration and API requests
+        VITE_PORT: "5173"
+        VITE_USE_POLLING: "false"
         VITE_SERVER_URL: http://localhost:8080
     ports:
       - "5173:80"

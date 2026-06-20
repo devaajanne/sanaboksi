@@ -107,6 +107,9 @@ jobs:
             -e SQLITE_DB_PATH="/database/database.db" \
             -v "${{ github.workspace }}/backend/build/reports/tests:/workdir/build/reports/tests" \
             sanaboksi-backend-test sh -c "/workdir/src/main/resources/databaseInit/reseed_database.sh && ./gradlew --no-daemon integrationTest"
+      
+      - name: Remove backend test image
+        run: docker rmi sanaboksi-backend-test
 
       - name: Upload integration test report on test failure
         if: ${{ failure() }}
@@ -130,7 +133,7 @@ jobs:
       - name: Install Playwright Browsers
         run: cd frontend && npx playwright install --with-deps
 
-      - name: Build Docker containers
+      - name: Build and start Docker containers
         run: docker compose -f compose.yaml up --build -d
         env:
           CORS_ALLOWED_ORIGIN: http://localhost:5173
@@ -146,6 +149,9 @@ jobs:
 
       - name: Run end-to-end tests
         run: cd frontend && npx playwright test
+
+      - name: Stop Docker containers and remove images
+        run: docker compose -f compose.yaml down --rmi local
 
       - name: Upload Playwright report on test failure
         if: ${{ failure() }}

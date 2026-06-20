@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: true,
-    port: 5173,
+    port: Number(process.env.VITE_PORT),
     strictPort: true,
     watch: {
       usePolling: process.env.VITE_USE_POLLING === "true",
