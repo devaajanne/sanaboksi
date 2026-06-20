@@ -26,25 +26,22 @@ export default function StyledActionIcon({
     : actionIconSizeLarge;
 
   return (
-    <>
-      <ActionIcon
-        aria-label={ariaLabel}
-        variant="subtle"
-        size={actionIconSize}
-        onClick={onClick}
-        disabled={disabled}
-        styles={{
-          root: {
-            backgroundColor:
-              colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-            color: disabled
-              ? colorPalette[colorPaletteConstants.TERTIARY_COLOR_2]
-              : colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-          },
-        }}
-      >
-        {Icon && <Icon size={actionIconSize} strokeWidth={strokeWidth} />}
-      </ActionIcon>
-    </>
+    <ActionIcon
+      aria-label={ariaLabel}
+      variant="subtle"
+      size={actionIconSize}
+      onClick={onClick}
+      disabled={disabled}
+      styles={{
+        root: {
+          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+          color: disabled
+            ? colorPalette[colorPaletteConstants.TERTIARY_COLOR_2]
+            : colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+        },
+      }}
+    >
+      {Icon && <Icon size={actionIconSize} strokeWidth={strokeWidth} />}
+    </ActionIcon>
   );
 }

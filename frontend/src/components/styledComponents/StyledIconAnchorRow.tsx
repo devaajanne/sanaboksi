@@ -24,33 +24,31 @@ export default function StyledIconAnchorRow({
   const strokeWidth = 1.5;
 
   return (
-    <>
-      <Group
-        align="center"
-        gap="sm"
-        wrap="nowrap"
-        styles={{
-          root: {
-            marginTop: rowMargin,
-            marginBottom: rowMargin,
-          },
-        }}
+    <Group
+      align="center"
+      gap="sm"
+      wrap="nowrap"
+      styles={{
+        root: {
+          marginTop: rowMargin,
+          marginBottom: rowMargin,
+        },
+      }}
+    >
+      {Icon && (
+        <Icon
+          color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+          size={rowIconSize}
+          strokeWidth={strokeWidth}
+        />
+      )}
+      <Anchor
+        href={href}
+        c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+        underline="always"
       >
-        {Icon && (
-          <Icon
-            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-            size={rowIconSize}
-            strokeWidth={strokeWidth}
-          />
-        )}
-        <Anchor
-          href={href}
-          c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-          underline="always"
-        >
-          {text}
-        </Anchor>
-      </Group>
-    </>
+        {text}
+      </Anchor>
+    </Group>
   );
 }

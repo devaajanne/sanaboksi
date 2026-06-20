@@ -35,39 +35,36 @@ export default function StyledButton({
         : largeFontSize;
 
   return (
-    <>
-      <Button
-        aria-label={ariaLabel}
-        onClick={onClick}
-        color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
-        size={size}
-        loading={loading}
-        loaderProps={loaderProps}
+    <Button
+      aria-label={ariaLabel}
+      onClick={onClick}
+      color={colorPalette[colorPaletteConstants.PRIMARY_COLOR_0]}
+      size={size}
+      loading={loading}
+      loaderProps={loaderProps}
+      styles={{
+        label: {
+          color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+        },
+        root: {
+          backgroundColor: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+          borderColor: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+          borderWidth: borderWidth,
+          marginTop: margintop,
+        },
+      }}
+    >
+      <Text
+        span
         styles={{
-          label: {
-            color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-          },
           root: {
-            backgroundColor:
-              colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-            borderColor: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-            borderWidth: borderWidth,
-            marginTop: margintop,
+            color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
+            fontSize: buttonTextFontSize,
           },
         }}
       >
-        <Text
-          span
-          styles={{
-            root: {
-              color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-              fontSize: buttonTextFontSize,
-            },
-          }}
-        >
-          {buttonText}
-        </Text>
-      </Button>
-    </>
+        {buttonText}
+      </Text>
+    </Button>
   );
 }

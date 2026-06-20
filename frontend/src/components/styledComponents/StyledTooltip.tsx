@@ -17,20 +17,18 @@ export default function StyledTooltip({
   const position = "bottom";
 
   return (
-    <>
-      <Tooltip
-        label={label}
-        disabled={disabled}
-        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-        position={position}
-        styles={{
-          tooltip: {
-            color: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-          },
-        }}
-      >
-        {children}
-      </Tooltip>
-    </>
+    <Tooltip
+      label={label}
+      disabled={disabled}
+      color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+      position={position}
+      styles={{
+        tooltip: {
+          color: colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
+        },
+      }}
+    >
+      {children}
+    </Tooltip>
   );
 }

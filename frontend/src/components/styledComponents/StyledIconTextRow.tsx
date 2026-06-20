@@ -22,28 +22,26 @@ export default function StyledIconTextRow({
   const strokeWidth = 1.5;
 
   return (
-    <>
-      <Group
-        align="center"
-        gap="sm"
-        wrap="nowrap"
-        styles={{
-          root: {
-            marginTop: rowMargin,
-            marginBottom: rowMargin,
-          },
-        }}
-      >
-        {Icon && (
-          <Icon
-            aria-label={ariaLabel}
-            color={color}
-            size={rowIconSize}
-            strokeWidth={strokeWidth}
-          />
-        )}
-        <Text>{text}</Text>
-      </Group>
-    </>
+    <Group
+      align="center"
+      gap="sm"
+      wrap="nowrap"
+      styles={{
+        root: {
+          marginTop: rowMargin,
+          marginBottom: rowMargin,
+        },
+      }}
+    >
+      {Icon && (
+        <Icon
+          aria-label={ariaLabel}
+          color={color}
+          size={rowIconSize}
+          strokeWidth={strokeWidth}
+        />
+      )}
+      <Text>{text}</Text>
+    </Group>
   );
 }

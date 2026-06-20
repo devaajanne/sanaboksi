@@ -7,16 +7,14 @@ export default function StyledDivider() {
   const margin = "1rem";
 
   return (
-    <>
-      <Divider
-        color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-        styles={{
-          root: {
-            marginTop: margin,
-            marginBottom: margin,
-          },
-        }}
-      />
-    </>
+    <Divider
+      color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
+      styles={{
+        root: {
+          marginTop: margin,
+          marginBottom: margin,
+        },
+      }}
+    />
   );
 }
