@@ -25,6 +25,7 @@ export default function StyledSegmentedControl({
   const { colorScheme } = useMantineColorScheme();
   const colorPalette =
     colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+
   return (
     <SegmentedControl
       aria-label={ariaLabel}
@@ -44,6 +45,6 @@ export default function StyledSegmentedControl({
       }}
       color={colorPalette[colors.TERTIARY_COLOR_2]}
       size={"xl"}
-    ></SegmentedControl>
+    />
   );
 }

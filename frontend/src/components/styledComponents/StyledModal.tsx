@@ -23,6 +23,7 @@ export default function StyledModal({
   const { t } = useTranslation();
   const titleFontSize = "1.5rem";
   const strokeWidth = 1.5;
+
   return (
     <Modal
       opened={opened}
