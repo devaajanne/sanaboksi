@@ -20,6 +20,7 @@ import StyledDivider from "../styledComponents/StyledDivider";
 import StyledModal from "../styledComponents/StyledModal";
 import StyledText from "../styledComponents/StyledText";
 import StyledIconTextRow from "../styledComponents/StyledIconTextRow";
+import { useViewportContext } from "../../context/ViewportContext";
 
 interface GameInstructionsModalProps {
   opened: boolean;
@@ -34,6 +35,8 @@ export function GameInstructionsModal({
   const { colorScheme } = useMantineColorScheme();
   const colorPalette =
     colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const { xs, sm, md, l } = useViewportContext();
+  const iconSize = xs ? 20 : sm ? 22 : md ? 24 : l ? 26 : 28;
   const { t } = useTranslation();
   const fixedLetter: FixedLetter = { fixedIndex: 2, fixedLetter: "H" };
 
@@ -86,7 +89,8 @@ export function GameInstructionsModal({
       <StyledText text={t("GameInstructionModal.YouCanLoadANewGameByClicking")}>
         <IconReload
           aria-label={t("AriaLabel.LoadNewGame")}
-          style={{ verticalAlign: "top" }}
+          size={iconSize}
+          style={{ verticalAlign: "middle" }}
         />
       </StyledText>
 
@@ -103,7 +107,8 @@ export function GameInstructionsModal({
       <StyledText text={t("GameInstructionModal.DifficultySettings")}>
         <IconSettings
           aria-label={t("AriaLabel.OpenGameSettings")}
-          style={{ verticalAlign: "top" }}
+          size={iconSize}
+          style={{ verticalAlign: "middle" }}
         />
       </StyledText>
 
@@ -143,7 +148,6 @@ export function GameInstructionsModal({
           ariaLabel={t("Actions.BackToGame")}
           onClick={onClose}
           buttonText={t("Actions.BackToGame")}
-          renderLocation="modal"
         />
       </Group>
     </StyledModal>

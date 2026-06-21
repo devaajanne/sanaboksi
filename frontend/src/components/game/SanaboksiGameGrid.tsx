@@ -16,7 +16,6 @@ import {
 import {
   Center,
   Container,
-  Space,
   Stack,
   useMantineColorScheme,
   useMantineTheme,
@@ -46,10 +45,13 @@ export default function SanaboksiGameGrid() {
   const { colorScheme } = useMantineColorScheme();
   const colorPalette =
     colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const { xs, sm, md, l } = useViewportContext();
+  const gameGridRowGap = xs ? 8 : sm ? 10 : md ? 12 : l ? 14 : 16;
+  const gameGridMarginTop = xs ? 4 : sm ? 6 : md ? 8 : l ? 10 : 12;
+  const gameGridMarginBottom = xs ? 24 : sm ? 30 : md ? 36 : l ? 42 : 48;
   const { t } = useTranslation();
   const { wordLength, notificationModalSource, setNotificationModalSource } =
     useGameContext();
-  const { isSmViewport } = useViewportContext();
   // Store the fixed letters configuration for each row (which index has which fixed letter)
   const [fixedLetters, setFixedLetters] = useState<FixedLetters>([]);
   // Store the actual game grid data (2D array of characters with dynamic dimensions)
@@ -63,12 +65,6 @@ export default function SanaboksiGameGrid() {
   const [opened, { open, close }] = useDisclosure(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const reloadIconDisabled = isLoading || isCorrectGameGrid;
-  const gameGridRowGapSmall = "0.5rem";
-  const gameGridRowGapLarge = "1rem";
-  const marginTopSmall = "0.25rem";
-  const marginTopLarge = "0.5rem";
-  const marginBottomSmall = "1.5rem";
-  const marginBottomLarge = "3rem";
 
   /**
    * Fetches fixed letters from the API and initializes the game grid.
@@ -244,10 +240,7 @@ export default function SanaboksiGameGrid() {
   return (
     <>
       <Container strategy="grid" aria-label={t("AriaLabel.SanaBoksiGameGrid")}>
-        <Stack
-          gap={isSmViewport ? gameGridRowGapSmall : gameGridRowGapLarge}
-          styles={{ root: { position: "relative" } }}
-        >
+        <Stack gap={gameGridRowGap} styles={{ root: { position: "relative" } }}>
           {fixedLetters.length === 0
             ? // Render empty game grid rows
               Array.from({ length: gameConstants.WORD_COUNT_5 }).map(
@@ -288,14 +281,12 @@ export default function SanaboksiGameGrid() {
         </Stack>
       </Container>
 
-      <Space h={isSmViewport ? "sm" : "lg"} />
-
       <Container
         strategy="grid"
         styles={{
           root: {
-            marginTop: isSmViewport ? marginTopSmall : marginTopLarge,
-            marginBottom: isSmViewport ? marginBottomSmall : marginBottomLarge,
+            marginTop: gameGridMarginTop,
+            marginBottom: gameGridMarginBottom,
           },
         }}
       >
@@ -309,7 +300,6 @@ export default function SanaboksiGameGrid() {
               )
             }
             buttonText={t("GameGridButton.NewGame")}
-            size={isSmViewport ? "lg" : "xl"}
             loading={isLoading}
             loaderProps={{
               type: "dots",
@@ -321,7 +311,6 @@ export default function SanaboksiGameGrid() {
             ariaLabel={t("GameGridButton.ValidateWords")}
             onClick={handleGameGridValidation}
             buttonText={t("GameGridButton.ValidateWords")}
-            size={isSmViewport ? "lg" : "xl"}
             loading={isLoading}
             loaderProps={{
               type: "dots",

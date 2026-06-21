@@ -44,5 +44,9 @@ export type GameContextType = {
 };
 
 export type ViewportContextType = {
-  isSmViewport: boolean;
+  xs: boolean;
+  sm: boolean;
+  md: boolean;
+  l: boolean;
+  xl: boolean;
 };

@@ -5,6 +5,7 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 import { colors } from "../../utils/Constants";
+import { useViewportContext } from "../../context/ViewportContext";
 
 interface StyledIconAnchorRowProps {
   icon?: React.ComponentType<{
@@ -26,7 +27,8 @@ export default function StyledIconAnchorRow({
   const { colorScheme } = useMantineColorScheme();
   const colorPalette =
     colorScheme === "light" ? theme.colors.light : theme.colors.dark;
-  const rowIconSize = "3rem";
+  const { xs, sm, md, l } = useViewportContext();
+  const iconSize = xs ? 16 : sm ? 24 : md ? 32 : l ? 40 : 48;
   const rowMargin = "0.25rem";
   const strokeWidth = 1.5;
 
@@ -45,7 +47,7 @@ export default function StyledIconAnchorRow({
       {Icon && (
         <Icon
           color={colorPalette[colors.SECONDARY_COLOR_1]}
-          size={rowIconSize}
+          size={iconSize}
           strokeWidth={strokeWidth}
         />
       )}

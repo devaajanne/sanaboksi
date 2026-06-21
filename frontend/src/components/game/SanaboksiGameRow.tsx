@@ -57,18 +57,12 @@ export default function SanaboksiGameRow({
   const { colorScheme } = useMantineColorScheme();
   const colorPalette =
     colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const { xs, sm, md, l } = useViewportContext();
+  const textInputSize = xs ? 48 : sm ? 60 : md ? 72 : l ? 84 : 96;
+  const textInputFontSize = xs ? 20 : sm ? 25 : md ? 30 : l ? 35 : 40;
   const { t } = useTranslation();
-  const { isSmViewport } = useViewportContext();
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const textInputSizeSmall = "3rem";
-  const textInputSizelarge = "6rem";
-  const textInputSize = isSmViewport ? textInputSizeSmall : textInputSizelarge;
-  const textInputFontSizeSmall = "1.25rem";
-  const textInputFontSizeLarge = "2.5rem";
-  const textInputFontSize = isSmViewport
-    ? textInputFontSizeSmall
-    : textInputFontSizeLarge;
   const borderWidth = 2;
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   /**
    * Handles user input and moves the cursor to the next available field.

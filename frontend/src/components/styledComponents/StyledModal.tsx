@@ -2,6 +2,7 @@ import { Modal, useMantineColorScheme, useMantineTheme } from "@mantine/core";
 import { colors } from "../../utils/Constants";
 import { IconX } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
+import { useViewportContext } from "../../context/ViewportContext";
 
 interface StyledModalProps {
   opened: boolean;
@@ -20,8 +21,9 @@ export default function StyledModal({
   const { colorScheme } = useMantineColorScheme();
   const colorPalette =
     colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const { xs, sm, md, l } = useViewportContext();
+  const titleFontSize = xs ? 24 : sm ? 28 : md ? 32 : l ? 36 : 40;
   const { t } = useTranslation();
-  const titleFontSize = "1.5rem";
   const strokeWidth = 1.5;
 
   return (

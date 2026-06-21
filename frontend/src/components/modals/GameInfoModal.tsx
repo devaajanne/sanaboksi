@@ -12,6 +12,7 @@ import StyledDivider from "../styledComponents/StyledDivider";
 import StyledModal from "../styledComponents/StyledModal";
 import StyledText from "../styledComponents/StyledText";
 import StyledIconAnchorRow from "../styledComponents/StyledIconAnchorRow";
+import { useViewportContext } from "../../context/ViewportContext";
 
 interface GameInfoModalProps {
   opened: boolean;
@@ -19,6 +20,8 @@ interface GameInfoModalProps {
 }
 
 export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
+  const { xs, sm, md, l } = useViewportContext();
+  const iconSize = xs ? 20 : sm ? 22 : md ? 24 : l ? 26 : 28;
   const { t } = useTranslation();
 
   return (
@@ -36,7 +39,8 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
       >
         <IconHelpCircle
           aria-label={t("AriaLabel.OpenGameInstructions")}
-          style={{ verticalAlign: "top" }}
+          size={iconSize}
+          style={{ verticalAlign: "middle" }}
         />
       </StyledText>
 
@@ -45,12 +49,14 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
       >
         <IconSun
           aria-label={t("AriaLabel.ToggleDarkMode")}
-          style={{ verticalAlign: "top" }}
+          size={iconSize}
+          style={{ verticalAlign: "middle" }}
         />
         {t("GameInfoModal.And")}{" "}
         <IconMoon
           aria-label={t("AriaLabel.ToggleLightMode")}
-          style={{ verticalAlign: "top" }}
+          size={iconSize}
+          style={{ verticalAlign: "middle" }}
         />
       </StyledText>
 
@@ -85,7 +91,6 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
           ariaLabel={t("Actions.BackToGame")}
           onClick={onClose}
           buttonText={t("Actions.BackToGame")}
-          renderLocation="modal"
         />
       </Group>
     </StyledModal>

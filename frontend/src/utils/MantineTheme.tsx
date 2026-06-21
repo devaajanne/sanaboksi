@@ -1,6 +1,13 @@
-import { createTheme, type MantineColorsTuple } from "@mantine/core";
+import { createTheme, type MantineColorsTuple, Text } from "@mantine/core";
 
 export const theme = createTheme({
+  breakpoints: {
+    xs: "36em", // 576px
+    sm: "48em", // 768px
+    md: "62em", // 992px
+    lg: "75em", // 1200px
+    xl: "88em", // 1408px
+  },
   fontFamily: "Arvo, serif",
   primaryColor: "light",
   colors: {
@@ -28,5 +35,12 @@ export const theme = createTheme({
       "#000000", // 8 NOT USED
       "#000000", // 9 NOT USED
     ] as MantineColorsTuple,
+  },
+  components: {
+    Text: Text.extend({
+      defaultProps: {
+        fz: { xs: 16, sm: 18, md: 20, l: 22, xl: 24 },
+      },
+    }),
   },
 });

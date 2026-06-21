@@ -12,8 +12,6 @@ interface StyledButtonProps {
   ariaLabel: string;
   onClick: () => void;
   buttonText: string;
-  renderLocation?: string;
-  size?: string;
   loading?: boolean;
   loaderProps?: LoaderProps;
 }
@@ -21,8 +19,6 @@ export default function StyledButton({
   ariaLabel,
   onClick,
   buttonText,
-  renderLocation,
-  size,
   loading,
   loaderProps,
 }: StyledButtonProps) {
@@ -30,24 +26,17 @@ export default function StyledButton({
   const { colorScheme } = useMantineColorScheme();
   const colorPalette =
     colorScheme === "light" ? theme.colors.light : theme.colors.dark;
-  const { isSmViewport } = useViewportContext();
+  const { xs, sm, md, l } = useViewportContext();
+  const buttonSize = xs ? "32" : sm ? "40" : md ? "48" : l ? "56" : "64";
   const borderWidth = 2;
   const margintop = "1rem";
-  const smallFontSize = "1rem";
-  const largeFontSize = "2rem";
-  const buttonTextFontSize =
-    renderLocation === "modal"
-      ? undefined
-      : isSmViewport
-        ? smallFontSize
-        : largeFontSize;
 
   return (
     <Button
       aria-label={ariaLabel}
       onClick={onClick}
       color={colorPalette[colors.PRIMARY_COLOR_0]}
-      size={size}
+      size={buttonSize}
       loading={loading}
       loaderProps={loaderProps}
       styles={{
@@ -67,7 +56,6 @@ export default function StyledButton({
         styles={{
           root: {
             color: colorPalette[colors.SECONDARY_COLOR_1],
-            fontSize: buttonTextFontSize,
           },
         }}
       >

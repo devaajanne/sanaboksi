@@ -23,19 +23,15 @@ export default function StyledActionIcon({
   const { colorScheme } = useMantineColorScheme();
   const colorPalette =
     colorScheme === "light" ? theme.colors.light : theme.colors.dark;
-  const { isSmViewport } = useViewportContext();
+  const { xs, sm, md, l } = useViewportContext();
+  const iconSize = xs ? 32 : sm ? 48 : md ? 64 : l ? 80 : 96;
   const strokeWidth = 1.5;
-  const actionIconSizeSmall = "2.25rem";
-  const actionIconSizeLarge = "4.5rem";
-  const actionIconSize = isSmViewport
-    ? actionIconSizeSmall
-    : actionIconSizeLarge;
 
   return (
     <ActionIcon
       aria-label={ariaLabel}
       variant="subtle"
-      size={actionIconSize}
+      size={iconSize}
       onClick={onClick}
       disabled={disabled}
       styles={{
@@ -47,7 +43,7 @@ export default function StyledActionIcon({
         },
       }}
     >
-      {Icon && <Icon size={actionIconSize} strokeWidth={strokeWidth} />}
+      {Icon && <Icon size={iconSize} strokeWidth={strokeWidth} />}
     </ActionIcon>
   );
 }

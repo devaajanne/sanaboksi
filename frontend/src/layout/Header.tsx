@@ -28,8 +28,9 @@ export default function Header() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const colorPalette =
     colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const { xs, sm, md, l } = useViewportContext();
+  const titleFontSize = xs ? 36 : sm ? 45 : md ? 54 : l ? 73 : 72;
   const { t } = useTranslation();
-  const { isSmViewport } = useViewportContext();
   const [
     openedGameInstructions,
     { open: openGameInstructions, close: closeGameInstructions },
@@ -40,11 +41,6 @@ export default function Header() {
   ] = useDisclosure(false);
   const [openedGameInfo, { open: openGameInfo, close: closeGameInfo }] =
     useDisclosure(false);
-  const headerTitleFontSizeSmall = "2rem";
-  const headerTitleFontSizeLarge = "4rem";
-  const headerTitleFontSize = isSmViewport
-    ? headerTitleFontSizeSmall
-    : headerTitleFontSizeLarge;
   const headerMarginTop = "2vh";
   const headerMarginBottom = "3vh";
 
@@ -63,7 +59,7 @@ export default function Header() {
           styles={{
             root: {
               color: colorPalette[colors.SECONDARY_COLOR_1],
-              fontSize: headerTitleFontSize,
+              fontSize: titleFontSize,
             },
           }}
         >

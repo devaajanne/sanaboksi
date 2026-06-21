@@ -89,7 +89,6 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
           ariaLabel={t("Actions.BackToGame")}
           onClick={onClose}
           buttonText={t("Actions.BackToGame")}
-          renderLocation="modal"
         />
       </Group>
     </StyledModal>
