@@ -96,14 +96,12 @@ export default function NotificationModal({
               onClose();
             }}
             buttonText={t("Actions.LoadNewGame")}
-            renderLocation="modal"
           />
         )}
         <StyledButton
           ariaLabel={t("Actions.Close")}
           onClick={onClose}
           buttonText={t("Actions.Close")}
-          renderLocation="modal"
         />
       </Group>
     </StyledModal>

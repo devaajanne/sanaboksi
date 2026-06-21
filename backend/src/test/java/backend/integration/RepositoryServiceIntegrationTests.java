@@ -3,11 +3,11 @@ package backend.integration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import backend.domain.LanguageEnum;
 import backend.domain.entity.FinnishWord;
 import backend.domain.entity.Word;
 import backend.repository.FinnishWordRepository;
 import backend.service.RepositoryService;
-import backend.util.LanguageEnum;
 import jakarta.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;

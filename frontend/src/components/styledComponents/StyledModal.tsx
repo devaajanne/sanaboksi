@@ -1,8 +1,8 @@
-import { Modal } from "@mantine/core";
-import { useColorPalette } from "../../hooks/useColorPalette";
-import { colorPaletteConstants } from "../../utils/Constants";
+import { Modal, useMantineColorScheme, useMantineTheme } from "@mantine/core";
+import { colors } from "../../utils/Constants";
 import { IconX } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
+import { useViewportContext } from "../../context/ViewportContext";
 
 interface StyledModalProps {
   opened: boolean;
@@ -17,43 +17,44 @@ export default function StyledModal({
   title,
   children,
 }: StyledModalProps) {
+  const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
+  const colorPalette =
+    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const { xs, sm, md, l } = useViewportContext();
+  const titleFontSize = xs ? 24 : sm ? 28 : md ? 32 : l ? 36 : 40;
   const { t } = useTranslation();
-  const colorPalette = useColorPalette();
-  const titleFontSize = "1.5rem";
   const strokeWidth = 1.5;
+
   return (
-    <>
-      <Modal
-        opened={opened}
-        onClose={onClose}
-        title={title}
-        size="lg"
-        closeButtonProps={{
-          "aria-label": t("Actions.Close"),
-          icon: (
-            <IconX
-              aria-hidden
-              stroke={strokeWidth}
-              color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-            />
-          ),
-        }}
-        styles={{
-          header: {
-            backgroundColor:
-              colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-            color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-          },
-          body: {
-            backgroundColor:
-              colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-            color: colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-          },
-          title: { fontSize: titleFontSize },
-        }}
-      >
-        {children}
-      </Modal>
-    </>
+    <Modal
+      opened={opened}
+      onClose={onClose}
+      title={title}
+      size="lg"
+      closeButtonProps={{
+        "aria-label": t("Actions.Close"),
+        icon: (
+          <IconX
+            aria-hidden
+            stroke={strokeWidth}
+            color={colorPalette[colors.SECONDARY_COLOR_1]}
+          />
+        ),
+      }}
+      styles={{
+        header: {
+          backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
+          color: colorPalette[colors.SECONDARY_COLOR_1],
+        },
+        body: {
+          backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
+          color: colorPalette[colors.SECONDARY_COLOR_1],
+        },
+        title: { fontSize: titleFontSize },
+      }}
+    >
+      {children}
+    </Modal>
   );
 }

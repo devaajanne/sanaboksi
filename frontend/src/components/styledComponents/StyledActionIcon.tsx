@@ -1,7 +1,10 @@
-import { ActionIcon } from "@mantine/core";
-import { useColorPalette } from "../../hooks/useColorPalette";
+import {
+  ActionIcon,
+  useMantineTheme,
+  useMantineColorScheme,
+} from "@mantine/core";
 import { useViewportContext } from "../../context/ViewportContext";
-import { colorPaletteConstants } from "../../utils/Constants";
+import { colors } from "../../utils/Constants";
 
 interface StyledActionIconProps {
   ariaLabel: string;
@@ -16,35 +19,31 @@ export default function StyledActionIcon({
   icon: Icon,
   disabled,
 }: StyledActionIconProps) {
-  const colorPalette = useColorPalette();
-  const { isSmViewport } = useViewportContext();
+  const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
+  const colorPalette =
+    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const { xs, sm, md, l } = useViewportContext();
+  const iconSize = xs ? 32 : sm ? 48 : md ? 64 : l ? 80 : 96;
   const strokeWidth = 1.5;
-  const actionIconSizeSmall = "2.25rem";
-  const actionIconSizeLarge = "4.5rem";
-  const actionIconSize = isSmViewport
-    ? actionIconSizeSmall
-    : actionIconSizeLarge;
 
   return (
-    <>
-      <ActionIcon
-        aria-label={ariaLabel}
-        variant="subtle"
-        size={actionIconSize}
-        onClick={onClick}
-        disabled={disabled}
-        styles={{
-          root: {
-            backgroundColor:
-              colorPalette[colorPaletteConstants.PRIMARY_COLOR_0],
-            color: disabled
-              ? colorPalette[colorPaletteConstants.TERTIARY_COLOR_2]
-              : colorPalette[colorPaletteConstants.SECONDARY_COLOR_1],
-          },
-        }}
-      >
-        {Icon && <Icon size={actionIconSize} strokeWidth={strokeWidth} />}
-      </ActionIcon>
-    </>
+    <ActionIcon
+      aria-label={ariaLabel}
+      variant="subtle"
+      size={iconSize}
+      onClick={onClick}
+      disabled={disabled}
+      styles={{
+        root: {
+          backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
+          color: disabled
+            ? colorPalette[colors.TERTIARY_COLOR_2]
+            : colorPalette[colors.SECONDARY_COLOR_1],
+        },
+      }}
+    >
+      {Icon && <Icon size={iconSize} strokeWidth={strokeWidth} />}
+    </ActionIcon>
   );
 }

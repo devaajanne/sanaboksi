@@ -1,4 +1,4 @@
-export const colorPaletteConstants = {
+export const colors = {
   PRIMARY_COLOR_0: 0,
   SECONDARY_COLOR_1: 1,
   TERTIARY_COLOR_2: 2,
@@ -17,9 +17,4 @@ export const gameConstants = {
 
 export const languageConstants = {
   FI: "fi",
-};
-
-export const stylingConstants = {
-  COLOR_SCHEME_LIGHT: "light",
-  COLOR_SCHEME_DARK: "dark",
 };

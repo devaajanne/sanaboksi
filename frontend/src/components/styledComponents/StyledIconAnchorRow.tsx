@@ -1,6 +1,11 @@
-import { Group, Anchor } from "@mantine/core";
-import { useColorPalette } from "../../hooks/useColorPalette";
-import { colorPaletteConstants } from "../../utils/Constants";
+import {
+  Group,
+  Anchor,
+  useMantineTheme,
+  useMantineColorScheme,
+} from "@mantine/core";
+import { colors } from "../../utils/Constants";
+import { useViewportContext } from "../../context/ViewportContext";
 
 interface StyledIconAnchorRowProps {
   icon?: React.ComponentType<{
@@ -18,39 +23,41 @@ export default function StyledIconAnchorRow({
   text,
   href,
 }: StyledIconAnchorRowProps) {
-  const colorPalette = useColorPalette();
-  const rowIconSize = "3rem";
+  const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
+  const colorPalette =
+    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const { xs, sm, md, l } = useViewportContext();
+  const iconSize = xs ? 16 : sm ? 24 : md ? 32 : l ? 40 : 48;
   const rowMargin = "0.25rem";
   const strokeWidth = 1.5;
 
   return (
-    <>
-      <Group
-        align="center"
-        gap="sm"
-        wrap="nowrap"
-        styles={{
-          root: {
-            marginTop: rowMargin,
-            marginBottom: rowMargin,
-          },
-        }}
+    <Group
+      align="center"
+      gap="sm"
+      wrap="nowrap"
+      styles={{
+        root: {
+          marginTop: rowMargin,
+          marginBottom: rowMargin,
+        },
+      }}
+    >
+      {Icon && (
+        <Icon
+          color={colorPalette[colors.SECONDARY_COLOR_1]}
+          size={iconSize}
+          strokeWidth={strokeWidth}
+        />
+      )}
+      <Anchor
+        href={href}
+        c={colorPalette[colors.SECONDARY_COLOR_1]}
+        underline="always"
       >
-        {Icon && (
-          <Icon
-            color={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-            size={rowIconSize}
-            strokeWidth={strokeWidth}
-          />
-        )}
-        <Anchor
-          href={href}
-          c={colorPalette[colorPaletteConstants.SECONDARY_COLOR_1]}
-          underline="always"
-        >
-          {text}
-        </Anchor>
-      </Group>
-    </>
+        {text}
+      </Anchor>
+    </Group>
   );
 }

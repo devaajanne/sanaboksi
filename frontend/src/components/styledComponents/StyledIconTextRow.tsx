@@ -1,4 +1,5 @@
 import { Group, Text } from "@mantine/core";
+import { useViewportContext } from "../../context/ViewportContext";
 
 interface StyledIconTextRowProps {
   ariaLabel: string;
@@ -17,33 +18,32 @@ export default function StyledIconTextRow({
   color,
   text,
 }: StyledIconTextRowProps) {
-  const rowIconSize = "3rem";
+  const { xs, sm, md, l } = useViewportContext();
+  const iconSize = xs ? 32 : sm ? 40 : md ? 48 : l ? 56 : 64;
   const rowMargin = "0.25rem";
   const strokeWidth = 1.5;
 
   return (
-    <>
-      <Group
-        align="center"
-        gap="sm"
-        wrap="nowrap"
-        styles={{
-          root: {
-            marginTop: rowMargin,
-            marginBottom: rowMargin,
-          },
-        }}
-      >
-        {Icon && (
-          <Icon
-            aria-label={ariaLabel}
-            color={color}
-            size={rowIconSize}
-            strokeWidth={strokeWidth}
-          />
-        )}
-        <Text>{text}</Text>
-      </Group>
-    </>
+    <Group
+      align="center"
+      gap="sm"
+      wrap="nowrap"
+      styles={{
+        root: {
+          marginTop: rowMargin,
+          marginBottom: rowMargin,
+        },
+      }}
+    >
+      {Icon && (
+        <Icon
+          aria-label={ariaLabel}
+          color={color}
+          size={iconSize}
+          strokeWidth={strokeWidth}
+        />
+      )}
+      <Text>{text}</Text>
+    </Group>
   );
 }

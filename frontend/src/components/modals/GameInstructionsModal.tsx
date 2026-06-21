@@ -1,5 +1,9 @@
-import { Group, Stack } from "@mantine/core";
-import { useColorPalette } from "../../hooks/useColorPalette";
+import {
+  Group,
+  Stack,
+  useMantineColorScheme,
+  useMantineTheme,
+} from "@mantine/core";
 import {
   IconCheck,
   IconX,
@@ -10,12 +14,13 @@ import {
 import SanaboksiGameRow from "../game/SanaboksiGameRow";
 import type { FixedLetter } from "../../types/Types";
 import { useTranslation } from "react-i18next";
-import { colorPaletteConstants } from "../../utils/Constants";
+import { colors } from "../../utils/Constants";
 import StyledButton from "../styledComponents/StyledButton";
 import StyledDivider from "../styledComponents/StyledDivider";
 import StyledModal from "../styledComponents/StyledModal";
 import StyledText from "../styledComponents/StyledText";
 import StyledIconTextRow from "../styledComponents/StyledIconTextRow";
+import { useViewportContext } from "../../context/ViewportContext";
 
 interface GameInstructionsModalProps {
   opened: boolean;
@@ -26,7 +31,12 @@ export function GameInstructionsModal({
   opened,
   onClose,
 }: GameInstructionsModalProps) {
-  const colorPalette = useColorPalette();
+  const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
+  const colorPalette =
+    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const { xs, sm, md, l } = useViewportContext();
+  const iconSize = xs ? 20 : sm ? 22 : md ? 24 : l ? 26 : 28;
   const { t } = useTranslation();
   const fixedLetter: FixedLetter = { fixedIndex: 2, fixedLetter: "H" };
 
@@ -79,7 +89,8 @@ export function GameInstructionsModal({
       <StyledText text={t("GameInstructionModal.YouCanLoadANewGameByClicking")}>
         <IconReload
           aria-label={t("AriaLabel.LoadNewGame")}
-          style={{ verticalAlign: "top" }}
+          size={iconSize}
+          style={{ verticalAlign: "middle" }}
         />
       </StyledText>
 
@@ -96,7 +107,8 @@ export function GameInstructionsModal({
       <StyledText text={t("GameInstructionModal.DifficultySettings")}>
         <IconSettings
           aria-label={t("AriaLabel.OpenGameSettings")}
-          style={{ verticalAlign: "top" }}
+          size={iconSize}
+          style={{ verticalAlign: "middle" }}
         />
       </StyledText>
 
@@ -110,19 +122,19 @@ export function GameInstructionsModal({
         <StyledIconTextRow
           ariaLabel={t("AriaLabel.CorrectWordIcon")}
           icon={IconCheck}
-          color={colorPalette[colorPaletteConstants.CORRECT_GREEN_3]}
+          color={colorPalette[colors.CORRECT_GREEN_3]}
           text={t("GameInstructionModal.TheWordIsCorrect")}
         />
         <StyledIconTextRow
           ariaLabel={t("AriaLabel.IncorrectWordIcon")}
           icon={IconX}
-          color={colorPalette[colorPaletteConstants.INCORRECT_RED_4]}
+          color={colorPalette[colors.INCORRECT_RED_4]}
           text={t("GameInstructionModal.TheWordIsIncorrect")}
         />
         <StyledIconTextRow
           ariaLabel={t("AriaLabel.DuplicateWordIcon")}
           icon={IconCopy}
-          color={colorPalette[colorPaletteConstants.DUPLICATE_BLUE_5]}
+          color={colorPalette[colors.DUPLICATE_BLUE_5]}
           text={t("GameInstructionModal.TheWordIsADuplicate")}
         />
       </Stack>
@@ -136,7 +148,6 @@ export function GameInstructionsModal({
           ariaLabel={t("Actions.BackToGame")}
           onClick={onClose}
           buttonText={t("Actions.BackToGame")}
-          renderLocation="modal"
         />
       </Group>
     </StyledModal>
