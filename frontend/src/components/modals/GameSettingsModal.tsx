@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { colors, gameConstants } from "../../utils/Constants";
-import { Group, Text } from "@mantine/core";
+import { Group, Space, Text } from "@mantine/core";
 import { useGameContext } from "../../context/GameContext";
 import StyledButton from "../styledComponents/StyledButton";
 import StyledModal from "../styledComponents/StyledModal";
@@ -41,6 +41,8 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
       onClose={onClose}
       title={t("GameSettingsModal.Settings")}
     >
+      <Space h="0.75rem" />
+
       <StyledIconTextRow
         ariaLabel={t("AriaLabe.AlertIcon")}
         icon={IconAlertCircle}
