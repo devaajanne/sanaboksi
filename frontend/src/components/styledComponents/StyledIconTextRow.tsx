@@ -19,9 +19,9 @@ export default function StyledIconTextRow({
   text,
 }: StyledIconTextRowProps) {
   const { xs, sm, md, l } = useViewportContext();
-  const iconSize = xs ? 32 : sm ? 40 : md ? 48 : l ? 56 : 64;
+  const iconSize = xs ? 36 : sm ? 45 : md ? 54 : l ? 63 : 72;
   const rowMargin = "0.25rem";
-  const strokeWidth = 1.5;
+  const strokeWidth = 1.25;
 
   return (
     <Group

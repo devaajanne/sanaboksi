@@ -1,9 +1,4 @@
-import {
-  Group,
-  Stack,
-  useMantineColorScheme,
-  useMantineTheme,
-} from "@mantine/core";
+import { Group, Stack } from "@mantine/core";
 import {
   IconCheck,
   IconX,
@@ -21,6 +16,7 @@ import StyledModal from "../styledComponents/StyledModal";
 import StyledText from "../styledComponents/StyledText";
 import StyledIconTextRow from "../styledComponents/StyledIconTextRow";
 import { useViewportContext } from "../../context/ViewportContext";
+import useColorPalette from "../../hook/useColorPalette";
 
 interface GameInstructionsModalProps {
   opened: boolean;
@@ -31,10 +27,7 @@ export function GameInstructionsModal({
   opened,
   onClose,
 }: GameInstructionsModalProps) {
-  const theme = useMantineTheme();
-  const { colorScheme } = useMantineColorScheme();
-  const colorPalette =
-    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const colorPalette = useColorPalette();
   const { xs, sm, md, l } = useViewportContext();
   const iconSize = xs ? 20 : sm ? 22 : md ? 24 : l ? 26 : 28;
   const { t } = useTranslation();
@@ -56,6 +49,7 @@ export function GameInstructionsModal({
         rowLength={5}
         isReadOnly={true}
         rowData={["", "", "H", "", ""]}
+        modalRender={true}
       />
 
       <StyledText text={t("GameInstructionModal.FittingWordsCouldBe")} />
@@ -66,6 +60,7 @@ export function GameInstructionsModal({
         rowLength={5}
         isReadOnly={true}
         rowData={["V", "E", "H", "N", "Ä"]}
+        modalRender={true}
       />
 
       <StyledText text={t("GameInstructionModal.And")} />
@@ -76,6 +71,7 @@ export function GameInstructionsModal({
         rowLength={5}
         isReadOnly={true}
         rowData={["K", "A", "H", "V", "I"]}
+        modalRender={true}
       />
 
       <StyledText
