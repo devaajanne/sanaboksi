@@ -31,6 +31,7 @@ interface SanaboksiGameRowProps {
   isCorrect?: boolean;
   isDuplicate?: boolean;
   isReadOnly?: boolean;
+  modalRender?: boolean;
 }
 
 /**
@@ -48,11 +49,14 @@ export default function SanaboksiGameRow({
   isCorrect,
   isDuplicate,
   isReadOnly,
+  modalRender,
 }: SanaboksiGameRowProps) {
   const colorPalette = useColorPalette();
   const { xs, sm, md, l } = useViewportContext();
   const textInputSize = xs ? 60 : sm ? 75 : md ? 90 : l ? 105 : 120;
   const textInputFontSize = xs ? 30 : sm ? 37.5 : md ? 45 : l ? 52.5 : 60;
+  const modalTextInputSize = xs ? 45 : sm ? 56.25 : md ? 67.5 : l ? 78.75 : 90;
+  const modalTextInputFontSize = xs ? 20 : sm ? 25 : md ? 30 : l ? 35 : 40;
   const { t } = useTranslation();
   const borderWidth = 2;
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -155,9 +159,11 @@ export default function SanaboksiGameRow({
               }}
               styles={{
                 input: {
-                  width: textInputSize,
-                  height: textInputSize,
-                  fontSize: textInputFontSize,
+                  width: modalRender ? modalTextInputSize : textInputSize,
+                  height: modalRender ? modalTextInputSize : textInputSize,
+                  fontSize: modalRender
+                    ? modalTextInputFontSize
+                    : textInputFontSize,
                   textAlign: "center",
                   fontWeight: isFixedLetter ? "bold" : "normal",
                   backgroundColor: isFixedLetter
