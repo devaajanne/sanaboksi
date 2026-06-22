@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Check version update labels
         uses: actions/github-script@v9
@@ -25,7 +25,7 @@ jobs:
             const prUpdateLabels = ['major update', 'minor update', 'patch update'];
             const prLabels = context.payload.pull_request.labels.map(label => label.name);
             const prUpdateLabelsCount = prLabels.filter(label => prUpdateLabels.includes(label)).length;
-            
+
             if (prUpdateLabelsCount === 0) {
               throw new Error('Error: PR has no update label! PR must have exactly one of these labels: major update, minor update, patch update');
             }

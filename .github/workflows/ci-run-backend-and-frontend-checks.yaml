@@ -12,13 +12,14 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up backend workflow environment
         uses: ./.github/actions/setup-backend-workflow-environment
 
-      - name: Run backend formatting check 
-        run: cd backend && ./gradlew spotlessCheck
+      - name: Run backend formatting check
+        working-directory: backend
+        run: ./gradlew spotlessCheck
 
   run-frontend-formatting-check:
     name: FE formatting check
@@ -26,13 +27,14 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up frontend workflow environment
         uses: ./.github/actions/setup-frontend-workflow-environment
 
       - name: Run frontend formatting check
-        run: cd frontend && npx prettier . --check
+        working-directory: frontend
+        run: npx prettier . --check
 
   run-frontend-linting-check:
     name: FE linting check
@@ -40,13 +42,14 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up frontend workflow environment
         uses: ./.github/actions/setup-frontend-workflow-environment
 
       - name: Run frontend linting check
-        run: cd frontend && npx eslint .
+        working-directory: frontend
+        run: npx eslint .
 
   run-backend-unit-tests:
     name: BE unit tests
@@ -54,8 +57,8 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
-      
+        uses: actions/checkout@v7
+
       - name: Build backend test image
         run: docker build -t sanaboksi-backend-test -f ./backend/Dockerfile.dev ./backend
 
@@ -82,7 +85,7 @@ jobs:
         with:
           name: unit-test-report
           path: backend/build/reports/tests/unitTest/
-  
+
   run-backend-integration-tests:
     name: BE integration tests
     runs-on: ubuntu-latest
@@ -90,10 +93,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Download backend test image
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@v7
         with:
           name: sanaboksi-backend-test-image
 
@@ -107,7 +110,7 @@ jobs:
             -e SQLITE_DB_PATH="/database/database.db" \
             -v "${{ github.workspace }}/backend/build/reports/tests:/workdir/build/reports/tests" \
             sanaboksi-backend-test sh -c "/workdir/src/main/resources/databaseInit/reseed_database.sh && ./gradlew --no-daemon integrationTest"
-      
+
       - name: Remove backend test image
         run: docker rmi sanaboksi-backend-test
 
@@ -125,20 +128,21 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up frontend workflow environment
         uses: ./.github/actions/setup-frontend-workflow-environment
 
       - name: Install Playwright Browsers
-        run: cd frontend && npx playwright install --with-deps
+        working-directory: frontend
+        run: npx playwright install --with-deps
 
       - name: Build and start Docker containers
         run: docker compose -f compose.yaml up --build -d
         env:
           CORS_ALLOWED_ORIGIN: http://localhost:5173
           VITE_SERVER_URL: http://localhost:8080
-    
+
       - name: Show backend logs on container build failure
         if: ${{ failure() }}
         run: docker logs sanaboksi_backend
@@ -148,7 +152,8 @@ jobs:
         run: docker logs sanaboksi_frontend
 
       - name: Run end-to-end tests
-        run: cd frontend && npx playwright test
+        working-directory: frontend
+        run: npx playwright test
 
       - name: Stop Docker containers and remove images
         run: docker compose -f compose.yaml down --rmi local

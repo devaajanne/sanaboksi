@@ -13,28 +13,28 @@ jobs:
     name: Get version number from ref
     runs-on: ubuntu-latest
     outputs:
-        version_number: ${{ steps.get-version-number-from-ref.outputs.version_number }}
+      version_number: ${{ steps.get-version-number-from-ref.outputs.version_number }}
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v6
-      
-    - name: Get version number from ref
-      id: get-version-number-from-ref
-      run: |
-        # Ref automatically set when triggered by workflow
-        # Must be manually selected in GitHub when triggered manually
-        TAG=${{ github.ref_name }}
+      - name: Checkout code
+        uses: actions/checkout@v7
 
-        # Original semver regular expression from https://semver.org/ - modified expression here
-        SEMVER_REGEX="^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$"
+      - name: Get version number from ref
+        id: get-version-number-from-ref
+        run: |
+          # Ref automatically set when triggered by workflow
+          # Must be manually selected in GitHub when triggered manually
+          TAG=${{ github.ref_name }}
 
-        if [[ ! ${TAG} =~ ${SEMVER_REGEX} ]]; then
-          echo "Error: Tag is not valid!"
-          exit 1
-        fi
+          # Original semver regular expression from https://semver.org/ - modified expression here
+          SEMVER_REGEX="^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$"
 
-        echo "VERSION_NUMBER=${TAG#v}" >> $GITHUB_OUTPUT
+          if [[ ! ${TAG} =~ ${SEMVER_REGEX} ]]; then
+            echo "Error: Tag is not valid!"
+            exit 1
+          fi
+
+          echo "VERSION_NUMBER=${TAG#v}" >> $GITHUB_OUTPUT
 
   check-acr-images:
     name: Check ACR images
@@ -47,30 +47,29 @@ jobs:
       VERSION_NUMBER: ${{ needs.get-version-number-from-ref.outputs.version_number }}
 
     steps:
-    - name: Login to Azure
-      uses: azure/login@v3
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Login to Azure
+        uses: azure/login@v3
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Check ACR image tags
-      id: check-acr-image-tags
-      run: |
-        if az acr repository show-tags --name ${{ secrets.AZURE_CONTAINER_REGISTRY }} --repository sanaboksi-backend --output tsv | grep -qFx ${{ env.VERSION_NUMBER }}; then
-          echo "Backend image tag ${{ env.VERSION_NUMBER }} found in ACR - deploying container from existing backend image"
-          echo "BACKEND_IMAGE_IN_ACR=true" >> $GITHUB_OUTPUT
-        else
-          echo "Backend image tag ${{ env.VERSION_NUMBER }} not found in ACR - building new backend image and deploying new container"
-          echo "BACKEND_IMAGE_IN_ACR=false" >> $GITHUB_OUTPUT
-        fi
+      - name: Check ACR image tags
+        id: check-acr-image-tags
+        run: |
+          if az acr repository show-tags --name ${{ secrets.AZURE_CONTAINER_REGISTRY }} --repository sanaboksi-backend --output tsv | grep -qFx ${{ env.VERSION_NUMBER }}; then
+            echo "Backend image tag ${{ env.VERSION_NUMBER }} found in ACR - deploying container from existing backend image"
+            echo "BACKEND_IMAGE_IN_ACR=true" >> $GITHUB_OUTPUT
+          else
+            echo "Backend image tag ${{ env.VERSION_NUMBER }} not found in ACR - building new backend image and deploying new container"
+            echo "BACKEND_IMAGE_IN_ACR=false" >> $GITHUB_OUTPUT
+          fi
 
-        if az acr repository show-tags --name ${{ secrets.AZURE_CONTAINER_REGISTRY }} --repository sanaboksi-frontend --output tsv | grep -qFx ${{ env.VERSION_NUMBER }}; then
-          echo "Frontend image tag ${{ env.VERSION_NUMBER }} found in ACR - deploying container from existing frontend image"
-          echo "FRONTEND_IMAGE_IN_ACR=true" >> $GITHUB_OUTPUT
-        else
-          echo "Frontend image tag ${{ env.VERSION_NUMBER }} not found in ACR - building new frontend image and deploying new container"
-          echo "FRONTEND_IMAGE_IN_ACR=false" >> $GITHUB_OUTPUT
-        fi
-
+          if az acr repository show-tags --name ${{ secrets.AZURE_CONTAINER_REGISTRY }} --repository sanaboksi-frontend --output tsv | grep -qFx ${{ env.VERSION_NUMBER }}; then
+            echo "Frontend image tag ${{ env.VERSION_NUMBER }} found in ACR - deploying container from existing frontend image"
+            echo "FRONTEND_IMAGE_IN_ACR=true" >> $GITHUB_OUTPUT
+          else
+            echo "Frontend image tag ${{ env.VERSION_NUMBER }} not found in ACR - building new frontend image and deploying new container"
+            echo "FRONTEND_IMAGE_IN_ACR=false" >> $GITHUB_OUTPUT
+          fi
 
   deploy-backend-container-to-azure:
     name: Deploy backend container to Azure
@@ -79,102 +78,107 @@ jobs:
     needs: [get-version-number-from-ref, check-acr-images]
     env:
       VERSION_NUMBER: ${{ needs.get-version-number-from-ref.outputs.version_number }}
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v6
+      - name: Checkout code
+        uses: actions/checkout@v7
 
-    - name: Login to Azure
-      uses: azure/login@v3
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Login to Azure
+        uses: azure/login@v3
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Deploy existing backend container
-      uses: azure/container-apps-deploy-action@v2
-      if: ${{ needs.check-acr-images.outputs.backend_image_in_acr == 'true' }}
-      with:
-        resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
-        acrName: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
-        acrUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
-        acrPassword: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
-        containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
-        imageToDeploy: ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/sanaboksi-backend:${{ env.VERSION_NUMBER }}
-        containerAppName: sanaboksi-backend
-        environmentVariables: >-
-          SPRING_PROFILES_ACTIVE=azure
-          SPRING_DATASOURCE_URL=${{ secrets.AZURE_SPRING_DATASOURCE_URL }}
-          SPRING_DATASOURCE_USERNAME=${{ secrets.AZURE_SPRING_DATASOURCE_USERNAME }}
-          SPRING_DATASOURCE_PASSWORD=${{ secrets.AZURE_SPRING_DATASOURCE_PASSWORD }}
-          CORS_ALLOWED_ORIGIN=https://sanaboksi.fi
-        disableTelemetry: true
+      - name: Deploy existing backend container
+        uses: azure/container-apps-deploy-action@v2
+        if: ${{ needs.check-acr-images.outputs.backend_image_in_acr == 'true' }}
+        with:
+          resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          acrName: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
+          acrUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
+          acrPassword: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
+          containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
+          imageToDeploy: ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/sanaboksi-backend:${{ env.VERSION_NUMBER }}
+          containerAppName: sanaboksi-backend
+          environmentVariables: >-
+            SPRING_PROFILES_ACTIVE=azure
+            SPRING_DATASOURCE_URL=${{ secrets.AZURE_SPRING_DATASOURCE_URL }}
+            SPRING_DATASOURCE_USERNAME=${{ secrets.AZURE_SPRING_DATASOURCE_USERNAME }}
+            SPRING_DATASOURCE_PASSWORD=${{ secrets.AZURE_SPRING_DATASOURCE_PASSWORD }}
+            CORS_ALLOWED_ORIGIN=https://sanaboksi.fi
+          disableTelemetry: true
 
-    - name: Build and deploy new backend container
-      uses: azure/container-apps-deploy-action@v2
-      if: ${{ needs.check-acr-images.outputs.backend_image_in_acr == 'false' }}
-      with:
-        resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
-        acrName: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
-        acrUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
-        acrPassword: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
-        containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
-        dockerfilePath: Dockerfile
-        appSourcePath: ${{ github.workspace }}/backend
-        imageToBuild: ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/sanaboksi-backend:${{ env.VERSION_NUMBER }}
-        containerAppName: sanaboksi-backend
-        environmentVariables: >-
-          SPRING_PROFILES_ACTIVE=azure
-          SPRING_DATASOURCE_URL=${{ secrets.AZURE_SPRING_DATASOURCE_URL }}
-          SPRING_DATASOURCE_USERNAME=${{ secrets.AZURE_SPRING_DATASOURCE_USERNAME }}
-          SPRING_DATASOURCE_PASSWORD=${{ secrets.AZURE_SPRING_DATASOURCE_PASSWORD }}
-          CORS_ALLOWED_ORIGIN=https://sanaboksi.fi
-        ingress: external
-        targetPort: 8080
-        disableTelemetry: true
+      - name: Build and deploy new backend container
+        uses: azure/container-apps-deploy-action@v2
+        if: ${{ needs.check-acr-images.outputs.backend_image_in_acr == 'false' }}
+        with:
+          resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          acrName: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
+          acrUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
+          acrPassword: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
+          containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
+          dockerfilePath: Dockerfile
+          appSourcePath: ${{ github.workspace }}/backend
+          imageToBuild: ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/sanaboksi-backend:${{ env.VERSION_NUMBER }}
+          containerAppName: sanaboksi-backend
+          environmentVariables: >-
+            SPRING_PROFILES_ACTIVE=azure
+            SPRING_DATASOURCE_URL=${{ secrets.AZURE_SPRING_DATASOURCE_URL }}
+            SPRING_DATASOURCE_USERNAME=${{ secrets.AZURE_SPRING_DATASOURCE_USERNAME }}
+            SPRING_DATASOURCE_PASSWORD=${{ secrets.AZURE_SPRING_DATASOURCE_PASSWORD }}
+            CORS_ALLOWED_ORIGIN=https://sanaboksi.fi
+          ingress: external
+          targetPort: 8080
+          disableTelemetry: true
 
   deploy-frontend-container-to-azure:
     name: Deploy frontend container to Azure
     runs-on: ubuntu-latest
     # Needs jobs to make sure the correct tag is used for images and that backend is deployed
-    needs: [get-version-number-from-ref, check-acr-images, deploy-backend-container-to-azure]
+    needs:
+      [
+        get-version-number-from-ref,
+        check-acr-images,
+        deploy-backend-container-to-azure,
+      ]
     env:
       VERSION_NUMBER: ${{ needs.get-version-number-from-ref.outputs.version_number }}
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v6
+      - name: Checkout code
+        uses: actions/checkout@v7
 
-    - name: Login to Azure
-      uses: azure/login@v3
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Login to Azure
+        uses: azure/login@v3
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Deploy existing frontend container
-      uses: azure/container-apps-deploy-action@v2
-      if: ${{ needs.check-acr-images.outputs.frontend_image_in_acr == 'true' }}
-      with:
-        resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
-        acrName: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
-        acrUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
-        acrPassword: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
-        containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
-        imageToDeploy: ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/sanaboksi-frontend:${{ env.VERSION_NUMBER }}
-        containerAppName: sanaboksi-frontend
-        disableTelemetry: true
+      - name: Deploy existing frontend container
+        uses: azure/container-apps-deploy-action@v2
+        if: ${{ needs.check-acr-images.outputs.frontend_image_in_acr == 'true' }}
+        with:
+          resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          acrName: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
+          acrUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
+          acrPassword: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
+          containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
+          imageToDeploy: ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/sanaboksi-frontend:${{ env.VERSION_NUMBER }}
+          containerAppName: sanaboksi-frontend
+          disableTelemetry: true
 
-    - name: Build and deploy new frontend container
-      uses: azure/container-apps-deploy-action@v2
-      if: ${{ needs.check-acr-images.outputs.frontend_image_in_acr == 'false' }}
-      with:
-        resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
-        acrName: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
-        acrUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
-        acrPassword: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
-        containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
-        dockerfilePath: Dockerfile
-        appSourcePath: ${{ github.workspace }}/frontend
-        imageToBuild: ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/sanaboksi-frontend:${{ env.VERSION_NUMBER }}
-        containerAppName: sanaboksi-frontend
-        buildArguments: VITE_SERVER_URL=${{ secrets.AZURE_BACKEND_URL }}
-        ingress: external
-        targetPort: 80
-        disableTelemetry: true
+      - name: Build and deploy new frontend container
+        uses: azure/container-apps-deploy-action@v2
+        if: ${{ needs.check-acr-images.outputs.frontend_image_in_acr == 'false' }}
+        with:
+          resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          acrName: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
+          acrUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
+          acrPassword: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
+          containerAppEnvironment: ${{ secrets.AZURE_CONTAINER_APPS_ENVIRONMENT }}
+          dockerfilePath: Dockerfile
+          appSourcePath: ${{ github.workspace }}/frontend
+          imageToBuild: ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/sanaboksi-frontend:${{ env.VERSION_NUMBER }}
+          containerAppName: sanaboksi-frontend
+          buildArguments: VITE_SERVER_URL=${{ secrets.AZURE_BACKEND_URL }}
+          ingress: external
+          targetPort: 80
+          disableTelemetry: true
