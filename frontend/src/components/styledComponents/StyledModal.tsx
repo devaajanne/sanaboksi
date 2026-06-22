@@ -43,15 +43,15 @@ export default function StyledModal({
         ),
       }}
       styles={{
+        title: { fontSize: titleFontSize },
         header: {
           backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
           color: colorPalette[colors.SECONDARY_COLOR_1],
         },
-        body: {
+        content: {
           backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
           color: colorPalette[colors.SECONDARY_COLOR_1],
         },
-        title: { fontSize: titleFontSize },
       }}
     >
       {children}
