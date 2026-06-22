@@ -21,7 +21,7 @@ export default function StyledIconAnchorRow({
 }: StyledIconAnchorRowProps) {
   const colorPalette = useColorPalette();
   const { xs, sm, md, l } = useViewportContext();
-  const iconSize = xs ? 16 : sm ? 24 : md ? 32 : l ? 40 : 48;
+  const iconSize = xs ? 36 : sm ? 45 : md ? 54 : l ? 63 : 72;
   const rowMargin = "0.25rem";
   const strokeWidth = 1.5;
 
