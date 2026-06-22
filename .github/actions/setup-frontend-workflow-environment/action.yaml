@@ -11,4 +11,5 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: cd frontend && npm install
+      working-directory: frontend
+      run: npm ci

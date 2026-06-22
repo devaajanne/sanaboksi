@@ -3,7 +3,6 @@
 name: sanaboksi
 
 services:
-
   backend:
     container_name: sanaboksi_backend
     build:
@@ -16,7 +15,8 @@ services:
       SPRING_PROFILES_ACTIVE: "local-prod"
       SERVER_PORT: "8080"
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
+      test:
+        ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 5

@@ -17,10 +17,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Get latest tag
-        id: get-latest-tag 
+        id: get-latest-tag
         run: |
           git fetch origin --tags
           LATEST_TAG="$(git tag --list 'v*' --sort=-version:refname | head -n1)"
@@ -64,7 +64,7 @@ jobs:
             } else {
               prUpdateLabel = 'patch update';
             }
-            
+
             core.setOutput('update_label', prUpdateLabel);
 
   create-and-push-new-tag:
@@ -76,10 +76,10 @@ jobs:
       PR_UPDATE_LABEL: ${{ needs.get-pr-update-label.outputs.pr_update_label }}
     outputs:
       new_tag: ${{ steps.create-new-tag.outputs.new_tag }}
-    
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Create a new tag
         id: create-new-tag
@@ -137,7 +137,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Trigger deployment workflow
         run: gh workflow run cd-deploy-to-azure.yaml --ref ${NEW_TAG}
