@@ -1,10 +1,9 @@
 import {
   Container,
   Text,
-  useMantineColorScheme,
   Stack,
   Group,
-  useMantineTheme,
+  useMantineColorScheme,
 } from "@mantine/core";
 import {
   IconSun,
@@ -22,12 +21,11 @@ import { colors } from "../utils/Constants";
 import { useViewportContext } from "../context/ViewportContext";
 import StyledActionIcon from "../components/styledComponents/StyledActionIcon";
 import StyledTooltip from "../components/styledComponents/StyledTooltip";
+import useColorPalette from "../hook/useColorPalette";
 
 export default function Header() {
-  const theme = useMantineTheme();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const colorPalette =
-    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const colorPalette = useColorPalette();
   const { xs, sm, md, l } = useViewportContext();
   const titleFontSize = xs ? 36 : sm ? 45 : md ? 54 : l ? 73 : 72;
   const { t } = useTranslation();

@@ -1,5 +1,6 @@
-import { Tooltip, useMantineColorScheme, useMantineTheme } from "@mantine/core";
+import { Tooltip } from "@mantine/core";
 import { colors } from "../../utils/Constants";
+import useColorPalette from "../../hook/useColorPalette";
 
 interface StyledTooltipProps {
   label: string;
@@ -12,10 +13,7 @@ export default function StyledTooltip({
   disabled,
   children,
 }: StyledTooltipProps) {
-  const theme = useMantineTheme();
-  const { colorScheme } = useMantineColorScheme();
-  const colorPalette =
-    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const colorPalette = useColorPalette();
   const position = "bottom";
 
   return (

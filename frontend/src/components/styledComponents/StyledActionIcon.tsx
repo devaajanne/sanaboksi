@@ -1,10 +1,7 @@
-import {
-  ActionIcon,
-  useMantineTheme,
-  useMantineColorScheme,
-} from "@mantine/core";
+import { ActionIcon } from "@mantine/core";
 import { useViewportContext } from "../../context/ViewportContext";
 import { colors } from "../../utils/Constants";
+import useColorPalette from "../../hook/useColorPalette";
 
 interface StyledActionIconProps {
   ariaLabel: string;
@@ -19,13 +16,10 @@ export default function StyledActionIcon({
   icon: Icon,
   disabled,
 }: StyledActionIconProps) {
-  const theme = useMantineTheme();
-  const { colorScheme } = useMantineColorScheme();
-  const colorPalette =
-    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const colorPalette = useColorPalette();
   const { xs, sm, md, l } = useViewportContext();
   const iconSize = xs ? 32 : sm ? 48 : md ? 64 : l ? 80 : 96;
-  const strokeWidth = 1.5;
+  const strokeWidth = 1.25;
 
   return (
     <ActionIcon

@@ -1,17 +1,13 @@
 import { useRef } from "react";
 import type { KeyboardEvent } from "react";
-import {
-  TextInput,
-  Group,
-  useMantineTheme,
-  useMantineColorScheme,
-} from "@mantine/core";
+import { TextInput, Group } from "@mantine/core";
 import type { FixedLetter } from "../../types/Types";
 import { IconCheck, IconX, IconCopy } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { colors } from "../../utils/Constants";
 import { useViewportContext } from "../../context/ViewportContext";
 import StyledRowValidationIcon from "../styledComponents/StyledRowValidationIcon";
+import useColorPalette from "../../hook/useColorPalette";
 
 /**
  * Props for the SanaboksiGameRow component.
@@ -53,13 +49,10 @@ export default function SanaboksiGameRow({
   isDuplicate,
   isReadOnly,
 }: SanaboksiGameRowProps) {
-  const theme = useMantineTheme();
-  const { colorScheme } = useMantineColorScheme();
-  const colorPalette =
-    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const colorPalette = useColorPalette();
   const { xs, sm, md, l } = useViewportContext();
-  const textInputSize = xs ? 48 : sm ? 60 : md ? 72 : l ? 84 : 96;
-  const textInputFontSize = xs ? 20 : sm ? 25 : md ? 30 : l ? 35 : 40;
+  const textInputSize = xs ? 60 : sm ? 75 : md ? 90 : l ? 105 : 120;
+  const textInputFontSize = xs ? 30 : sm ? 37.5 : md ? 45 : l ? 52.5 : 60;
   const { t } = useTranslation();
   const borderWidth = 2;
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);

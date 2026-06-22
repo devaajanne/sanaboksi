@@ -1,11 +1,9 @@
-import { Divider, useMantineColorScheme, useMantineTheme } from "@mantine/core";
+import { Divider } from "@mantine/core";
 import { colors } from "../../utils/Constants";
+import useColorPalette from "../../hook/useColorPalette";
 
 export default function StyledDivider() {
-  const theme = useMantineTheme();
-  const { colorScheme } = useMantineColorScheme();
-  const colorPalette =
-    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const colorPalette = useColorPalette();
   const margin = "1rem";
 
   return (

@@ -1,10 +1,6 @@
+import useColorPalette from "../../hook/useColorPalette";
 import { colors } from "../../utils/Constants";
-import {
-  SegmentedControl,
-  useMantineColorScheme,
-  useMantineTheme,
-  type SegmentedControlItem,
-} from "@mantine/core";
+import { SegmentedControl, type SegmentedControlItem } from "@mantine/core";
 
 interface StyledSegmentedControlProps {
   ariaLabel: string;
@@ -21,10 +17,7 @@ export default function StyledSegmentedControl({
   data,
   orientation,
 }: StyledSegmentedControlProps) {
-  const theme = useMantineTheme();
-  const { colorScheme } = useMantineColorScheme();
-  const colorPalette =
-    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const colorPalette = useColorPalette();
 
   return (
     <SegmentedControl

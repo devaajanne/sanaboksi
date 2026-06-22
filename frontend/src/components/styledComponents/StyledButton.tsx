@@ -1,12 +1,7 @@
-import {
-  Button,
-  Text,
-  useMantineColorScheme,
-  useMantineTheme,
-  type LoaderProps,
-} from "@mantine/core";
+import { Button, Text, type LoaderProps } from "@mantine/core";
 import { colors } from "../../utils/Constants";
 import { useViewportContext } from "../../context/ViewportContext";
+import useColorPalette from "../../hook/useColorPalette";
 
 interface StyledButtonProps {
   ariaLabel: string;
@@ -22,10 +17,7 @@ export default function StyledButton({
   loading,
   loaderProps,
 }: StyledButtonProps) {
-  const theme = useMantineTheme();
-  const { colorScheme } = useMantineColorScheme();
-  const colorPalette =
-    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const colorPalette = useColorPalette();
   const { xs, sm, md, l } = useViewportContext();
   const buttonSize = xs ? "32" : sm ? "40" : md ? "48" : l ? "56" : "64";
   const borderWidth = 2;

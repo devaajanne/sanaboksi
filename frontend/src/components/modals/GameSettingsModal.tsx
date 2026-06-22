@@ -1,11 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { colors, gameConstants } from "../../utils/Constants";
-import {
-  Group,
-  Text,
-  useMantineColorScheme,
-  useMantineTheme,
-} from "@mantine/core";
+import { Group, Text } from "@mantine/core";
 import { useGameContext } from "../../context/GameContext";
 import StyledButton from "../styledComponents/StyledButton";
 import StyledModal from "../styledComponents/StyledModal";
@@ -13,6 +8,7 @@ import StyledText from "../styledComponents/StyledText";
 import StyledSegmentedControl from "../styledComponents/StyledSegmentedControl";
 import StyledIconTextRow from "../styledComponents/StyledIconTextRow";
 import { IconAlertCircle } from "@tabler/icons-react";
+import useColorPalette from "../../hook/useColorPalette";
 
 interface GameSettingsModalProps {
   opened: boolean;
@@ -20,10 +16,7 @@ interface GameSettingsModalProps {
 }
 
 export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
-  const theme = useMantineTheme();
-  const { colorScheme } = useMantineColorScheme();
-  const colorPalette =
-    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const colorPalette = useColorPalette();
   const { t } = useTranslation();
   const { wordLength, setWordLength } = useGameContext();
 

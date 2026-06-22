@@ -13,13 +13,7 @@ import {
   gameGridContainsOnlyCorrectWords,
   gameGridIsFilledIn,
 } from "../../utils/UtilityFunctions";
-import {
-  Center,
-  Container,
-  Stack,
-  useMantineColorScheme,
-  useMantineTheme,
-} from "@mantine/core";
+import { Center, Container, Stack } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import NotificationModal from "../modals/NotificationModal";
 import {
@@ -34,6 +28,7 @@ import { IconReload } from "@tabler/icons-react";
 import StyledTooltip from "../styledComponents/StyledTooltip";
 import StyledButton from "../styledComponents/StyledButton";
 import StyledActionIcon from "../styledComponents/StyledActionIcon";
+import useColorPalette from "../../hook/useColorPalette";
 
 /**
  * Main component for rendering and managing the Sanaboksi game grid.
@@ -41,10 +36,7 @@ import StyledActionIcon from "../styledComponents/StyledActionIcon";
  * @returns The rendered game grid and controls.
  */
 export default function SanaboksiGameGrid() {
-  const theme = useMantineTheme();
-  const { colorScheme } = useMantineColorScheme();
-  const colorPalette =
-    colorScheme === "light" ? theme.colors.light : theme.colors.dark;
+  const colorPalette = useColorPalette();
   const { xs, sm, md, l } = useViewportContext();
   const gameGridRowGap = xs ? 8 : sm ? 10 : md ? 12 : l ? 14 : 16;
   const gameGridMarginTop = xs ? 4 : sm ? 6 : md ? 8 : l ? 10 : 12;
