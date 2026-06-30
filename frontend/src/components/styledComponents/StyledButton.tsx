@@ -6,6 +6,7 @@ import useColorPalette from "../../hook/useColorPalette";
 interface StyledButtonProps {
   ariaLabel: string;
   onClick: () => void;
+  fullWidth?: boolean;
   buttonText: string;
   loading?: boolean;
   loaderProps?: LoaderProps;
@@ -15,24 +16,23 @@ interface StyledButtonProps {
 export default function StyledButton({
   ariaLabel,
   onClick,
+  fullWidth,
   buttonText,
   loading,
   loaderProps,
-  buttonSize,
-  buttonFontSize,
 }: StyledButtonProps) {
   const colorPalette = useColorPalette();
   const { xs, sm, md, l } = useViewportContext();
   const size = xs ? "32" : sm ? "40" : md ? "48" : l ? "56" : "64";
   const borderWidth = 2;
-  const margintop = "1rem";
+  const marginTop = "1rem";
 
   return (
     <Button
       aria-label={ariaLabel}
       onClick={onClick}
       color={colorPalette[colors.PRIMARY_COLOR_0]}
-      size={buttonSize ? buttonSize : size}
+      size={fullWidth ? undefined : size}
       loading={loading}
       loaderProps={loaderProps}
       styles={{
@@ -43,7 +43,9 @@ export default function StyledButton({
           backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
           borderColor: colorPalette[colors.SECONDARY_COLOR_1],
           borderWidth: borderWidth,
-          marginTop: margintop,
+          marginTop: marginTop,
+          width: fullWidth ? "100%" : undefined,
+          height: fullWidth ? "100%" : undefined,
         },
       }}
     >
@@ -52,7 +54,7 @@ export default function StyledButton({
         styles={{
           root: {
             color: colorPalette[colors.SECONDARY_COLOR_1],
-            fontSize: buttonFontSize ? buttonFontSize : size,
+            fontSize: fullWidth ? undefined : size,
           },
         }}
       >

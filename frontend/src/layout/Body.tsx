@@ -1,12 +1,21 @@
-import { Box, Center } from "@mantine/core";
+import { Container } from "@mantine/core";
 import SanaboksiGameGrid from "../components/game/SanaboksiGameGrid";
 
 export default function Body() {
   return (
-    <Center styles={{ root: { width: "100%" } }}>
-      <Box>
-        <SanaboksiGameGrid />
-      </Box>
-    </Center>
+    <Container
+      fluid
+      styles={{
+        root: {
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        },
+      }}
+    >
+      <SanaboksiGameGrid />
+    </Container>
   );
 }
