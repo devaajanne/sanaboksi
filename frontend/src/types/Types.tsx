@@ -18,8 +18,7 @@ export type GameGrid = string[][];
  * Example: { "0": { "correctWord": true, "duplicateWord": false } }
  */
 export type ValidationResults =
-  | Record<string, Record<string, boolean>>
-  | undefined;
+  Record<string, Record<string, boolean>> | undefined;
 
 export const NotificationModalSource = {
   NoSource: 0,

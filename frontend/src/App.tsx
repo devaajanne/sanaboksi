@@ -21,9 +21,7 @@ function App() {
       }}
     >
       <Header />
-      <Container styles={{ root: { flex: 1, display: "flex" } }}>
-        <Body />
-      </Container>
+      <Body />
       <Footer />
     </Container>
   );

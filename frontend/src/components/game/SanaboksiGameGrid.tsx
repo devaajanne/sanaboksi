@@ -13,7 +13,7 @@ import {
   gameGridContainsOnlyCorrectWords,
   gameGridIsFilledIn,
 } from "../../utils/UtilityFunctions";
-import { Center, Container, Stack } from "@mantine/core";
+import { Center, Container, Space, Stack } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import NotificationModal from "../modals/NotificationModal";
 import {
@@ -41,8 +41,6 @@ export default function SanaboksiGameGrid() {
   const gameGridRowGap = xs ? 8 : sm ? 10 : md ? 12 : l ? 14 : 16;
   const gameGridMarginTop = xs ? 4 : sm ? 6 : md ? 8 : l ? 10 : 12;
   const gameGridMarginBottom = xs ? 24 : sm ? 30 : md ? 36 : l ? 42 : 48;
-  const buttonSize = xs ? "48" : sm ? "60" : md ? "72" : l ? "84" : "96";
-  const buttonFontSize = xs ? 24 : sm ? 30 : md ? 36 : l ? 42 : 48;
   const { t } = useTranslation();
   const { wordLength, notificationModalSource, setNotificationModalSource } =
     useGameContext();
@@ -233,8 +231,16 @@ export default function SanaboksiGameGrid() {
 
   return (
     <>
-      <Container strategy="grid" aria-label={t("AriaLabel.SanaBoksiGameGrid")}>
-        <Stack gap={gameGridRowGap} styles={{ root: { position: "relative" } }}>
+      <Stack
+        align="center"
+        gap={0}
+
+        aria-label={t("AriaLabel.SanaBoksiGameGrid")}
+      >
+        <Stack
+          gap={gameGridRowGap}
+          styles={{ root: { position: "relative", width: "fit-content" } }}
+        >
           {fixedLetters.length === 0
             ? // Render empty game grid rows
               Array.from({ length: gameConstants.WORD_COUNT_5 }).map(
@@ -273,70 +279,73 @@ export default function SanaboksiGameGrid() {
                 />
               ))}
         </Stack>
-      </Container>
 
-      <Container
-        strategy="grid"
-        styles={{
-          root: {
-            marginTop: gameGridMarginTop,
-            marginBottom: gameGridMarginBottom,
-          },
-        }}
-      >
-        {isValidGameGrid && isCorrectGameGrid ? (
-          <StyledButton
-            ariaLabel={t("GameGridButton.NewGame")}
-            onClick={() =>
-              fetchFixedLetters(
-                languageConstants.FI,
-                gameConstants.WORD_COUNT_5,
-              )
-            }
-            buttonText={t("GameGridButton.NewGame")}
-            loading={isLoading}
-            loaderProps={{
-              type: "dots",
-              color: colorPalette[colors.SECONDARY_COLOR_1],
-            }}
-          />
-        ) : (
-          <StyledButton
-            ariaLabel={t("GameGridButton.ValidateWords")}
-            onClick={handleGameGridValidation}
-            buttonText={t("GameGridButton.ValidateWords")}
-            loading={isLoading}
-            loaderProps={{
-              type: "dots",
-              color: colorPalette[colors.SECONDARY_COLOR_1],
-            }}
-            buttonSize={buttonSize}
-            buttonFontSize={buttonFontSize}
-          />
-        )}
-      </Container>
-
-      <Center>
-        <StyledTooltip
-          label={
-            isCorrectGameGrid
-              ? t("Tooltip.LoadNewGameByPressingNewGameTooltip")
-              : t("Tooltip.LoadNewGameTooltip")
-          }
-          disabled={isLoading}
+        <Container
+          strategy="grid"
+          styles={{
+            root: {
+              width: "100%",
+              marginTop: gameGridMarginTop,
+              marginBottom: gameGridMarginBottom,
+            },
+          }}
         >
-          <StyledActionIcon
-            ariaLabel={
+          {isValidGameGrid && isCorrectGameGrid ? (
+            <StyledButton
+              ariaLabel={t("GameGridButton.NewGame")}
+              onClick={() =>
+                fetchFixedLetters(
+                  languageConstants.FI,
+                  gameConstants.WORD_COUNT_5,
+                )
+              }
+              fullWidth
+              buttonText={t("GameGridButton.NewGame")}
+              loading={isLoading}
+              loaderProps={{
+                type: "dots",
+                color: colorPalette[colors.SECONDARY_COLOR_1],
+              }}
+            />
+          ) : (
+            <StyledButton
+              ariaLabel={t("GameGridButton.ValidateWords")}
+              fullWidth
+              onClick={handleGameGridValidation}
+              buttonText={t("GameGridButton.ValidateWords")}
+              loading={isLoading}
+              loaderProps={{
+                type: "dots",
+                color: colorPalette[colors.SECONDARY_COLOR_1],
+              }}
+            />
+          )}
+        </Container>
+
+        <Space h="md" />
+
+        <Center>
+          <StyledTooltip
+            label={
               isCorrectGameGrid
-                ? t("AriaLabel.LoadNewGameByPressingNewGame")
-                : t("AriaLabel.LoadNewGame")
+                ? t("Tooltip.LoadNewGameByPressingNewGameTooltip")
+                : t("Tooltip.LoadNewGameTooltip")
             }
-            onClick={handleNewGameGridLoading}
-            icon={IconReload}
-            disabled={reloadIconDisabled}
-          />
-        </StyledTooltip>
-      </Center>
+            disabled={isLoading}
+          >
+            <StyledActionIcon
+              ariaLabel={
+                isCorrectGameGrid
+                  ? t("AriaLabel.LoadNewGameByPressingNewGame")
+                  : t("AriaLabel.LoadNewGame")
+              }
+              onClick={handleNewGameGridLoading}
+              icon={IconReload}
+              disabled={reloadIconDisabled}
+            />
+          </StyledTooltip>
+        </Center>
+      </Stack>
 
       <NotificationModal
         source={notificationModalSource}
