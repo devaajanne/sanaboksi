@@ -1,5 +1,5 @@
 import { ActionIcon } from "@mantine/core";
-import { useViewportContext } from "../../context/ViewportContext";
+import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 import { colors } from "../../utils/Constants";
 import useColorPalette from "../../hook/useColorPalette";
 

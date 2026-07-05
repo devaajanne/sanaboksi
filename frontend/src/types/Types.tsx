@@ -42,6 +42,22 @@ export type GameContextType = {
   ) => void;
 };
 
+type GameDifficulty = {
+  wordLength: number;
+  setWordLength: (wordLength: number) => void;
+};
+
+export type GameSettingsContextType = {
+  gameDifficulty: GameDifficulty;
+};
+
+export type NotificationModalSourceType = {
+  notificationModalSource: NotificationModalSource;
+  setNotificationModalSource: (
+    notificationModalSource: NotificationModalSource,
+  ) => void;
+};
+
 export type ViewportContextType = {
   xs: boolean;
   sm: boolean;

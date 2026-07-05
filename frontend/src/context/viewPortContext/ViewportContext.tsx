@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import type { ViewportContextType } from "../types/Types";
+import type { ViewportContextType } from "../../types/Types";
 
 export const ViewportContext = createContext<ViewportContextType | undefined>(
   undefined,

@@ -18,7 +18,7 @@ import { GameInfoModal } from "../components/modals/GameInfoModal";
 import { useDisclosure } from "@mantine/hooks";
 import { useTranslation } from "react-i18next";
 import { colors } from "../utils/Constants";
-import { useViewportContext } from "../context/ViewportContext";
+import { useViewportContext } from "../context/viewportContext/ViewportContext";
 import StyledActionIcon from "../components/styledComponents/StyledActionIcon";
 import StyledTooltip from "../components/styledComponents/StyledTooltip";
 import useColorPalette from "../hook/useColorPalette";

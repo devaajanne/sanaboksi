@@ -1,6 +1,6 @@
 import { Group, Anchor } from "@mantine/core";
 import { colors } from "../../utils/Constants";
-import { useViewportContext } from "../../context/ViewportContext";
+import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 import useColorPalette from "../../hook/useColorPalette";
 
 interface StyledIconAnchorRowProps {

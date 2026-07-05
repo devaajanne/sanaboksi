@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { colors, gameConstants } from "../../utils/Constants";
 import { Group, Space, Text } from "@mantine/core";
-import { useGameContext } from "../../context/GameContext";
+import { useGameSettingsContext } from "../../context/gameSettingsContext/GameSettingsContext";
 import StyledButton from "../styledComponents/StyledButton";
 import StyledModal from "../styledComponents/StyledModal";
 import StyledText from "../styledComponents/StyledText";
@@ -18,7 +18,9 @@ interface GameSettingsModalProps {
 export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
   const colorPalette = useColorPalette();
   const { t } = useTranslation();
-  const { wordLength, setWordLength } = useGameContext();
+  const {
+    gameDifficulty: { wordLength, setWordLength },
+  } = useGameSettingsContext();
 
   const handleDifficultyChange = (value: string) => {
     const numValue = Number(value);
