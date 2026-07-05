@@ -50,9 +50,9 @@ export default function SanaboksiGameRow({
   isReadOnly,
 }: SanaboksiGameRowProps) {
   const colorPalette = useColorPalette();
-  const { xs, sm, md, l } = useViewportContext();
-  const textInputSize = xs ? 45 : sm ? 56.25 : md ? 67.5 : l ? 78.75 : 90;
-  const textInputFontSize = xs ? 18 : sm ? 23 : md ? 28 : l ? 33 : 38;
+  const { xs, sm, md, lg } = useViewportContext();
+  const textInputSize = xs ? 45 : sm ? 56.25 : md ? 67.5 : lg ? 78.75 : 90;
+  const textInputFontSize = xs ? 18 : sm ? 23 : md ? 28 : lg ? 33 : 38;
   const { t } = useTranslation();
   const borderWidth = 2;
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);

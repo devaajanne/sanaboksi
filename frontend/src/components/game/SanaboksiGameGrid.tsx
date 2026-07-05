@@ -38,10 +38,10 @@ import useColorPalette from "../../hook/useColorPalette";
  */
 export default function SanaboksiGameGrid() {
   const colorPalette = useColorPalette();
-  const { xs, sm, md, l } = useViewportContext();
-  const gameGridRowGap = xs ? 8 : sm ? 10 : md ? 12 : l ? 14 : 16;
-  const gameGridMarginTop = xs ? 4 : sm ? 6 : md ? 8 : l ? 10 : 12;
-  const gameGridMarginBottom = xs ? 24 : sm ? 30 : md ? 36 : l ? 42 : 48;
+  const { xs, sm, md, lg } = useViewportContext();
+  const gameGridRowGap = xs ? 8 : sm ? 10 : md ? 12 : lg ? 14 : 16;
+  const gameGridMarginTop = xs ? 4 : sm ? 6 : md ? 8 : lg ? 10 : 12;
+  const gameGridMarginBottom = xs ? 24 : sm ? 30 : md ? 36 : lg ? 42 : 48;
   const { t } = useTranslation();
   const {
     gameDifficulty: { wordLength },

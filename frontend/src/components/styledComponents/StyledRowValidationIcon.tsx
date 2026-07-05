@@ -16,8 +16,8 @@ export default function StyledRowValidationIcon({
   color,
   icon: Icon,
 }: StyledRowValidationIconProps) {
-  const { xs, sm, md, l } = useViewportContext();
-  const iconSize = xs ? 16 : sm ? 20 : md ? 24 : l ? 28 : 32;
+  const { xs, sm, md, lg } = useViewportContext();
+  const iconSize = xs ? 16 : sm ? 20 : md ? 24 : lg ? 28 : 32;
   const iconPositionOffset = xs
     ? "-1.25rem"
     : sm

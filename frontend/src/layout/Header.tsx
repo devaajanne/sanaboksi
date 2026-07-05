@@ -26,8 +26,8 @@ import useColorPalette from "../hook/useColorPalette";
 export default function Header() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const colorPalette = useColorPalette();
-  const { xs, sm, md, l } = useViewportContext();
-  const titleFontSize = xs ? 36 : sm ? 45 : md ? 54 : l ? 73 : 72;
+  const { xs, sm, md, lg } = useViewportContext();
+  const titleFontSize = xs ? 36 : sm ? 45 : md ? 54 : lg ? 73 : 72;
   const { t } = useTranslation();
   const [
     openedGameInstructions,

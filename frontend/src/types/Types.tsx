@@ -62,6 +62,6 @@ export type ViewportContextType = {
   xs: boolean;
   sm: boolean;
   md: boolean;
-  l: boolean;
+  lg: boolean;
   xl: boolean;
 };

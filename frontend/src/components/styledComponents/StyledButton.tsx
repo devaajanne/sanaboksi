@@ -22,8 +22,8 @@ export default function StyledButton({
   loaderProps,
 }: StyledButtonProps) {
   const colorPalette = useColorPalette();
-  const { xs, sm, md, l } = useViewportContext();
-  const size = xs ? "32" : sm ? "40" : md ? "48" : l ? "56" : "64";
+  const { xs, sm, md, lg } = useViewportContext();
+  const size = xs ? "32" : sm ? "40" : md ? "48" : lg ? "56" : "64";
   const borderWidth = 2;
   const marginTop = "1rem";
 

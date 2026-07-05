@@ -17,8 +17,8 @@ export default function StyledActionIcon({
   disabled,
 }: StyledActionIconProps) {
   const colorPalette = useColorPalette();
-  const { xs, sm, md, l } = useViewportContext();
-  const iconSize = xs ? 32 : sm ? 48 : md ? 64 : l ? 80 : 96;
+  const { xs, sm, md, lg } = useViewportContext();
+  const iconSize = xs ? 32 : sm ? 48 : md ? 64 : lg ? 80 : 96;
   const strokeWidth = 1.25;
 
   return (
