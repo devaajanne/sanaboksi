@@ -117,3 +117,16 @@ test("Changing game difficulty renders the reload warning", async ({
 
   await expect(page.getByText(warningText)).toBeVisible();
 });
+
+test("Changing game difficulty renders save button", async ({ page }) => {
+  await page.getByRole("button", { name: "Avaa pelin asetukset" }).click();
+
+  await expect(page.getByRole("heading", { name: "Asetukset" })).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Tallenna" }),
+  ).not.toBeVisible();
+
+  await page.getByText("7 kirjainta").click();
+
+  await expect(page.getByRole("button", { name: "Tallenna" })).toBeVisible();
+});

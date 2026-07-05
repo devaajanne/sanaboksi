@@ -96,11 +96,13 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
       )}
 
       <Group justify="flex-end">
-        <StyledButton
-          ariaLabel={t("Actions.Save")}
-          onClick={handleSave}
-          buttonText={t("Actions.Save")}
-        />
+        {wordLength != tempWordLength && (
+          <StyledButton
+            ariaLabel={t("Actions.Save")}
+            onClick={handleSave}
+            buttonText={t("Actions.Save")}
+          />
+        )}
         <StyledButton
           ariaLabel={t("Actions.BackToGame")}
           onClick={handleClose}
