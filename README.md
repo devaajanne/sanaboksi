@@ -58,17 +58,21 @@ Sanaboksi has been inspired by Sanuli, another word game developed by Haaga-Heli
 
 ## Running Sanaboksi locally
 
-To run Sanaboksi locally, you need to have the following installed:
-- Docker (download from [docker.com](https://www.docker.com/))
+### Prerequisites
 
-The backend and frontend Dockerfiles contain all the build/runtime dependencies you need and initialize the database via an entrypoint script.
+To run Sanaboksi locally, you need
+- Git (download from [git-scm.com](https://git-scm.com/))
+- Docker (Docker Desktop recommended, download from  [docker.com/products/docker-desktop/](https://www.docker.com/products/docker-desktop/))
 
-Clone the repository:
+The app's Dockerfiles include all required build and runtime dependencies for backend and frontend. The database is initialized through an entrypoint script.
+
+### Clone the repository
 ```bash
 git clone https://github.com/devaajanne/sanaboksi.git
 ```
 
-Run Sanaboksi in a production environment with these Docker commands:
+### Run Sanaboksi in a production environment
+Production environment provides a static version of the app. This is the version deployed to Azure Container Apps. Open at `http://localhost:5173`.
 ```bash
 # Start app containers
 docker compose -f compose.yaml up --build
@@ -77,12 +81,9 @@ docker compose -f compose.yaml up --build
 # Stop app containers
 docker compose -f compose.yaml down
 ```
-```bash
-# Stop app containers and remove images
-docker compose -f compose.yaml down --rmi local
-```
 
-Run Sanaboksi in a development environment with these Docker commands:
+### Run Sanaboksi in a development environment
+Development environment includes hot reloading, so code changes are reflected inside the containers while the containers are running. Open at `http://localhost:5174`.
 ```bash
 # Start app containers
 docker compose -f compose.dev.yaml up --watch
@@ -91,12 +92,6 @@ docker compose -f compose.dev.yaml up --watch
 # Stop app containers
 docker compose -f compose.dev.yaml down
 ```
-```bash
-# Stop app containers and remove images
-docker compose -f compose.dev.yaml down --rmi local
-```
-
-After starting the containers, open the app at `localhost:5173`.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -108,6 +103,12 @@ Sanaboksi's documentation can be found in [docs](./docs/). The documentation inc
 - Database ([database.md](./docs/database.md))
 - Requirements ([requirements.md](./docs/requirements.md))
 - Relevant thesis files at the time of submission ([thesis-files](./docs/thesis-files/))
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## License
+
+Sanaboksi is licensed under the MIT license. See the license in [LICENSE](./LICENSE.md).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
