@@ -8,11 +8,11 @@ export function ViewportContextProvider({ children }: { children: ReactNode }) {
   const xs = useMediaQuery(`(max-width: ${theme.breakpoints.xs})`);
   const sm = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   const md = useMediaQuery(`(max-width: ${theme.breakpoints.md})`);
-  const l = useMediaQuery(`(max-width: ${theme.breakpoints.l})`);
+  const lg = useMediaQuery(`(max-width: ${theme.breakpoints.lg})`);
   const xl = useMediaQuery(`(max-width: ${theme.breakpoints.xl})`);
   const viewportContextValue = useMemo(
-    () => ({ xs, sm, md, l, xl }),
-    [xs, sm, md, l, xl],
+    () => ({ xs, sm, md, lg, xl }),
+    [xs, sm, md, lg, xl],
   );
 
   return (

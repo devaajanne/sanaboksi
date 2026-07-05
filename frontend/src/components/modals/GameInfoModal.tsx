@@ -20,8 +20,8 @@ interface GameInfoModalProps {
 }
 
 export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
-  const { xs, sm, md, l } = useViewportContext();
-  const iconSize = xs ? 20 : sm ? 22 : md ? 24 : l ? 26 : 28;
+  const { xs, sm, md, lg } = useViewportContext();
+  const iconSize = xs ? 20 : sm ? 22 : md ? 24 : lg ? 26 : 28;
   const { t } = useTranslation();
 
   return (

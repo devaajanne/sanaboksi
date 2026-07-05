@@ -19,8 +19,8 @@ export default function StyledModal({
   children,
 }: StyledModalProps) {
   const colorPalette = useColorPalette();
-  const { xs, sm, md, l } = useViewportContext();
-  const titleFontSize = xs ? 24 : sm ? 28 : md ? 32 : l ? 36 : 40;
+  const { xs, sm, md, lg } = useViewportContext();
+  const titleFontSize = xs ? 24 : sm ? 28 : md ? 32 : lg ? 36 : 40;
   const { t } = useTranslation();
   const strokeWidth = 1.5;
 
