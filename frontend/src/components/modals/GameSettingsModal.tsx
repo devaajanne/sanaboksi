@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { colors, gameConstants } from "../../utils/Constants";
 import { Group, Space, Text } from "@mantine/core";
@@ -21,6 +22,7 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
   const {
     gameDifficulty: { wordLength, setWordLength },
   } = useGameSettingsContext();
+  const [tempWordLength, setTempWordLength] = useState<number>(wordLength);
 
   const handleDifficultyChange = (value: string) => {
     const numValue = Number(value);
@@ -33,32 +35,31 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
         gameConstants.WORD_LENGTH_7,
       ].includes(numValue)
     ) {
-      setWordLength(numValue);
+      setTempWordLength(numValue);
     }
+  };
+
+  const handleSave = () => {
+    setWordLength(tempWordLength);
+    onClose();
+  };
+
+  const handleClose = () => {
+    setTempWordLength(wordLength);
+    onClose();
   };
 
   return (
     <StyledModal
       opened={opened}
-      onClose={onClose}
+      onClose={handleClose}
       title={t("GameSettingsModal.Settings")}
     >
-      <Space h="0.75rem" />
-
-      <StyledIconTextRow
-        ariaLabel={t("AriaLabe.AlertIcon")}
-        icon={IconAlertCircle}
-        color={colorPalette[colors.SECONDARY_COLOR_1]}
-        text={t(
-          "GameSettingsModal.IfYouChangeDifficultyYouWillLoseYourProgress",
-        )}
-      />
-
       <StyledText text={t("GameSettingsModal.ChooseDifficulty")} />
 
       <StyledSegmentedControl
         ariaLabel={t("GameSettingsModal.ChooseDifficulty")}
-        value={String(wordLength)}
+        value={String(tempWordLength)}
         onChange={handleDifficultyChange}
         data={[
           {
@@ -81,10 +82,26 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
         orientation="vertical"
       />
 
+      <Space h="xl" />
+
+      <StyledIconTextRow
+        ariaLabel={t("AriaLabe.AlertIcon")}
+        icon={IconAlertCircle}
+        color={colorPalette[colors.SECONDARY_COLOR_1]}
+        text={t(
+          "GameSettingsModal.SavingLoadsANewGameGridAndYouLoseYourProgessInThisGameGrid",
+        )}
+      />
+
       <Group justify="flex-end">
         <StyledButton
+          ariaLabel={t("Actions.Save")}
+          onClick={handleSave}
+          buttonText={t("Actions.Save")}
+        />
+        <StyledButton
           ariaLabel={t("Actions.BackToGame")}
-          onClick={onClose}
+          onClick={handleClose}
           buttonText={t("Actions.BackToGame")}
         />
       </Group>

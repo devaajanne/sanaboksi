@@ -3,7 +3,8 @@
     "Close": "Sulje",
     "BackToGame": "Takaisin peliin",
     "LoadNewGame": "Lataa uusi peli",
-    "Confirm": "Vahvista"
+    "Confirm": "Vahvista",
+    "Save": "Tallenna"
   },
   "GameGridButton": {
     "NewGame": "Uusi peli",
@@ -64,7 +65,7 @@
     "FiveLetters": "5 kirjainta",
     "SixLetters": "6 kirjainta",
     "SevenLetters": "7 kirjainta",
-    "IfYouChangeDifficultyYouWillLoseYourProgress": "Jos muutat vaikeustasoa, menetät mahdollisen edistymisesi tässä ruudukossa!"
+    "SavingLoadsANewGameGridAndYouLoseYourProgessInThisGameGrid": "Tallentaminen lataa uuden peliruudun, ja menetät edistymisesi tässä peliruudussa."
   },
   "GameInfoModal": {
     "WhatSanaboksi": "Mikä Sanaboksi?",
