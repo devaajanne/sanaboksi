@@ -3,19 +3,22 @@ import { StrictMode } from "react";
 import "@fontsource/arvo";
 import "./localization/i18n.ts";
 import { createRoot } from "react-dom/client";
-import App from "./App";
 import { MantineProvider } from "@mantine/core";
-import { ViewportContextProvider } from "./context/ViewportContextProvider";
+import App from "./App";
 import { theme } from "./utils/MantineTheme";
-import { GameContextProvider } from "./context/GameContextProvider";
+import { ViewportContextProvider } from "./context/viewportContext/ViewportContextProvider.tsx";
+import { NotificationModalSourceContextProvider } from "./context/notificationModalSourceContext/NotificationModalSourceContextProvider";
+import { GameSettingsContextProvider } from "./context/gameSettingsContext/GameSettingsContextProvider";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <MantineProvider theme={theme}>
       <ViewportContextProvider>
-        <GameContextProvider>
-          <App />
-        </GameContextProvider>
+        <NotificationModalSourceContextProvider>
+          <GameSettingsContextProvider>
+            <App />
+          </GameSettingsContextProvider>
+        </NotificationModalSourceContextProvider>
       </ViewportContextProvider>
     </MantineProvider>
   </StrictMode>,

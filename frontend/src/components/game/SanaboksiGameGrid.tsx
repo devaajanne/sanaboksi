@@ -22,8 +22,9 @@ import {
   languageConstants,
 } from "../../utils/Constants";
 import { useTranslation } from "react-i18next";
-import { useGameContext } from "../../context/GameContext";
-import { useViewportContext } from "../../context/ViewportContext";
+import { useViewportContext } from "../../context/viewportContext/ViewportContext";
+import { useNotificationModalSourceContext } from "../../context/notificationModalSourceContext/NotificationModalSourceContext";
+import { useGameSettingsContext } from "../../context/gameSettingsContext/GameSettingsContext";
 import { IconReload } from "@tabler/icons-react";
 import StyledTooltip from "../styledComponents/StyledTooltip";
 import StyledButton from "../styledComponents/StyledButton";
@@ -42,8 +43,11 @@ export default function SanaboksiGameGrid() {
   const gameGridMarginTop = xs ? 4 : sm ? 6 : md ? 8 : l ? 10 : 12;
   const gameGridMarginBottom = xs ? 24 : sm ? 30 : md ? 36 : l ? 42 : 48;
   const { t } = useTranslation();
-  const { wordLength, notificationModalSource, setNotificationModalSource } =
-    useGameContext();
+  const {
+    gameDifficulty: { wordLength },
+  } = useGameSettingsContext();
+  const { notificationModalSource, setNotificationModalSource } =
+    useNotificationModalSourceContext();
   // Store the fixed letters configuration for each row (which index has which fixed letter)
   const [fixedLetters, setFixedLetters] = useState<FixedLetters>([]);
   // Store the actual game grid data (2D array of characters with dynamic dimensions)

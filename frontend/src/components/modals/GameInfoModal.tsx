@@ -12,7 +12,7 @@ import StyledDivider from "../styledComponents/StyledDivider";
 import StyledModal from "../styledComponents/StyledModal";
 import StyledText from "../styledComponents/StyledText";
 import StyledIconAnchorRow from "../styledComponents/StyledIconAnchorRow";
-import { useViewportContext } from "../../context/ViewportContext";
+import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 
 interface GameInfoModalProps {
   opened: boolean;

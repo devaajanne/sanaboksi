@@ -1,5 +1,5 @@
 import { Group, Text } from "@mantine/core";
-import { useViewportContext } from "../../context/ViewportContext";
+import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 
 interface StyledIconTextRowProps {
   ariaLabel: string;

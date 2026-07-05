@@ -1,4 +1,4 @@
-import { useViewportContext } from "../../context/ViewportContext";
+import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 
 interface StyledRowValidationIconProps {
   ariaLabel: string;

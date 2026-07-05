@@ -15,7 +15,7 @@ import StyledDivider from "../styledComponents/StyledDivider";
 import StyledModal from "../styledComponents/StyledModal";
 import StyledText from "../styledComponents/StyledText";
 import StyledIconTextRow from "../styledComponents/StyledIconTextRow";
-import { useViewportContext } from "../../context/ViewportContext";
+import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 import useColorPalette from "../../hook/useColorPalette";
 
 interface GameInstructionsModalProps {
