@@ -16,9 +16,10 @@ async function getGridLetters(page: Page) {
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
+  await page.waitForTimeout(1_000);
 });
 
-test("Changing game difficulty to four letters loads a correct new game grid", async ({
+test("Changing game difficulty to four letters and saving loads a correct new game grid", async ({
   page,
 }) => {
   await page.getByRole("button", { name: "Avaa pelin asetukset" }).click();
@@ -27,7 +28,7 @@ test("Changing game difficulty to four letters loads a correct new game grid", a
 
   await page.getByText("4 kirjainta").click();
 
-  await page.getByRole("button", { name: "Sulje" }).click();
+  await page.getByRole("button", { name: "Tallenna" }).click();
 
   await page.waitForTimeout(1_000);
 
@@ -39,7 +40,7 @@ test("Changing game difficulty to four letters loads a correct new game grid", a
   });
 });
 
-test("Changing game difficulty to six letters loads a correct new game grid", async ({
+test("Changing game difficulty to six letters and saving loads a correct new game grid", async ({
   page,
 }) => {
   await page.getByRole("button", { name: "Avaa pelin asetukset" }).click();
@@ -48,7 +49,7 @@ test("Changing game difficulty to six letters loads a correct new game grid", as
 
   await page.getByText("6 kirjainta").click();
 
-  await page.getByRole("button", { name: "Sulje" }).click();
+  await page.getByRole("button", { name: "Tallenna" }).click();
 
   await page.waitForTimeout(1_000);
 
@@ -60,7 +61,7 @@ test("Changing game difficulty to six letters loads a correct new game grid", as
   });
 });
 
-test("Changing game difficulty to seven letters loads a correct new game grid", async ({
+test("Changing game difficulty to seven letters and saving loads a correct new game grid", async ({
   page,
 }) => {
   await page.getByRole("button", { name: "Avaa pelin asetukset" }).click();
@@ -69,7 +70,7 @@ test("Changing game difficulty to seven letters loads a correct new game grid", 
 
   await page.getByText("7 kirjainta").click();
 
-  await page.getByRole("button", { name: "Sulje" }).click();
+  await page.getByRole("button", { name: "Tallenna" }).click();
 
   await page.waitForTimeout(1_000);
 
@@ -79,4 +80,24 @@ test("Changing game difficulty to seven letters loads a correct new game grid", 
     expect(row.filter((l) => l === "").length).toBe(6);
     expect(row.filter((l) => l !== "").length).toBe(1);
   });
+});
+
+test("Changing game difficulty and leaving the modal does not load a new game grid", async ({
+  page,
+}) => {
+  const initialGrid = await getGridLetters(page);
+
+  await page.getByRole("button", { name: "Avaa pelin asetukset" }).click();
+
+  await expect(page.getByRole("heading", { name: "Asetukset" })).toBeVisible();
+
+  await page.getByText("7 kirjainta").click();
+
+  await page.getByRole("button", { name: "Takaisin peliin" }).click();
+
+  await page.waitForTimeout(1_000);
+
+  const comparedGrid = await getGridLetters(page);
+
+  expect(initialGrid).toEqual(comparedGrid);
 });
