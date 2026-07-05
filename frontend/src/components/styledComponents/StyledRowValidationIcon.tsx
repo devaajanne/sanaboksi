@@ -24,7 +24,7 @@ export default function StyledRowValidationIcon({
       ? "-1.5625rem"
       : md
         ? "-1.875rem"
-        : l
+        : lg
           ? "-2.1875rem"
           : "-2.5rem";
   const strokeWidth = 1.5;
