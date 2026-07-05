@@ -101,3 +101,19 @@ test("Changing game difficulty and leaving the modal does not load a new game gr
 
   expect(initialGrid).toEqual(comparedGrid);
 });
+
+test("Changing game difficulty renders the reload warning", async ({
+  page,
+}) => {
+  const warningText =
+    "Tallentaminen lataa uuden peliruudun, ja menetät edistymisesi tässä peliruudussa.";
+
+  await page.getByRole("button", { name: "Avaa pelin asetukset" }).click();
+
+  await expect(page.getByRole("heading", { name: "Asetukset" })).toBeVisible();
+  await expect(page.getByText(warningText)).not.toBeVisible();
+
+  await page.getByText("7 kirjainta").click();
+
+  await expect(page.getByText(warningText)).toBeVisible();
+});
