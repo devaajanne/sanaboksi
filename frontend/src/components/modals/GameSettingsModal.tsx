@@ -84,14 +84,16 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
 
       <Space h="xl" />
 
-      <StyledIconTextRow
-        ariaLabel={t("AriaLabe.AlertIcon")}
-        icon={IconAlertCircle}
-        color={colorPalette[colors.SECONDARY_COLOR_1]}
-        text={t(
-          "GameSettingsModal.SavingLoadsANewGameGridAndYouLoseYourProgessInThisGameGrid",
-        )}
-      />
+      {wordLength != tempWordLength && (
+        <StyledIconTextRow
+          ariaLabel={t("AriaLabel.AlertIcon")}
+          icon={IconAlertCircle}
+          color={colorPalette[colors.SECONDARY_COLOR_1]}
+          text={t(
+            "GameSettingsModal.SavingLoadsANewGameGridAndYouLoseYourProgessInThisGameGrid",
+          )}
+        />
+      )}
 
       <Group justify="flex-end">
         <StyledButton
