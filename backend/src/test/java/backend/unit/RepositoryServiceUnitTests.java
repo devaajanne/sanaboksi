@@ -32,7 +32,7 @@ public class RepositoryServiceUnitTests {
   @BeforeEach
   public void setUpMockClasses() {
     mockFinnishWordRepository = mock(FinnishWordRepository.class);
-    repositoryService = new RepositoryService("test", mockFinnishWordRepository);
+    repositoryService = new RepositoryService(mockFinnishWordRepository);
   }
 
   @Test

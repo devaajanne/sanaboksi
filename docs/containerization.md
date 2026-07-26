@@ -252,9 +252,8 @@ The backend containers (both production and development) use an entrypoint scrip
 - Reads the `SPRING_PROFILES_ACTIVE` environment variable to determine which profile (`local-dev`, `local-prod`, `test`, or `azure`) is active
 
 ### Database Initialization
-- For local development (`local-dev`), local production (`local-prod`), and test (`test`) profiles, the script checks if the SQLite database file exists at the path specified by `SQLITE_DB_PATH`
-  - If the database does not exist, it runs the reseed script to initialize and seed the database
-- For the `azure` profile, the script verifies that all required Azure SQL environment variables (`SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, `SPRING_DATASOURCE_PASSWORD`) are set before starting the application
+- For local development (`local-dev`), local production (`local-prod`), test (`test`)  and Azure (`azure`) profiles, the script checks if the SQLite database file exists at the path specified by `SQLITE_DB_PATH`
+  - If the database does not exist, it runs the seed script to initialize and seed the database
 
 ### Application Startup
 - With development (`local-dev`) profile, starts two Gradle processes in parallel for hot reloading:

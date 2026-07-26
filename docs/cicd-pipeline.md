@@ -108,7 +108,7 @@ Runs automatically on pull requests when
 - **Steps**:
   1. Downloads the `sanaboksi-backend-test-image` artifact created by `run-backend-unit-tests`
   2. Loads the backend test image with Docker
-  3. Creates and reseeds the database inside the container
+  3. Creates and seeds the database inside the container
   4. Runs integration tests [`backend/src/test/java/backend/integration/`](../backend/src/test/java/backend/integration/) via a custom Gradle task (from [`build.gradle`](../backend/build.gradle)) inside the container with `./gradlew --no-daemon integrationTest`
   5. Uploads the integration test report from `backend/build/reports/tests/integrationTest/` if the job fails
 

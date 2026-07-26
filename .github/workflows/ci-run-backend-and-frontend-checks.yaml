@@ -107,9 +107,8 @@ jobs:
         run: |
           mkdir -p "${{ github.workspace }}/backend/build/reports/tests"
           docker run --rm --name be-integration-tests \
-            -e SQLITE_DB_PATH="/database/database.db" \
             -v "${{ github.workspace }}/backend/build/reports/tests:/workdir/build/reports/tests" \
-            sanaboksi-backend-test sh -c "/workdir/src/main/resources/databaseInit/reseed_database.sh && ./gradlew --no-daemon integrationTest"
+            sanaboksi-backend-test sh -c "/workdir/src/main/resources/databaseInit/seed_database.sh && ./gradlew --no-daemon integrationTest"
 
       - name: Remove backend test image
         run: docker rmi sanaboksi-backend-test

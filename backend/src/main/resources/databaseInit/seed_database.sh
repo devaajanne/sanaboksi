@@ -3,14 +3,9 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Running script in a container
-if [ -f "/.dockerenv" ]; then
-    echo "Reseeding database in a container..."
-    DATABASE_DIRECTORY="/database"
-else
-    echo "Reseeding database locally..."
-    DATABASE_DIRECTORY="$SCRIPT_DIR/../database"
-fi
+# Set correct database directory
+DATABASE_DIRECTORY="$(dirname "${SQLITE_DB_PATH:-/workdir/database/database.db}")"
+mkdir -p "$DATABASE_DIRECTORY"
 
 # Ensure the database directory exists before creating the database file
 if [ ! -d "$DATABASE_DIRECTORY" ]; then
@@ -23,7 +18,7 @@ DATABASE_FILE="$DATABASE_DIRECTORY/database.db"
 
 # Check that schema file exists
 if [ ! -f "$SCHEMA_FILE" ]; then
-    echo "Database schema not found at $SCHEMA_FILE. Skipping creation."
+    echo "Database schema not found at $SCHEMA_FILE. Skipping creation..."
     exit 1
 fi
 
@@ -45,4 +40,4 @@ for WORD_LENGTH in 4 5 6 7; do
 done
 
 ROW_COUNT=$(sqlite3 "$DATABASE_FILE" "SELECT COUNT(*) FROM finnish_words;")
-echo "Database created and seeded with ${ROW_COUNT} rows."
+echo "Database created and seeded with ${ROW_COUNT} rows!"
