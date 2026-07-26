@@ -101,10 +101,8 @@ jobs:
           containerAppName: sanaboksi-backend
           environmentVariables: >-
             SPRING_PROFILES_ACTIVE=azure
-            SPRING_DATASOURCE_URL=${{ secrets.AZURE_SPRING_DATASOURCE_URL }}
-            SPRING_DATASOURCE_USERNAME=${{ secrets.AZURE_SPRING_DATASOURCE_USERNAME }}
-            SPRING_DATASOURCE_PASSWORD=${{ secrets.AZURE_SPRING_DATASOURCE_PASSWORD }}
             CORS_ALLOWED_ORIGIN=https://sanaboksi.fi
+            SQLITE_DB_PATH=${{ vars.SQLITE_DB_PATH }}
           disableTelemetry: true
 
       - name: Build and deploy new backend container
@@ -122,10 +120,8 @@ jobs:
           containerAppName: sanaboksi-backend
           environmentVariables: >-
             SPRING_PROFILES_ACTIVE=azure
-            SPRING_DATASOURCE_URL=${{ secrets.AZURE_SPRING_DATASOURCE_URL }}
-            SPRING_DATASOURCE_USERNAME=${{ secrets.AZURE_SPRING_DATASOURCE_USERNAME }}
-            SPRING_DATASOURCE_PASSWORD=${{ secrets.AZURE_SPRING_DATASOURCE_PASSWORD }}
             CORS_ALLOWED_ORIGIN=https://sanaboksi.fi
+            SQLITE_DB_PATH=${{ vars.SQLITE_DB_PATH }}
           ingress: external
           targetPort: 8080
           disableTelemetry: true
