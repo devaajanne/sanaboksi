@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,14 +16,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class RepositoryService {
 
-  private final String activeSpringProfile;
   private final FinnishWordRepository finnishWordRepository;
-  private final String AZURE = "azure";
 
-  public RepositoryService(
-      @Value("${spring.profiles.active:}") String activeSpringProfile,
-      FinnishWordRepository finnishWordRepository) {
-    this.activeSpringProfile = activeSpringProfile;
+  public RepositoryService(FinnishWordRepository finnishWordRepository) {
     this.finnishWordRepository = finnishWordRepository;
   }
 
@@ -44,14 +38,8 @@ public class RepositoryService {
 
     switch (language) {
       case LanguageEnum.FI:
-        if (AZURE.equals(activeSpringProfile)) {
-          wordList =
-              finnishWordRepository.sqlserverFindRandomWordsByWordLengthAndCount(
-                  wordLength, wordCount);
-        } else {
-          wordList =
-              finnishWordRepository.findRandomWordsByWordLengthAndCount(wordLength, wordCount);
-        }
+        wordList = finnishWordRepository.findRandomWordsByWordLengthAndCount(wordLength, wordCount);
+
         break;
       default:
         throw new IllegalArgumentException("Unknown language: " + language);
@@ -83,11 +71,8 @@ public class RepositoryService {
 
     switch (language) {
       case LanguageEnum.FI:
-        if (AZURE.equals(activeSpringProfile)) {
-          wordCount = finnishWordRepository.sqlserverCountByWordLength(wordLength);
-        } else {
-          wordCount = finnishWordRepository.countByWordLength(wordLength);
-        }
+        wordCount = finnishWordRepository.countByWordLength(wordLength);
+
         break;
       default:
         throw new IllegalArgumentException("Unknown language: " + language);
