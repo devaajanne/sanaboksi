@@ -26,9 +26,9 @@ COPY --from=build /workdir/build/libs/*.jar backend_build.jar
 COPY --from=build /workdir/src/main/resources/databaseInit ./databaseInit
 COPY entrypoint.sh ./entrypoint.sh
 # Normalize line endings
-RUN sed -i 's/\r$//' /workdir/entrypoint.sh /workdir/databaseInit/reseed_database.sh
+RUN sed -i 's/\r$//' /workdir/entrypoint.sh /workdir/databaseInit/seed_database.sh
 # Grant needed permissions
-RUN chmod +x /workdir/entrypoint.sh /workdir/databaseInit/reseed_database.sh
+RUN chmod +x /workdir/entrypoint.sh /workdir/databaseInit/seed_database.sh
 # Expose port
 EXPOSE 8080
 # Start with correct profile

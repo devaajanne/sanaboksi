@@ -4,54 +4,31 @@ set -e
 ACTIVE_SPRING_PROFILE="${SPRING_PROFILES_ACTIVE}"
 echo "Active Spring profile: $ACTIVE_SPRING_PROFILE"
 
-# Reseed database if running local development containers
+# Export SQLite path to reseed script
+export SQLITE_DB_PATH
+mkdir -p "$(dirname "$SQLITE_DB_PATH")"
+
+# Set SQLite seed file location and command to run the app in development container
 if [ "$ACTIVE_SPRING_PROFILE" = "local-dev" ]; then
-  # Export SQLite path to reseed script
-  export SQLITE_DB_PATH
-  mkdir -p "$(dirname "$SQLITE_DB_PATH")"
-
-  if [ ! -f "$SQLITE_DB_PATH" ]; then
-    echo "Initializing and seeding SQLite database for active Spring profile..."
-    /bin/bash /workdir/src/main/resources/databaseInit/reseed_database.sh
-  else
-    echo "SQLite database already exists at $SQLITE_DB_PATH"
-  fi
-
+  # Set correct database seed script location
+  SQLITE_SEED_FILE="/workdir/src/main/resources/databaseInit/seed_database.sh"
   # Set command to run development container
   RUN_COMMAND="./gradlew classes --continuous --no-daemon & ./gradlew bootRun --no-daemon"
 fi
 
-# Reseed database if running local production containers
-if [ "$ACTIVE_SPRING_PROFILE" = "local-prod" ] || [ "$ACTIVE_SPRING_PROFILE" = "test" ]; then
-  # Export SQLite path to reseed script
-  export SQLITE_DB_PATH
-  mkdir -p "$(dirname "$SQLITE_DB_PATH")"
-
-  if [ ! -f "$SQLITE_DB_PATH" ]; then
-    echo "Initializing and seeding SQLite database for active Spring profile..."
-    /bin/bash /workdir/databaseInit/reseed_database.sh
-  else
-    echo "SQLite database already exists at $SQLITE_DB_PATH"
-  fi
-
+# Set SQLite seed file location and command to run the app in production container
+if [ "$ACTIVE_SPRING_PROFILE" = "local-prod" ] || [ "$ACTIVE_SPRING_PROFILE" = "test" ] || [ "$ACTIVE_SPRING_PROFILE" = "azure" ]; then
+  # Set correct database seed script location
+  SQLITE_SEED_FILE="/workdir/databaseInit/seed_database.sh"
   # Set command to run production container
   RUN_COMMAND="java -jar backend_build.jar"
 fi
 
-# Check that Azure SQL Database variables exists
-if [ "$ACTIVE_SPRING_PROFILE" = "azure" ]; then
-  echo "Checking required database variables for active Spring profile..."
-  for var in SPRING_DATASOURCE_URL SPRING_DATASOURCE_USERNAME SPRING_DATASOURCE_PASSWORD; do
-    eval "value=\${$var:-}"
-    if [ -z "$value" ]; then
-      echo "Missing required database variable $var for active Spring profile!"
-      exit 1
-    fi
-  done
-  
-  echo "All required database variables set!"
-  # Set command to run production container
-  RUN_COMMAND="java -jar backend_build.jar"
+if [ ! -f "$SQLITE_DB_PATH" ]; then
+  echo "Initializing and seeding SQLite database for active Spring profile..."
+  /bin/bash "$SQLITE_SEED_FILE"
+else
+  echo "SQLite database already exists at $SQLITE_DB_PATH"
 fi
 
 # Execute correct run command

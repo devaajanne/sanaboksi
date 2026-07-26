@@ -16,9 +16,9 @@ COPY . .
 # Database directory inside the image
 RUN mkdir -p /database
 # Normalize line endings
-RUN sed -i 's/\r$//' /workdir/entrypoint.sh /workdir/src/main/resources/databaseInit/reseed_database.sh
+RUN sed -i 's/\r$//' /workdir/entrypoint.sh /workdir/src/main/resources/databaseInit/seed_database.sh
 # Grant needed permissions
-RUN chmod +x ./gradlew /workdir/entrypoint.sh /workdir/src/main/resources/databaseInit/reseed_database.sh
+RUN chmod +x ./gradlew /workdir/entrypoint.sh /workdir/src/main/resources/databaseInit/seed_database.sh
 # Expose port
 EXPOSE 8081
 # Start with correct profile
