@@ -89,9 +89,9 @@ export default function SanaboksiGameGrid() {
         );
       } catch (error: unknown) {
         if (error instanceof Error) {
-          throw new Error(error.message);
+          throw new Error(error.message, { cause: error });
         } else {
-          throw new Error("Failed to fetch fixed letters: Unknown error");
+          throw error;
         }
       } finally {
         setValidationResults(undefined);
@@ -186,9 +186,9 @@ export default function SanaboksiGameGrid() {
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
-        throw new Error(error.message);
+        throw new Error(error.message, { cause: error });
       } else {
-        throw new Error("Failed to handle game grid validation: Unknown error");
+        throw error;
       }
     }
   };
@@ -203,11 +203,9 @@ export default function SanaboksiGameGrid() {
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
-        throw new Error(error.message);
+        throw new Error(error.message, { cause: error });
       } else {
-        throw new Error(
-          "Failed to handle new game grid loading: Unknown error",
-        );
+        throw error;
       }
     }
   };
