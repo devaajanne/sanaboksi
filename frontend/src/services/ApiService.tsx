@@ -23,8 +23,9 @@ export const getFixedLetters = async (
     return response.data;
   } catch (error: unknown) {
     if (error instanceof Error) {
-      throw new Error(error.message);
+      throw new Error(error.message, { cause: error });
     }
+    throw error;
   }
 };
 
@@ -50,7 +51,8 @@ export const validateGameGrid = async (
     return response.data.validationResults;
   } catch (error: unknown) {
     if (error instanceof Error) {
-      throw new Error(error.message);
+      throw new Error(error.message, { cause: error });
     }
+    throw error;
   }
 };
