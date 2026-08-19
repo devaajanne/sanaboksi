@@ -29,19 +29,16 @@ public class GameController {
   }
 
   /**
-   * Retrieves fixed letters for the game grid based on language, word length, and word count.
+   * Retrieves fixed letters for the game grid based on language and word length.
    *
    * @param language the language for the game
    * @param wordLength the length of each word (4-7)
-   * @param wordCount the number of words in the grid
    * @return a {@link FixedLetterResponse} containing the fixed letters
    */
-  @GetMapping("/fixed-letters/{language}/{wordLength}/{wordCount}")
+  @GetMapping("/fixed-letters/{language}/{wordLength}")
   public ResponseEntity<FixedLetterResponse> getFixedLetters(
-      @PathVariable LanguageEnum language,
-      @PathVariable int wordLength,
-      @PathVariable int wordCount) {
-    return ResponseEntity.ok(gameService.getFixedLetterResponse(language, wordLength, wordCount));
+      @PathVariable LanguageEnum language, @PathVariable int wordLength) {
+    return ResponseEntity.ok(gameService.getFixedLetterResponse(language, wordLength));
   }
 
   /**

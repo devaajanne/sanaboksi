@@ -23,22 +23,21 @@ public class RepositoryService {
   }
 
   /**
-   * Retrieves a list of random words for the specified language, word length, and count.
+   * Retrieves a list of 5 random words for the specified language and word length.
    *
    * @param language the language of the words
    * @param wordLength the length of each word
-   * @param wordCount the number of words to retrieve
    * @return a list of randomly selected words
    * @throws IllegalArgumentException if the requested language is not in language enums
    * @throws IllegalStateException if the repository is empty or unseeded for the given parameters
    */
-  public List<? extends Word> findRandomWordsWithCorrectLanguageLengthAndCount(
-      LanguageEnum language, int wordLength, int wordCount) {
+  public List<? extends Word> findRandomWordsWithCorrectLanguageAndLength(
+      LanguageEnum language, int wordLength) {
     List<? extends Word> wordList = new ArrayList<>();
 
     switch (language) {
       case LanguageEnum.FI:
-        wordList = finnishWordRepository.findRandomWordsByWordLengthAndCount(wordLength, wordCount);
+        wordList = finnishWordRepository.findRandomWordsByWordLength(wordLength);
 
         break;
       default:

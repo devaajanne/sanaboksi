@@ -30,53 +30,23 @@ public class GameServiceIntegrationTests {
 
   @Test
   public void getFixedLetterResponseShouldReturnValidResponse() {
-    FixedLetterResponse response = gameService.getFixedLetterResponse(LanguageEnum.FI, 5, 5);
+    FixedLetterResponse response = gameService.getFixedLetterResponse(LanguageEnum.FI, 5);
     assertEquals(5, response.getFixedLetters().size());
     assertEquals(5, response.getWordLength());
-  }
-
-  @Test
-  @Transactional
-  public void getFixedLetterResponseShouldReturnAllAvailableWordsIfRequestedMoreThanExist() {
-    finnishWordRepository.deleteAll();
-    assertEquals(0, finnishWordRepository.count());
-    finnishWordRepository.saveAll(
-        Arrays.asList(
-            new FinnishWord(null, "vehnä"),
-            new FinnishWord(null, "suola"),
-            new FinnishWord(null, "maito")));
-
-    FixedLetterResponse response = gameService.getFixedLetterResponse(LanguageEnum.FI, 5, 10);
-
-    assertEquals(3, response.getFixedLetters().size());
-  }
-
-  @Test
-  public void getFixedLetterResponseShouldThrowExceptionWhenWordCountIsNegative() {
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> gameService.getFixedLetterResponse(LanguageEnum.FI, 5, -5));
-  }
-
-  @Test
-  public void getFixedLetterResponseShouldThrowExceptionWhenWordCountIsZero() {
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> gameService.getFixedLetterResponse(LanguageEnum.FI, 5, 0));
   }
 
   @Test
   public void getFixedLetterResponseShouldThrowExceptionWhenWordLengthIsTooShort() {
     assertThrows(
         IllegalArgumentException.class,
-        () -> gameService.getFixedLetterResponse(LanguageEnum.FI, 3, 5));
+        () -> gameService.getFixedLetterResponse(LanguageEnum.FI, 3));
   }
 
   @Test
   public void getFixedLetterResponseShouldThrowExceptionWhenWordLengthIsTooLong() {
     assertThrows(
         IllegalArgumentException.class,
-        () -> gameService.getFixedLetterResponse(LanguageEnum.FI, 8, 5));
+        () -> gameService.getFixedLetterResponse(LanguageEnum.FI, 8));
   }
 
   @Test
@@ -87,8 +57,22 @@ public class GameServiceIntegrationTests {
     assertEquals(0, finnishWordRepository.count());
 
     assertThrows(
-        IllegalStateException.class,
-        () -> gameService.getFixedLetterResponse(LanguageEnum.FI, 5, 5));
+        IllegalStateException.class, () -> gameService.getFixedLetterResponse(LanguageEnum.FI, 5));
+  }
+
+  @Test
+  @Transactional
+  public void
+      getFixedLetterResponseShouldThrowExceptionWhenRepositoryForRequestedLanguageDoesNotHaveEnoughWords() {
+    finnishWordRepository.deleteAll();
+    assertEquals(0, finnishWordRepository.count());
+    finnishWordRepository.saveAll(
+        Arrays.asList(
+            new FinnishWord(null, "heinä"),
+            new FinnishWord(null, "suola"),
+            new FinnishWord(null, "maito")));
+    assertThrows(
+        IllegalStateException.class, () -> gameService.getFixedLetterResponse(LanguageEnum.FI, 5));
   }
 
   @Test

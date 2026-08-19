@@ -29,14 +29,14 @@ public class RepositoryServiceIntegrationTests {
   @Test
   public void findRandomWordsShouldReturnWordListWithCorrectAmountOfWords() {
     List<? extends Word> wordList =
-        repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(LanguageEnum.FI, 5, 5);
+        repositoryService.findRandomWordsWithCorrectLanguageAndLength(LanguageEnum.FI, 5);
     assertEquals(5, wordList.size());
   }
 
   @Test
   public void findRandomWordsShouldReturnWordListWithWordsOfCorrectLength() {
     List<? extends Word> wordList =
-        repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(LanguageEnum.FI, 5, 5);
+        repositoryService.findRandomWordsWithCorrectLanguageAndLength(LanguageEnum.FI, 5);
 
     for (int i = 0; i < wordList.size(); i++) {
       assertEquals(5, wordList.get(i).getWord().length());
@@ -48,8 +48,7 @@ public class RepositoryServiceIntegrationTests {
     assertThrows(
         IllegalArgumentException.class,
         () ->
-            repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(
-                LanguageEnum.UNKNOWN, 5, 5));
+            repositoryService.findRandomWordsWithCorrectLanguageAndLength(LanguageEnum.UNKNOWN, 5));
   }
 
   @Test
@@ -60,9 +59,7 @@ public class RepositoryServiceIntegrationTests {
 
     assertThrows(
         IllegalStateException.class,
-        () ->
-            repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(
-                LanguageEnum.FI, 5, 5));
+        () -> repositoryService.findRandomWordsWithCorrectLanguageAndLength(LanguageEnum.FI, 5));
   }
 
   @Test

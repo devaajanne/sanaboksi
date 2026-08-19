@@ -30,28 +30,15 @@ public class GameService {
 
   /**
    * Generates a {@link FixedLetterResponse} containing fixed letters for randomly selected words
-   * based on language, word length, and word count.
+   * based on language and word length
    *
    * @param language the language for the game
    * @param wordLength the length of each word (must be 4-7)
-   * @param wordCount the number of words in the grid (must be positive)
    * @return a {@link FixedLetterResponse} with fixed letters and word length
-   * @throws IllegalArgumentException if wordCount is negative or zero, or wordLength is out of
-   *     range
+   * @throws IllegalArgumentException if wordLength is out of range
    * @throws IllegalStateException if no words are available for the specified language and length
    */
-  public FixedLetterResponse getFixedLetterResponse(
-      LanguageEnum language, int wordLength, int wordCount) {
-
-    // Throw error if requested word count is negative
-    if (wordCount < 0) {
-      throw new IllegalArgumentException("wordCount must be non-negative.");
-    }
-
-    // Throw error if requested word count is zero
-    if (wordCount == 0) {
-      throw new IllegalArgumentException("wordCount must be non-zero.");
-    }
+  public FixedLetterResponse getFixedLetterResponse(LanguageEnum language, int wordLength) {
 
     // Throw error if requested word length is outside the supported range
     if (wordLength < Constants.WORD_MIN_LENGTH || wordLength > Constants.WORD_MAX_LENGTH) {
@@ -72,14 +59,19 @@ public class GameService {
           "Repository is empty for language " + language + " and word length " + wordLength + ".");
     }
 
-    // Return the whole repository word count if the requested word count is larger than there are
-    // words for correct language and word length in
-    // the repository
-    wordCount = Math.min(wordCount, repositorySizeForLanguageAndWordLength);
+    if (repositorySizeForLanguageAndWordLength > 0 && repositorySizeForLanguageAndWordLength < 5) {
+      throw new IllegalStateException(
+          "Repository has too few words ("
+              + repositorySizeForLanguageAndWordLength
+              + ") for language "
+              + language
+              + " and word length "
+              + wordLength
+              + " (minimum 5).");
+    }
 
     List<? extends Word> randomWordList =
-        repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(
-            language, wordLength, wordCount);
+        repositoryService.findRandomWordsWithCorrectLanguageAndLength(language, wordLength);
 
     FixedLetterResponse fixedLetterResponse = new FixedLetterResponse();
     List<FixedLetter> fixedLetters = new ArrayList<>();
