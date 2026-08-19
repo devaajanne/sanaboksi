@@ -69,12 +69,12 @@ export default function SanaboksiGameGrid() {
    * @param wordCount Number of words (rows) to fetch.
    */
   const fetchFixedLetters = useCallback(
-    async (language: string, wordCount: number) => {
+    async (language: string) => {
       try {
         setIsLoading(true);
         setGameGrid([]);
         setFixedLetters([]);
-        const data = await getFixedLetters(language, wordLength, wordCount);
+        const data = await getFixedLetters(language, wordLength);
         const fixedLetterData = data ? data.fixedLetters : [];
 
         setFixedLetters(fixedLetterData);
@@ -198,8 +198,7 @@ export default function SanaboksiGameGrid() {
       if (gameGridIsFilledIn(gameGrid)) {
         handleNotificationModalOpen(NotificationModalSource.UnfinishedGrid);
       } else {
-        if (!reloadIconDisabled)
-          fetchFixedLetters(languageConstants.FI, gameConstants.WORD_COUNT_5);
+        if (!reloadIconDisabled) fetchFixedLetters(languageConstants.FI);
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -226,7 +225,7 @@ export default function SanaboksiGameGrid() {
    */
   useEffect(() => {
     const initialFetch = async () => {
-      await fetchFixedLetters(languageConstants.FI, gameConstants.WORD_COUNT_5);
+      await fetchFixedLetters(languageConstants.FI);
     };
     initialFetch();
   }, [fetchFixedLetters]);
@@ -295,12 +294,7 @@ export default function SanaboksiGameGrid() {
           {isValidGameGrid && isCorrectGameGrid ? (
             <StyledButton
               ariaLabel={t("GameGridButton.NewGame")}
-              onClick={() =>
-                fetchFixedLetters(
-                  languageConstants.FI,
-                  gameConstants.WORD_COUNT_5,
-                )
-              }
+              onClick={() => fetchFixedLetters(languageConstants.FI)}
               fullWidth
               buttonText={t("GameGridButton.NewGame")}
               loading={isLoading}
@@ -353,9 +347,7 @@ export default function SanaboksiGameGrid() {
         source={notificationModalSource}
         opened={opened}
         onClose={close}
-        onNewGridLoad={() =>
-          fetchFixedLetters(languageConstants.FI, gameConstants.WORD_COUNT_5)
-        }
+        onNewGridLoad={() => fetchFixedLetters(languageConstants.FI)}
       />
     </>
   );

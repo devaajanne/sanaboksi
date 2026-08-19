@@ -11,14 +11,13 @@ const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 export const getFixedLetters = async (
   language: string,
   wordLength: number,
-  wordCount: number,
 ): Promise<FixedLetterResponse | undefined> => {
   const languageEnum = language.toUpperCase();
   await addWaitTime(750);
 
   try {
     const response = await axios.get(
-      `${SERVER_URL}/api/fixed-letters/${languageEnum}/${wordLength}/${wordCount}`,
+      `${SERVER_URL}/api/fixed-letters/${languageEnum}/${wordLength}`,
     );
     return response.data;
   } catch (error: unknown) {

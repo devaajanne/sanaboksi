@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
-  await page.route("*/**/api/fixed-letters/FI/5/5", async (route) => {
+  await page.route("*/**/api/fixed-letters/FI/5", async (route) => {
     await route.fulfill({
       status: 200,
       contentType: "application/json",
