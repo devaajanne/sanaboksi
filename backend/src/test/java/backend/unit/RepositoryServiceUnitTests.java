@@ -36,56 +36,40 @@ public class RepositoryServiceUnitTests {
   }
 
   @Test
-  public void findRandomWordsWithCorrectLanguageLengthAndCountShouldReturnWords() {
+  public void findRandomWordsWithCorrectLanguageAndLengthShouldReturnWords() {
     List<FinnishWord> mockWords = new ArrayList<>();
     mockWords.add(new FinnishWord(1L, "vehnä"));
     mockWords.add(new FinnishWord(2L, "maito"));
 
-    when(mockFinnishWordRepository.findRandomWordsByWordLengthAndCount(5, 2)).thenReturn(mockWords);
+    when(mockFinnishWordRepository.findRandomWordsByWordLength(5)).thenReturn(mockWords);
 
     List<? extends Word> result =
-        repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(LanguageEnum.FI, 5, 2);
+        repositoryService.findRandomWordsWithCorrectLanguageAndLength(LanguageEnum.FI, 5);
 
     assertEquals(mockWords, result);
-    verify(mockFinnishWordRepository).findRandomWordsByWordLengthAndCount(5, 2);
+    verify(mockFinnishWordRepository).findRandomWordsByWordLength(5);
   }
 
   @Test
   public void
-      findRandomWordsWithCorrectLanguageLengthAndCountShouldThrowExceptionIfLanguageIsUnknown() {
-
-    assertThrows(
-        RuntimeException.class,
-        () ->
-            repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(
-                LanguageEnum.UNKNOWN, 5, 5));
-  }
-
-  @Test
-  public void
-      findRandomWordsWithCorrectLanguageLengthAndCountShouldThrowExceptionIfWordRepositoryIsNull() {
-    when(mockFinnishWordRepository.findRandomWordsByWordLengthAndCount(5, 5)).thenReturn(null);
+      findRandomWordsWithCorrectLanguageAndLengthShouldThrowExceptionIfWordRepositoryIsNull() {
+    when(mockFinnishWordRepository.findRandomWordsByWordLength(5)).thenReturn(null);
 
     assertThrows(
         IllegalStateException.class,
-        () ->
-            repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(
-                LanguageEnum.FI, 5, 5));
-    verify(mockFinnishWordRepository).findRandomWordsByWordLengthAndCount(5, 5);
+        () -> repositoryService.findRandomWordsWithCorrectLanguageAndLength(LanguageEnum.FI, 5));
+    verify(mockFinnishWordRepository).findRandomWordsByWordLength(5);
   }
 
   @Test
   public void
-      findRandomWordsWithCorrectLanguageLengthAndCountShouldThrowExceptionIfWordRepositoryIsEmpty() {
-    when(mockFinnishWordRepository.findRandomWordsByWordLengthAndCount(5, 5))
-        .thenReturn(Arrays.asList());
+      findRandomWordsWithCorrectLanguageAndLengthShouldThrowExceptionIfWordRepositoryIsEmpty() {
+    when(mockFinnishWordRepository.findRandomWordsByWordLength(5)).thenReturn(List.of());
 
     assertThrows(
         IllegalStateException.class,
-        () ->
-            repositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(
-                LanguageEnum.FI, 5, 5));
-    verify(mockFinnishWordRepository).findRandomWordsByWordLengthAndCount(5, 5);
+        () -> repositoryService.findRandomWordsWithCorrectLanguageAndLength(LanguageEnum.FI, 5));
+    verify(mockFinnishWordRepository).findRandomWordsByWordLength(5);
   }
 
   @Test

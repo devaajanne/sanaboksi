@@ -12,18 +12,16 @@ import org.springframework.data.repository.query.Param;
  */
 public interface FinnishWordRepository extends JpaRepository<FinnishWord, Long> {
   /**
-   * Retrieves a list of random Finnish words with the specified length.
+   * Retrieves a list of 5 random Finnish words with the specified length.
    *
    * @param wordLength the length of each word
-   * @param wordCount the number of words to retrieve
    * @return a list of randomly selected Finnish words
    */
   @Query(
       value =
-          "SELECT * FROM finnish_words WHERE LENGTH(word) = :wordLength ORDER BY RANDOM() LIMIT :wordCount",
+          "SELECT * FROM finnish_words WHERE LENGTH(word) = :wordLength ORDER BY RANDOM() LIMIT 5",
       nativeQuery = true)
-  List<FinnishWord> findRandomWordsByWordLengthAndCount(
-      @Param("wordLength") int wordLength, @Param("wordCount") int wordCount);
+  List<FinnishWord> findRandomWordsByWordLength(@Param("wordLength") int wordLength);
 
   /**
    * Returns the count of Finnish words with the specified length.

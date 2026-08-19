@@ -33,8 +33,7 @@ public class WebSecurityConfig {
       throws Exception {
     httpSecurity
         .cors(cors -> cors.configurationSource(corsConfig.getCorsConfigurationSource()))
-        .csrf(
-            csrf -> csrf.ignoringRequestMatchers("/api/fixed-letters/*/*/*", "/api/validation/*"));
+        .csrf(csrf -> csrf.ignoringRequestMatchers("/api/fixed-letters/*/*", "/api/validation/*"));
 
     return httpSecurity.build();
   }

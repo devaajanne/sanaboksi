@@ -34,7 +34,7 @@ public class GameControllerIntegrationTests {
   public void getFixedLettersShouldReturn200ResponseWhenRequestedWordLengthIsFour()
       throws Exception {
     mockMvc
-        .perform(get("/api/fixed-letters/FI/4/5"))
+        .perform(get("/api/fixed-letters/FI/4"))
         .andExpect(status().isOk()) // HTTP 200
         .andExpect(jsonPath("$.fixedLetters").isArray())
         .andExpect(jsonPath("$.wordLength").value(4));
@@ -44,7 +44,7 @@ public class GameControllerIntegrationTests {
   public void getFixedLettersShouldReturn200ResponseWhenRequestedWordLengthIsFive()
       throws Exception {
     mockMvc
-        .perform(get("/api/fixed-letters/FI/5/5"))
+        .perform(get("/api/fixed-letters/FI/5"))
         .andExpect(status().isOk()) // HTTP 200
         .andExpect(jsonPath("$.fixedLetters").isArray())
         .andExpect(jsonPath("$.wordLength").value(5));
@@ -54,7 +54,7 @@ public class GameControllerIntegrationTests {
   public void getFixedLettersShouldReturn200ResponseWhenRequestedWordLengthIsSix()
       throws Exception {
     mockMvc
-        .perform(get("/api/fixed-letters/FI/6/5"))
+        .perform(get("/api/fixed-letters/FI/6"))
         .andExpect(status().isOk()) // HTTP 200
         .andExpect(jsonPath("$.fixedLetters").isArray())
         .andExpect(jsonPath("$.wordLength").value(6));
@@ -64,7 +64,7 @@ public class GameControllerIntegrationTests {
   public void getFixedLettersShouldReturn200ResponseWhenRequestedWordLengthIsSeven()
       throws Exception {
     mockMvc
-        .perform(get("/api/fixed-letters/FI/7/5"))
+        .perform(get("/api/fixed-letters/FI/7"))
         .andExpect(status().isOk()) // HTTP 200
         .andExpect(jsonPath("$.fixedLetters").isArray())
         .andExpect(jsonPath("$.wordLength").value(7));
@@ -73,56 +73,38 @@ public class GameControllerIntegrationTests {
   @Test
   public void getFixedLettersShouldReturn400ResponseForLowerCaseLanguagePathVariable()
       throws Exception {
-    mockMvc
-        .perform(get("/api/fixed-letters/fi/5/5"))
-        .andExpect(status().isBadRequest()); // HTTP 400
+    mockMvc.perform(get("/api/fixed-letters/fi/5")).andExpect(status().isBadRequest()); // HTTP 400
   }
 
   @Test
   public void getFixedLettersShouldReturn400ResponseWhenRequestedWordLengthIsTooShort()
       throws Exception {
-    mockMvc
-        .perform(get("/api/fixed-letters/FI/2/5"))
-        .andExpect(status().isBadRequest()); // HTTP 400
+    mockMvc.perform(get("/api/fixed-letters/FI/2")).andExpect(status().isBadRequest()); // HTTP 400
   }
 
   @Test
   public void getFixedLettersShouldReturn400ResponseWhenRequestedWordLengthIsTooLong()
       throws Exception {
-    mockMvc
-        .perform(get("/api/fixed-letters/FI/8/5"))
-        .andExpect(status().isBadRequest()); // HTTP 400
+    mockMvc.perform(get("/api/fixed-letters/FI/8")).andExpect(status().isBadRequest()); // HTTP 400
   }
 
   @Test
   public void getFixedLettersShouldReturn400ResponseWhenRequestedLanguageIsNotInLanguageEnums()
       throws Exception {
-    mockMvc
-        .perform(get("/api/fixed-letters/JP/5/5"))
-        .andExpect(status().isBadRequest()); // HTTP 400
+    mockMvc.perform(get("/api/fixed-letters/JP/5")).andExpect(status().isBadRequest()); // HTTP 400
   }
 
   @Test
   public void getFixedLettersShouldReturn400ResponseWhenRequestedLanguageIsNotProvidedInUpperCase()
       throws Exception {
-    mockMvc
-        .perform(get("/api/fixed-letters/fi/5/5"))
-        .andExpect(status().isBadRequest()); // HTTP 400
+    mockMvc.perform(get("/api/fixed-letters/fi/5")).andExpect(status().isBadRequest()); // HTTP 400
   }
 
   @Test
   public void getFixedLettersShouldReturn400ResponseWhenRequestedWordLengthIsNotInteger()
       throws Exception {
     mockMvc
-        .perform(get("/api/fixed-letters/FI/abc/5"))
-        .andExpect(status().isBadRequest()); // HTTP 400
-  }
-
-  @Test
-  public void getFixedLettersShouldReturn400ResponseWhenRequestedWordCountIsNotInteger()
-      throws Exception {
-    mockMvc
-        .perform(get("/api/fixed-letters/FI/5/abc"))
+        .perform(get("/api/fixed-letters/FI/abc"))
         .andExpect(status().isBadRequest()); // HTTP 400
   }
 
@@ -134,35 +116,35 @@ public class GameControllerIntegrationTests {
     assertEquals(0, finnishWordRepository.count());
 
     mockMvc
-        .perform(get("/api/fixed-letters/FI/5/5"))
+        .perform(get("/api/fixed-letters/FI/5"))
         .andExpect(status().isServiceUnavailable()); // HTTP 503
   }
 
   @Test
   public void getFixedLettersShouldReturn405ResponseForPOSTRequest() throws Exception {
     mockMvc
-        .perform(post("/api/fixed-letters/FI/5/5"))
+        .perform(post("/api/fixed-letters/FI/5"))
         .andExpect(status().isMethodNotAllowed()); // HTTP 405
   }
 
   @Test
   public void getFixedLettersShouldReturn405ResponseForPUTRequest() throws Exception {
     mockMvc
-        .perform(put("/api/fixed-letters/FI/5/5"))
+        .perform(put("/api/fixed-letters/FI/5"))
         .andExpect(status().isMethodNotAllowed()); // HTTP 405
   }
 
   @Test
   public void getFixedLettersShouldReturn405ResponseForPATCHRequest() throws Exception {
     mockMvc
-        .perform(patch("/api/fixed-letters/FI/5/5"))
+        .perform(patch("/api/fixed-letters/FI/5"))
         .andExpect(status().isMethodNotAllowed()); // HTTP 405
   }
 
   @Test
   public void getFixedLettersShouldReturn405ResponseForDELETERequest() throws Exception {
     mockMvc
-        .perform(delete("/api/fixed-letters/FI/5/5"))
+        .perform(delete("/api/fixed-letters/FI/5"))
         .andExpect(status().isMethodNotAllowed()); // HTTP 405
   }
 

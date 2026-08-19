@@ -2,8 +2,6 @@ package backend.unit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -37,50 +35,12 @@ public class GameServiceUnitTests {
 
   private final LanguageEnum language = LanguageEnum.FI;
   private final int wordLength = 5;
-  private final int wordCount = 5;
 
   @BeforeEach
   public void setUpMockClasses() {
     mockRepositoryService = mock(RepositoryService.class);
     mockUtilityService = mock(UtilityService.class);
     gameService = new GameService(mockRepositoryService, mockUtilityService);
-  }
-
-  @Test
-  public void
-      getFixedLetterResponseShouldReturnAllWordsIfRequestedWordCountIsLargerThanWordsInRepository() {
-    int wordRepositorySize = 20;
-    when(mockRepositoryService.getRepositoryCountForWordsWithCorrectLanguageAndLength(
-            language, wordLength))
-        .thenReturn(wordRepositorySize);
-
-    List<Word> mockWords = new ArrayList<>();
-    for (int i = 0; i < wordRepositorySize; i++) {
-      FinnishWord word = mock(FinnishWord.class);
-      when(word.getWord()).thenReturn("abcde");
-      mockWords.add(word);
-    }
-
-    when(mockRepositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(
-            eq(language), eq(wordLength), anyInt()))
-        .thenAnswer(invocation -> mockWords);
-
-    when(mockUtilityService.getRandomIndex(wordLength))
-        .thenAnswer(
-            invocation -> {
-              int upperBound = invocation.getArgument(0);
-              return new java.util.Random().nextInt(upperBound);
-            });
-
-    int requestedWordCount = 50; // More than available
-    FixedLetterResponse fixedLetterResponse =
-        gameService.getFixedLetterResponse(language, wordLength, requestedWordCount);
-
-    assertEquals(wordRepositorySize, fixedLetterResponse.getFixedLetters().size());
-    verify(mockRepositoryService)
-        .getRepositoryCountForWordsWithCorrectLanguageAndLength(language, wordLength);
-    verify(mockRepositoryService)
-        .findRandomWordsWithCorrectLanguageLengthAndCount(eq(language), eq(wordLength), anyInt());
   }
 
   @Test
@@ -91,23 +51,9 @@ public class GameServiceUnitTests {
 
     assertThrows(
         IllegalStateException.class,
-        () -> gameService.getFixedLetterResponse(language, wordLength, wordCount));
+        () -> gameService.getFixedLetterResponse(language, wordLength));
     verify(mockRepositoryService)
         .getRepositoryCountForWordsWithCorrectLanguageAndLength(language, wordLength);
-  }
-
-  @Test
-  public void getFixedLetterResponseShouldThrowExceptionIfRequestedWordCountIsNegative() {
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> gameService.getFixedLetterResponse(language, wordLength, -5));
-  }
-
-  @Test
-  public void getFixedLetterResponseShouldThrowExceptionIfRequestedWordCountIsZero() {
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> gameService.getFixedLetterResponse(language, wordLength, 0));
   }
 
   @Test
@@ -127,8 +73,7 @@ public class GameServiceUnitTests {
       mockWords.add(word);
     }
 
-    when(mockRepositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(
-            language, wordLength, requestedWordCount))
+    when(mockRepositoryService.findRandomWordsWithCorrectLanguageAndLength(language, wordLength))
         .thenAnswer(invocation -> mockWords);
 
     when(mockUtilityService.getRandomIndex(wordLength))
@@ -139,13 +84,12 @@ public class GameServiceUnitTests {
             });
 
     FixedLetterResponse fixedLetterResponse =
-        gameService.getFixedLetterResponse(language, wordLength, requestedWordCount);
+        gameService.getFixedLetterResponse(language, wordLength);
 
     assertEquals(requestedWordCount, fixedLetterResponse.getFixedLetters().size());
     verify(mockRepositoryService)
         .getRepositoryCountForWordsWithCorrectLanguageAndLength(language, wordLength);
-    verify(mockRepositoryService)
-        .findRandomWordsWithCorrectLanguageLengthAndCount(language, wordLength, requestedWordCount);
+    verify(mockRepositoryService).findRandomWordsWithCorrectLanguageAndLength(language, wordLength);
   }
 
   @Test
@@ -174,15 +118,13 @@ public class GameServiceUnitTests {
     mockWords.add(word5);
     mockWords.add(word6);
 
-    when(mockRepositoryService.findRandomWordsWithCorrectLanguageLengthAndCount(
-            language, wordLength, wordCount))
+    when(mockRepositoryService.findRandomWordsWithCorrectLanguageAndLength(language, wordLength))
         .thenAnswer(invocation -> mockWords);
 
     when(mockUtilityService.getRandomIndex(wordLength))
         .thenReturn(2, 3, 1, 4, 0); // Returns character indices
 
-    FixedLetterResponse fixedLetters =
-        gameService.getFixedLetterResponse(language, wordLength, wordCount);
+    FixedLetterResponse fixedLetters = gameService.getFixedLetterResponse(language, wordLength);
 
     // Verify first word "vehnä" at index 2 -> 'h'
     assertEquals(2, fixedLetters.getFixedLetters().get(0).getFixedIndex());
@@ -206,22 +148,19 @@ public class GameServiceUnitTests {
 
     verify(mockRepositoryService)
         .getRepositoryCountForWordsWithCorrectLanguageAndLength(language, wordLength);
-    verify(mockRepositoryService)
-        .findRandomWordsWithCorrectLanguageLengthAndCount(language, wordLength, wordCount);
+    verify(mockRepositoryService).findRandomWordsWithCorrectLanguageAndLength(language, wordLength);
   }
 
   @Test
   public void getFixedLetterResponseShouldThrowExceptionIfWordLengthIsTooShort() {
     assertThrows(
-        IllegalArgumentException.class,
-        () -> gameService.getFixedLetterResponse(language, 3, wordCount));
+        IllegalArgumentException.class, () -> gameService.getFixedLetterResponse(language, 3));
   }
 
   @Test
   public void getFixedLetterResponseShouldThrowExceptionIfWordLengthIsTooLong() {
     assertThrows(
-        IllegalArgumentException.class,
-        () -> gameService.getFixedLetterResponse(language, 8, wordCount));
+        IllegalArgumentException.class, () -> gameService.getFixedLetterResponse(language, 8));
   }
 
   @Test
