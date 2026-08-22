@@ -98,6 +98,7 @@ docker compose -f compose.dev.yaml down
 ## Documentation
 
 Sanaboksi's documentation can be found in [docs](./docs/). The documentation includes
+- API ([api.md](./docs/api.md))
 - CI/CD pipeline ([cicd-pipeline.md](./docs/cicd-pipeline.md))
 - Containerization ([containerization.md](./docs/containerization.md))
 - Database ([database.md](./docs/database.md))
