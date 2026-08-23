@@ -157,6 +157,7 @@ export default function SanaboksiGameRow({
                 input: {
                   width: textInputSize,
                   height: textInputSize,
+                  padding: 0,
                   fontSize: textInputFontSize,
                   textAlign: "center",
                   fontWeight: isFixedLetter ? "bold" : "normal",
