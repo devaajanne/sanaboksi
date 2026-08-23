@@ -51,24 +51,24 @@ GET /api/fixed-letters/FI/5
   "wordLength": 5,
   "fixedLetters": [
     {
+      "fixedIndex": 0,
+      "fixedLetter": "v"
+    },
+    {
       "fixedIndex": 1,
-      "fixedLetter": "A"
+      "fixedLetter": "u"
     },
     {
       "fixedIndex": 3,
-      "fixedLetter": "R"
-    },
-    {
-      "fixedIndex": 0,
-      "fixedLetter": "S"
+      "fixedLetter": "t"
     },
     {
       "fixedIndex": 4,
-      "fixedLetter": "I"
+      "fixedLetter": "i"
     },
     {
-      "fixedIndex": 2,
-      "fixedLetter": "N"
+      "fixedIndex": 4,
+      "fixedLetter": "i"
     }
   ]
 }
@@ -131,24 +131,24 @@ Content-Type: application/json
 {
   "validationResults": {
     "0": {
-      "correctWord": false,
-      "duplicateWord": false
+      "duplicateWord": false,
+      "correctWord": false
     },
     "1": {
-      "correctWord": true,
-      "duplicateWord": false
+      "duplicateWord": false,
+      "correctWord": true
     },
     "2": {
-      "correctWord": true,
-      "duplicateWord": false
+      "duplicateWord": false,
+      "correctWord": true
     },
     "3": {
-      "correctWord": true,
-      "duplicateWord": true
+      "duplicateWord": true,
+      "correctWord": true
     },
     "4": {
-      "correctWord": true,
-      "duplicateWord": true
+      "duplicateWord": true,
+      "correctWord": true
     }
   }
 }
@@ -156,8 +156,8 @@ Content-Type: application/json
 
 The response contains a `validationResults` map keyed by row index. Each row has:
 
-- `correctWord`: whether the submitted word exists in the dictionary and matches the expected word rules
 - `duplicateWord`: whether the word appears more than once in the submitted grid
+- `correctWord`: whether the submitted word exists in the dictionary and matches the expected word rules
 
 This response means that five rows have been validated whether the rows are correct or duplicates. The frontend uses these values to render validation results.
 
