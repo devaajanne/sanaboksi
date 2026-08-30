@@ -145,7 +145,7 @@ test("Player sees an error when game grid validation returns undefined", async (
       status: 200,
       contentType: "application/json",
       body: JSON.stringify({
-        validationResults: {},
+        validationResults: undefined,
       }),
     });
   });
