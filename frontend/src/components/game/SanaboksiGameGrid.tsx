@@ -63,10 +63,20 @@ export default function SanaboksiGameGrid() {
   const reloadIconDisabled = isLoading || isCorrectGameGrid;
 
   /**
+   * Opens notification modal and sets the correct source
+   * @param notificationModalSource notification source, determines the text shown in modal
+   */
+  const handleNotificationModalOpen = useCallback(
+    (source: NotificationModalSource) => {
+      setNotificationModalSource(source);
+      open();
+    },
+    [setNotificationModalSource, open],
+  );
+
+  /**
    * Fetches fixed letters from the API and initializes the game grid.
    * @param language The language to fetch.
-   * @param wordLength Number of letters (columns) to fetch.
-   * @param wordCount Number of words (rows) to fetch.
    */
   const fetchFixedLetters = useCallback(
     async (language: string) => {
@@ -74,9 +84,16 @@ export default function SanaboksiGameGrid() {
         setIsLoading(true);
         setGameGrid([]);
         setFixedLetters([]);
-        const data = await getFixedLetters(language, wordLength);
-        const fixedLetterData = data ? data.fixedLetters : [];
 
+        const fixedLetterResponse = await getFixedLetters(language, wordLength);
+        if (!fixedLetterResponse?.fixedLetters?.length) {
+          handleNotificationModalOpen(
+            NotificationModalSource.GameGridFetchFailed,
+          );
+          return;
+        }
+
+        const fixedLetterData = fixedLetterResponse.fixedLetters;
         setFixedLetters(fixedLetterData);
         setGameGrid(
           fixedLetterData.map((item) =>
@@ -87,12 +104,11 @@ export default function SanaboksiGameGrid() {
               ),
           ),
         );
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          throw new Error(error.message, { cause: error });
-        } else {
-          throw error;
-        }
+      } catch {
+        handleNotificationModalOpen(
+          NotificationModalSource.GameGridFetchFailed,
+        );
+        return;
       } finally {
         setValidationResults(undefined);
         setIsValidGameGrid(false);
@@ -100,7 +116,7 @@ export default function SanaboksiGameGrid() {
         setIsLoading(false);
       }
     },
-    [wordLength],
+    [wordLength, handleNotificationModalOpen],
   );
 
   /**
@@ -144,6 +160,14 @@ export default function SanaboksiGameGrid() {
           gameGrid,
           languageConstants.FI,
         );
+
+        if (validationResultsData === undefined) {
+          handleNotificationModalOpen(
+            NotificationModalSource.GameGridValidationFailed,
+          );
+          return;
+        }
+
         setValidationResults(validationResultsData);
         setIsValidGameGrid(true);
 
@@ -184,40 +208,28 @@ export default function SanaboksiGameGrid() {
         setIsLoading(false);
         return;
       }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        throw new Error(error.message, { cause: error });
-      } else {
-        throw error;
-      }
-    }
-  };
-
-  const handleNewGameGridLoading = () => {
-    try {
-      if (gameGridIsFilledIn(gameGrid)) {
-        handleNotificationModalOpen(NotificationModalSource.UnfinishedGrid);
-      } else {
-        if (!reloadIconDisabled) fetchFixedLetters(languageConstants.FI);
-      }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        throw new Error(error.message, { cause: error });
-      } else {
-        throw error;
-      }
+    } catch {
+      handleNotificationModalOpen(
+        NotificationModalSource.GameGridValidationFailed,
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
 
   /**
-   * Opens notification modal and sets the correct source
-   * @param notificationModalSource notification source, determines the text shown in modal
+   * Loads a new game grid.
    */
-  const handleNotificationModalOpen = (
-    notificationModalSource: NotificationModalSource,
-  ) => {
-    setNotificationModalSource(notificationModalSource);
-    open();
+  const handleNewGameGridLoading = async () => {
+    try {
+      if (gameGridIsFilledIn(gameGrid)) {
+        handleNotificationModalOpen(NotificationModalSource.UnfinishedGrid);
+      } else {
+        if (!reloadIconDisabled) await fetchFixedLetters(languageConstants.FI);
+      }
+    } catch {
+      handleNotificationModalOpen(NotificationModalSource.GameGridFetchFailed);
+    }
   };
 
   /**
@@ -348,6 +360,7 @@ export default function SanaboksiGameGrid() {
         opened={opened}
         onClose={close}
         onNewGridLoad={() => fetchFixedLetters(languageConstants.FI)}
+        onValidationRetry={handleGameGridValidation}
       />
     </>
   );

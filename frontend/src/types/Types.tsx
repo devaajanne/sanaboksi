@@ -28,6 +28,8 @@ export const NotificationModalSource = {
   DuplicateWordsAndIncorrectWords: 4,
   CorrectWords: 5,
   UnfinishedGrid: 6,
+  GameGridFetchFailed: 7,
+  GameGridValidationFailed: 8,
 } as const;
 
 export type NotificationModalSource =

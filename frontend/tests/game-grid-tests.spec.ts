@@ -38,6 +38,40 @@ test("Game grid loads fixed letters on page load", async ({ page }) => {
   await expect(word5Letter).toHaveValue("A");
 });
 
+test("Game grid shows an error when no fixed letters are returned", async ({
+  page,
+}) => {
+  await page.unroute("*/**/api/fixed-letters/FI/5");
+  await page.route("*/**/api/fixed-letters/FI/5", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ wordLength: 5, fixedLetters: [] }),
+    });
+  });
+
+  await expect(
+    page.getByRole("heading", { name: "Peliruudukon lataus epäonnistui" }),
+  ).toBeVisible();
+});
+
+test("Game grid shows an error when fetching fixed letters fails", async ({
+  page,
+}) => {
+  await page.unroute("*/**/api/fixed-letters/FI/5");
+  await page.route("*/**/api/fixed-letters/FI/5", async (route) => {
+    await route.fulfill({
+      status: 500,
+      contentType: "application/json",
+      body: JSON.stringify({ error: "Validation failed" }),
+    });
+  });
+
+  await expect(
+    page.getByRole("heading", { name: "Peliruudukon lataus epäonnistui" }),
+  ).toBeVisible();
+});
+
 test("Player can input letters into the game grid", async ({ page }) => {
   await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
   await page.getByRole("textbox", { name: "Sana 1, Kirjain 3" }).fill("H");
@@ -100,6 +134,94 @@ test("Player cannot validate an incomplete game grid", async ({ page }) => {
 
   await expect(
     page.getByRole("heading", { name: "Ruudukossa on tyhjiä ruutuja!" }),
+  ).toBeVisible();
+});
+
+test("Player sees an error when game grid validation returns undefined", async ({
+  page,
+}) => {
+  await page.route("*/**/api/validation/FI", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        validationResults: undefined,
+      }),
+    });
+  });
+
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 3" }).fill("H");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 4" }).fill("N");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 5" }).fill("Ä");
+
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 1" }).fill("S");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 3" }).fill("O");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 4" }).fill("L");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 5" }).fill("A");
+
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 1" }).fill("M");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 2" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 4" }).fill("T");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 5" }).fill("O");
+
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 1" }).fill("K");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 2" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 3" }).fill("H");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 5" }).fill("I");
+
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 1" }).fill("S");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 2" }).fill("U");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 3" }).fill("O");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 4" }).fill("L");
+
+  await page.getByRole("button", { name: "Tarkista sanat" }).click();
+
+  await expect(
+    page.getByRole("heading", { name: "Peliruudukon tarkistus epäonnistui" }),
+  ).toBeVisible();
+});
+
+test("Player sees an error when game grid validation fails", async ({
+  page,
+}) => {
+  await page.route("*/**/api/validation/FI", async (route) => {
+    await route.fulfill({
+      status: 500,
+      contentType: "application/json",
+      body: JSON.stringify({ error: "Validation failed" }),
+    });
+  });
+
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 3" }).fill("H");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 4" }).fill("N");
+  await page.getByRole("textbox", { name: "Sana 1, Kirjain 5" }).fill("Ä");
+
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 1" }).fill("S");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 3" }).fill("O");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 4" }).fill("L");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 5" }).fill("A");
+
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 1" }).fill("M");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 2" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 4" }).fill("T");
+  await page.getByRole("textbox", { name: "Sana 3, Kirjain 5" }).fill("O");
+
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 1" }).fill("K");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 2" }).fill("A");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 3" }).fill("H");
+  await page.getByRole("textbox", { name: "Sana 4, Kirjain 5" }).fill("I");
+
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 1" }).fill("S");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 2" }).fill("U");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 3" }).fill("O");
+  await page.getByRole("textbox", { name: "Sana 5, Kirjain 4" }).fill("L");
+
+  await page.getByRole("button", { name: "Tarkista sanat" }).click();
+
+  await expect(
+    page.getByRole("heading", { name: "Peliruudukon tarkistus epäonnistui" }),
   ).toBeVisible();
 });
 

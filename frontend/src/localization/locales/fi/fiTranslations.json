@@ -4,7 +4,8 @@
     "BackToGame": "Takaisin peliin",
     "LoadNewGame": "Lataa uusi peli",
     "Confirm": "Vahvista",
-    "Save": "Tallenna"
+    "Save": "Tallenna",
+    "Retry": "Yritä uudestaan"
   },
   "GameGridButton": {
     "NewGame": "Uusi peli",
@@ -34,6 +35,14 @@
     "UnfinishedGrid": {
       "GameGridIsUnfinished": "Ruudukkosi on kesken!",
       "AreYouSureYouWantToLoadNewGameYouWillLoseYourProgressInThisGrid": "Oletko varma, että haluat ladata uuden pelin? Menetät edistymisesi tässä ruudukossa."
+    },
+    "GameGridFetchFailed": {
+      "FetchingTheGameGridFailed": "Peliruudukon lataus epäonnistui",
+      "TryFetchingTheGameGridAgain": "Kokeile ladata peli uudestaan."
+    },
+    "GameGridValidationFailed": {
+      "ValidatingTheGameGridFailed": "Peliruudukon tarkistus epäonnistui",
+      "TryValidatingTheGameGridAgain": "Kokeile tarkistaa sanat uudestaan."
     },
     "NoSource": {
       "UnknownErrorHasOccurred": "Tapahtui odottamaton virhe.",

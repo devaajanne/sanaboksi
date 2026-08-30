@@ -10,6 +10,7 @@ interface NotificationModalProps {
   opened: boolean;
   onClose: () => void;
   onNewGridLoad: () => void;
+  onValidationRetry: () => void;
 }
 
 const notificationModalContent: Record<
@@ -50,6 +51,18 @@ const notificationModalContent: Record<
     notificationModalMessage:
       "NotificationModal.UnfinishedGrid.AreYouSureYouWantToLoadNewGameYouWillLoseYourProgressInThisGrid",
   },
+  [NotificationModalSource.GameGridFetchFailed]: {
+    notificationModalTitle:
+      "NotificationModal.GameGridFetchFailed.FetchingTheGameGridFailed",
+    notificationModalMessage:
+      "NotificationModal.GameGridFetchFailed.TryFetchingTheGameGridAgain",
+  },
+  [NotificationModalSource.GameGridValidationFailed]: {
+    notificationModalTitle:
+      "NotificationModal.GameGridValidationFailed.ValidatingTheGameGridFailed",
+    notificationModalMessage:
+      "NotificationModal.GameGridValidationFailed.TryValidatingTheGameGridAgain",
+  },
   [NotificationModalSource.NoSource]: {
     notificationModalTitle:
       "NotificationModal.NoSource.UnknownErrorHasOccurred",
@@ -65,6 +78,8 @@ const notificationModalContent: Record<
  * @param {NotificationModalSource} props.source - The source of notification to display; determines notification text.
  * @param {boolean} props.opened - Whether the modal is open.
  * @param {() => void} props.onClose - Function to close the modal.
+ * @param {() => void} props.onNewGridLoad - Function to load a new game grid.
+ * @param {() => void} props.onValidationRetry - Function to retry game grid validation.
  * @returns {JSX.Element} The rendered modal component.
  */
 export default function NotificationModal({
@@ -72,6 +87,7 @@ export default function NotificationModal({
   opened,
   onClose,
   onNewGridLoad,
+  onValidationRetry,
 }: NotificationModalProps) {
   const { t } = useTranslation();
   const { notificationModalTitle, notificationModalMessage } =
@@ -96,6 +112,26 @@ export default function NotificationModal({
               onClose();
             }}
             buttonText={t("Actions.LoadNewGame")}
+          />
+        )}
+        {source === NotificationModalSource.GameGridFetchFailed && (
+          <StyledButton
+            ariaLabel={t("Actions.Retry")}
+            onClick={() => {
+              onNewGridLoad();
+              onClose();
+            }}
+            buttonText={t("Actions.Retry")}
+          />
+        )}
+        {source === NotificationModalSource.GameGridValidationFailed && (
+          <StyledButton
+            ariaLabel={t("Actions.Retry")}
+            onClick={() => {
+              onValidationRetry();
+              onClose();
+            }}
+            buttonText={t("Actions.Retry")}
           />
         )}
         <StyledButton
