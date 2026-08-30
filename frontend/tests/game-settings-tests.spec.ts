@@ -106,7 +106,7 @@ test("Changing game difficulty renders the reload warning", async ({
   page,
 }) => {
   const warningText =
-    "Tallentaminen lataa uuden peliruudun, ja menetät edistymisesi tässä peliruudussa.";
+    "Tallentaminen lataa uuden peliruudukon, ja menetät edistymisesi tässä peliruudukossa.";
 
   await page.getByRole("button", { name: "Avaa pelin asetukset" }).click();
 

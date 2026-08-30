@@ -37,11 +37,11 @@ export function GameInstructionsModal({
     <StyledModal
       opened={opened}
       onClose={onClose}
-      title={t("GameInstructionModal.HowToPlaySanaboksi")}
+      title={t("GameInstructionsModal.HowToPlaySanaboksi")}
     >
-      <StyledText text={t("GameInstructionModal.GameDescription")} />
+      <StyledText text={t("GameInstructionsModal.GameDescription")} />
 
-      <StyledText text={t("GameInstructionModal.ForExampleIfGivenRowIs")} />
+      <StyledText text={t("GameInstructionsModal.ForExampleIfGivenRowIs")} />
 
       <SanaboksiGameRow
         fixedLetter={fixedLetter}
@@ -51,7 +51,7 @@ export function GameInstructionsModal({
         rowData={["", "", "H", "", ""]}
       />
 
-      <StyledText text={t("GameInstructionModal.FittingWordsCouldBe")} />
+      <StyledText text={t("GameInstructionsModal.FittingWordsCouldBe")} />
 
       <SanaboksiGameRow
         fixedLetter={fixedLetter}
@@ -61,7 +61,7 @@ export function GameInstructionsModal({
         rowData={["V", "E", "H", "N", "Ä"]}
       />
 
-      <StyledText text={t("GameInstructionModal.And")} />
+      <StyledText text={t("GameInstructionsModal.And")} />
 
       <SanaboksiGameRow
         fixedLetter={fixedLetter}
@@ -73,13 +73,15 @@ export function GameInstructionsModal({
 
       <StyledText
         text={t(
-          "GameInstructionModal.BecauseFixedLetterIsInTheCorrectPositionInBothWords",
+          "GameInstructionsModal.BecauseFixedLetterIsInTheCorrectPositionInBothWords",
         )}
       />
 
-      <StyledText text={t("GameInstructionModal.GamePlayInstructions")} />
+      <StyledText text={t("GameInstructionsModal.GamePlayInstructions")} />
 
-      <StyledText text={t("GameInstructionModal.YouCanLoadANewGameByClicking")}>
+      <StyledText
+        text={t("GameInstructionsModal.YouCanLoadANewGameByClicking")}
+      >
         <IconReload
           aria-label={t("AriaLabel.LoadNewGame")}
           size={iconSize}
@@ -88,16 +90,16 @@ export function GameInstructionsModal({
       </StyledText>
 
       <StyledText
-        text={t("GameInstructionModal.AfterValidationInstructions")}
+        text={t("GameInstructionsModal.AfterValidationInstructions")}
       />
 
       <StyledText
         text={t(
-          "GameInstructionModal.OnceYouFillInTheGridWithCorrectWordsYouCanPlayANewGame",
+          "GameInstructionsModal.OnceYouFillInTheGridWithCorrectWordsYouCanPlayANewGame",
         )}
       />
 
-      <StyledText text={t("GameInstructionModal.DifficultySettings")}>
+      <StyledText text={t("GameInstructionsModal.DifficultySettings")}>
         <IconSettings
           aria-label={t("AriaLabel.OpenGameSettings")}
           size={iconSize}
@@ -108,7 +110,7 @@ export function GameInstructionsModal({
       <StyledDivider />
 
       <StyledText
-        text={t("GameInstructionModal.BeMindfulOfTheseIconsAndColors")}
+        text={t("GameInstructionsModal.BeMindfulOfTheseIconsAndColors")}
       />
 
       <Stack>
@@ -116,25 +118,25 @@ export function GameInstructionsModal({
           ariaLabel={t("AriaLabel.CorrectWordIcon")}
           icon={IconCheck}
           color={colorPalette[colors.CORRECT_GREEN_3]}
-          text={t("GameInstructionModal.TheWordIsCorrect")}
+          text={t("GameInstructionsModal.TheWordIsCorrect")}
         />
         <StyledIconTextRow
           ariaLabel={t("AriaLabel.IncorrectWordIcon")}
           icon={IconX}
           color={colorPalette[colors.INCORRECT_RED_4]}
-          text={t("GameInstructionModal.TheWordIsIncorrect")}
+          text={t("GameInstructionsModal.TheWordIsIncorrect")}
         />
         <StyledIconTextRow
           ariaLabel={t("AriaLabel.DuplicateWordIcon")}
           icon={IconCopy}
           color={colorPalette[colors.DUPLICATE_BLUE_5]}
-          text={t("GameInstructionModal.TheWordIsADuplicate")}
+          text={t("GameInstructionsModal.TheWordIsADuplicate")}
         />
       </Stack>
 
       <StyledDivider />
 
-      <StyledText text={t("GameInstructionModal.HaveFunWithSanaboksi")} />
+      <StyledText text={t("GameInstructionsModal.HaveFunWithSanaboksi")} />
 
       <Group justify="flex-end">
         <StyledButton

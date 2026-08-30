@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import {
   IconBook2,
+  IconVocabulary,
   IconBrandGithub,
   IconHelpCircle,
   IconSun,
@@ -68,6 +69,16 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
         icon={IconBook2}
         text={t("GameInfoModal.ReadThesisInTheseus")}
         href="https://www.theseus.fi/handle/10024/920463"
+      />
+
+      <StyledText
+        text={t("GameInfoModal.KotusDictionaryIsUsedToValidateWords")}
+      />
+
+      <StyledIconAnchorRow
+        icon={IconVocabulary}
+        text={t("GameInfoModal.DownloadWordListFromKotusWebsite")}
+        href="https://kotus.fi/sanakirjat/kielitoimiston-sanakirja/nykysuomen-sana-aineistot/nykysuomen-sanalista/"
       />
 
       <StyledText
