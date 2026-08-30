@@ -17,7 +17,7 @@ This document describes the backend API for **Sanaboksi**. The API is exposed un
 
 The current backend controller is implemented in [`backend/src/main/java/backend/controller/GameController.java`](../backend/src/main/java/backend/controller/GameController.java). It provides endpoints for:
 
-- fetching fixed letters for a new game round
+- fetching fixed letters for a new game grid
 - validating a submitted grid of words
 
 <p align="right"><a href="#top">back to top</a></p>
@@ -26,7 +26,7 @@ The current backend controller is implemented in [`backend/src/main/java/backend
 
 ### GET /api/fixed-letters/{language}/{wordLength}
 
-Fetches a set of fixed letters for a new game round. The backend chooses random words from the repository and selects one random fixed index per word.
+Fetches a set of fixed letters for a new game grid. The backend chooses random words from the repository and selects one random fixed index per word.
 
 #### Path parameters
 
@@ -77,7 +77,7 @@ The response contains the `wordLength` value with the length of the requested wo
 - `fixedIndex`: the index of the fixed letter
 - `fixedLetter`: the fixed letter in the index
 
-This response means the game contains five rows, each with one fixed letter at the index specified by `fixedIndex`. The frontend uses these values to render the grid.
+This response means the game grid contains five rows, each with one fixed letter at the index specified by `fixedIndex`. The frontend uses these values to render the grid.
 
 ### POST /api/validation/{language}
 
@@ -86,8 +86,8 @@ Validates a submitted game grid against the word list for the selected language.
 #### Path parameters
 
 | Name | Type | Required | Description |
-| --- | --- | --- | --- |
-| `language` | `string` | Yes | Language to validate against. Example: `FI`. |
+| --- | --- | --- | --- | 
+| `language` | `string` | Yes | Language to validate against. Current supported value is `FI`.|
 
 #### Request body
 

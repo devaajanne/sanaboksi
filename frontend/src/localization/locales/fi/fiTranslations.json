@@ -38,7 +38,7 @@
     },
     "GameGridFetchFailed": {
       "FetchingTheGameGridFailed": "Peliruudukon lataus epäonnistui",
-      "TryFetchingTheGameGridAgain": "Kokeile ladata peli uudestaan."
+      "TryFetchingANewGameGrid": "Kokeile ladata uusi peli."
     },
     "GameGridValidationFailed": {
       "ValidatingTheGameGridFailed": "Peliruudukon tarkistus epäonnistui",
@@ -49,7 +49,7 @@
       "NoItWasNotYouReportBug": "Ei, se ei johtunut sinusta. Täytäthän bugi-ilmoituksen, jotta asia voidaan korjata. Kiitos!"
     }
   },
-  "GameInstructionModal": {
+  "GameInstructionsModal": {
     "HowToPlaySanaboksi": "Kuinka pelata Sanaboksia",
     "GameDescription": "Sanaboksi on peli, jossa tehtävänäsi on keksiä jokaiselle ruudukon riville sana, johon rivillä annettu kirjain sopii.",
     "ForExampleIfGivenRowIs": "Esimerkiksi jos annettu rivi on",
@@ -74,7 +74,7 @@
     "FiveLetters": "5 kirjainta",
     "SixLetters": "6 kirjainta",
     "SevenLetters": "7 kirjainta",
-    "SavingLoadsANewGameGridAndYouLoseYourProgessInThisGameGrid": "Tallentaminen lataa uuden peliruudun, ja menetät edistymisesi tässä peliruudussa."
+    "SavingLoadsANewGameGridAndYouLoseYourProgessInThisGameGrid": "Tallentaminen lataa uuden peliruudukon, ja menetät edistymisesi tässä peliruudukossa."
   },
   "GameInfoModal": {
     "WhatSanaboksi": "Mikä Sanaboksi?",
@@ -85,6 +85,8 @@
     "YouCanSwitchBetweenLightAndDarkModeByClicking": "Vaalean ja tumman tilan voit vaihtaa klikkaamalla ",
     "And": " ja ",
     "ReadThesisInTheseus": "Lue opinnäytetyö Theseuksessa",
+    "KotusDictionaryIsUsedToValidateWords": "Sanojen tarkistuksessa käytetään Kotimaisten kielten keskuksen (Kotus) sanakirjaa.",
+    "DownloadWordListFromKotusWebsite": "Lataa sanalista Kotuksen verkkosivulta",
     "SanaboksiHasBeenCreatedByJanneAiraksinenAndItIsLicencedWithMITLicense": "Sanaboksin on luonut Janne Airaksinen (2026) ja se on lisensoitu MIT-lisenssillä.",
     "SeeSourceCodeInGitHub": "Tutustu lähdekoodiin GitHubissa",
     "HaveFunWithSanaboksi": "Hauskoja pelihetkiä Sanaboksin parissa!"

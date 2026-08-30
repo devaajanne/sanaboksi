@@ -55,7 +55,7 @@ const notificationModalContent: Record<
     notificationModalTitle:
       "NotificationModal.GameGridFetchFailed.FetchingTheGameGridFailed",
     notificationModalMessage:
-      "NotificationModal.GameGridFetchFailed.TryFetchingTheGameGridAgain",
+      "NotificationModal.GameGridFetchFailed.TryFetchingANewGameGrid",
   },
   [NotificationModalSource.GameGridValidationFailed]: {
     notificationModalTitle:
