@@ -66,4 +66,5 @@ export type ViewportContextType = {
   md: boolean;
   lg: boolean;
   xl: boolean;
+  isMobile: boolean;
 };
