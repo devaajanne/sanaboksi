@@ -5,7 +5,8 @@
     "LoadNewGame": "Lataa uusi peli",
     "Confirm": "Vahvista",
     "Save": "Tallenna",
-    "Retry": "Yritä uudestaan"
+    "Retry": "Yritä uudestaan",
+    "DeleteLetter": "Poista kirjain"
   },
   "GameGridButton": {
     "NewGame": "Uusi peli",
