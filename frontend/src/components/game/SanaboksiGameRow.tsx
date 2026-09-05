@@ -58,6 +58,38 @@ export default function SanaboksiGameRow({
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   /**
+   * Moves focus to the next editable field in the row, skipping the fixed letter.
+   * @param columnIndex The current column index.
+   */
+  const moveFocusForward = (columnIndex: number) => {
+    let nextColumnIndex = columnIndex + 1;
+
+    if (fixedLetter && nextColumnIndex === fixedLetter.fixedIndex) {
+      nextColumnIndex++;
+    }
+
+    if (nextColumnIndex < rowLength) {
+      inputRefs.current[nextColumnIndex]?.focus();
+    }
+  };
+
+  /**
+   * Moves focus to the previous editable field in the row, skipping the fixed letter.
+   * @param columnIndex The current column index.
+   */
+  const moveFocusBackward = (columnIndex: number) => {
+    let previousColumnIndex = columnIndex - 1;
+
+    if (fixedLetter && previousColumnIndex === fixedLetter.fixedIndex) {
+      previousColumnIndex--;
+    }
+
+    if (previousColumnIndex >= 0) {
+      inputRefs.current[previousColumnIndex]?.focus();
+    }
+  };
+
+  /**
    * Handles user input and moves the cursor to the next available field.
    * @param columnIndex The column index to update.
    * @param value The value to update.
@@ -75,19 +107,7 @@ export default function SanaboksiGameRow({
       return;
     }
 
-    // Move focus to the next editable field in the same row
-    // Skip over the next field if it is a fixed letter (not editable)
-    // Continue skipping until an editable field is found or the end of the row is reached
-    let nextColumnIndex = columnIndex + 1;
-
-    if (fixedLetter && nextColumnIndex === fixedLetter.fixedIndex) {
-      nextColumnIndex++;
-    }
-
-    // Focus the next editable field, if it exists
-    if (nextColumnIndex < rowLength) {
-      inputRefs.current[nextColumnIndex]?.focus();
-    }
+    moveFocusForward(columnIndex);
   };
 
   /**
@@ -103,15 +123,7 @@ export default function SanaboksiGameRow({
       (event.key === "Backspace" || event.key === "Delete") &&
       !rowData[columnIndex]
     ) {
-      let previousColumnIndex = columnIndex - 1;
-
-      if (fixedLetter && previousColumnIndex === fixedLetter.fixedIndex) {
-        previousColumnIndex--;
-      }
-
-      if (previousColumnIndex >= 0) {
-        inputRefs.current[previousColumnIndex]?.focus();
-      }
+      moveFocusBackward(columnIndex);
     }
   };
 
@@ -150,8 +162,8 @@ export default function SanaboksiGameRow({
                 isReadOnly
               }
               maxLength={1}
-              ref={(el) => {
-                inputRefs.current[columnIndex] = el;
+              ref={(element) => {
+                inputRefs.current[columnIndex] = element;
               }}
               styles={{
                 input: {
