@@ -1,66 +1,52 @@
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useDisclosure } from "@mantine/hooks";
+import { useNotificationModalSourceContext } from "../../context/notificationModalSourceContext/NotificationModalSourceContext";
 import {
-  type FixedLetters,
-  type GameGrid,
-  type ValidationResults,
   NotificationModalSource,
+  type FixedLetters,
+  type LetterGrid,
+  type ValidationResults,
 } from "../../types/Types";
+import NotificationModal from "../modals/NotificationModal";
 import { getFixedLetters, validateGameGrid } from "../../services/ApiService";
-import SanaboksiGameRow from "./SanaboksiGameRow";
+import { useGameSettingsContext } from "../../context/gameSettingsContext/GameSettingsContext";
+import { languageConstants } from "../../utils/Constants";
+import GameGrid from "./gameComponents/GameGrid";
 import {
   checkGameGridValidity,
-  gameGridContainsOnlyUniqueWords,
   gameGridContainsOnlyCorrectWords,
+  gameGridContainsOnlyUniqueWords,
   gameGridIsFilledIn,
 } from "../../utils/UtilityFunctions";
-import { Center, Container, Space, Stack } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import NotificationModal from "../modals/NotificationModal";
-import {
-  colors,
-  gameConstants,
-  languageConstants,
-} from "../../utils/Constants";
+import GameButtonValidate from "./gameComponents/GameButtonValidate";
+import { GameButtonReload } from "./gameComponents/GameButtonReload";
+import { Stack } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
-import { useNotificationModalSourceContext } from "../../context/notificationModalSourceContext/NotificationModalSourceContext";
-import { useGameSettingsContext } from "../../context/gameSettingsContext/GameSettingsContext";
-import { IconReload } from "@tabler/icons-react";
-import StyledTooltip from "../styledComponents/StyledTooltip";
-import StyledButton from "../styledComponents/StyledButton";
-import StyledActionIcon from "../styledComponents/StyledActionIcon";
-import useColorPalette from "../../hook/useColorPalette";
 
-/**
- * Main component for rendering and managing the Sanaboksi game grid.
- * Handles fetching, validation, and user interaction for the grid.
- * @returns The rendered game grid and controls.
- */
-export default function SanaboksiGameGrid() {
-  const colorPalette = useColorPalette();
-  const { xs, sm, md, lg } = useViewportContext();
-  const gameGridRowGap = xs ? 8 : sm ? 10 : md ? 12 : lg ? 14 : 16;
-  const gameGridMarginTop = xs ? 4 : sm ? 6 : md ? 8 : lg ? 10 : 12;
-  const gameGridMarginBottom = xs ? 24 : sm ? 30 : md ? 36 : lg ? 42 : 48;
+export default function Game() {
   const { t } = useTranslation();
+  const { xs, sm, md, lg } = useViewportContext();
+  const [opened, { open, close }] = useDisclosure(false);
+  const { notificationModalSource, setNotificationModalSource } =
+    useNotificationModalSourceContext();
   const {
     gameDifficulty: { wordLength },
   } = useGameSettingsContext();
-  const { notificationModalSource, setNotificationModalSource } =
-    useNotificationModalSourceContext();
   // Store the fixed letters configuration for each row (which index has which fixed letter)
   const [fixedLetters, setFixedLetters] = useState<FixedLetters>([]);
   // Store the actual game grid data (2D array of characters with dynamic dimensions)
-  const [gameGrid, setGameGrid] = useState<GameGrid>([]);
+  const [gameGrid, setGameGrid] = useState<LetterGrid>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [validationResults, setValidationResults] =
     useState<ValidationResults>(undefined);
   // Game grid is valid if all rows have no empty fields
   const [isValidGameGrid, setIsValidGameGrid] = useState<boolean>(false);
   // Game grid is correct if all rows have a validated and correct word
   const [isCorrectGameGrid, setIsCorrectGameGrid] = useState<boolean>(false);
-  const [opened, { open, close }] = useDisclosure(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const reloadIconDisabled = isLoading || isCorrectGameGrid;
+  const gameGridRowGap = xs ? 8 : sm ? 10 : md ? 12 : lg ? 14 : 16;
+  const gameButtonReloadMargin = gameGridRowGap * 2;
 
   /**
    * Opens notification modal and sets the correct source
@@ -245,114 +231,32 @@ export default function SanaboksiGameGrid() {
   return (
     <>
       <Stack
+        aria-label={t("AriaLabel.GameGrid")}
+        gap={gameGridRowGap}
         align="center"
-        gap={0}
-
-        aria-label={t("AriaLabel.SanaBoksiGameGrid")}
+        styles={{ root: { position: "relative", width: "fit-content" } }}
       >
-        <Stack
-          gap={gameGridRowGap}
-          styles={{ root: { position: "relative", width: "fit-content" } }}
-        >
-          {fixedLetters.length === 0
-            ? // Render empty game grid rows
-              Array.from({ length: gameConstants.WORD_COUNT_5 }).map(
-                (_, index) => (
-                  <SanaboksiGameRow
-                    key={index}
-                    rowIndex={index}
-                    isPlaceholder={true}
-                    rowLength={wordLength}
-                  />
-                ),
-              )
-            : // Render game grid with fixed letters
-              fixedLetters.map((fixedLetter, rowIndex) => (
-                <SanaboksiGameRow
-                  key={rowIndex}
-                  fixedLetter={fixedLetter}
-                  rowData={gameGrid[rowIndex]}
-                  rowIndex={rowIndex}
-                  rowLength={wordLength}
-                  onFieldChange={(columnIndex, value) =>
-                    handleFieldChange(rowIndex, columnIndex, value)
-                  }
-                  isCorrect={
-                    validationResults
-                      ? validationResults[rowIndex.toString()]?.["correctWord"]
-                      : undefined
-                  }
-                  isDuplicate={
-                    validationResults
-                      ? validationResults[rowIndex.toString()]?.[
-                          "duplicateWord"
-                        ]
-                      : undefined
-                  }
-                />
-              ))}
-        </Stack>
-
-        <Container
-          strategy="grid"
-          styles={{
-            root: {
-              width: "100%",
-              marginTop: gameGridMarginTop,
-              marginBottom: gameGridMarginBottom,
-            },
-          }}
-        >
-          {isValidGameGrid && isCorrectGameGrid ? (
-            <StyledButton
-              ariaLabel={t("GameGridButton.NewGame")}
-              onClick={() => fetchFixedLetters(languageConstants.FI)}
-              fullWidth
-              buttonText={t("GameGridButton.NewGame")}
-              loading={isLoading}
-              loaderProps={{
-                type: "dots",
-                color: colorPalette[colors.SECONDARY_COLOR_1],
-              }}
-            />
-          ) : (
-            <StyledButton
-              ariaLabel={t("GameGridButton.ValidateWords")}
-              fullWidth
-              onClick={handleGameGridValidation}
-              buttonText={t("GameGridButton.ValidateWords")}
-              loading={isLoading}
-              loaderProps={{
-                type: "dots",
-                color: colorPalette[colors.SECONDARY_COLOR_1],
-              }}
-            />
-          )}
-        </Container>
-
-        <Space h="md" />
-
-        <Center>
-          <StyledTooltip
-            label={
-              isCorrectGameGrid
-                ? t("Tooltip.LoadNewGameByPressingNewGameTooltip")
-                : t("Tooltip.LoadNewGameTooltip")
-            }
-            disabled={isLoading}
-          >
-            <StyledActionIcon
-              ariaLabel={
-                isCorrectGameGrid
-                  ? t("AriaLabel.LoadNewGameByPressingNewGame")
-                  : t("AriaLabel.LoadNewGame")
-              }
-              onClick={handleNewGameGridLoading}
-              icon={IconReload}
-              disabled={reloadIconDisabled}
-            />
-          </StyledTooltip>
-        </Center>
+        <GameGrid
+          fixedLetters={fixedLetters}
+          gameGrid={gameGrid}
+          wordLength={wordLength}
+          validationResults={validationResults}
+          handleFieldChange={handleFieldChange}
+        />
+        <GameButtonReload
+          isLoading={isLoading}
+          isCorrectGameGrid={isCorrectGameGrid}
+          reloadIconDisabled={reloadIconDisabled}
+          handleNewGameGridLoading={handleNewGameGridLoading}
+          margin={gameButtonReloadMargin}
+        />
+        <GameButtonValidate
+          isValidGameGrid={isValidGameGrid}
+          isCorrectGameGrid={isCorrectGameGrid}
+          isLoading={isLoading}
+          handleGameGridValidation={handleGameGridValidation}
+          fetchFixedLetters={fetchFixedLetters}
+        />
       </Stack>
 
       <NotificationModal

@@ -6,7 +6,7 @@ import {
   IconReload,
   IconSettings,
 } from "@tabler/icons-react";
-import SanaboksiGameRow from "../game/SanaboksiGameRow";
+import GameRow from "../game/gameComponents/GameRow";
 import type { FixedLetter } from "../../types/Types";
 import { useTranslation } from "react-i18next";
 import { colors } from "../../utils/Constants";
@@ -18,6 +18,11 @@ import StyledIconTextRow from "../styledComponents/StyledIconTextRow";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 import useColorPalette from "../../hook/useColorPalette";
 
+/**
+ * Props for the GameInstructionsModal component.
+ * @property opened Whether the modal is open.
+ * @property onClose Callback for closing the modal.
+ */
 interface GameInstructionsModalProps {
   opened: boolean;
   onClose: () => void;
@@ -27,11 +32,12 @@ export function GameInstructionsModal({
   opened,
   onClose,
 }: GameInstructionsModalProps) {
+  const { t } = useTranslation();
   const colorPalette = useColorPalette();
   const { xs, sm, md, lg } = useViewportContext();
   const iconSize = xs ? 20 : sm ? 22 : md ? 24 : lg ? 26 : 28;
-  const { t } = useTranslation();
   const fixedLetter: FixedLetter = { fixedIndex: 2, fixedLetter: "H" };
+  const marginTop = 12;
 
   return (
     <StyledModal
@@ -43,7 +49,7 @@ export function GameInstructionsModal({
 
       <StyledText text={t("GameInstructionsModal.ForExampleIfGivenRowIs")} />
 
-      <SanaboksiGameRow
+      <GameRow
         fixedLetter={fixedLetter}
         rowIndex={0}
         rowLength={5}
@@ -53,7 +59,7 @@ export function GameInstructionsModal({
 
       <StyledText text={t("GameInstructionsModal.FittingWordsCouldBe")} />
 
-      <SanaboksiGameRow
+      <GameRow
         fixedLetter={fixedLetter}
         rowIndex={0}
         rowLength={5}
@@ -63,7 +69,7 @@ export function GameInstructionsModal({
 
       <StyledText text={t("GameInstructionsModal.And")} />
 
-      <SanaboksiGameRow
+      <GameRow
         fixedLetter={fixedLetter}
         rowIndex={0}
         rowLength={5}
@@ -143,6 +149,7 @@ export function GameInstructionsModal({
           ariaLabel={t("Actions.BackToGame")}
           onClick={onClose}
           buttonText={t("Actions.BackToGame")}
+          marginTop={marginTop}
         />
       </Group>
     </StyledModal>

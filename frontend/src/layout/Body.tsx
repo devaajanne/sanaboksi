@@ -1,5 +1,5 @@
 import { Container } from "@mantine/core";
-import SanaboksiGameGrid from "../components/game/SanaboksiGameGrid";
+import Game from "../components/game/Game";
 
 export default function Body() {
   return (
@@ -15,7 +15,7 @@ export default function Body() {
         },
       }}
     >
-      <SanaboksiGameGrid />
+      <Game />
     </Container>
   );
 }

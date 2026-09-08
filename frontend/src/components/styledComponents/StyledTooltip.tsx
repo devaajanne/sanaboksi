@@ -2,6 +2,12 @@ import { Tooltip } from "@mantine/core";
 import { colors } from "../../utils/Constants";
 import useColorPalette from "../../hook/useColorPalette";
 
+/**
+ * Props for the StyledTooltip component.
+ * @property label The tooltip text.
+ * @property disabled Whether the tooltip is disabled.
+ * @property children The element that receives the tooltip.
+ */
 interface StyledTooltipProps {
   label: string;
   disabled?: boolean;

@@ -3,10 +3,18 @@ import { useViewportContext } from "../../context/viewportContext/ViewportContex
 import { colors } from "../../utils/Constants";
 import useColorPalette from "../../hook/useColorPalette";
 
+/**
+ * Props for the StyledActionIcon component.
+ * @property ariaLabel The accessible label for the action icon.
+ * @property onClick Callback invoked when the icon is clicked.
+ * @property icon Optional icon component to render.
+ * @property disabled Whether the action icon is disabled.
+ * @property margin Optional margin applied to the action icon.
+ */
 interface StyledActionIconProps {
   ariaLabel: string;
   onClick: () => void;
-  icon?: React.ComponentType<{ size: string | number; strokeWidth: number }>;
+  icon: React.ComponentType<{ size: string | number; strokeWidth: number }>;
   disabled?: boolean;
   margin?: number;
 }

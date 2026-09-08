@@ -2,6 +2,14 @@ import useColorPalette from "../../hook/useColorPalette";
 import { colors } from "../../utils/Constants";
 import { SegmentedControl, type SegmentedControlItem } from "@mantine/core";
 
+/**
+ * Props for the StyledSegmentedControl component.
+ * @property ariaLabel The accessible label for the control.
+ * @property value The currently selected value.
+ * @property onChange Callback invoked when the selected value changes.
+ * @property data The options displayed in the control.
+ * @property orientation The layout orientation of the control.
+ */
 interface StyledSegmentedControlProps {
   ariaLabel: string;
   value: string;

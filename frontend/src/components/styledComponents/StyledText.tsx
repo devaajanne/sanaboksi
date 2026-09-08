@@ -1,5 +1,10 @@
 import { Text } from "@mantine/core";
 
+/**
+ * Props for the StyledText component.
+ * @property text The text to display.
+ * @property children Optional content rendered after the text.
+ */
 interface StyledTextProps {
   text: string;
   children?: React.ReactNode;

@@ -1,11 +1,11 @@
-import type { GameGrid, ValidationResults } from "../types/Types";
+import type { LetterGrid, ValidationResults } from "../types/Types";
 
 /**
  * Checks if the game grid is valid (i.e., all fields are filled).
  * @param gameGrid The game grid to check.
  * @returns true if all fields are filled, false otherwise.
  */
-export const checkGameGridValidity = (gameGrid: GameGrid) => {
+export const checkGameGridValidity = (gameGrid: LetterGrid) => {
   if (!gameGrid || gameGrid.length === 0) {
     return false;
   }
@@ -32,7 +32,7 @@ export const checkGameGridValidity = (gameGrid: GameGrid) => {
  * @param gameGrid The game grid to check.
  * @returns true if in addition to fixed letters at least one field is filled, false otherwise.
  */
-export const gameGridIsFilledIn = (gameGrid: GameGrid) => {
+export const gameGridIsFilledIn = (gameGrid: LetterGrid) => {
   for (let rowIndex: number = 0; rowIndex < gameGrid.length; rowIndex++) {
     if (gameGrid[rowIndex].join("").length > 1) {
       return true;

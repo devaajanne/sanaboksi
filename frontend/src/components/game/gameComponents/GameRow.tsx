@@ -1,16 +1,16 @@
 import { useRef } from "react";
 import type { KeyboardEvent } from "react";
 import { TextInput, Group } from "@mantine/core";
-import type { FixedLetter } from "../../types/Types";
 import { IconCheck, IconX, IconCopy } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
-import { colors } from "../../utils/Constants";
-import { useViewportContext } from "../../context/viewportContext/ViewportContext";
-import StyledRowValidationIcon from "../styledComponents/StyledRowValidationIcon";
-import useColorPalette from "../../hook/useColorPalette";
+import useColorPalette from "../../../hook/useColorPalette";
+import { useViewportContext } from "../../../context/viewportContext/ViewportContext";
+import { colors } from "../../../utils/Constants";
+import type { FixedLetter } from "../../../types/Types";
+import StyledRowValidationIcon from "../../styledComponents/StyledRowValidationIcon";
 
 /**
- * Props for the SanaboksiGameRow component.
+ * Props for the GameRow component.
  * @property fixedLetter The fixed letter and its index for this row, if any.
  * @property rowData The data for this row (array of letters).
  * @property rowIndex The zero-based index of this row in the game grid.
@@ -21,7 +21,7 @@ import useColorPalette from "../../hook/useColorPalette";
  * @property isDuplicate Whether the row is a duplicate of another correct word (true), not a duplicate (false), or not validated (undefined).
  * @property isDuplicate Whether the row has read only value.
  */
-interface SanaboksiGameRowProps {
+interface GameRowProps {
   fixedLetter?: FixedLetter;
   rowData?: string[];
   rowIndex: number;
@@ -38,7 +38,7 @@ interface SanaboksiGameRowProps {
  * @param props The props for the component.
  * @returns The rendered row as a group of text inputs.
  */
-export default function SanaboksiGameRow({
+export default function GameRow({
   fixedLetter,
   rowData = [],
   rowIndex,
@@ -48,7 +48,7 @@ export default function SanaboksiGameRow({
   isCorrect,
   isDuplicate,
   isReadOnly,
-}: SanaboksiGameRowProps) {
+}: GameRowProps) {
   const colorPalette = useColorPalette();
   const { xs, sm, md, lg } = useViewportContext();
   const textInputSize = xs ? 45 : sm ? 56.25 : md ? 67.5 : lg ? 78.75 : 90;
@@ -129,12 +129,11 @@ export default function SanaboksiGameRow({
 
   return (
     <Group
-      gap={3}
+      aria-label={`${t("AriaLabel.Word")} ${rowIndex + 1}`}
       align="center"
       wrap="nowrap"
       justify="center"
       styles={{ root: { position: "relative" } }}
-      aria-label={`${t("AriaLabel.Word")} ${rowIndex + 1}`}
     >
       <Group gap={3} wrap="nowrap">
         {Array.from({ length: rowLength }).map((_, columnIndex) => {
