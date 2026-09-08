@@ -163,7 +163,6 @@ export default function GameRow({
       }
 
       if (rowData[columnIndex]) {
-        moveFocusBackward(columnIndex);
         handleChange(columnIndex, "");
       } else {
         moveFocusBackward(columnIndex);

@@ -111,7 +111,7 @@ test("Virtual keyboard inserts a letter and moves focus past fixed letters", asy
   ).toBeFocused();
 });
 
-test("Virtual keyboard backspace clears the input and moves focus backward", async ({
+test("Virtual keyboard backspace clears the input but does not move focus backward", async ({
   page,
 }) => {
   await openGame(page, 600);
@@ -122,6 +122,26 @@ test("Virtual keyboard backspace clears the input and moves focus backward", asy
   await page.getByRole("textbox", { name: "Sana 2, Kirjain 3" }).fill("O");
   await page.getByRole("textbox", { name: "Sana 2, Kirjain 3" }).click();
 
+  await page.getByRole("button", { name: "Poista kirjain" }).click();
+
+  await expect(
+    page.getByRole("textbox", { name: "Sana 2, Kirjain 3" }),
+  ).toHaveValue("");
+  await expect(input).not.toBeFocused();
+});
+
+test("Virtual keyboard backspace clears the input and moves focus backward after second press", async ({
+  page,
+}) => {
+  await openGame(page, 600);
+
+  const input = page.getByRole("textbox", { name: "Sana 2, Kirjain 1" });
+  await input.click();
+  await page.getByRole("button", { name: "S", exact: true }).click();
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 3" }).fill("O");
+  await page.getByRole("textbox", { name: "Sana 2, Kirjain 3" }).click();
+
+  await page.getByRole("button", { name: "Poista kirjain" }).click();
   await page.getByRole("button", { name: "Poista kirjain" }).click();
 
   await expect(
