@@ -8,6 +8,7 @@ interface StyledActionIconProps {
   onClick: () => void;
   icon?: React.ComponentType<{ size: string | number; strokeWidth: number }>;
   disabled?: boolean;
+  margin?: number;
 }
 
 export default function StyledActionIcon({
@@ -15,6 +16,7 @@ export default function StyledActionIcon({
   onClick,
   icon: Icon,
   disabled,
+  margin,
 }: StyledActionIconProps) {
   const colorPalette = useColorPalette();
   const { xs, sm, md, lg } = useViewportContext();
@@ -34,6 +36,7 @@ export default function StyledActionIcon({
           color: disabled
             ? colorPalette[colors.TERTIARY_COLOR_2]
             : colorPalette[colors.SECONDARY_COLOR_1],
+          margin: margin,
         },
       }}
     >

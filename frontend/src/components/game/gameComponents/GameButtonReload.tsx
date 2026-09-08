@@ -8,6 +8,7 @@ interface GameButtonReloadProps {
   isCorrectGameGrid: boolean;
   reloadIconDisabled: boolean;
   handleNewGameGridLoading: () => void;
+  margin: number;
 }
 
 export function GameButtonReload({
@@ -15,30 +16,30 @@ export function GameButtonReload({
   isCorrectGameGrid,
   reloadIconDisabled,
   handleNewGameGridLoading,
+  margin,
 }: GameButtonReloadProps) {
   const { t } = useTranslation();
 
   return (
-    <>
-      <StyledTooltip
-        label={
+    <StyledTooltip
+      label={
+        isCorrectGameGrid
+          ? t("Tooltip.LoadNewGameByPressingNewGameTooltip")
+          : t("Tooltip.LoadNewGameTooltip")
+      }
+      disabled={isLoading}
+    >
+      <StyledActionIcon
+        ariaLabel={
           isCorrectGameGrid
-            ? t("Tooltip.LoadNewGameByPressingNewGameTooltip")
-            : t("Tooltip.LoadNewGameTooltip")
+            ? t("AriaLabel.LoadNewGameByPressingNewGame")
+            : t("AriaLabel.LoadNewGame")
         }
-        disabled={isLoading}
-      >
-        <StyledActionIcon
-          ariaLabel={
-            isCorrectGameGrid
-              ? t("AriaLabel.LoadNewGameByPressingNewGame")
-              : t("AriaLabel.LoadNewGame")
-          }
-          onClick={handleNewGameGridLoading}
-          icon={IconReload}
-          disabled={reloadIconDisabled}
-        />
-      </StyledTooltip>
-    </>
+        onClick={handleNewGameGridLoading}
+        icon={IconReload}
+        disabled={reloadIconDisabled}
+        margin={margin}
+      />
+    </StyledTooltip>
   );
 }

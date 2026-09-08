@@ -46,6 +46,7 @@ export default function Game() {
   const [isCorrectGameGrid, setIsCorrectGameGrid] = useState<boolean>(false);
   const reloadIconDisabled = isLoading || isCorrectGameGrid;
   const gameGridRowGap = xs ? 8 : sm ? 10 : md ? 12 : lg ? 14 : 16;
+  const gameButtonReloadMargin = gameGridRowGap * 2;
 
   /**
    * Opens notification modal and sets the correct source
@@ -231,37 +232,31 @@ export default function Game() {
     <>
       <Stack
         aria-label={t("AriaLabel.SanaBoksiGameGrid")}
+        gap={gameGridRowGap}
         align="center"
-        gap={0}
+        styles={{ root: { position: "relative", width: "fit-content" } }}
       >
-        <Stack
-          gap={gameGridRowGap}
-          styles={{ root: { position: "relative", width: "fit-content" } }}
-        >
-          <GameGrid
-            fixedLetters={fixedLetters}
-            gameGrid={gameGrid}
-            wordLength={wordLength}
-            validationResults={validationResults}
-            handleFieldChange={handleFieldChange}
-          />
-        </Stack>
-        <Stack w="100%" align="center" gap={0}>
-          <GameButtonReload
-            isLoading={isLoading}
-            isCorrectGameGrid={isCorrectGameGrid}
-            reloadIconDisabled={reloadIconDisabled}
-            handleNewGameGridLoading={handleNewGameGridLoading}
-          />
-
-          <GameButtonValidate
-            isValidGameGrid={isValidGameGrid}
-            isCorrectGameGrid={isCorrectGameGrid}
-            isLoading={isLoading}
-            handleGameGridValidation={handleGameGridValidation}
-            fetchFixedLetters={fetchFixedLetters}
-          />
-        </Stack>
+        <GameGrid
+          fixedLetters={fixedLetters}
+          gameGrid={gameGrid}
+          wordLength={wordLength}
+          validationResults={validationResults}
+          handleFieldChange={handleFieldChange}
+        />
+        <GameButtonReload
+          isLoading={isLoading}
+          isCorrectGameGrid={isCorrectGameGrid}
+          reloadIconDisabled={reloadIconDisabled}
+          handleNewGameGridLoading={handleNewGameGridLoading}
+          margin={gameButtonReloadMargin}
+        />
+        <GameButtonValidate
+          isValidGameGrid={isValidGameGrid}
+          isCorrectGameGrid={isCorrectGameGrid}
+          isLoading={isLoading}
+          handleGameGridValidation={handleGameGridValidation}
+          fetchFixedLetters={fetchFixedLetters}
+        />
       </Stack>
 
       <NotificationModal
