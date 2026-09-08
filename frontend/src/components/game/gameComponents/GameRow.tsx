@@ -117,12 +117,11 @@ export default function SanaboksiGameRow({
 
   return (
     <Group
-          aria-label={`${t("AriaLabel.Word")} ${rowIndex + 1}`}
+      aria-label={`${t("AriaLabel.Word")} ${rowIndex + 1}`}
       align="center"
       wrap="nowrap"
       justify="center"
       styles={{ root: { position: "relative" } }}
-
     >
       <Group gap={3} wrap="nowrap">
         {Array.from({ length: rowLength }).map((_, columnIndex) => {
