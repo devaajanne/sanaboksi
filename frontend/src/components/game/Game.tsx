@@ -27,7 +27,7 @@ import VirtualKeyboard from "./gameComponents/VirtualKeyboard";
 
 export default function Game() {
   const { t } = useTranslation();
-  const { xs, sm, md, lg } = useViewportContext();
+  const { xs, sm, md, lg, isMobile } = useViewportContext();
   const [opened, { open, close }] = useDisclosure(false);
   const { notificationModalSource, setNotificationModalSource } =
     useNotificationModalSourceContext();
@@ -133,11 +133,11 @@ export default function Game() {
 
   const handleOnVirtualKeyPress = (key: string) => {
     console.log("Virtual key pressed: " + key);
-  }
+  };
 
   const handleOnVirtualBackspacePress = () => {
-    console.log("Virtual backspace pressed")
-  }
+    console.log("Virtual backspace pressed");
+  };
 
   /**
    * Validates the current game grid and the inputted words.
@@ -261,8 +261,13 @@ export default function Game() {
           margin={gameButtonReloadMargin}
         />
 
-        <VirtualKeyboard onKeyPress={handleOnVirtualKeyPress} onBackspacePress={handleOnVirtualBackspacePress}/>
-        
+        {isMobile && (
+          <VirtualKeyboard
+            onKeyPress={handleOnVirtualKeyPress}
+            onBackspacePress={handleOnVirtualBackspacePress}
+          />
+        )}
+
         <GameButtonValidate
           isValidGameGrid={isValidGameGrid}
           isCorrectGameGrid={isCorrectGameGrid}
