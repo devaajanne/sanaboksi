@@ -3,6 +3,16 @@ import { colors } from "../../utils/Constants";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 import useColorPalette from "../../hook/useColorPalette";
 
+/**
+ * Props for the StyledButton component.
+ * @property ariaLabel The accessible label for the button.
+ * @property onClick Callback invoked when the button is clicked.
+ * @property fullWidth Whether the button should fill its container width.
+ * @property buttonText The text displayed in the button.
+ * @property loading Whether the button displays a loading state.
+ * @property loaderProps Configuration for the loading indicator.
+ * @property marginTop Optional top margin for the button.
+ */
 interface StyledButtonProps {
   ariaLabel: string;
   onClick: () => void;
@@ -10,8 +20,7 @@ interface StyledButtonProps {
   buttonText: string;
   loading?: boolean;
   loaderProps?: LoaderProps;
-  buttonSize?: string;
-  buttonFontSize?: number;
+  marginTop?: number;
 }
 export default function StyledButton({
   ariaLabel,
@@ -20,12 +29,13 @@ export default function StyledButton({
   buttonText,
   loading,
   loaderProps,
+  marginTop,
 }: StyledButtonProps) {
   const colorPalette = useColorPalette();
   const { xs, sm, md, lg } = useViewportContext();
   const size = xs ? "32" : sm ? "40" : md ? "48" : lg ? "56" : "64";
+  const fullWidthButtonHeight = parseInt(size) * 1.25;
   const borderWidth = 2;
-  const marginTop = "1rem";
 
   return (
     <Button
@@ -45,7 +55,7 @@ export default function StyledButton({
           borderWidth: borderWidth,
           marginTop: marginTop,
           width: fullWidth ? "100%" : undefined,
-          height: fullWidth ? "100%" : undefined,
+          height: fullWidth ? fullWidthButtonHeight : undefined,
         },
       }}
     >
@@ -54,7 +64,6 @@ export default function StyledButton({
         styles={{
           root: {
             color: colorPalette[colors.SECONDARY_COLOR_1],
-            fontSize: fullWidth ? undefined : size,
           },
         }}
       >

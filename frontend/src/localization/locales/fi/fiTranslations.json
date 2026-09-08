@@ -101,7 +101,7 @@
     "LoadNewGameByPressingNewGameTooltip": "Lataa uusi peli painamalla 'Uusi peli'"
   },
   "AriaLabel": {
-    "SanaboksiGameGrid": "Sanaboksi-ruudukko",
+    "GameGrid": "Peliruudukko",
     "Word": "Sana",
     "Letter": "Kirjain",
     "CorrectWordIcon": "Oikean sanan merkki",

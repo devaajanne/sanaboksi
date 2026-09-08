@@ -1,7 +1,7 @@
 import axios from "axios";
 import type {
   FixedLetterResponse,
-  GameGrid,
+  LetterGrid,
   ValidationResults,
 } from "../types/Types";
 import { addWaitTime } from "../utils/UtilityFunctions";
@@ -29,7 +29,7 @@ export const getFixedLetters = async (
 };
 
 export const validateGameGrid = async (
-  gameGrid: GameGrid,
+  gameGrid: LetterGrid,
   language: string,
 ): Promise<ValidationResults | undefined> => {
   const languageEnum = language.toUpperCase();
