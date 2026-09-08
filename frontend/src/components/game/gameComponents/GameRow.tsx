@@ -1,4 +1,4 @@
-import { useImperativeHandle, useRef } from "react";
+import { useEffect, useImperativeHandle, useRef } from "react";
 import type { KeyboardEvent, Ref } from "react";
 import { TextInput, Group } from "@mantine/core";
 import { IconCheck, IconX, IconCopy } from "@tabler/icons-react";
@@ -58,6 +58,18 @@ export default function GameRow({
   const { t } = useTranslation();
   const borderWidth = 2;
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const firstEditableColumn =
+    rowIndex === 0 && fixedLetter?.fixedIndex === 0 ? 1 : 0;
+
+  /**
+   * Moves focus on first editable field on initial render after fixed ltters have been fetched
+   */
+  useEffect(() => {
+    if (rowIndex !== 0 || isPlaceholder || isReadOnly) {
+      return;
+    }
+    inputRefs.current[firstEditableColumn]?.focus();
+  }, [firstEditableColumn, isPlaceholder, isReadOnly, rowIndex]);
 
   /**
    * Moves focus to the next editable field in the row, skipping the fixed letter.

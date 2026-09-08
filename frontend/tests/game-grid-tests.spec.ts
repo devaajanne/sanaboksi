@@ -38,6 +38,63 @@ test("Game grid loads fixed letters on page load", async ({ page }) => {
   await expect(word5Letter).toHaveValue("A");
 });
 
+test("First editable field in the first column should get auto-focus", async ({
+  page,
+}) => {
+  const firstEditableField = page.getByRole("textbox", {
+    name: "Sana 1, Kirjain 2",
+  });
+
+  await expect(firstEditableField).toBeFocused();
+});
+
+test("Moving focus forwards after inputting a letter", async ({ page }) => {
+  const firstEditableField = page.getByRole("textbox", {
+    name: "Sana 1, Kirjain 2",
+  });
+  const secondEditableField = page.getByRole("textbox", {
+    name: "Sana 1, Kirjain 3",
+  });
+
+  await firstEditableField.fill("E");
+
+  await expect(firstEditableField).toHaveValue("E");
+  await expect(secondEditableField).toBeFocused();
+});
+
+test("Input clears but focus does not move after pressing backspace once", async ({
+  page,
+}) => {
+  const firstEditableField = page.getByRole("textbox", {
+    name: "Sana 1, Kirjain 2",
+  });
+
+  await firstEditableField.fill("E");
+  await firstEditableField.focus();
+  await firstEditableField.press("Backspace");
+
+  await expect(firstEditableField).toHaveValue("");
+  await expect(firstEditableField).toBeFocused();
+});
+
+test("Input clears and focus moves backwards after pressing backspace twice", async ({
+  page,
+}) => {
+  const firstEditableField = page.getByRole("textbox", {
+    name: "Sana 1, Kirjain 2",
+  });
+  const secondEditableField = page.getByRole("textbox", {
+    name: "Sana 1, Kirjain 3",
+  });
+
+  await firstEditableField.fill("E");
+  await secondEditableField.press("Backspace");
+  await firstEditableField.press("Backspace");
+
+  await expect(firstEditableField).toHaveValue("");
+  await expect(firstEditableField).toBeFocused();
+});
+
 test("Game grid shows an error when no fixed letters are returned", async ({
   page,
 }) => {
