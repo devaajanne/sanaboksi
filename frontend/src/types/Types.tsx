@@ -11,6 +11,7 @@ export type FixedLetterResponse = {
 };
 
 export type GameGrid = string[][];
+export type LetterGrid = string[][];
 
 /**
  * Validation results for each row in the game grid.
