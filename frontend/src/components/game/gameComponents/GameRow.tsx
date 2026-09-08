@@ -50,7 +50,7 @@ export default function GameRow({
   isReadOnly,
 }: GameRowProps) {
   const colorPalette = useColorPalette();
-  const { xs, sm, md, lg } = useViewportContext();
+  const { xs, sm, md, lg, isMobile } = useViewportContext();
   const textInputSize = xs ? 45 : sm ? 56.25 : md ? 67.5 : lg ? 78.75 : 90;
   const textInputFontSize = xs ? 18 : sm ? 23 : md ? 28 : lg ? 33 : 38;
   const { t } = useTranslation();
@@ -164,6 +164,7 @@ export default function GameRow({
               ref={(element) => {
                 inputRefs.current[columnIndex] = element;
               }}
+              inputMode={isMobile ? "none" : "text"}
               styles={{
                 input: {
                   width: textInputSize,
