@@ -10,9 +10,11 @@ export function ViewportContextProvider({ children }: { children: ReactNode }) {
   const md = useMediaQuery(`(max-width: ${theme.breakpoints.md})`);
   const lg = useMediaQuery(`(max-width: ${theme.breakpoints.lg})`);
   const xl = useMediaQuery(`(max-width: ${theme.breakpoints.xl})`);
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+
   const viewportContextValue = useMemo(
-    () => ({ xs, sm, md, lg, xl }),
-    [xs, sm, md, lg, xl],
+    () => ({ xs, sm, md, lg, xl, isMobile }),
+    [xs, sm, md, lg, xl, isMobile],
   );
 
   return (

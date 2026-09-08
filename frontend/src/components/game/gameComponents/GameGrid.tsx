@@ -1,5 +1,8 @@
+import { useImperativeHandle, useRef, type Ref } from "react";
 import type {
   FixedLetters,
+  GameGridRef,
+  GameRowRef,
   LetterGrid,
   ValidationResults,
 } from "../../../types/Types";
@@ -24,6 +27,7 @@ interface GameGridProps {
     columnIndex: number,
     value: string,
   ) => void;
+  ref?: Ref<GameGridRef>;
 }
 
 export default function GameGrid({
@@ -32,7 +36,26 @@ export default function GameGrid({
   wordLength,
   validationResults,
   handleFieldChange,
+  ref,
 }: GameGridProps) {
+  const rowRefs = useRef<(GameRowRef | null)[]>([]);
+
+  /**
+   * Exposes virtual keyboard actions and forwards them to the focused row.
+   */
+  useImperativeHandle(ref, () => ({
+    pressVirtualKey: (key) => {
+      rowRefs.current
+        .find((row) => row?.hasFocusedInput())
+        ?.pressVirtualKey(key);
+    },
+    pressVirtualBackspace: () => {
+      rowRefs.current
+        .find((row) => row?.hasFocusedInput())
+        ?.pressVirtualBackspace();
+    },
+  }));
+
   return (
     <>
       {fixedLetters.length === 0
@@ -66,6 +89,9 @@ export default function GameGrid({
                   ? validationResults[rowIndex.toString()]?.["duplicateWord"]
                   : undefined
               }
+              ref={(row) => {
+                rowRefs.current[rowIndex] = row;
+              }}
             />
           ))}
     </>

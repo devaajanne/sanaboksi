@@ -34,6 +34,7 @@ This document describes the requirements for the **Sanaboksi** word game. The ga
 - **As a player**, I want to have the option to play 5x4, 5x6 or 5x7 grids, so I can choose my preferred difficulty.
 - **As a player**, I want each row of the game to display one to three fixed letter(s) in its correct position, so I know which letter(s) must appear and where.
 - **As a player**, I want to type words that fit the grid, ensuring each word contains the fixed letter(s) at the correct index/indices.
+- **As a mobile player**, I want to use an on-screen Finnish keyboard to enter and delete letters.
 - **As a player**, I want the app to check my answers and tell me which words are correct and which need fixing.
 - **As a player**, I want to be congratulated and offered a new game if I solve the current one correctly.
 - **As a player**, I want to know which rows are incorrect if I make a mistake, so I can correct them.
@@ -53,6 +54,7 @@ This document describes the requirements for the **Sanaboksi** word game. The ga
 3. **Word Entry**
    - Players type one word per row.
    - Players type one letter per input field.
+    - On mobile viewports, players can enter letters and delete inputs with the on-screen Finnish keyboard.
    - Players can delete their inputs.
    - Players cannot delete or modify the fixed letter(s).
    - Each word must match the row's length (4, 5, 6, or 7 letters).

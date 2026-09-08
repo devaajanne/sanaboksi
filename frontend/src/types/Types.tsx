@@ -12,6 +12,14 @@ export type FixedLetterResponse = {
 
 export type LetterGrid = string[][];
 
+export type GameRowRef = {
+  hasFocusedInput: () => boolean;
+  pressVirtualKey: (key: string) => void;
+  pressVirtualBackspace: () => void;
+};
+
+export type GameGridRef = Omit<GameRowRef, "hasFocusedInput">;
+
 /**
  * Validation results for each row in the game grid.
  * The key is the row index, and the value is a map of validation categories to booleans.
@@ -66,4 +74,5 @@ export type ViewportContextType = {
   md: boolean;
   lg: boolean;
   xl: boolean;
+  isMobile: boolean;
 };

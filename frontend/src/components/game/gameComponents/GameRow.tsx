@@ -1,12 +1,12 @@
-import { useRef } from "react";
-import type { KeyboardEvent } from "react";
+import { useImperativeHandle, useRef } from "react";
+import type { KeyboardEvent, Ref } from "react";
 import { TextInput, Group } from "@mantine/core";
 import { IconCheck, IconX, IconCopy } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import useColorPalette from "../../../hook/useColorPalette";
 import { useViewportContext } from "../../../context/viewportContext/ViewportContext";
 import { colors } from "../../../utils/Constants";
-import type { FixedLetter } from "../../../types/Types";
+import type { FixedLetter, GameRowRef } from "../../../types/Types";
 import StyledRowValidationIcon from "../../styledComponents/StyledRowValidationIcon";
 
 /**
@@ -19,7 +19,7 @@ import StyledRowValidationIcon from "../../styledComponents/StyledRowValidationI
  * @property onFieldChange Callback for when a field value changes.
  * @property isCorrect Whether the row is correct (true), incorrect (false), or not validated (undefined).
  * @property isDuplicate Whether the row is a duplicate of another correct word (true), not a duplicate (false), or not validated (undefined).
- * @property isDuplicate Whether the row has read only value.
+ * @property isReadOnly Whether the row has read only value.
  */
 interface GameRowProps {
   fixedLetter?: FixedLetter;
@@ -31,6 +31,7 @@ interface GameRowProps {
   isCorrect?: boolean;
   isDuplicate?: boolean;
   isReadOnly?: boolean;
+  ref?: Ref<GameRowRef>;
 }
 
 /**
@@ -48,14 +49,47 @@ export default function GameRow({
   isCorrect,
   isDuplicate,
   isReadOnly,
+  ref,
 }: GameRowProps) {
   const colorPalette = useColorPalette();
-  const { xs, sm, md, lg } = useViewportContext();
+  const { xs, sm, md, lg, isMobile } = useViewportContext();
   const textInputSize = xs ? 45 : sm ? 56.25 : md ? 67.5 : lg ? 78.75 : 90;
   const textInputFontSize = xs ? 18 : sm ? 23 : md ? 28 : lg ? 33 : 38;
   const { t } = useTranslation();
   const borderWidth = 2;
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  /**
+   * Moves focus to the next editable field in the row, skipping the fixed letter.
+   * @param columnIndex The current column index.
+   */
+  const moveFocusForward = (columnIndex: number) => {
+    let nextColumnIndex = columnIndex + 1;
+
+    if (fixedLetter && nextColumnIndex === fixedLetter.fixedIndex) {
+      nextColumnIndex++;
+    }
+
+    if (nextColumnIndex < rowLength) {
+      inputRefs.current[nextColumnIndex]?.focus();
+    }
+  };
+
+  /**
+   * Moves focus to the previous editable field in the row, skipping the fixed letter.
+   * @param columnIndex The current column index.
+   */
+  const moveFocusBackward = (columnIndex: number) => {
+    let previousColumnIndex = columnIndex - 1;
+
+    if (fixedLetter && previousColumnIndex === fixedLetter.fixedIndex) {
+      previousColumnIndex--;
+    }
+
+    if (previousColumnIndex >= 0) {
+      inputRefs.current[previousColumnIndex]?.focus();
+    }
+  };
 
   /**
    * Handles user input and moves the cursor to the next available field.
@@ -75,19 +109,7 @@ export default function GameRow({
       return;
     }
 
-    // Move focus to the next editable field in the same row
-    // Skip over the next field if it is a fixed letter (not editable)
-    // Continue skipping until an editable field is found or the end of the row is reached
-    let nextColumnIndex = columnIndex + 1;
-
-    if (fixedLetter && nextColumnIndex === fixedLetter.fixedIndex) {
-      nextColumnIndex++;
-    }
-
-    // Focus the next editable field, if it exists
-    if (nextColumnIndex < rowLength) {
-      inputRefs.current[nextColumnIndex]?.focus();
-    }
+    moveFocusForward(columnIndex);
   };
 
   /**
@@ -99,21 +121,55 @@ export default function GameRow({
     columnIndex: number,
     event: KeyboardEvent<HTMLInputElement>,
   ) => {
-    if (
-      (event.key === "Backspace" || event.key === "Delete") &&
-      !rowData[columnIndex]
-    ) {
-      let previousColumnIndex = columnIndex - 1;
-
-      if (fixedLetter && previousColumnIndex === fixedLetter.fixedIndex) {
-        previousColumnIndex--;
-      }
-
-      if (previousColumnIndex >= 0) {
-        inputRefs.current[previousColumnIndex]?.focus();
-      }
+    if (event.key === "Backspace" && !rowData[columnIndex]) {
+      moveFocusBackward(columnIndex);
     }
   };
+
+  /**
+   * Returns the index of the currently focused input in this row.
+   * @returns The active column index, or -1 when no input in this row is focused.
+   */
+  const getActiveColumnIndex = () => {
+    return inputRefs.current.findIndex(
+      (input) => input === document.activeElement,
+    );
+  };
+
+  /**
+   * Exposes virtual keyboard actions to the parent through the row ref.
+   */
+  useImperativeHandle(ref, () => ({
+    hasFocusedInput: () =>
+      inputRefs.current.includes(document.activeElement as HTMLInputElement),
+
+    pressVirtualKey: (key: string) => {
+      const columnIndex = getActiveColumnIndex();
+
+      if (rowData[columnIndex] !== "") {
+        return;
+      }
+
+      if (columnIndex >= 0) {
+        handleChange(columnIndex, key);
+      }
+    },
+
+    pressVirtualBackspace: () => {
+      const columnIndex = getActiveColumnIndex();
+
+      if (columnIndex < 0) {
+        return;
+      }
+
+      if (rowData[columnIndex]) {
+        moveFocusBackward(columnIndex);
+        handleChange(columnIndex, "");
+      } else {
+        moveFocusBackward(columnIndex);
+      }
+    },
+  }));
 
   return (
     <Group
@@ -149,9 +205,10 @@ export default function GameRow({
                 isReadOnly
               }
               maxLength={1}
-              ref={(el) => {
-                inputRefs.current[columnIndex] = el;
+              ref={(element) => {
+                inputRefs.current[columnIndex] = element;
               }}
+              inputMode={isMobile ? "none" : "text"}
               styles={{
                 input: {
                   width: textInputSize,

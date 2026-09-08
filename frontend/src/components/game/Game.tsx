@@ -1,9 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
+import { Stack } from "@mantine/core";
+import { useTranslation } from "react-i18next";
 import { useNotificationModalSourceContext } from "../../context/notificationModalSourceContext/NotificationModalSourceContext";
 import {
   NotificationModalSource,
   type FixedLetters,
+  type GameGridRef,
   type LetterGrid,
   type ValidationResults,
 } from "../../types/Types";
@@ -20,13 +23,12 @@ import {
 } from "../../utils/UtilityFunctions";
 import GameButtonValidate from "./gameComponents/GameButtonValidate";
 import { GameButtonReload } from "./gameComponents/GameButtonReload";
-import { Stack } from "@mantine/core";
-import { useTranslation } from "react-i18next";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
+import VirtualKeyboard from "./gameComponents/VirtualKeyboard";
 
 export default function Game() {
   const { t } = useTranslation();
-  const { xs, sm, md, lg } = useViewportContext();
+  const { xs, sm, md, lg, isMobile } = useViewportContext();
   const [opened, { open, close }] = useDisclosure(false);
   const { notificationModalSource, setNotificationModalSource } =
     useNotificationModalSourceContext();
@@ -37,6 +39,8 @@ export default function Game() {
   const [fixedLetters, setFixedLetters] = useState<FixedLetters>([]);
   // Store the actual game grid data (2D array of characters with dynamic dimensions)
   const [gameGrid, setGameGrid] = useState<LetterGrid>([]);
+  // Ref used to send virtual keyboard actions to the game grid.
+  const gameGridRef = useRef<GameGridRef | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [validationResults, setValidationResults] =
     useState<ValidationResults>(undefined);
@@ -128,6 +132,21 @@ export default function Game() {
 
       return newGameGrid;
     });
+  };
+
+  /**
+   * Forwards a virtual letter key press to the game grid.
+   * @param key The letter pressed on the virtual keyboard.
+   */
+  const handleOnVirtualKeyPress = (key: string) => {
+    gameGridRef.current?.pressVirtualKey(key);
+  };
+
+  /**
+   * Forwards a virtual backspace press to the game grid.
+   */
+  const handleOnVirtualBackspacePress = () => {
+    gameGridRef.current?.pressVirtualBackspace();
   };
 
   /**
@@ -242,7 +261,9 @@ export default function Game() {
           wordLength={wordLength}
           validationResults={validationResults}
           handleFieldChange={handleFieldChange}
+          ref={gameGridRef}
         />
+
         <GameButtonReload
           isLoading={isLoading}
           isCorrectGameGrid={isCorrectGameGrid}
@@ -250,6 +271,14 @@ export default function Game() {
           handleNewGameGridLoading={handleNewGameGridLoading}
           margin={gameButtonReloadMargin}
         />
+
+        {isMobile && (
+          <VirtualKeyboard
+            onKeyPress={handleOnVirtualKeyPress}
+            onBackspacePress={handleOnVirtualBackspacePress}
+          />
+        )}
+
         <GameButtonValidate
           isValidGameGrid={isValidGameGrid}
           isCorrectGameGrid={isCorrectGameGrid}
