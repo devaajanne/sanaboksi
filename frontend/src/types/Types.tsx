@@ -10,7 +10,6 @@ export type FixedLetterResponse = {
   fixedLetters: FixedLetter[];
 };
 
-export type GameGrid = string[][];
 export type LetterGrid = string[][];
 
 /**

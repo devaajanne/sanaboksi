@@ -6,7 +6,7 @@ import {
   IconReload,
   IconSettings,
 } from "@tabler/icons-react";
-import SanaboksiGameRow from "../game/SanaboksiGameRow";
+import GameRow from "../game/gameComponents/GameRow";
 import type { FixedLetter } from "../../types/Types";
 import { useTranslation } from "react-i18next";
 import { colors } from "../../utils/Constants";
@@ -43,7 +43,7 @@ export function GameInstructionsModal({
 
       <StyledText text={t("GameInstructionsModal.ForExampleIfGivenRowIs")} />
 
-      <SanaboksiGameRow
+      <GameRow
         fixedLetter={fixedLetter}
         rowIndex={0}
         rowLength={5}
@@ -53,7 +53,7 @@ export function GameInstructionsModal({
 
       <StyledText text={t("GameInstructionsModal.FittingWordsCouldBe")} />
 
-      <SanaboksiGameRow
+      <GameRow
         fixedLetter={fixedLetter}
         rowIndex={0}
         rowLength={5}
@@ -63,7 +63,7 @@ export function GameInstructionsModal({
 
       <StyledText text={t("GameInstructionsModal.And")} />
 
-      <SanaboksiGameRow
+      <GameRow
         fixedLetter={fixedLetter}
         rowIndex={0}
         rowLength={5}
