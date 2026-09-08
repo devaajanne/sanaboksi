@@ -231,7 +231,7 @@ export default function Game() {
   return (
     <>
       <Stack
-        aria-label={t("AriaLabel.SanaBoksiGameGrid")}
+        aria-label={t("AriaLabel.GameGrid")}
         gap={gameGridRowGap}
         align="center"
         styles={{ root: { position: "relative", width: "fit-content" } }}

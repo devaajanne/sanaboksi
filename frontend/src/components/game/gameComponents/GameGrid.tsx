@@ -6,6 +6,14 @@ import type {
 import { gameConstants } from "../../../utils/Constants";
 import GameRow from "./GameRow";
 
+/**
+ * Props for the GameGrid component.
+ * @property fixedLetters The fixed letters and their positions for each row.
+ * @property gameGrid The current letters entered in the game grid.
+ * @property wordLength The number of letters in each word.
+ * @property validationResults The validation results for each row, if available.
+ * @property handleFieldChange Callback for updating a letter in the game grid.
+ */
 interface GameGridProps {
   fixedLetters: FixedLetters;
   gameGrid: LetterGrid;

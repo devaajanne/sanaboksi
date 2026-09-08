@@ -3,6 +3,14 @@ import useColorPalette from "../../../hook/useColorPalette";
 import StyledButton from "../../styledComponents/StyledButton";
 import { colors, languageConstants } from "../../../utils/Constants";
 
+/**
+ * Props for the GameButton component.
+ * @property isValidGameGrid Whether the game grid is completely filled in.
+ * @property isCorrectGameGrid Whether all words in the game grid are correct.
+ * @property isLoading Whether a game grid operation is in progress.
+ * @property handleGameGridValidation Callback for validating the current game grid.
+ * @property fetchFixedLetters Callback for loading fixed letters for the selected language.
+ */
 interface GameButtonProps {
   isValidGameGrid: boolean;
   isCorrectGameGrid: boolean;
