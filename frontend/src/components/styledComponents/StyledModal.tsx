@@ -5,6 +5,13 @@ import { useTranslation } from "react-i18next";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 import useColorPalette from "../../hook/useColorPalette";
 
+/**
+ * Props for the StyledModal component.
+ * @property opened Whether the modal is open.
+ * @property onClose Callback for closing the modal.
+ * @property title The title displayed in the modal header.
+ * @property children The content rendered inside the modal.
+ */
 interface StyledModalProps {
   opened: boolean;
   onClose: () => void;
@@ -18,10 +25,10 @@ export default function StyledModal({
   title,
   children,
 }: StyledModalProps) {
+  const { t } = useTranslation();
   const colorPalette = useColorPalette();
   const { xs, sm, md, lg } = useViewportContext();
   const titleFontSize = xs ? 24 : sm ? 28 : md ? 32 : lg ? 36 : 40;
-  const { t } = useTranslation();
   const strokeWidth = 1.5;
 
   return (

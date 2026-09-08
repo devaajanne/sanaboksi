@@ -15,15 +15,21 @@ import StyledText from "../styledComponents/StyledText";
 import StyledIconAnchorRow from "../styledComponents/StyledIconAnchorRow";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 
+/**
+ * Props for the GameInfoModal component.
+ * @property opened Whether the modal is open.
+ * @property onClose Callback for closing the modal.
+ */
 interface GameInfoModalProps {
   opened: boolean;
   onClose: () => void;
 }
 
 export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
+  const { t } = useTranslation();
   const { xs, sm, md, lg } = useViewportContext();
   const iconSize = xs ? 20 : sm ? 22 : md ? 24 : lg ? 26 : 28;
-  const { t } = useTranslation();
+  const marginTop = 12;
 
   return (
     <StyledModal
@@ -102,6 +108,7 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
           ariaLabel={t("Actions.BackToGame")}
           onClick={onClose}
           buttonText={t("Actions.BackToGame")}
+          marginTop={marginTop}
         />
       </Group>
     </StyledModal>

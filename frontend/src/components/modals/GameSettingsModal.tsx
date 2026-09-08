@@ -11,19 +11,25 @@ import StyledIconTextRow from "../styledComponents/StyledIconTextRow";
 import { IconAlertCircle } from "@tabler/icons-react";
 import useColorPalette from "../../hook/useColorPalette";
 
+/**
+ * Props for the GameSettingsModal component.
+ * @property opened Whether the modal is open.
+ * @property onClose Callback for closing the modal.
+ */
 interface GameSettingsModalProps {
   opened: boolean;
   onClose: () => void;
 }
 
 export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
-  const colorPalette = useColorPalette();
   const { t } = useTranslation();
+  const colorPalette = useColorPalette();
   const {
     gameDifficulty: { wordLength, setWordLength },
   } = useGameSettingsContext();
   const [tempWordLength, setTempWordLength] = useState<number>(wordLength);
   const isSettingsChanged = tempWordLength !== wordLength;
+  const marginTop = 12;
 
   const handleDifficultyChange = (value: string) => {
     const numValue = Number(value);
@@ -102,12 +108,14 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
             ariaLabel={t("Actions.Save")}
             onClick={handleSave}
             buttonText={t("Actions.Save")}
+            marginTop={marginTop}
           />
         )}
         <StyledButton
           ariaLabel={t("Actions.BackToGame")}
           onClick={handleClose}
           buttonText={t("Actions.BackToGame")}
+          marginTop={marginTop}
         />
       </Group>
     </StyledModal>

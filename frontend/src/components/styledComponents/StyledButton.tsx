@@ -3,6 +3,16 @@ import { colors } from "../../utils/Constants";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 import useColorPalette from "../../hook/useColorPalette";
 
+/**
+ * Props for the StyledButton component.
+ * @property ariaLabel The accessible label for the button.
+ * @property onClick Callback invoked when the button is clicked.
+ * @property fullWidth Whether the button should fill its container width.
+ * @property buttonText The text displayed in the button.
+ * @property loading Whether the button displays a loading state.
+ * @property loaderProps Configuration for the loading indicator.
+ * @property marginTop Optional top margin for the button.
+ */
 interface StyledButtonProps {
   ariaLabel: string;
   onClick: () => void;

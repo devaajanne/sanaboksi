@@ -18,6 +18,11 @@ import StyledIconTextRow from "../styledComponents/StyledIconTextRow";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 import useColorPalette from "../../hook/useColorPalette";
 
+/**
+ * Props for the GameInstructionsModal component.
+ * @property opened Whether the modal is open.
+ * @property onClose Callback for closing the modal.
+ */
 interface GameInstructionsModalProps {
   opened: boolean;
   onClose: () => void;
@@ -27,11 +32,12 @@ export function GameInstructionsModal({
   opened,
   onClose,
 }: GameInstructionsModalProps) {
+  const { t } = useTranslation();
   const colorPalette = useColorPalette();
   const { xs, sm, md, lg } = useViewportContext();
   const iconSize = xs ? 20 : sm ? 22 : md ? 24 : lg ? 26 : 28;
-  const { t } = useTranslation();
   const fixedLetter: FixedLetter = { fixedIndex: 2, fixedLetter: "H" };
+  const marginTop = 12;
 
   return (
     <StyledModal
@@ -143,6 +149,7 @@ export function GameInstructionsModal({
           ariaLabel={t("Actions.BackToGame")}
           onClick={onClose}
           buttonText={t("Actions.BackToGame")}
+          marginTop={marginTop}
         />
       </Group>
     </StyledModal>

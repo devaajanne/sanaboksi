@@ -5,6 +5,14 @@ import StyledButton from "../styledComponents/StyledButton";
 import StyledModal from "../styledComponents/StyledModal";
 import StyledText from "../styledComponents/StyledText";
 
+/**
+ * Props for the NotificationModal component.
+ * @property source The notification source that determines the modal content.
+ * @property opened Whether the modal is open.
+ * @property onClose Callback for closing the modal.
+ * @property onNewGridLoad Callback for loading a new game grid.
+ * @property onValidationRetry Callback for retrying game grid validation.
+ */
 interface NotificationModalProps {
   source: NotificationModalSource;
   opened: boolean;
@@ -93,6 +101,7 @@ export default function NotificationModal({
   const { notificationModalTitle, notificationModalMessage } =
     notificationModalContent[source] ||
     notificationModalContent[NotificationModalSource.NoSource];
+  const marginTop = 12;
 
   return (
     <StyledModal
@@ -112,6 +121,7 @@ export default function NotificationModal({
               onClose();
             }}
             buttonText={t("Actions.LoadNewGame")}
+            marginTop={marginTop}
           />
         )}
         {source === NotificationModalSource.GameGridFetchFailed && (
@@ -122,6 +132,7 @@ export default function NotificationModal({
               onClose();
             }}
             buttonText={t("Actions.Retry")}
+            marginTop={marginTop}
           />
         )}
         {source === NotificationModalSource.GameGridValidationFailed && (
@@ -132,12 +143,14 @@ export default function NotificationModal({
               onClose();
             }}
             buttonText={t("Actions.Retry")}
+            marginTop={marginTop}
           />
         )}
         <StyledButton
           ariaLabel={t("Actions.Close")}
           onClick={onClose}
           buttonText={t("Actions.Close")}
+          marginTop={marginTop}
         />
       </Group>
     </StyledModal>

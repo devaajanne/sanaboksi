@@ -3,8 +3,14 @@ import { colors } from "../../utils/Constants";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 import useColorPalette from "../../hook/useColorPalette";
 
+/**
+ * Props for the StyledIconAnchorRow component.
+ * @property icon Optional icon component to render beside the link.
+ * @property text The text displayed for the link.
+ * @property href The destination URL for the link.
+ */
 interface StyledIconAnchorRowProps {
-  icon?: React.ComponentType<{
+  icon: React.ComponentType<{
     color: string;
     size: string | number;
     strokeWidth: number;
@@ -15,7 +21,6 @@ interface StyledIconAnchorRowProps {
 
 export default function StyledIconAnchorRow({
   icon: Icon,
-
   text,
   href,
 }: StyledIconAnchorRowProps) {

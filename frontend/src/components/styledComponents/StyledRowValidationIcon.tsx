@@ -1,9 +1,15 @@
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 
+/**
+ * Props for the StyledRowValidationIcon component.
+ * @property ariaLabel The accessible label for the validation icon.
+ * @property color The color applied to the icon.
+ * @property icon Optional validation icon component to render.
+ */
 interface StyledRowValidationIconProps {
   ariaLabel: string;
   color: string;
-  icon?: React.ComponentType<{
+  icon: React.ComponentType<{
     color: string;
     size: string | number;
     strokeWidth: number;

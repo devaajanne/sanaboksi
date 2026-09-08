@@ -1,6 +1,13 @@
 import { Group, Text } from "@mantine/core";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 
+/**
+ * Props for the StyledIconTextRow component.
+ * @property ariaLabel The accessible label for the icon.
+ * @property icon Optional icon component to render beside the text.
+ * @property color The color applied to the icon.
+ * @property text The text displayed beside the icon.
+ */
 interface StyledIconTextRowProps {
   ariaLabel: string;
   icon?: React.ComponentType<{
