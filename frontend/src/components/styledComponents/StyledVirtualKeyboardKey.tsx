@@ -3,13 +3,22 @@ import { colors } from "../../utils/Constants";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 import useColorPalette from "../../hook/useColorPalette";
 
+/**
+ * Props for the StyledVirtualKeyboardKey component.
+ * @property ariaLabel Optional accessible label for the keyboard key.
+ * @property onClick Callback invoked when the key is clicked.
+ * @property buttonText Optional text displayed on the key.
+ * @property overrideWidth Optional custom width for the key.
+ * @property icon Optional icon component displayed on the key.
+ */
 interface StyledVirtualKeyboardKeyProps {
-  ariaLabel: string;
+  ariaLabel?: string;
   onClick: () => void;
   buttonText?: string;
   overrideWidth?: number;
   icon?: React.ComponentType<{ size: string | number; strokeWidth: number }>;
 }
+
 export default function StyledVirtualKeyboardKey({
   ariaLabel,
   onClick,

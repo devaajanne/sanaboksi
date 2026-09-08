@@ -1,19 +1,24 @@
-import { Center } from "@mantine/core";
-import StyledVirtualKeyboardKey from "../styledComponents/StyledVirtualKeyboardKey";
-import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 import { useMemo } from "react";
 import { IconBackspace } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
+import { Center } from "@mantine/core";
+import { useViewportContext } from "../../../context/viewportContext/ViewportContext";
+import StyledVirtualKeyboardKey from "../../styledComponents/StyledVirtualKeyboardKey";
 
-type SanaboksiVirtualKeyboardProps = {
+/**
+ * Props for the VirtualKeyboard component.
+ * @property onKeyPress Callback invoked when a letter key is pressed.
+ * @property onBackspacePress Callback invoked when the backspace key is pressed.
+ */
+type VirtualKeyboardProps = {
   onKeyPress: (key: string) => void;
   onBackspacePress: () => void;
 };
 
-export default function SanaboksiVirtualKeyboard({
+export default function VirtualKeyboard({
   onKeyPress,
   onBackspacePress,
-}: SanaboksiVirtualKeyboardProps) {
+}: VirtualKeyboardProps) {
   const { t } = useTranslation();
   const { xs, sm, md, lg } = useViewportContext();
   const backspaceButtonWidth = xs ? 64 : sm ? 80 : md ? 96 : lg ? 112 : 128;
@@ -44,15 +49,13 @@ export default function SanaboksiVirtualKeyboard({
               display: "flex",
               width: "100%",
               flexWrap: "nowrap",
-              gap: 2,
-              marginBottom: 2,
+              gap: 3,
             },
           }}
         >
           {keyboardRow.map((key) => (
             <StyledVirtualKeyboardKey
               key={key}
-              ariaLabel={key}
               onClick={() => handleOnKeyPress(key)}
               buttonText={key}
             />

@@ -23,6 +23,7 @@ import { GameButtonReload } from "./gameComponents/GameButtonReload";
 import { Stack } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
+import VirtualKeyboard from "./gameComponents/VirtualKeyboard";
 
 export default function Game() {
   const { t } = useTranslation();
@@ -129,6 +130,14 @@ export default function Game() {
       return newGameGrid;
     });
   };
+
+  const handleOnVirtualKeyPress = (key: string) => {
+    console.log("Virtual key pressed: " + key);
+  }
+
+  const handleOnVirtualBackspacePress = () => {
+    console.log("Virtual backspace pressed")
+  }
 
   /**
    * Validates the current game grid and the inputted words.
@@ -243,6 +252,7 @@ export default function Game() {
           validationResults={validationResults}
           handleFieldChange={handleFieldChange}
         />
+
         <GameButtonReload
           isLoading={isLoading}
           isCorrectGameGrid={isCorrectGameGrid}
@@ -250,6 +260,9 @@ export default function Game() {
           handleNewGameGridLoading={handleNewGameGridLoading}
           margin={gameButtonReloadMargin}
         />
+
+        <VirtualKeyboard onKeyPress={handleOnVirtualKeyPress} onBackspacePress={handleOnVirtualBackspacePress}/>
+        
         <GameButtonValidate
           isValidGameGrid={isValidGameGrid}
           isCorrectGameGrid={isCorrectGameGrid}
