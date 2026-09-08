@@ -23,6 +23,7 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
     gameDifficulty: { wordLength, setWordLength },
   } = useGameSettingsContext();
   const [tempWordLength, setTempWordLength] = useState<number>(wordLength);
+  const isSettingsChanged = tempWordLength !== wordLength;
 
   const handleDifficultyChange = (value: string) => {
     const numValue = Number(value);
@@ -84,7 +85,7 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
 
       <Space h="xl" />
 
-      {wordLength != tempWordLength && (
+      {isSettingsChanged && (
         <StyledIconTextRow
           ariaLabel={t("AriaLabel.AlertIcon")}
           icon={IconAlertCircle}
@@ -96,7 +97,7 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
       )}
 
       <Group justify="flex-end">
-        {wordLength != tempWordLength && (
+        {isSettingsChanged && (
           <StyledButton
             ariaLabel={t("Actions.Save")}
             onClick={handleSave}
