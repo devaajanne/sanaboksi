@@ -1,7 +1,7 @@
 import { Button, Text, type LoaderProps } from "@mantine/core";
-import { colors } from "../../utils/Constants";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 import useColorPalette from "../../hook/useColorPalette";
+import { colors } from "../../utils/Constants";
 
 /**
  * Props for the StyledButton component.

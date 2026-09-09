@@ -1,5 +1,5 @@
-import { useTranslation } from "react-i18next";
 import { IconReload } from "@tabler/icons-react";
+import { useTranslation } from "react-i18next";
 import StyledActionIcon from "../../styledComponents/StyledActionIcon";
 import StyledTooltip from "../../styledComponents/StyledTooltip";
 

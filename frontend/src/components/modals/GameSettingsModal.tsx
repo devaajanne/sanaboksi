@@ -1,15 +1,15 @@
+import { Group, Space, Text } from "@mantine/core";
+import { IconAlertCircle } from "@tabler/icons-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { colors, gameConstants } from "../../utils/Constants";
-import { Group, Space, Text } from "@mantine/core";
 import { useGameSettingsContext } from "../../context/gameSettingsContext/GameSettingsContext";
-import StyledButton from "../styledComponents/StyledButton";
-import StyledModal from "../styledComponents/StyledModal";
-import StyledText from "../styledComponents/StyledText";
-import StyledSegmentedControl from "../styledComponents/StyledSegmentedControl";
-import StyledIconTextRow from "../styledComponents/StyledIconTextRow";
-import { IconAlertCircle } from "@tabler/icons-react";
 import useColorPalette from "../../hook/useColorPalette";
+import { colors, gameConstants } from "../../utils/Constants";
+import StyledButton from "../styledComponents/StyledButton";
+import StyledIconTextRow from "../styledComponents/StyledIconTextRow";
+import StyledModal from "../styledComponents/StyledModal";
+import StyledSegmentedControl from "../styledComponents/StyledSegmentedControl";
+import StyledText from "../styledComponents/StyledText";
 
 /**
  * Props for the GameSettingsModal component.

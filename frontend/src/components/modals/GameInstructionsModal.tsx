@@ -1,22 +1,22 @@
 import { Group, Stack } from "@mantine/core";
 import {
   IconCheck,
-  IconX,
   IconCopy,
   IconReload,
   IconSettings,
+  IconX,
 } from "@tabler/icons-react";
-import GameRow from "../game/gameComponents/GameRow";
-import type { FixedLetter } from "../../types/Types";
 import { useTranslation } from "react-i18next";
-import { colors } from "../../utils/Constants";
-import StyledButton from "../styledComponents/StyledButton";
-import StyledDivider from "../styledComponents/StyledDivider";
-import StyledModal from "../styledComponents/StyledModal";
-import StyledText from "../styledComponents/StyledText";
-import StyledIconTextRow from "../styledComponents/StyledIconTextRow";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 import useColorPalette from "../../hook/useColorPalette";
+import type { FixedLetter } from "../../types/Types";
+import { colors } from "../../utils/Constants";
+import GameRow from "../game/gameComponents/GameRow";
+import StyledButton from "../styledComponents/StyledButton";
+import StyledDivider from "../styledComponents/StyledDivider";
+import StyledIconTextRow from "../styledComponents/StyledIconTextRow";
+import StyledModal from "../styledComponents/StyledModal";
+import StyledText from "../styledComponents/StyledText";
 
 /**
  * Props for the GameInstructionsModal component.

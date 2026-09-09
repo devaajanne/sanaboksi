@@ -1,19 +1,19 @@
-import { useTranslation } from "react-i18next";
+import { Group } from "@mantine/core";
 import {
   IconBook2,
-  IconVocabulary,
   IconBrandGithub,
   IconHelpCircle,
-  IconSun,
   IconMoon,
+  IconSun,
+  IconVocabulary,
 } from "@tabler/icons-react";
-import { Group } from "@mantine/core";
+import { useTranslation } from "react-i18next";
+import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 import StyledButton from "../styledComponents/StyledButton";
 import StyledDivider from "../styledComponents/StyledDivider";
+import StyledIconAnchorRow from "../styledComponents/StyledIconAnchorRow";
 import StyledModal from "../styledComponents/StyledModal";
 import StyledText from "../styledComponents/StyledText";
-import StyledIconAnchorRow from "../styledComponents/StyledIconAnchorRow";
-import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 
 /**
  * Props for the GameInfoModal component.

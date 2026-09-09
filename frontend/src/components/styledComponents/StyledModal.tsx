@@ -1,9 +1,9 @@
 import { Modal } from "@mantine/core";
-import { colors } from "../../utils/Constants";
 import { IconX } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 import useColorPalette from "../../hook/useColorPalette";
+import { colors } from "../../utils/Constants";
 
 /**
  * Props for the StyledModal component.

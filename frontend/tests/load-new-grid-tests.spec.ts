@@ -1,4 +1,4 @@
-import { test, expect, Page } from "@playwright/test";
+import { expect, Page, test } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
   await page.route("*/**/api/fixed-letters/FI/5", async (route) => {

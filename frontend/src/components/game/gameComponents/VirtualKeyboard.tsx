@@ -1,7 +1,7 @@
-import { useMemo } from "react";
-import { IconBackspace } from "@tabler/icons-react";
-import { useTranslation } from "react-i18next";
 import { Center } from "@mantine/core";
+import { IconBackspace } from "@tabler/icons-react";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useViewportContext } from "../../../context/viewportContext/ViewportContext";
 import StyledVirtualKeyboardKey from "../../styledComponents/StyledVirtualKeyboardKey";
 

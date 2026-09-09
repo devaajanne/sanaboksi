@@ -1,7 +1,7 @@
 import { ActionIcon } from "@mantine/core";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
-import { colors } from "../../utils/Constants";
 import useColorPalette from "../../hook/useColorPalette";
+import { colors } from "../../utils/Constants";
 
 /**
  * Props for the StyledActionIcon component.
