@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import useColorPalette from "../../../hook/useColorPalette";
-import StyledButton from "../../styledComponents/StyledButton";
 import { colors, languageConstants } from "../../../utils/Constants";
+import StyledButton from "../../styledComponents/StyledButton";
 
 /**
  * Props for the GameButton component.

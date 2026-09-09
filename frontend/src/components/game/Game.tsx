@@ -1,8 +1,11 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { useDisclosure } from "@mantine/hooks";
 import { Stack } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useGameSettingsContext } from "../../context/gameSettingsContext/GameSettingsContext";
 import { useNotificationModalSourceContext } from "../../context/notificationModalSourceContext/NotificationModalSourceContext";
+import { useViewportContext } from "../../context/viewportContext/ViewportContext";
+import { getFixedLetters, validateGameGrid } from "../../services/ApiService";
 import {
   NotificationModalSource,
   type FixedLetters,
@@ -10,20 +13,17 @@ import {
   type LetterGrid,
   type ValidationResults,
 } from "../../types/Types";
-import NotificationModal from "../modals/NotificationModal";
-import { getFixedLetters, validateGameGrid } from "../../services/ApiService";
-import { useGameSettingsContext } from "../../context/gameSettingsContext/GameSettingsContext";
 import { languageConstants } from "../../utils/Constants";
-import GameGrid from "./gameComponents/GameGrid";
 import {
   checkGameGridValidity,
   gameGridContainsOnlyCorrectWords,
   gameGridContainsOnlyUniqueWords,
   gameGridIsFilledIn,
 } from "../../utils/UtilityFunctions";
-import GameButtonValidate from "./gameComponents/GameButtonValidate";
+import NotificationModal from "../modals/NotificationModal";
 import { GameButtonReload } from "./gameComponents/GameButtonReload";
-import { useViewportContext } from "../../context/viewportContext/ViewportContext";
+import GameButtonValidate from "./gameComponents/GameButtonValidate";
+import GameGrid from "./gameComponents/GameGrid";
 import VirtualKeyboard from "./gameComponents/VirtualKeyboard";
 
 export default function Game() {

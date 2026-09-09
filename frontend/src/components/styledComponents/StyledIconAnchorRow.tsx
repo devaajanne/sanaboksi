@@ -1,7 +1,7 @@
-import { Group, Anchor } from "@mantine/core";
-import { colors } from "../../utils/Constants";
+import { Anchor, Group } from "@mantine/core";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
 import useColorPalette from "../../hook/useColorPalette";
+import { colors } from "../../utils/Constants";
 
 /**
  * Props for the StyledIconAnchorRow component.

@@ -1,6 +1,6 @@
 import { Divider } from "@mantine/core";
-import { colors } from "../../utils/Constants";
 import useColorPalette from "../../hook/useColorPalette";
+import { colors } from "../../utils/Constants";
 
 export default function StyledDivider() {
   const colorPalette = useColorPalette();

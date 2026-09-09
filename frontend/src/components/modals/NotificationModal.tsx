@@ -1,6 +1,6 @@
 import { Group } from "@mantine/core";
-import { NotificationModalSource } from "../../types/Types";
 import { useTranslation } from "react-i18next";
+import { NotificationModalSource } from "../../types/Types";
 import StyledButton from "../styledComponents/StyledButton";
 import StyledModal from "../styledComponents/StyledModal";
 import StyledText from "../styledComponents/StyledText";

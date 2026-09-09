@@ -1,6 +1,6 @@
 import { useMemo, useState, type ReactNode } from "react";
-import { NotificationModalSourceContext } from "./NotificationModalSourceContext";
 import { NotificationModalSource } from "../../types/Types";
+import { NotificationModalSourceContext } from "./NotificationModalSourceContext";
 
 export function NotificationModalSourceContextProvider({
   children,

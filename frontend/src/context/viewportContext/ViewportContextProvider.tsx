@@ -1,7 +1,7 @@
+import { useMantineTheme } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { useMemo, type ReactNode } from "react";
 import { ViewportContext } from "./ViewportContext";
-import { useMediaQuery } from "@mantine/hooks";
-import { useMantineTheme } from "@mantine/core";
 
 export function ViewportContextProvider({ children }: { children: ReactNode }) {
   const theme = useMantineTheme();

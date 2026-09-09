@@ -1,4 +1,4 @@
-import { test, expect, Page } from "@playwright/test";
+import { expect, Page, test } from "@playwright/test";
 
 async function getColorMode(page: Page) {
   return await page.locator("html").getAttribute("data-mantine-color-scheme");

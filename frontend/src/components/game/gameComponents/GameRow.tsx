@@ -1,12 +1,12 @@
-import { useEffect, useImperativeHandle, useRef } from "react";
+import { Group, TextInput } from "@mantine/core";
+import { IconCheck, IconCopy, IconX } from "@tabler/icons-react";
 import type { KeyboardEvent, Ref } from "react";
-import { TextInput, Group } from "@mantine/core";
-import { IconCheck, IconX, IconCopy } from "@tabler/icons-react";
+import { useEffect, useImperativeHandle, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import useColorPalette from "../../../hook/useColorPalette";
 import { useViewportContext } from "../../../context/viewportContext/ViewportContext";
-import { colors } from "../../../utils/Constants";
+import useColorPalette from "../../../hook/useColorPalette";
 import type { FixedLetter, GameRowRef } from "../../../types/Types";
+import { colors } from "../../../utils/Constants";
 import StyledRowValidationIcon from "../../styledComponents/StyledRowValidationIcon";
 
 /**
