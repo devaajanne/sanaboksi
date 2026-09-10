@@ -14,7 +14,7 @@ format_backend() {
 
 # Run frontend formatter and eslint
 format_frontend() {
-    (cd frontend && npx prettier . --write && npx eslint . --fix)
+    (cd frontend && npx --no-install prettier . --write && npx --no-install eslint . --fix)
 }
 
 # Run formatters and linter
