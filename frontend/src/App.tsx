@@ -13,7 +13,7 @@ function App() {
       fluid
       styles={{
         root: {
-          minHeight: "100vh",
+          minHeight: "100dvh",
           display: "flex",
           flexDirection: "column",
           backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
