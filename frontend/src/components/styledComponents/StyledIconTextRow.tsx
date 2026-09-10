@@ -23,7 +23,7 @@ export default function StyledIconTextRow({
   ariaLabel,
   icon: Icon,
   color,
-  text,
+  text
 }: StyledIconTextRowProps) {
   const { xs, sm, md, lg } = useViewportContext();
   const iconSize = xs ? 36 : sm ? 45 : md ? 54 : lg ? 63 : 72;
@@ -35,12 +35,7 @@ export default function StyledIconTextRow({
       align="center"
       gap="sm"
       wrap="nowrap"
-      styles={{
-        root: {
-          marginTop: rowMargin,
-          marginBottom: rowMargin,
-        },
-      }}
+      styles={{ root: { marginTop: rowMargin, marginBottom: rowMargin } }}
     >
       {Icon && (
         <Icon

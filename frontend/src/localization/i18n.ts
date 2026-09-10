@@ -6,7 +6,7 @@ i18n.use(initReactI18next).init({
   lng: "fi",
   fallbackLng: "fi",
   interpolation: { escapeValue: false },
-  resources: { fi: { translation: fiTranslations } },
+  resources: { fi: { translation: fiTranslations } }
 });
 
 export default i18n;

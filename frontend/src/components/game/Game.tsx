@@ -11,14 +11,14 @@ import {
   type FixedLetters,
   type GameGridRef,
   type LetterGrid,
-  type ValidationResults,
+  type ValidationResults
 } from "../../types/Types";
 import { languageConstants } from "../../utils/Constants";
 import {
   checkGameGridValidity,
   gameGridContainsOnlyCorrectWords,
   gameGridContainsOnlyUniqueWords,
-  gameGridIsFilledIn,
+  gameGridIsFilledIn
 } from "../../utils/UtilityFunctions";
 import NotificationModal from "../modals/NotificationModal";
 import { GameButtonReload } from "./gameComponents/GameButtonReload";
@@ -33,7 +33,7 @@ export default function Game() {
   const { notificationModalSource, setNotificationModalSource } =
     useNotificationModalSourceContext();
   const {
-    gameDifficulty: { wordLength },
+    gameDifficulty: { wordLength }
   } = useGameSettingsContext();
   // Store the fixed letters configuration for each row (which index has which fixed letter)
   const [fixedLetters, setFixedLetters] = useState<FixedLetters>([]);
@@ -61,7 +61,7 @@ export default function Game() {
       setNotificationModalSource(source);
       open();
     },
-    [setNotificationModalSource, open],
+    [setNotificationModalSource, open]
   );
 
   /**
@@ -78,7 +78,7 @@ export default function Game() {
         const fixedLetterResponse = await getFixedLetters(language, wordLength);
         if (!fixedLetterResponse?.fixedLetters?.length) {
           handleNotificationModalOpen(
-            NotificationModalSource.GameGridFetchFailed,
+            NotificationModalSource.GameGridFetchFailed
           );
           return;
         }
@@ -90,13 +90,13 @@ export default function Game() {
             Array(wordLength)
               .fill("")
               .map((_, i) =>
-                i === item.fixedIndex ? item.fixedLetter.toUpperCase() : "",
-              ),
-          ),
+                i === item.fixedIndex ? item.fixedLetter.toUpperCase() : ""
+              )
+          )
         );
       } catch {
         handleNotificationModalOpen(
-          NotificationModalSource.GameGridFetchFailed,
+          NotificationModalSource.GameGridFetchFailed
         );
         return;
       } finally {
@@ -106,7 +106,7 @@ export default function Game() {
         setIsLoading(false);
       }
     },
-    [wordLength, handleNotificationModalOpen],
+    [wordLength, handleNotificationModalOpen]
   );
 
   /**
@@ -118,7 +118,7 @@ export default function Game() {
   const handleFieldChange = (
     rowIndex: number,
     columnIndex: number,
-    value: string,
+    value: string
   ) => {
     // Only allow single letter strings
     if (typeof value !== "string" || value.length > 1) return;
@@ -127,7 +127,7 @@ export default function Game() {
       const newGameGrid = currentGameGrid.map((row, i) =>
         i === rowIndex
           ? row.map((field, j) => (j === columnIndex ? value : field))
-          : row,
+          : row
       );
 
       return newGameGrid;
@@ -157,18 +157,18 @@ export default function Game() {
       if (!checkGameGridValidity(gameGrid)) {
         setIsValidGameGrid(false);
         handleNotificationModalOpen(
-          NotificationModalSource.GameGridValidityCheck,
+          NotificationModalSource.GameGridValidityCheck
         );
       } else {
         setIsLoading(true);
         const validationResultsData = await validateGameGrid(
           gameGrid,
-          languageConstants.FI,
+          languageConstants.FI
         );
 
         if (validationResultsData === undefined) {
           handleNotificationModalOpen(
-            NotificationModalSource.GameGridValidationFailed,
+            NotificationModalSource.GameGridValidationFailed
           );
           return;
         }
@@ -177,16 +177,16 @@ export default function Game() {
         setIsValidGameGrid(true);
 
         const allWordsAreUnique = gameGridContainsOnlyUniqueWords(
-          validationResultsData,
+          validationResultsData
         );
         const allWordsAreCorrect = gameGridContainsOnlyCorrectWords(
-          validationResultsData,
+          validationResultsData
         );
 
         // Game grid contains duplicate words and incorrect words
         if (!allWordsAreUnique && !allWordsAreCorrect) {
           handleNotificationModalOpen(
-            NotificationModalSource.DuplicateWordsAndIncorrectWords,
+            NotificationModalSource.DuplicateWordsAndIncorrectWords
           );
           setIsCorrectGameGrid(false);
           setIsLoading(false);
@@ -215,7 +215,7 @@ export default function Game() {
       }
     } catch {
       handleNotificationModalOpen(
-        NotificationModalSource.GameGridValidationFailed,
+        NotificationModalSource.GameGridValidationFailed
       );
     } finally {
       setIsLoading(false);

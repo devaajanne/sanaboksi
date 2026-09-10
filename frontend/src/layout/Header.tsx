@@ -3,7 +3,7 @@ import {
   Group,
   Stack,
   Text,
-  useMantineColorScheme,
+  useMantineColorScheme
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
@@ -11,7 +11,7 @@ import {
   IconInfoCircle,
   IconMoon,
   IconSettings,
-  IconSun,
+  IconSun
 } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { GameInfoModal } from "../components/modals/GameInfoModal";
@@ -31,11 +31,11 @@ export default function Header() {
   const { t } = useTranslation();
   const [
     openedGameInstructions,
-    { open: openGameInstructions, close: closeGameInstructions },
+    { open: openGameInstructions, close: closeGameInstructions }
   ] = useDisclosure(false);
   const [
     openedGameSettings,
-    { open: openGameSettings, close: closeGameSettings },
+    { open: openGameSettings, close: closeGameSettings }
   ] = useDisclosure(false);
   const [openedGameInfo, { open: openGameInfo, close: closeGameInfo }] =
     useDisclosure(false);
@@ -46,19 +46,19 @@ export default function Header() {
     <Container
       fluid
       styles={{
-        root: {
-          marginTop: headerMarginTop,
-          marginBottom: headerMarginBottom,
-        },
+        root: { marginTop: headerMarginTop, marginBottom: headerMarginBottom }
       }}
     >
-      <Stack align="center" gap={headerMarginBottom}>
+      <Stack
+        align="center"
+        gap={headerMarginBottom}
+      >
         <Text
           styles={{
             root: {
               color: colorPalette[colors.SECONDARY_COLOR_1],
-              fontSize: titleFontSize,
-            },
+              fontSize: titleFontSize
+            }
           }}
         >
           Sanaboksi
@@ -66,9 +66,7 @@ export default function Header() {
         <Group
           justify="space-between"
           wrap="nowrap"
-          styles={{
-            root: { width: "150%" },
-          }}
+          styles={{ root: { width: "150%" } }}
         >
           <StyledTooltip label={t("Tooltip.GameInstructionsModalTooltip")}>
             <StyledActionIcon
@@ -119,7 +117,10 @@ export default function Header() {
         opened={openedGameSettings}
         onClose={closeGameSettings}
       />
-      <GameInfoModal opened={openedGameInfo} onClose={closeGameInfo} />
+      <GameInfoModal
+        opened={openedGameInfo}
+        onClose={closeGameInfo}
+      />
     </Container>
   );
 }

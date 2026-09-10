@@ -23,7 +23,7 @@ export default function StyledModal({
   opened,
   onClose,
   title,
-  children,
+  children
 }: StyledModalProps) {
   const { t } = useTranslation();
   const colorPalette = useColorPalette();
@@ -45,18 +45,18 @@ export default function StyledModal({
             stroke={strokeWidth}
             color={colorPalette[colors.SECONDARY_COLOR_1]}
           />
-        ),
+        )
       }}
       styles={{
         title: { fontSize: titleFontSize },
         header: {
           backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
-          color: colorPalette[colors.SECONDARY_COLOR_1],
+          color: colorPalette[colors.SECONDARY_COLOR_1]
         },
         content: {
           backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
-          color: colorPalette[colors.SECONDARY_COLOR_1],
-        },
+          color: colorPalette[colors.SECONDARY_COLOR_1]
+        }
       }}
     >
       {children}

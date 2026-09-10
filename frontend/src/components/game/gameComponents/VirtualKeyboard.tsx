@@ -17,7 +17,7 @@ type VirtualKeyboardProps = {
 
 export default function VirtualKeyboard({
   onKeyPress,
-  onBackspacePress,
+  onBackspacePress
 }: VirtualKeyboardProps) {
   const { t } = useTranslation();
   const { xs, sm, md, lg } = useViewportContext();
@@ -26,9 +26,9 @@ export default function VirtualKeyboard({
     () => [
       ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "Å"],
       ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Ö", "Ä"],
-      ["Z", "X", "C", "V", "B", "N", "M"],
+      ["Z", "X", "C", "V", "B", "N", "M"]
     ],
-    [],
+    []
   );
 
   const handleOnKeyPress = (key: string) => {
@@ -49,8 +49,8 @@ export default function VirtualKeyboard({
               display: "flex",
               width: "100%",
               flexWrap: "nowrap",
-              gap: 3,
-            },
+              gap: 3
+            }
           }}
         >
           {keyboardRow.map((key) => (

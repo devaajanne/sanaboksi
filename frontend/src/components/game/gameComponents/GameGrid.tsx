@@ -4,7 +4,7 @@ import type {
   GameGridRef,
   GameRowRef,
   LetterGrid,
-  ValidationResults,
+  ValidationResults
 } from "../../../types/Types";
 import { gameConstants } from "../../../utils/Constants";
 import GameRow from "./GameRow";
@@ -25,7 +25,7 @@ interface GameGridProps {
   handleFieldChange: (
     rowIndex: number,
     columnIndex: number,
-    value: string,
+    value: string
   ) => void;
   ref?: Ref<GameGridRef>;
 }
@@ -36,7 +36,7 @@ export default function GameGrid({
   wordLength,
   validationResults,
   handleFieldChange,
-  ref,
+  ref
 }: GameGridProps) {
   const rowRefs = useRef<(GameRowRef | null)[]>([]);
 
@@ -53,7 +53,7 @@ export default function GameGrid({
       rowRefs.current
         .find((row) => row?.hasFocusedInput())
         ?.pressVirtualBackspace();
-    },
+    }
   }));
 
   return (

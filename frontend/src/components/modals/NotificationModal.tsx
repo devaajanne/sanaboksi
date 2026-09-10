@@ -27,56 +27,56 @@ const notificationModalContent: Record<
 > = {
   [NotificationModalSource.GameGridValidityCheck]: {
     notificationModalTitle: "NotificationModal.Invalid.GameGridHasEmptyFields",
-    notificationModalMessage: "NotificationModal.Invalid.FillInAllEmptyFields",
+    notificationModalMessage: "NotificationModal.Invalid.FillInAllEmptyFields"
   },
   [NotificationModalSource.DuplicateWordsAndIncorrectWords]: {
     notificationModalTitle:
       "NotificationModal.IncorrectAnDuplicate.GameGridHasIncorrectAndDuplicateWords",
     notificationModalMessage:
-      "NotificationModal.IncorrectAnDuplicate.FixYourGameGridNoDuplicatesAllCorrectWords",
+      "NotificationModal.IncorrectAnDuplicate.FixYourGameGridNoDuplicatesAllCorrectWords"
   },
   [NotificationModalSource.DuplicateWords]: {
     notificationModalTitle:
       "NotificationModal.Duplicate.GameGridHasDuplicateWords",
     notificationModalMessage:
-      "NotificationModal.Duplicate.EachWordCanAppearOnlyOnceInAGameGrid",
+      "NotificationModal.Duplicate.EachWordCanAppearOnlyOnceInAGameGrid"
   },
   [NotificationModalSource.IncorrectWords]: {
     notificationModalTitle:
       "NotificationModal.Incorrect.GameGridHasIncorrectWords",
     notificationModalMessage:
-      "NotificationModal.Incorrect.CorrectIncorrectWords",
+      "NotificationModal.Incorrect.CorrectIncorrectWords"
   },
   [NotificationModalSource.CorrectWords]: {
     notificationModalTitle:
       "NotificationModal.Correct.AllWordsInGameGridAreCorrect",
     notificationModalMessage:
-      "NotificationModal.Correct.CongratulationsYourGameGridIsCorrect",
+      "NotificationModal.Correct.CongratulationsYourGameGridIsCorrect"
   },
   [NotificationModalSource.UnfinishedGrid]: {
     notificationModalTitle:
       "NotificationModal.UnfinishedGrid.GameGridIsUnfinished",
     notificationModalMessage:
-      "NotificationModal.UnfinishedGrid.AreYouSureYouWantToLoadNewGameYouWillLoseYourProgressInThisGrid",
+      "NotificationModal.UnfinishedGrid.AreYouSureYouWantToLoadNewGameYouWillLoseYourProgressInThisGrid"
   },
   [NotificationModalSource.GameGridFetchFailed]: {
     notificationModalTitle:
       "NotificationModal.GameGridFetchFailed.FetchingTheGameGridFailed",
     notificationModalMessage:
-      "NotificationModal.GameGridFetchFailed.TryFetchingANewGameGrid",
+      "NotificationModal.GameGridFetchFailed.TryFetchingANewGameGrid"
   },
   [NotificationModalSource.GameGridValidationFailed]: {
     notificationModalTitle:
       "NotificationModal.GameGridValidationFailed.ValidatingTheGameGridFailed",
     notificationModalMessage:
-      "NotificationModal.GameGridValidationFailed.TryValidatingTheGameGridAgain",
+      "NotificationModal.GameGridValidationFailed.TryValidatingTheGameGridAgain"
   },
   [NotificationModalSource.NoSource]: {
     notificationModalTitle:
       "NotificationModal.NoSource.UnknownErrorHasOccurred",
     notificationModalMessage:
-      "NotificationModal.NoSource.NoItWasNotYouReportBug",
-  },
+      "NotificationModal.NoSource.NoItWasNotYouReportBug"
+  }
 };
 
 /**
@@ -95,7 +95,7 @@ export default function NotificationModal({
   opened,
   onClose,
   onNewGridLoad,
-  onValidationRetry,
+  onValidationRetry
 }: NotificationModalProps) {
   const { t } = useTranslation();
   const { notificationModalTitle, notificationModalMessage } =

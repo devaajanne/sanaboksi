@@ -12,9 +12,9 @@ test.beforeEach(async ({ page }) => {
           { fixedIndex: 1, fixedLetter: "u" }, // Example: "suola"
           { fixedIndex: 2, fixedLetter: "i" }, // Example: "maito"
           { fixedIndex: 3, fixedLetter: "v" }, // Example: "kahvi"
-          { fixedIndex: 4, fixedLetter: "a" }, // Example: "kerma"
-        ],
-      }),
+          { fixedIndex: 4, fixedLetter: "a" } // Example: "kerma"
+        ]
+      })
     });
   });
 
@@ -28,7 +28,7 @@ async function getGridLetters(page: Page) {
     const letters = await page
       .getByRole("textbox", { name: `Sana ${i}` })
       .evaluateAll((inputs) =>
-        inputs.map((input) => (input as HTMLInputElement).value),
+        inputs.map((input) => (input as HTMLInputElement).value)
       );
     gridLetters.push(letters);
   }
@@ -36,7 +36,7 @@ async function getGridLetters(page: Page) {
 }
 
 test("Clicking load new grid button reloads new game grid", async ({
-  page,
+  page
 }) => {
   const initialGrid = await getGridLetters(page);
 
@@ -50,19 +50,19 @@ test("Clicking load new grid button reloads new game grid", async ({
 });
 
 test("Clicking load new grid button triggers confirmation modal when user has started to fill in the grid", async ({
-  page,
+  page
 }) => {
   await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
 
   await page.getByRole("button", { name: "Lataa uusi peli" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Ruudukkosi on kesken!" }),
+    page.getByRole("heading", { name: "Ruudukkosi on kesken!" })
   ).toBeVisible();
 });
 
 test("Confirming grid reload loads a new grid when user has started to fill in the grid", async ({
-  page,
+  page
 }) => {
   await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
 
@@ -71,7 +71,7 @@ test("Confirming grid reload loads a new grid when user has started to fill in t
   await page.getByRole("button", { name: "Lataa uusi peli" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Ruudukkosi on kesken!" }),
+    page.getByRole("heading", { name: "Ruudukkosi on kesken!" })
   ).toBeVisible();
 
   await page
@@ -85,7 +85,7 @@ test("Confirming grid reload loads a new grid when user has started to fill in t
 });
 
 test("Closing new grid load confirmation modal does not load a new grid", async ({
-  page,
+  page
 }) => {
   await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
 
@@ -94,7 +94,7 @@ test("Closing new grid load confirmation modal does not load a new grid", async 
   await page.getByRole("button", { name: "Lataa uusi peli" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Ruudukkosi on kesken!" }),
+    page.getByRole("heading", { name: "Ruudukkosi on kesken!" })
   ).toBeVisible();
 
   await page.locator("button").filter({ hasText: "Sulje" }).click();

@@ -5,7 +5,7 @@ const fixedLetters = [
   { fixedIndex: 1, fixedLetter: "u" }, // Example: "suola"
   { fixedIndex: 2, fixedLetter: "i" }, // Example: "maito"
   { fixedIndex: 3, fixedLetter: "v" }, // Example: "kahvi"
-  { fixedIndex: 4, fixedLetter: "a" }, // Example: "kerma"
+  { fixedIndex: 4, fixedLetter: "a" } // Example: "kerma"
 ];
 
 test.beforeEach(async ({ page }) => {
@@ -13,7 +13,7 @@ test.beforeEach(async ({ page }) => {
     await route.fulfill({
       status: 200,
       contentType: "application/json",
-      body: JSON.stringify({ wordLength: 5, fixedLetters }),
+      body: JSON.stringify({ wordLength: 5, fixedLetters })
     });
   });
 });
@@ -23,7 +23,7 @@ async function openGame(page: Page, width: number) {
   await page.goto("/");
   await page.waitForTimeout(1_000);
   await expect(
-    page.getByRole("textbox", { name: "Sana 1, Kirjain 1" }),
+    page.getByRole("textbox", { name: "Sana 1, Kirjain 1" })
   ).toBeVisible();
 }
 
@@ -58,45 +58,45 @@ test("Virtual keyboard renders on mobile viewport", async ({ page }) => {
     "Z",
     "Å",
     "Ö",
-    "Ä",
+    "Ä"
   ];
 
   for (const letter of virtualKeyboardLetters) {
     await expect(
-      page.getByRole("button", { name: letter, exact: true }),
+      page.getByRole("button", { name: letter, exact: true })
     ).toBeVisible();
   }
   await expect(
-    page.getByRole("button", { name: "Poista kirjain" }),
+    page.getByRole("button", { name: "Poista kirjain" })
   ).toBeVisible();
 });
 
 test("Virtual keyboard does not render on desktop viewport", async ({
-  page,
+  page
 }) => {
   await openGame(page, 800);
 
   await expect(page.getByRole("button", { name: "Q" })).toHaveCount(0);
   await expect(
-    page.getByRole("button", { name: "Poista kirjain" }),
+    page.getByRole("button", { name: "Poista kirjain" })
   ).toHaveCount(0);
 });
 
 test("Reload and validate buttons render with the virtual keyboard", async ({
-  page,
+  page
 }) => {
   await openGame(page, 600);
 
   await expect(
-    page.getByRole("button", { name: "Lataa uusi peli" }),
+    page.getByRole("button", { name: "Lataa uusi peli" })
   ).toBeVisible();
   await expect(
-    page.getByRole("button", { name: "Tarkista sanat" }),
+    page.getByRole("button", { name: "Tarkista sanat" })
   ).toBeVisible();
 });
 
 test("Virtual keyboard inserts a letter and moves focus past fixed letters", async ({
-  page,
+  page
 }) => {
   await openGame(page, 600);
   await page.waitForTimeout(1_000);
@@ -107,12 +107,12 @@ test("Virtual keyboard inserts a letter and moves focus past fixed letters", asy
 
   await expect(input).toHaveValue("S");
   await expect(
-    page.getByRole("textbox", { name: "Sana 2, Kirjain 3" }),
+    page.getByRole("textbox", { name: "Sana 2, Kirjain 3" })
   ).toBeFocused();
 });
 
 test("Virtual keyboard backspace clears the input but does not move focus backward", async ({
-  page,
+  page
 }) => {
   await openGame(page, 600);
 
@@ -125,13 +125,13 @@ test("Virtual keyboard backspace clears the input but does not move focus backwa
   await page.getByRole("button", { name: "Poista kirjain" }).click();
 
   await expect(
-    page.getByRole("textbox", { name: "Sana 2, Kirjain 3" }),
+    page.getByRole("textbox", { name: "Sana 2, Kirjain 3" })
   ).toHaveValue("");
   await expect(input).not.toBeFocused();
 });
 
 test("Virtual keyboard backspace clears the input and moves focus backward after second press", async ({
-  page,
+  page
 }) => {
   await openGame(page, 600);
 
@@ -145,7 +145,7 @@ test("Virtual keyboard backspace clears the input and moves focus backward after
   await page.getByRole("button", { name: "Poista kirjain" }).click();
 
   await expect(
-    page.getByRole("textbox", { name: "Sana 2, Kirjain 3" }),
+    page.getByRole("textbox", { name: "Sana 2, Kirjain 3" })
   ).toHaveValue("");
   await expect(input).toBeFocused();
 });
@@ -159,7 +159,7 @@ test("Virtual keyboard supports Finnish letters", async ({ page }) => {
 
   await expect(input).toHaveValue("Ö");
   await expect(
-    page.getByRole("textbox", { name: "Sana 1, Kirjain 3" }),
+    page.getByRole("textbox", { name: "Sana 1, Kirjain 3" })
   ).toBeFocused();
 });
 
@@ -167,7 +167,7 @@ test("Virtual keyboard does not change a fixed letter", async ({ page }) => {
   await openGame(page, 600);
 
   const fixedInput = page.getByRole("textbox", {
-    name: "Sana 2, Kirjain 2",
+    name: "Sana 2, Kirjain 2"
   });
   await fixedInput.click();
   await page.getByRole("button", { name: "S", exact: true }).click();
@@ -177,23 +177,23 @@ test("Virtual keyboard does not change a fixed letter", async ({ page }) => {
 });
 
 test("Virtual keyboard backspace skips a fixed letter from an empty input", async ({
-  page,
+  page
 }) => {
   await openGame(page, 600);
 
   const inputAfterFixedLetter = page.getByRole("textbox", {
-    name: "Sana 3, Kirjain 4",
+    name: "Sana 3, Kirjain 4"
   });
   await inputAfterFixedLetter.click();
   await page.getByRole("button", { name: "Poista kirjain" }).click();
 
   await expect(
-    page.getByRole("textbox", { name: "Sana 3, Kirjain 2" }),
+    page.getByRole("textbox", { name: "Sana 3, Kirjain 2" })
   ).toBeFocused();
 });
 
 test("A complete grid entered with the virtual keyboard can be validated", async ({
-  page,
+  page
 }) => {
   await openGame(page, 600);
   await page.waitForTimeout(1_000);
@@ -208,7 +208,7 @@ test("A complete grid entered with the virtual keyboard can be validated", async
 
     await page
       .getByRole("textbox", {
-        name: `Sana ${rowIndex + 1}, Kirjain ${firstEditableIndex + 1}`,
+        name: `Sana ${rowIndex + 1}, Kirjain ${firstEditableIndex + 1}`
       })
       .click();
 
@@ -224,12 +224,12 @@ test("A complete grid entered with the virtual keyboard can be validated", async
   await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Kaikki ruudukon sanat ovat oikein!" }),
+    page.getByRole("heading", { name: "Kaikki ruudukon sanat ovat oikein!" })
   ).toBeVisible();
 });
 
 test("Virtual backspace does not delete letters after the row has been validated as correct", async ({
-  page,
+  page
 }) => {
   await openGame(page, 600);
   await page.waitForTimeout(1_000);
@@ -244,7 +244,7 @@ test("Virtual backspace does not delete letters after the row has been validated
 
     await page
       .getByRole("textbox", {
-        name: `Sana ${rowIndex + 1}, Kirjain ${firstEditableIndex + 1}`,
+        name: `Sana ${rowIndex + 1}, Kirjain ${firstEditableIndex + 1}`
       })
       .click();
 
@@ -258,7 +258,7 @@ test("Virtual backspace does not delete letters after the row has been validated
   await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Kaikki ruudukon sanat ovat oikein!" }),
+    page.getByRole("heading", { name: "Kaikki ruudukon sanat ovat oikein!" })
   ).toBeVisible();
 
   await page.locator("button").filter({ hasText: "Sulje" }).click();

@@ -22,7 +22,7 @@ interface StyledIconAnchorRowProps {
 export default function StyledIconAnchorRow({
   icon: Icon,
   text,
-  href,
+  href
 }: StyledIconAnchorRowProps) {
   const colorPalette = useColorPalette();
   const { xs, sm, md, lg } = useViewportContext();
@@ -35,12 +35,7 @@ export default function StyledIconAnchorRow({
       align="center"
       gap="sm"
       wrap="nowrap"
-      styles={{
-        root: {
-          marginTop: rowMargin,
-          marginBottom: rowMargin,
-        },
-      }}
+      styles={{ root: { marginTop: rowMargin, marginBottom: rowMargin } }}
     >
       {Icon && (
         <Icon

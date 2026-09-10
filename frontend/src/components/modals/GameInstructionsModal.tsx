@@ -4,7 +4,7 @@ import {
   IconCopy,
   IconReload,
   IconSettings,
-  IconX,
+  IconX
 } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
@@ -30,7 +30,7 @@ interface GameInstructionsModalProps {
 
 export function GameInstructionsModal({
   opened,
-  onClose,
+  onClose
 }: GameInstructionsModalProps) {
   const { t } = useTranslation();
   const colorPalette = useColorPalette();
@@ -79,7 +79,7 @@ export function GameInstructionsModal({
 
       <StyledText
         text={t(
-          "GameInstructionsModal.BecauseFixedLetterIsInTheCorrectPositionInBothWords",
+          "GameInstructionsModal.BecauseFixedLetterIsInTheCorrectPositionInBothWords"
         )}
       />
 
@@ -101,7 +101,7 @@ export function GameInstructionsModal({
 
       <StyledText
         text={t(
-          "GameInstructionsModal.OnceYouFillInTheGridWithCorrectWordsYouCanPlayANewGame",
+          "GameInstructionsModal.OnceYouFillInTheGridWithCorrectWordsYouCanPlayANewGame"
         )}
       />
 

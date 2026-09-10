@@ -1,7 +1,4 @@
-export type FixedLetter = {
-  fixedIndex: number;
-  fixedLetter: string;
-};
+export type FixedLetter = { fixedIndex: number; fixedLetter: string };
 
 export type FixedLetters = FixedLetter[];
 
@@ -37,7 +34,7 @@ export const NotificationModalSource = {
   CorrectWords: 5,
   UnfinishedGrid: 6,
   GameGridFetchFailed: 7,
-  GameGridValidationFailed: 8,
+  GameGridValidationFailed: 8
 } as const;
 
 export type NotificationModalSource =
@@ -48,7 +45,7 @@ export type GameContextType = {
   setWordLength: (wordLength: number) => void;
   notificationModalSource: NotificationModalSource;
   setNotificationModalSource: (
-    notificationModalSource: NotificationModalSource,
+    notificationModalSource: NotificationModalSource
   ) => void;
 };
 
@@ -57,14 +54,12 @@ type GameDifficulty = {
   setWordLength: (wordLength: number) => void;
 };
 
-export type GameSettingsContextType = {
-  gameDifficulty: GameDifficulty;
-};
+export type GameSettingsContextType = { gameDifficulty: GameDifficulty };
 
 export type NotificationModalSourceType = {
   notificationModalSource: NotificationModalSource;
   setNotificationModalSource: (
-    notificationModalSource: NotificationModalSource,
+    notificationModalSource: NotificationModalSource
   ) => void;
 };
 

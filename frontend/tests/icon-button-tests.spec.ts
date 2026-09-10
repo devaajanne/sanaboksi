@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("Toggles dark mode on when dark mode icon is clicked in light mode", async ({
-  page,
+  page
 }) => {
   const initialMode = await getColorMode(page);
 
@@ -21,7 +21,7 @@ test("Toggles dark mode on when dark mode icon is clicked in light mode", async 
 });
 
 test("Toggles light mode on when light mode icon is clicked in dark mode", async ({
-  page,
+  page
 }) => {
   const initialMode = await getColorMode(page);
 
@@ -38,7 +38,7 @@ test("Clicking info button opens game instruction modal", async ({ page }) => {
   await page.getByRole("button", { name: "Avaa peliohjeet" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Kuinka pelata Sanaboksia" }),
+    page.getByRole("heading", { name: "Kuinka pelata Sanaboksia" })
   ).toBeVisible();
 });
 
@@ -52,6 +52,6 @@ test("Clicking info button opens game info modal", async ({ page }) => {
   await page.getByRole("button", { name: "Lue tietoa pelistä" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Mikä Sanaboksi?" }),
+    page.getByRole("heading", { name: "Mikä Sanaboksi?" })
   ).toBeVisible();
 });

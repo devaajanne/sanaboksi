@@ -24,7 +24,7 @@ export default function StyledActionIcon({
   onClick,
   icon: Icon,
   disabled,
-  margin,
+  margin
 }: StyledActionIconProps) {
   const colorPalette = useColorPalette();
   const { xs, sm, md, lg } = useViewportContext();
@@ -44,11 +44,16 @@ export default function StyledActionIcon({
           color: disabled
             ? colorPalette[colors.TERTIARY_COLOR_2]
             : colorPalette[colors.SECONDARY_COLOR_1],
-          margin: margin,
-        },
+          margin: margin
+        }
       }}
     >
-      {Icon && <Icon size={iconSize} strokeWidth={strokeWidth} />}
+      {Icon && (
+        <Icon
+          size={iconSize}
+          strokeWidth={strokeWidth}
+        />
+      )}
     </ActionIcon>
   );
 }

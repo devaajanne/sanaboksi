@@ -24,7 +24,7 @@ export default function StyledVirtualKeyboardKey({
   onClick,
   buttonText,
   overrideWidth,
-  icon: Icon,
+  icon: Icon
 }: StyledVirtualKeyboardKeyProps) {
   const colorPalette = useColorPalette();
   const { xs, sm, md, lg } = useViewportContext();
@@ -42,17 +42,15 @@ export default function StyledVirtualKeyboardKey({
       onClick={onClick}
       color={colorPalette[colors.PRIMARY_COLOR_0]}
       styles={{
-        label: {
-          color: colorPalette[colors.SECONDARY_COLOR_1],
-        },
+        label: { color: colorPalette[colors.SECONDARY_COLOR_1] },
         root: {
           backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
           borderColor: colorPalette[colors.SECONDARY_COLOR_1],
           borderWidth: borderWidth,
           width: overrideWidth ? overrideWidth : buttonWidth,
           height: buttonHeight,
-          padding: 0,
-        },
+          padding: 0
+        }
       }}
     >
       {buttonText && (
@@ -61,14 +59,19 @@ export default function StyledVirtualKeyboardKey({
           styles={{
             root: {
               color: colorPalette[colors.SECONDARY_COLOR_1],
-              fontSize: buttonFontSize,
-            },
+              fontSize: buttonFontSize
+            }
           }}
         >
           {buttonText}
         </Text>
       )}
-      {Icon && <Icon size={iconSize} strokeWidth={iconStrokeWidth} />}
+      {Icon && (
+        <Icon
+          size={iconSize}
+          strokeWidth={iconStrokeWidth}
+        />
+      )}
     </Button>
   );
 }

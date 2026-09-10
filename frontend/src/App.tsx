@@ -16,8 +16,8 @@ function App() {
           minHeight: "100dvh",
           display: "flex",
           flexDirection: "column",
-          backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
-        },
+          backgroundColor: colorPalette[colors.PRIMARY_COLOR_0]
+        }
       }}
     >
       <Header />

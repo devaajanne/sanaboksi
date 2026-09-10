@@ -24,7 +24,7 @@ export default function GameButton({
   isCorrectGameGrid,
   isLoading,
   handleGameGridValidation,
-  fetchFixedLetters,
+  fetchFixedLetters
 }: GameButtonProps) {
   const { t } = useTranslation();
   const colorPalette = useColorPalette();
@@ -40,7 +40,7 @@ export default function GameButton({
           loading={isLoading}
           loaderProps={{
             type: "dots",
-            color: colorPalette[colors.SECONDARY_COLOR_1],
+            color: colorPalette[colors.SECONDARY_COLOR_1]
           }}
         />
       ) : (
@@ -52,7 +52,7 @@ export default function GameButton({
           loading={isLoading}
           loaderProps={{
             type: "dots",
-            color: colorPalette[colors.SECONDARY_COLOR_1],
+            color: colorPalette[colors.SECONDARY_COLOR_1]
           }}
         />
       )}

@@ -14,7 +14,7 @@ export function ViewportContextProvider({ children }: { children: ReactNode }) {
 
   const viewportContextValue = useMemo(
     () => ({ xs, sm, md, lg, xl, isMobile }),
-    [xs, sm, md, lg, xl, isMobile],
+    [xs, sm, md, lg, xl, isMobile]
   );
 
   return (

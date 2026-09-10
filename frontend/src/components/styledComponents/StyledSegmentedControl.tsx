@@ -23,7 +23,7 @@ export default function StyledSegmentedControl({
   value,
   onChange,
   data,
-  orientation,
+  orientation
 }: StyledSegmentedControlProps) {
   const colorPalette = useColorPalette();
 
@@ -37,12 +37,8 @@ export default function StyledSegmentedControl({
       withItemsBorders={false}
       fullWidth
       styles={{
-        root: {
-          backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
-        },
-        label: {
-          color: colorPalette[colors.SECONDARY_COLOR_1],
-        },
+        root: { backgroundColor: colorPalette[colors.PRIMARY_COLOR_0] },
+        label: { color: colorPalette[colors.SECONDARY_COLOR_1] }
       }}
       color={colorPalette[colors.TERTIARY_COLOR_2]}
       size={"xl"}
