@@ -11,8 +11,8 @@ export default function Body() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
-        },
+          justifyContent: "center"
+        }
       }}
     >
       <Game />

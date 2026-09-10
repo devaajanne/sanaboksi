@@ -25,7 +25,7 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
   const { t } = useTranslation();
   const colorPalette = useColorPalette();
   const {
-    gameDifficulty: { wordLength, setWordLength },
+    gameDifficulty: { wordLength, setWordLength }
   } = useGameSettingsContext();
   const [tempWordLength, setTempWordLength] = useState<number>(wordLength);
   const isSettingsChanged = tempWordLength !== wordLength;
@@ -39,7 +39,7 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
         gameConstants.WORD_LENGTH_4,
         gameConstants.WORD_LENGTH_5,
         gameConstants.WORD_LENGTH_6,
-        gameConstants.WORD_LENGTH_7,
+        gameConstants.WORD_LENGTH_7
       ].includes(numValue)
     ) {
       setTempWordLength(numValue);
@@ -71,20 +71,20 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
         data={[
           {
             label: <Text>{t("GameSettingsModal.FourLetters")}</Text>,
-            value: String(gameConstants.WORD_LENGTH_4),
+            value: String(gameConstants.WORD_LENGTH_4)
           },
           {
             label: <Text>{t("GameSettingsModal.FiveLetters")}</Text>,
-            value: String(gameConstants.WORD_LENGTH_5),
+            value: String(gameConstants.WORD_LENGTH_5)
           },
           {
             label: <Text>{t("GameSettingsModal.SixLetters")}</Text>,
-            value: String(gameConstants.WORD_LENGTH_6),
+            value: String(gameConstants.WORD_LENGTH_6)
           },
           {
             label: <Text>{t("GameSettingsModal.SevenLetters")}</Text>,
-            value: String(gameConstants.WORD_LENGTH_7),
-          },
+            value: String(gameConstants.WORD_LENGTH_7)
+          }
         ]}
         orientation="vertical"
       />
@@ -97,7 +97,7 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
           icon={IconAlertCircle}
           color={colorPalette[colors.SECONDARY_COLOR_1]}
           text={t(
-            "GameSettingsModal.SavingLoadsANewGameGridAndYouLoseYourProgessInThisGameGrid",
+            "GameSettingsModal.SavingLoadsANewGameGridAndYouLoseYourProgessInThisGameGrid"
           )}
         />
       )}

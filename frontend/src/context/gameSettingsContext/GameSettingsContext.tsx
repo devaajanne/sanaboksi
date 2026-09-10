@@ -9,7 +9,7 @@ export function useGameSettingsContext() {
   const context = useContext(GameSettingsContext);
   if (!context) {
     throw new Error(
-      "useGameSettingsContext must be used within GameSettingsContextProvider",
+      "useGameSettingsContext must be used within GameSettingsContextProvider"
     );
   }
   return context;

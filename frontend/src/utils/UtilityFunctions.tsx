@@ -47,7 +47,7 @@ export const gameGridIsFilledIn = (gameGrid: LetterGrid) => {
  * @returns true if game grid does not contain duplicates, false otherwise.
  */
 export const gameGridContainsOnlyUniqueWords = (
-  validationResults: ValidationResults,
+  validationResults: ValidationResults
 ) => {
   if (!validationResults) {
     return false;
@@ -65,7 +65,7 @@ export const gameGridContainsOnlyUniqueWords = (
  * @returns true if all words are correct, false otherwise.
  */
 export const gameGridContainsOnlyCorrectWords = (
-  validationResults: ValidationResults,
+  validationResults: ValidationResults
 ) => {
   if (!validationResults) {
     return false;

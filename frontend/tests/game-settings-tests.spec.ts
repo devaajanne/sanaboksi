@@ -7,7 +7,7 @@ async function getGridLetters(page: Page) {
     const letters = await page
       .getByRole("textbox", { name: `Sana ${i}` })
       .evaluateAll((inputs) =>
-        inputs.map((input) => (input as HTMLInputElement).value),
+        inputs.map((input) => (input as HTMLInputElement).value)
       );
     gridLetters.push(letters);
   }
@@ -20,7 +20,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("Changing game difficulty to four letters and saving loads a correct new game grid", async ({
-  page,
+  page
 }) => {
   await page.getByRole("button", { name: "Avaa pelin asetukset" }).click();
 
@@ -41,7 +41,7 @@ test("Changing game difficulty to four letters and saving loads a correct new ga
 });
 
 test("Changing game difficulty to six letters and saving loads a correct new game grid", async ({
-  page,
+  page
 }) => {
   await page.getByRole("button", { name: "Avaa pelin asetukset" }).click();
 
@@ -62,7 +62,7 @@ test("Changing game difficulty to six letters and saving loads a correct new gam
 });
 
 test("Changing game difficulty to seven letters and saving loads a correct new game grid", async ({
-  page,
+  page
 }) => {
   await page.getByRole("button", { name: "Avaa pelin asetukset" }).click();
 
@@ -83,7 +83,7 @@ test("Changing game difficulty to seven letters and saving loads a correct new g
 });
 
 test("Changing game difficulty and leaving the modal does not load a new game grid", async ({
-  page,
+  page
 }) => {
   const initialGrid = await getGridLetters(page);
 
@@ -103,7 +103,7 @@ test("Changing game difficulty and leaving the modal does not load a new game gr
 });
 
 test("Changing game difficulty renders the reload warning", async ({
-  page,
+  page
 }) => {
   const warningText =
     "Tallentaminen lataa uuden peliruudukon, ja menetät edistymisesi tässä peliruudukossa.";
@@ -123,7 +123,7 @@ test("Changing game difficulty renders save button", async ({ page }) => {
 
   await expect(page.getByRole("heading", { name: "Asetukset" })).toBeVisible();
   await expect(
-    page.getByRole("button", { name: "Tallenna" }),
+    page.getByRole("button", { name: "Tallenna" })
   ).not.toBeVisible();
 
   await page.getByText("7 kirjainta").click();

@@ -29,7 +29,7 @@ export default function StyledButton({
   buttonText,
   loading,
   loaderProps,
-  marginTop,
+  marginTop
 }: StyledButtonProps) {
   const colorPalette = useColorPalette();
   const { xs, sm, md, lg } = useViewportContext();
@@ -46,26 +46,20 @@ export default function StyledButton({
       loading={loading}
       loaderProps={loaderProps}
       styles={{
-        label: {
-          color: colorPalette[colors.SECONDARY_COLOR_1],
-        },
+        label: { color: colorPalette[colors.SECONDARY_COLOR_1] },
         root: {
           backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
           borderColor: colorPalette[colors.SECONDARY_COLOR_1],
           borderWidth: borderWidth,
           marginTop: marginTop,
           width: fullWidth ? "100%" : undefined,
-          height: fullWidth ? fullWidthButtonHeight : undefined,
-        },
+          height: fullWidth ? fullWidthButtonHeight : undefined
+        }
       }}
     >
       <Text
         span
-        styles={{
-          root: {
-            color: colorPalette[colors.SECONDARY_COLOR_1],
-          },
-        }}
+        styles={{ root: { color: colorPalette[colors.SECONDARY_COLOR_1] } }}
       >
         {buttonText}
       </Text>

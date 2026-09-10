@@ -3,22 +3,17 @@ import { gameConstants } from "../../utils/Constants";
 import { GameSettingsContext } from "./GameSettingsContext";
 
 export function GameSettingsContextProvider({
-  children,
+  children
 }: {
   children: ReactNode;
 }) {
   const [wordLength, setWordLength] = useState<number>(
-    gameConstants.WORD_LENGTH_5,
+    gameConstants.WORD_LENGTH_5
   );
 
   const gameSettingsContextValue = useMemo(
-    () => ({
-      gameDifficulty: {
-        wordLength,
-        setWordLength,
-      },
-    }),
-    [wordLength],
+    () => ({ gameDifficulty: { wordLength, setWordLength } }),
+    [wordLength]
   );
 
   return (

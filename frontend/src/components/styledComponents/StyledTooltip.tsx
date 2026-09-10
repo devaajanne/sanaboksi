@@ -17,7 +17,7 @@ interface StyledTooltipProps {
 export default function StyledTooltip({
   label,
   disabled,
-  children,
+  children
 }: StyledTooltipProps) {
   const colorPalette = useColorPalette();
   const position = "bottom";
@@ -28,11 +28,7 @@ export default function StyledTooltip({
       disabled={disabled}
       color={colorPalette[colors.SECONDARY_COLOR_1]}
       position={position}
-      styles={{
-        tooltip: {
-          color: colorPalette[colors.PRIMARY_COLOR_0],
-        },
-      }}
+      styles={{ tooltip: { color: colorPalette[colors.PRIMARY_COLOR_0] } }}
     >
       {children}
     </Tooltip>

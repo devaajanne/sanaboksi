@@ -4,7 +4,7 @@ export const colors = {
   TERTIARY_COLOR_2: 2,
   CORRECT_GREEN_3: 3,
   INCORRECT_RED_4: 4,
-  DUPLICATE_BLUE_5: 5,
+  DUPLICATE_BLUE_5: 5
 };
 
 export const gameConstants = {
@@ -12,9 +12,7 @@ export const gameConstants = {
   WORD_LENGTH_5: 5,
   WORD_LENGTH_6: 6,
   WORD_LENGTH_7: 7,
-  WORD_COUNT_5: 5,
+  WORD_COUNT_5: 5
 };
 
-export const languageConstants = {
-  FI: "fi",
-};
+export const languageConstants = { FI: "fi" };

@@ -1,7 +1,7 @@
 import {
   useMantineColorScheme,
   useMantineTheme,
-  type MantineColorsTuple,
+  type MantineColorsTuple
 } from "@mantine/core";
 import { useMemo } from "react";
 

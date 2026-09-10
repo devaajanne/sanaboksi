@@ -9,12 +9,7 @@ export default function StyledDivider() {
   return (
     <Divider
       color={colorPalette[colors.SECONDARY_COLOR_1]}
-      styles={{
-        root: {
-          marginTop: margin,
-          marginBottom: margin,
-        },
-      }}
+      styles={{ root: { marginTop: margin, marginBottom: margin } }}
     />
   );
 }

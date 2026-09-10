@@ -3,18 +3,15 @@ import { NotificationModalSource } from "../../types/Types";
 import { NotificationModalSourceContext } from "./NotificationModalSourceContext";
 
 export function NotificationModalSourceContextProvider({
-  children,
+  children
 }: {
   children: ReactNode;
 }) {
   const [notificationModalSource, setNotificationModalSource] =
     useState<NotificationModalSource>(NotificationModalSource.NoSource);
   const notificationModalSourceContextValue = useMemo(
-    () => ({
-      notificationModalSource,
-      setNotificationModalSource,
-    }),
-    [notificationModalSource],
+    () => ({ notificationModalSource, setNotificationModalSource }),
+    [notificationModalSource]
   );
 
   return (

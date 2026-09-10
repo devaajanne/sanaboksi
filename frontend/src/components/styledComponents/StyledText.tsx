@@ -14,14 +14,7 @@ export default function StyledText({ text, children }: StyledTextProps) {
   const margin = "1rem";
 
   return (
-    <Text
-      styles={{
-        root: {
-          marginTop: margin,
-          marginBottom: margin,
-        },
-      }}
-    >
+    <Text styles={{ root: { marginTop: margin, marginBottom: margin } }}>
       {text} {children}
     </Text>
   );

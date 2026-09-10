@@ -5,7 +5,7 @@ import {
   IconHelpCircle,
   IconMoon,
   IconSun,
-  IconVocabulary,
+  IconVocabulary
 } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
@@ -89,7 +89,7 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
 
       <StyledText
         text={t(
-          "GameInfoModal.SanaboksiHasBeenCreatedByJanneAiraksinenAndItIsLicencedWithMITLicense",
+          "GameInfoModal.SanaboksiHasBeenCreatedByJanneAiraksinenAndItIsLicencedWithMITLicense"
         )}
       />
 

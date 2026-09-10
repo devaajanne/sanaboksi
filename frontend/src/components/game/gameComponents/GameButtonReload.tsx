@@ -24,7 +24,7 @@ export function GameButtonReload({
   isCorrectGameGrid,
   reloadIconDisabled,
   handleNewGameGridLoading,
-  margin,
+  margin
 }: GameButtonReloadProps) {
   const { t } = useTranslation();
 

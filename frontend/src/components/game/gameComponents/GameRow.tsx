@@ -49,7 +49,7 @@ export default function GameRow({
   isCorrect,
   isDuplicate,
   isReadOnly,
-  ref,
+  ref
 }: GameRowProps) {
   const colorPalette = useColorPalette();
   const { xs, sm, md, lg, isMobile } = useViewportContext();
@@ -131,7 +131,7 @@ export default function GameRow({
    */
   const handleKeyDown = (
     columnIndex: number,
-    event: KeyboardEvent<HTMLInputElement>,
+    event: KeyboardEvent<HTMLInputElement>
   ) => {
     if (event.key === "Backspace" && !rowData[columnIndex]) {
       moveFocusBackward(columnIndex);
@@ -144,7 +144,7 @@ export default function GameRow({
    */
   const getActiveColumnIndex = () => {
     return inputRefs.current.findIndex(
-      (input) => input === document.activeElement,
+      (input) => input === document.activeElement
     );
   };
 
@@ -185,7 +185,7 @@ export default function GameRow({
       } else {
         moveFocusBackward(columnIndex);
       }
-    },
+    }
   }));
 
   return (
@@ -196,7 +196,10 @@ export default function GameRow({
       justify="center"
       styles={{ root: { position: "relative" } }}
     >
-      <Group gap={3} wrap="nowrap">
+      <Group
+        gap={3}
+        wrap="nowrap"
+      >
         {Array.from({ length: rowLength }).map((_, columnIndex) => {
           const isFixedLetter =
             fixedLetter && columnIndex === fixedLetter.fixedIndex;
@@ -239,15 +242,15 @@ export default function GameRow({
                     : colorPalette[colors.PRIMARY_COLOR_0],
                   borderColor: correctBorderColor,
                   borderWidth: borderWidth,
-                  color: colorPalette[colors.SECONDARY_COLOR_1],
-                },
+                  color: colorPalette[colors.SECONDARY_COLOR_1]
+                }
               }}
               onChange={
                 !isPlaceholder && !isFixedLetter && onFieldChange
                   ? (event) =>
                       handleChange(
                         columnIndex,
-                        event.target.value.toUpperCase(),
+                        event.target.value.toUpperCase()
                       )
                   : undefined
               }

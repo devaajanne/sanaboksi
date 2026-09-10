@@ -12,9 +12,9 @@ test.beforeEach(async ({ page }) => {
           { fixedIndex: 1, fixedLetter: "u" }, // Example: "suola"
           { fixedIndex: 2, fixedLetter: "i" }, // Example: "maito"
           { fixedIndex: 3, fixedLetter: "v" }, // Example: "kahvi"
-          { fixedIndex: 4, fixedLetter: "a" }, // Example: "kerma"
-        ],
-      }),
+          { fixedIndex: 4, fixedLetter: "a" } // Example: "kerma"
+        ]
+      })
     });
   });
 
@@ -39,10 +39,10 @@ test("Game grid loads fixed letters on page load", async ({ page }) => {
 });
 
 test("First editable field in the first column should get auto-focus", async ({
-  page,
+  page
 }) => {
   const firstEditableField = page.getByRole("textbox", {
-    name: "Sana 1, Kirjain 2",
+    name: "Sana 1, Kirjain 2"
   });
 
   await expect(firstEditableField).toBeFocused();
@@ -50,10 +50,10 @@ test("First editable field in the first column should get auto-focus", async ({
 
 test("Moving focus forwards after inputting a letter", async ({ page }) => {
   const firstEditableField = page.getByRole("textbox", {
-    name: "Sana 1, Kirjain 2",
+    name: "Sana 1, Kirjain 2"
   });
   const secondEditableField = page.getByRole("textbox", {
-    name: "Sana 1, Kirjain 3",
+    name: "Sana 1, Kirjain 3"
   });
 
   await firstEditableField.fill("E");
@@ -63,10 +63,10 @@ test("Moving focus forwards after inputting a letter", async ({ page }) => {
 });
 
 test("Input clears but focus does not move after pressing backspace once", async ({
-  page,
+  page
 }) => {
   const firstEditableField = page.getByRole("textbox", {
-    name: "Sana 1, Kirjain 2",
+    name: "Sana 1, Kirjain 2"
   });
 
   await firstEditableField.fill("E");
@@ -78,13 +78,13 @@ test("Input clears but focus does not move after pressing backspace once", async
 });
 
 test("Input clears and focus moves backwards after pressing backspace twice", async ({
-  page,
+  page
 }) => {
   const firstEditableField = page.getByRole("textbox", {
-    name: "Sana 1, Kirjain 2",
+    name: "Sana 1, Kirjain 2"
   });
   const secondEditableField = page.getByRole("textbox", {
-    name: "Sana 1, Kirjain 3",
+    name: "Sana 1, Kirjain 3"
   });
 
   await firstEditableField.fill("E");
@@ -96,36 +96,36 @@ test("Input clears and focus moves backwards after pressing backspace twice", as
 });
 
 test("Game grid shows an error when no fixed letters are returned", async ({
-  page,
+  page
 }) => {
   await page.unroute("*/**/api/fixed-letters/FI/5");
   await page.route("*/**/api/fixed-letters/FI/5", async (route) => {
     await route.fulfill({
       status: 200,
       contentType: "application/json",
-      body: JSON.stringify({ wordLength: 5, fixedLetters: [] }),
+      body: JSON.stringify({ wordLength: 5, fixedLetters: [] })
     });
   });
 
   await expect(
-    page.getByRole("heading", { name: "Peliruudukon lataus epäonnistui" }),
+    page.getByRole("heading", { name: "Peliruudukon lataus epäonnistui" })
   ).toBeVisible();
 });
 
 test("Game grid shows an error when fetching fixed letters fails", async ({
-  page,
+  page
 }) => {
   await page.unroute("*/**/api/fixed-letters/FI/5");
   await page.route("*/**/api/fixed-letters/FI/5", async (route) => {
     await route.fulfill({
       status: 500,
       contentType: "application/json",
-      body: JSON.stringify({ error: "Validation failed" }),
+      body: JSON.stringify({ error: "Validation failed" })
     });
   });
 
   await expect(
-    page.getByRole("heading", { name: "Peliruudukon lataus epäonnistui" }),
+    page.getByRole("heading", { name: "Peliruudukon lataus epäonnistui" })
   ).toBeVisible();
 });
 
@@ -138,14 +138,14 @@ test("Player can input letters into the game grid", async ({ page }) => {
   const letters = await page
     .getByRole("textbox", { name: "Sana 1" })
     .evaluateAll((inputs) =>
-      inputs.map((input) => (input as HTMLInputElement).value),
+      inputs.map((input) => (input as HTMLInputElement).value)
     );
 
   await expect(letters).toEqual(["V", "E", "H", "N", "Ä"]);
 });
 
 test("Player can validate a game grid when all words are correct", async ({
-  page,
+  page
 }) => {
   await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
   await page.getByRole("textbox", { name: "Sana 1, Kirjain 3" }).fill("H");
@@ -175,9 +175,7 @@ test("Player can validate a game grid when all words are correct", async ({
   await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
   await expect(
-    page.getByRole("heading", {
-      name: "Kaikki ruudukon sanat ovat oikein!",
-    }),
+    page.getByRole("heading", { name: "Kaikki ruudukon sanat ovat oikein!" })
   ).toBeVisible();
 });
 
@@ -190,20 +188,18 @@ test("Player cannot validate an incomplete game grid", async ({ page }) => {
   await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Ruudukossa on tyhjiä ruutuja!" }),
+    page.getByRole("heading", { name: "Ruudukossa on tyhjiä ruutuja!" })
   ).toBeVisible();
 });
 
 test("Player sees an error when game grid validation returns undefined", async ({
-  page,
+  page
 }) => {
   await page.route("*/**/api/validation/FI", async (route) => {
     await route.fulfill({
       status: 200,
       contentType: "application/json",
-      body: JSON.stringify({
-        validationResults: undefined,
-      }),
+      body: JSON.stringify({ validationResults: undefined })
     });
   });
 
@@ -235,18 +231,18 @@ test("Player sees an error when game grid validation returns undefined", async (
   await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Peliruudukon tarkistus epäonnistui" }),
+    page.getByRole("heading", { name: "Peliruudukon tarkistus epäonnistui" })
   ).toBeVisible();
 });
 
 test("Player sees an error when game grid validation fails", async ({
-  page,
+  page
 }) => {
   await page.route("*/**/api/validation/FI", async (route) => {
     await route.fulfill({
       status: 500,
       contentType: "application/json",
-      body: JSON.stringify({ error: "Validation failed" }),
+      body: JSON.stringify({ error: "Validation failed" })
     });
   });
 
@@ -278,12 +274,12 @@ test("Player sees an error when game grid validation fails", async ({
   await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Peliruudukon tarkistus epäonnistui" }),
+    page.getByRole("heading", { name: "Peliruudukon tarkistus epäonnistui" })
   ).toBeVisible();
 });
 
 test("Player cannot validate a game grid with duplicate words", async ({
-  page,
+  page
 }) => {
   await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
   await page.getByRole("textbox", { name: "Sana 1, Kirjain 3" }).fill("H");
@@ -314,13 +310,13 @@ test("Player cannot validate a game grid with duplicate words", async ({
 
   await expect(
     page.getByRole("heading", {
-      name: "Ruudukossa on sama sana useammin kuin kerran!",
-    }),
+      name: "Ruudukossa on sama sana useammin kuin kerran!"
+    })
   ).toBeVisible();
 });
 
 test("Player cannot validate a game grid with incorrect words", async ({
-  page,
+  page
 }) => {
   await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
   await page.getByRole("textbox", { name: "Sana 1, Kirjain 3" }).fill("H");
@@ -350,12 +346,12 @@ test("Player cannot validate a game grid with incorrect words", async ({
   await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Ruudukossa on virheellisiä sanoja!" }),
+    page.getByRole("heading", { name: "Ruudukossa on virheellisiä sanoja!" })
   ).toBeVisible();
 });
 
 test("Player cannot validate a game grid with duplicate and incorrect words", async ({
-  page,
+  page
 }) => {
   await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
   await page.getByRole("textbox", { name: "Sana 1, Kirjain 3" }).fill("H");
@@ -386,13 +382,13 @@ test("Player cannot validate a game grid with duplicate and incorrect words", as
 
   await expect(
     page.getByRole("heading", {
-      name: "Ruudukossa on sekä virheellisiä sanoja että useampi sama sana!",
-    }),
+      name: "Ruudukossa on sekä virheellisiä sanoja että useampi sama sana!"
+    })
   ).toBeVisible();
 });
 
 test("Player can play another game after validating a correct game grid", async ({
-  page,
+  page
 }) => {
   await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
   await page.getByRole("textbox", { name: "Sana 1, Kirjain 3" }).fill("H");
@@ -422,32 +418,32 @@ test("Player can play another game after validating a correct game grid", async 
   await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Kaikki ruudukon sanat ovat oikein!" }),
+    page.getByRole("heading", { name: "Kaikki ruudukon sanat ovat oikein!" })
   ).toBeVisible();
 
   await page.locator("button").filter({ hasText: "Sulje" }).click();
 
   await expect(
-    page.getByRole("button", { name: "Uusi peli", exact: true }),
+    page.getByRole("button", { name: "Uusi peli", exact: true })
   ).toBeVisible();
 
   await page.getByRole("button", { name: "Uusi peli", exact: true }).click();
 
   await expect(
-    page.getByRole("button", { name: "Tarkista sanat" }),
+    page.getByRole("button", { name: "Tarkista sanat" })
   ).toBeVisible();
 
   const letters = await page
     .getByRole("textbox", { name: "Sana 1" })
     .evaluateAll((inputs) =>
-      inputs.map((input) => (input as HTMLInputElement).value),
+      inputs.map((input) => (input as HTMLInputElement).value)
     );
 
   await expect(letters).toContain("");
 });
 
 test("Player can diretly load another game after validating a correct game grid", async ({
-  page,
+  page
 }) => {
   await page.getByRole("textbox", { name: "Sana 1, Kirjain 2" }).fill("E");
   await page.getByRole("textbox", { name: "Sana 1, Kirjain 3" }).fill("H");
@@ -477,7 +473,7 @@ test("Player can diretly load another game after validating a correct game grid"
   await page.getByRole("button", { name: "Tarkista sanat" }).click();
 
   await expect(
-    page.getByRole("heading", { name: "Kaikki ruudukon sanat ovat oikein!" }),
+    page.getByRole("heading", { name: "Kaikki ruudukon sanat ovat oikein!" })
   ).toBeVisible();
 
   await page
@@ -485,13 +481,13 @@ test("Player can diretly load another game after validating a correct game grid"
     .click();
 
   await expect(
-    page.getByRole("button", { name: "Tarkista sanat" }),
+    page.getByRole("button", { name: "Tarkista sanat" })
   ).toBeVisible();
 
   const letters = await page
     .getByRole("textbox", { name: "Sana 1" })
     .evaluateAll((inputs) =>
-      inputs.map((input) => (input as HTMLInputElement).value),
+      inputs.map((input) => (input as HTMLInputElement).value)
     );
 
   await expect(letters).toContain("");

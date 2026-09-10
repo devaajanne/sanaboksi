@@ -6,7 +6,7 @@ export const theme = createTheme({
     sm: "48em", // 768px
     md: "62em", // 992px
     lg: "75em", // 1200px
-    xl: "88em", // 1408px
+    xl: "88em" // 1408px
   },
   fontFamily: "Arvo, serif",
   primaryColor: "light",
@@ -21,7 +21,7 @@ export const theme = createTheme({
       "#FFFFFF", // 6 NOT USED
       "#FFFFFF", // 7 NOT USED
       "#FFFFFF", // 8 NOT USED
-      "#FFFFFF", // 9 NOT USED
+      "#FFFFFF" // 9 NOT USED
     ] as MantineColorsTuple,
     dark: [
       "#242424", // 0 dark main color - backgrounds, buttons, game grid
@@ -33,14 +33,12 @@ export const theme = createTheme({
       "#000000", // 6 NOT USED
       "#000000", // 7 NOT USED
       "#000000", // 8 NOT USED
-      "#000000", // 9 NOT USED
-    ] as MantineColorsTuple,
+      "#000000" // 9 NOT USED
+    ] as MantineColorsTuple
   },
   components: {
     Text: Text.extend({
-      defaultProps: {
-        fz: { xs: 16, sm: 18, md: 20, l: 22, xl: 24 },
-      },
-    }),
-  },
+      defaultProps: { fz: { xs: 16, sm: 18, md: 20, l: 22, xl: 24 } }
+    })
+  }
 });
