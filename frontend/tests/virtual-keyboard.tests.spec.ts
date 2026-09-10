@@ -239,7 +239,6 @@ test("Virtual backspace does not delete letters after the row has been validated
   const words = ["VEHNÄ", "SUOLA", "MAITO", "KAHVI", "KERMA"];
 
   for (let rowIndex = 0; rowIndex < words.length; rowIndex++) {
-    const row = page.getByRole("textbox", { name: `Sana ${rowIndex + 1}` });
     const fixedIndex = fixedLetters[rowIndex].fixedIndex;
     const firstEditableIndex = fixedIndex === 0 ? 1 : 0;
 
