@@ -170,7 +170,13 @@ export default function GameRow({
     pressVirtualBackspace: () => {
       const columnIndex = getActiveColumnIndex();
 
-      if (columnIndex < 0) {
+      if (
+        columnIndex < 0 ||
+        isPlaceholder ||
+        isReadOnly ||
+        (isCorrect && !isDuplicate) ||
+        (fixedLetter && columnIndex === fixedLetter.fixedIndex)
+      ) {
         return;
       }
 
