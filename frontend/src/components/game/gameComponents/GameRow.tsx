@@ -191,6 +191,7 @@ export default function GameRow({
   return (
     <Group
       aria-label={`${t("AriaLabel.Word")} ${rowIndex + 1}`}
+      role="group"
       align="center"
       wrap="nowrap"
       justify="center"

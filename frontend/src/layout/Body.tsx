@@ -4,6 +4,7 @@ import Game from "../components/game/Game";
 export default function Body() {
   return (
     <Container
+      component="main"
       fluid
       styles={{
         root: {
