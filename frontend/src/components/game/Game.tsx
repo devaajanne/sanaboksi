@@ -1,7 +1,6 @@
 import { Stack } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useGameSettingsContext } from "../../context/gameSettingsContext/GameSettingsContext";
 import { useNotificationModalSourceContext } from "../../context/notificationModalSourceContext/NotificationModalSourceContext";
 import { useViewportContext } from "../../context/viewportContext/ViewportContext";
@@ -27,7 +26,6 @@ import GameGrid from "./gameComponents/GameGrid";
 import VirtualKeyboard from "./gameComponents/VirtualKeyboard";
 
 export default function Game() {
-  const { t } = useTranslation();
   const { xs, sm, md, lg, isMobile } = useViewportContext();
   const [opened, { open, close }] = useDisclosure(false);
   const { notificationModalSource, setNotificationModalSource } =
@@ -250,7 +248,6 @@ export default function Game() {
   return (
     <>
       <Stack
-        aria-label={t("AriaLabel.GameGrid")}
         gap={gameGridRowGap}
         align="center"
         styles={{ root: { position: "relative", width: "fit-content" } }}

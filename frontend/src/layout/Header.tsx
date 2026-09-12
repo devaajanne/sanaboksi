@@ -2,7 +2,7 @@ import {
   Container,
   Group,
   Stack,
-  Text,
+  Title,
   useMantineColorScheme
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -24,11 +24,10 @@ import useColorPalette from "../hook/useColorPalette";
 import { colors } from "../utils/Constants";
 
 export default function Header() {
+  const { t } = useTranslation();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const colorPalette = useColorPalette();
   const { xs, sm, md, lg } = useViewportContext();
-  const titleFontSize = xs ? 36 : sm ? 45 : md ? 54 : lg ? 73 : 72;
-  const { t } = useTranslation();
   const [
     openedGameInstructions,
     { open: openGameInstructions, close: closeGameInstructions }
@@ -39,11 +38,13 @@ export default function Header() {
   ] = useDisclosure(false);
   const [openedGameInfo, { open: openGameInfo, close: closeGameInfo }] =
     useDisclosure(false);
+  const titleFontSize = xs ? 36 : sm ? 45 : md ? 54 : lg ? 73 : 72;
   const headerMarginTop = "2vh";
   const headerMarginBottom = "3vh";
 
   return (
     <Container
+      component="header"
       fluid
       styles={{
         root: { marginTop: headerMarginTop, marginBottom: headerMarginBottom }
@@ -53,16 +54,17 @@ export default function Header() {
         align="center"
         gap={headerMarginBottom}
       >
-        <Text
+        <Title
+          size={titleFontSize}
+          order={1}
           styles={{
             root: {
-              color: colorPalette[colors.SECONDARY_COLOR_1],
-              fontSize: titleFontSize
+              color: colorPalette[colors.SECONDARY_COLOR_1]
             }
           }}
         >
           Sanaboksi
-        </Text>
+        </Title>
         <Group
           justify="space-between"
           wrap="nowrap"

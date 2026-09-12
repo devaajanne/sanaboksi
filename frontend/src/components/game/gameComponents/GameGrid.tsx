@@ -1,4 +1,6 @@
+import { Stack } from "@mantine/core";
 import { useImperativeHandle, useRef, type Ref } from "react";
+import { useTranslation } from "react-i18next";
 import type {
   FixedLetters,
   GameGridRef,
@@ -38,6 +40,7 @@ export default function GameGrid({
   handleFieldChange,
   ref
 }: GameGridProps) {
+  const { t } = useTranslation();
   const rowRefs = useRef<(GameRowRef | null)[]>([]);
 
   /**
@@ -57,7 +60,10 @@ export default function GameGrid({
   }));
 
   return (
-    <>
+    <Stack
+      aria-label={t("AriaLabel.GameGrid")}
+      role="group"
+    >
       {fixedLetters.length === 0
         ? // Render empty game grid rows
           Array.from({ length: gameConstants.WORD_COUNT_5 }).map((_, index) => (
@@ -94,6 +100,6 @@ export default function GameGrid({
               }}
             />
           ))}
-    </>
+    </Stack>
   );
 }
