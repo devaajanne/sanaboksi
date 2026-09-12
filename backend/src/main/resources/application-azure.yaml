@@ -1,17 +1,14 @@
 spring:
-
   application:
     name: backend
-
-  server:
-    address: 0.0.0.0
-    
   datasource:
     # SQLite DB path configurable via SQLITE_DB_PATH environment variable
     url: jdbc:sqlite:${SQLITE_DB_PATH}
     driver-class-name: org.sqlite.JDBC
-
   jpa:
     database-platform: org.hibernate.community.dialect.SQLiteDialect
+
+server:
+  port: 8080
 
 CorsAllowedOrigin: ${CORS_ALLOWED_ORIGIN}
