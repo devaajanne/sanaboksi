@@ -248,7 +248,6 @@ export default function Game() {
   return (
     <>
       <Stack
-        gap={gameGridRowGap}
         align="center"
         styles={{ root: { position: "relative", width: "fit-content" } }}
       >
