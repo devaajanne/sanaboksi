@@ -4,8 +4,13 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Set correct database directory
-DATABASE_DIRECTORY="$(dirname "${SQLITE_DB_PATH:-/workdir/database/database.db}")"
-mkdir -p "$DATABASE_DIRECTORY"
+if [ -f "/.dockerenv" ]; then
+    # Running in container
+    DATABASE_DIRECTORY="$(dirname "${SQLITE_DB_PATH:-/workdir/database/database.db}")"
+else
+    # Running locally
+    DATABASE_DIRECTORY="$SCRIPT_DIR/../database"
+fi
 
 # Ensure the database directory exists before creating the database file
 if [ ! -d "$DATABASE_DIRECTORY" ]; then

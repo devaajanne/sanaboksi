@@ -23,7 +23,7 @@ This documentation describes the current database setup for the **Sanaboksi** pr
 
 The current setup includes:
 - one table for Finnish words
-- seed SQL files for 5, 6, and 7-letter words
+- seed SQL files for 4, 5, 6, and 7-letter words
 - one script for creating and seeding the database
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -57,7 +57,7 @@ The database initialization process is environment-aware and is triggered automa
 ### How Initialization Works
 - **Automatic in Containers:**
   - The backend container's [`entrypoint.sh`](../backend/entrypoint.sh) checks if the SQLite database file exists at the path specified by the `SQLITE_DB_PATH` environment variable.
-  - If the file does not exist, it runs the seed script to create and seed the database for the `local-dev`, `local-prod`, and `test` Spring profiles, which use SQLite.
+  - If the file does not exist, it runs the seed script to create and seed the database for the `local-dev`, `local-prod`, and `test` Spring profiles.
 
 - **Manual Local Run:**
   - The script can be run directly from the `databaseInit` directory to create and seed the database for local testing:
