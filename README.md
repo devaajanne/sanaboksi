@@ -40,8 +40,9 @@ Sanaboksi has been inspired by Sanuli, another word game developed by Haaga-Heli
 [![Java][java-logo]][java-url]
 [![Spring Boot][spring-logo]][spring-url]
 [![Gradle][gradle-logo]][gradle-url]
-![SQL][sql-logo]
+[![SQL][sql-logo]][sql-url]
 [![SQLite][sqlite-logo]][sqlite-url]
+[![Bash][bash-script-logo]][bash-script-url]
 [![TypeScript][typescript-logo]][typescript-url]
 [![React][react-logo]][react-url]
 [![Vite][vite-logo]][vite-url]
@@ -123,14 +124,17 @@ Sanaboksi is licensed under the MIT license. See the license in [LICENSE](./LICE
 [sqlite-url]: https://sqlite.org/
 [sqlite-logo]: https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=SQLite&logoColor=white
 [sql-logo]: https://img.shields.io/badge/sql-000000?style=for-the-badge
+[sql-url]: https://www.sqltutorial.org/sql-cheat-sheet/
+[bash-script-logo]: https://img.shields.io/badge/bash_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white
+[bash-script-url]: https://devhints.io/bash
 [typescript-logo]: https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=for-the-badge
 [typescript-url]: https://www.typescriptlang.org/
 [react-logo]: https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB&style=for-the-badge
 [react-url]: https://react.dev/
-[vite-url]: https://vite.dev/
 [vite-logo]: https://img.shields.io/badge/Vite-003B57?style=for-the-badge&logo=Vite&logoColor=white
-[mantine-url]: https://mantine.dev/
+[vite-url]: https://vite.dev/
 [mantine-logo]: https://img.shields.io/badge/Mantine-%23ffffff.svg?style=for-the-badge&logo=Mantine&logoColor=339af0
+[mantine-url]: https://mantine.dev/
 [i18next-logo]: https://img.shields.io/badge/i18next-26A69A?logo=i18next&logoColor=fff&style=for-the-badge
 [i18next-url]: https://www.i18next.com/
 [docker-logo]: https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff&style=for-the-badge
