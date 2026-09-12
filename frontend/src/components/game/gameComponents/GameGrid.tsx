@@ -1,6 +1,7 @@
 import { Stack } from "@mantine/core";
 import { useImperativeHandle, useRef, type Ref } from "react";
 import { useTranslation } from "react-i18next";
+import { useViewportContext } from "../../../context/viewportContext/ViewportContext";
 import type {
   FixedLetters,
   GameGridRef,
@@ -41,7 +42,9 @@ export default function GameGrid({
   ref
 }: GameGridProps) {
   const { t } = useTranslation();
+  const { xs, sm, md, lg } = useViewportContext();
   const rowRefs = useRef<(GameRowRef | null)[]>([]);
+  const gameGridRowGap = xs ? 8 : sm ? 10 : md ? 12 : lg ? 14 : 16;
 
   /**
    * Exposes virtual keyboard actions and forwards them to the focused row.
@@ -63,6 +66,7 @@ export default function GameGrid({
     <Stack
       aria-label={t("AriaLabel.GameGrid")}
       role="group"
+      gap={gameGridRowGap}
     >
       {fixedLetters.length === 0
         ? // Render empty game grid rows
