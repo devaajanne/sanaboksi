@@ -45,6 +45,7 @@ Sanaboksi has been inspired by Sanuli, another word game developed by Haaga-Heli
 [![TypeScript][typescript-logo]][typescript-url]
 [![React][react-logo]][react-url]
 [![Vite][vite-logo]][vite-url]
+[![Mantine][mantine-logo]][mantine-url]
 [![i18next][i18next-logo]][i18next-url]
 [![Docker][docker-logo]][docker-url]
 [![Git][git-logo]][git-url]
@@ -128,6 +129,8 @@ Sanaboksi is licensed under the MIT license. See the license in [LICENSE](./LICE
 [react-url]: https://react.dev/
 [vite-url]: https://vite.dev/
 [vite-logo]: https://img.shields.io/badge/Vite-003B57?style=for-the-badge&logo=Vite&logoColor=white
+[mantine-url]: https://mantine.dev/
+[mantine-logo]: https://img.shields.io/badge/Mantine-%23ffffff.svg?style=for-the-badge&logo=Mantine&logoColor=339af0
 [i18next-logo]: https://img.shields.io/badge/i18next-26A69A?logo=i18next&logoColor=fff&style=for-the-badge
 [i18next-url]: https://www.i18next.com/
 [docker-logo]: https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff&style=for-the-badge
