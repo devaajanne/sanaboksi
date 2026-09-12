@@ -1,16 +1,13 @@
 spring:
-
   application:
     name: backend
-
-  server:
-    address: 0.0.0.0
-    
   datasource:
     url: jdbc:sqlite:/workdir/database/database.db
     driver-class-name: org.sqlite.JDBC
-
   jpa:
     database-platform: org.hibernate.community.dialect.SQLiteDialect
+
+server:
+  port: 8080
 
 CorsAllowedOrigin: http://localhost:5173
