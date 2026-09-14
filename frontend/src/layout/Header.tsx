@@ -9,11 +9,13 @@ import { useDisclosure } from "@mantine/hooks";
 import {
   IconHelpCircle,
   IconInfoCircle,
+  IconMessageCircleExclamation,
   IconMoon,
   IconSettings,
   IconSun
 } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
+import BugReportAndFeedbackModal from "../components/modals/BugReportAndFeedbackModal";
 import { GameInfoModal } from "../components/modals/GameInfoModal";
 import { GameInstructionsModal } from "../components/modals/GameInstructionsModal";
 import { GameSettingsModal } from "../components/modals/GameSettingsModal";
@@ -35,6 +37,10 @@ export default function Header() {
   const [
     openedGameSettings,
     { open: openGameSettings, close: closeGameSettings }
+  ] = useDisclosure(false);
+  const [
+    openedBugReportAndFeedback,
+    { open: openBugReportAndFeedback, close: closeBugReportAndFeedback }
   ] = useDisclosure(false);
   const [openedGameInfo, { open: openGameInfo, close: closeGameInfo }] =
     useDisclosure(false);
@@ -77,6 +83,7 @@ export default function Header() {
               icon={IconHelpCircle}
             />
           </StyledTooltip>
+
           <StyledTooltip label={t("Tooltip.GameSettingsModalTooltip")}>
             <StyledActionIcon
               ariaLabel={t("AriaLabel.OpenGameSettings")}
@@ -84,6 +91,7 @@ export default function Header() {
               icon={IconSettings}
             />
           </StyledTooltip>
+
           <StyledTooltip
             label={
               colorScheme === "light"
@@ -101,11 +109,20 @@ export default function Header() {
               icon={colorScheme === "light" ? IconMoon : IconSun}
             />
           </StyledTooltip>
+
           <StyledTooltip label={t("Tooltip.GameInfoModalTooltip")}>
             <StyledActionIcon
               ariaLabel={t("AriaLabel.ReadGameInfo")}
               onClick={openGameInfo}
               icon={IconInfoCircle}
+            />
+          </StyledTooltip>
+
+          <StyledTooltip label={t("Tooltip.BugReportFeedbackTooltip")}>
+            <StyledActionIcon
+              ariaLabel={t("AriaLabel.ReportABugOrGiveFeedback")}
+              onClick={openBugReportAndFeedback}
+              icon={IconMessageCircleExclamation}
             />
           </StyledTooltip>
         </Group>
@@ -122,6 +139,10 @@ export default function Header() {
       <GameInfoModal
         opened={openedGameInfo}
         onClose={closeGameInfo}
+      />
+      <BugReportAndFeedbackModal
+        opened={openedBugReportAndFeedback}
+        onClose={closeBugReportAndFeedback}
       />
     </Container>
   );
