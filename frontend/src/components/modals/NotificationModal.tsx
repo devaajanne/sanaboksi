@@ -111,7 +111,10 @@ export default function NotificationModal({
     >
       <StyledText text={t(notificationModalMessage)} />
 
-      <Group justify="flex-end">
+      <Group
+        justify="flex-end"
+        styles={{ root: { marginTop: marginTop } }}
+      >
         {(source === NotificationModalSource.UnfinishedGrid ||
           source === NotificationModalSource.CorrectWords) && (
           <StyledButton
@@ -121,7 +124,6 @@ export default function NotificationModal({
               onClose();
             }}
             buttonText={t("Actions.LoadNewGame")}
-            marginTop={marginTop}
           />
         )}
         {source === NotificationModalSource.GameGridFetchFailed && (
@@ -132,7 +134,6 @@ export default function NotificationModal({
               onClose();
             }}
             buttonText={t("Actions.Retry")}
-            marginTop={marginTop}
           />
         )}
         {source === NotificationModalSource.GameGridValidationFailed && (
@@ -143,14 +144,12 @@ export default function NotificationModal({
               onClose();
             }}
             buttonText={t("Actions.Retry")}
-            marginTop={marginTop}
           />
         )}
         <StyledButton
           ariaLabel={t("Actions.Close")}
           onClick={onClose}
           buttonText={t("Actions.Close")}
-          marginTop={marginTop}
         />
       </Group>
     </StyledModal>

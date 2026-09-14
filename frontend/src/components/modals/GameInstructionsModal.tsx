@@ -144,12 +144,14 @@ export function GameInstructionsModal({
 
       <StyledText text={t("GameInstructionsModal.HaveFunWithSanaboksi")} />
 
-      <Group justify="flex-end">
+      <Group
+        justify="flex-end"
+        styles={{ root: { marginTop: marginTop } }}
+      >
         <StyledButton
           ariaLabel={t("Actions.BackToGame")}
           onClick={onClose}
           buttonText={t("Actions.BackToGame")}
-          marginTop={marginTop}
         />
       </Group>
     </StyledModal>

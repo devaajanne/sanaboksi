@@ -102,20 +102,21 @@ export function GameSettingsModal({ opened, onClose }: GameSettingsModalProps) {
         />
       )}
 
-      <Group justify="flex-end">
+      <Group
+        justify="flex-end"
+        styles={{ root: { marginTop: marginTop } }}
+      >
         {isSettingsChanged && (
           <StyledButton
             ariaLabel={t("Actions.Save")}
             onClick={handleSave}
             buttonText={t("Actions.Save")}
-            marginTop={marginTop}
           />
         )}
         <StyledButton
           ariaLabel={t("Actions.BackToGame")}
           onClick={handleClose}
           buttonText={t("Actions.BackToGame")}
-          marginTop={marginTop}
         />
       </Group>
     </StyledModal>

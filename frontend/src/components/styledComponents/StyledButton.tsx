@@ -20,7 +20,6 @@ interface StyledButtonProps {
   buttonText: string;
   loading?: boolean;
   loaderProps?: LoaderProps;
-  marginTop?: number;
 }
 export default function StyledButton({
   ariaLabel,
@@ -28,8 +27,7 @@ export default function StyledButton({
   fullWidth,
   buttonText,
   loading,
-  loaderProps,
-  marginTop
+  loaderProps
 }: StyledButtonProps) {
   const colorPalette = useColorPalette();
   const { xs, sm, md, lg } = useViewportContext();
@@ -51,7 +49,6 @@ export default function StyledButton({
           backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
           borderColor: colorPalette[colors.SECONDARY_COLOR_1],
           borderWidth: borderWidth,
-          marginTop: marginTop,
           width: fullWidth ? "100%" : undefined,
           height: fullWidth ? fullWidthButtonHeight : undefined
         }
