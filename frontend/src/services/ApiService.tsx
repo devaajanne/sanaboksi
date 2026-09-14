@@ -49,3 +49,23 @@ export const validateGameGrid = async (
     throw error;
   }
 };
+
+export const submitBugReportOrFeedback = async (
+  formType: string,
+  title: string,
+  body: string
+) => {
+  await addWaitTime(750);
+
+  try {
+    const response = await axios.post(
+      `${SERVER_URL}/api/bug-report-or-feedback`,
+      { headers: { "Content-Type": "application/json" } }
+    );
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message, { cause: error });
+    }
+    throw error;
+  }
+};
