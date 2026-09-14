@@ -6,7 +6,8 @@
     "Confirm": "Vahvista",
     "Save": "Tallenna",
     "Retry": "Yritä uudestaan",
-    "DeleteLetter": "Poista kirjain"
+    "DeleteLetter": "Poista kirjain",
+    "Submit": "Lähetä"
   },
   "GameGridButton": {
     "NewGame": "Uusi peli",
@@ -92,11 +93,23 @@
     "SeeSourceCodeInGitHub": "Tutustu lähdekoodiin GitHubissa",
     "HaveFunWithSanaboksi": "Hauskoja pelihetkiä Sanaboksin parissa!"
   },
+  "BugReportAndFeedbackModal": {
+    "ReportABugOrGiveFeedback": "Ilmoita bugista tai anna palautetta",
+    "WithThisFormYouCanReportABugOrGiveFeedbackAboutSanaboksi": "Tällä lomakkeella voit ilmoittaa bugista tai antaa palautetta Sanaboksista.",
+    "BugReport": "Bugi-ilmoitus",
+    "Feedback": "Palaute",
+    "BugReportInstructions": "Kerro bugista mahdollisimman tarkasti. Mitä teit, kun bugi tapahtui? Mitä tapahtui? Mitä odotit tapahtuvan?",
+    "FeedbackInstructions": "Anna palautetta Sanaboksista. Mitä pidät pelistä? Mitä voisimme parantaa? Onko sinulla ideoita uusista ominaisuuksista?",
+    "Title": "Otsikko",
+    "DescribeTheBug": "Kuvaile bugia",
+    "YourFeedback": "Palautteesi"
+  },
   "Tooltip": {
     "GameInstructionsModalTooltip": "Avaa peliohjeet",
     "GameSettingsModalTooltip": "Avaa peliasetukset",
     "ToggleLightModeTooltip": "Vaihda vaaleaan tilaan",
     "ToggleDarkModeTooltip": "Vaihda tummaan tilaan",
+    "BugReportFeedbackTooltip": "Ilmoita bugista tai anna palautetta",
     "GameInfoModalTooltip": "Lue tietoa pelistä",
     "LoadNewGameTooltip": "Lataa uusi peli",
     "LoadNewGameByPressingNewGameTooltip": "Lataa uusi peli painamalla 'Uusi peli'"
@@ -112,6 +125,8 @@
     "OpenGameSettings": "Avaa pelin asetukset",
     "ToggleLightMode": "Vaihda vaaleaan tilaan",
     "ToggleDarkMode": "Vaihda tummaan tilaan",
+    "ReportABugOrGiveFeedback": "Ilmoita bugista tai anna palautetta",
+    "SelectBugReportOrFeedback": "Valitse ilmoitatko bugista vai annatko palautetta",
     "ReadGameInfo": "Lue tietoa pelistä",
     "LoadNewGame": "Lataa uusi peli",
     "LoadNewGameByPressingNewGame": "Lataa uusi peli painamalla 'Uusi peli'",
