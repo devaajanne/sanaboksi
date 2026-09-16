@@ -3,6 +3,7 @@ import {
   IconBook2,
   IconBrandGithub,
   IconHelpCircle,
+  IconMessage2Heart,
   IconMoon,
   IconSun,
   IconVocabulary
@@ -59,9 +60,19 @@ export function GameInfoModal({ opened, onClose }: GameInfoModalProps) {
           size={iconSize}
           style={{ verticalAlign: "middle" }}
         />
-        {t("GameInfoModal.And")}{" "}
+        {t("GameInfoModal.And")}
         <IconMoon
           aria-label={t("AriaLabel.ToggleLightMode")}
+          size={iconSize}
+          style={{ verticalAlign: "middle" }}
+        />
+      </StyledText>
+
+      <StyledText
+        text={t("GameInfoModal.YouCanReportAFoundBugOrGiveFeedbackByClicking")}
+      >
+        <IconMessage2Heart
+          aria-label={t("AriaLabel.OpenReportABugOrGiveFeedbackForm")}
           size={iconSize}
           style={{ verticalAlign: "middle" }}
         />

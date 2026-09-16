@@ -9,7 +9,7 @@ import { useDisclosure } from "@mantine/hooks";
 import {
   IconHelpCircle,
   IconInfoCircle,
-  IconMessageCircleExclamation,
+  IconMessage2Heart,
   IconMoon,
   IconSettings,
   IconSun
@@ -110,19 +110,19 @@ export default function Header() {
             />
           </StyledTooltip>
 
+          <StyledTooltip label={t("Tooltip.BugReportFeedbackTooltip")}>
+            <StyledActionIcon
+              ariaLabel={t("AriaLabel.ReportABugOrGiveFeedback")}
+              onClick={openBugReportAndFeedback}
+              icon={IconMessage2Heart}
+            />
+          </StyledTooltip>
+
           <StyledTooltip label={t("Tooltip.GameInfoModalTooltip")}>
             <StyledActionIcon
               ariaLabel={t("AriaLabel.ReadGameInfo")}
               onClick={openGameInfo}
               icon={IconInfoCircle}
-            />
-          </StyledTooltip>
-
-          <StyledTooltip label={t("Tooltip.BugReportFeedbackTooltip")}>
-            <StyledActionIcon
-              ariaLabel={t("AriaLabel.ReportABugOrGiveFeedback")}
-              onClick={openBugReportAndFeedback}
-              icon={IconMessageCircleExclamation}
             />
           </StyledTooltip>
         </Group>
@@ -136,13 +136,13 @@ export default function Header() {
         opened={openedGameSettings}
         onClose={closeGameSettings}
       />
-      <GameInfoModal
-        opened={openedGameInfo}
-        onClose={closeGameInfo}
-      />
       <BugReportAndFeedbackModal
         opened={openedBugReportAndFeedback}
         onClose={closeBugReportAndFeedback}
+      />
+      <GameInfoModal
+        opened={openedGameInfo}
+        onClose={closeGameInfo}
       />
     </Container>
   );
