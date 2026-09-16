@@ -1,26 +1,21 @@
 <a id="top"></a>
 
-<div align="center">
- <a href="https://github.com/devaajanne/sanaboksi/issues">
-  <img alt="GitHub Open Issues" src="https://img.shields.io/github/issues/devaajanne/sanaboksi?style=for-the-badge">
- </a>
- <a href="https://github.com/devaajanne/sanaboksi/commits/main/">
-  <img alt="GitHub Last Commit in main Branch" src="https://img.shields.io/github/last-commit/devaajanne/sanaboksi/main?style=for-the-badge">
- </a>
- <a href="https://github.com/devaajanne/sanaboksi/tags">
-  <img alt="GitHub Latest Version" src="https://img.shields.io/github/v/tag/devaajanne/sanaboksi?sort=semver&label=LATEST%20VERSION&style=for-the-badge">
- </a>
- <a href="LICENSE.md">
-  <img alt="GitHub License" src="https://img.shields.io/github/license/devaajanne/sanaboksi?style=for-the-badge">
- </a>
-</div>
-
-<br>
-
 <h1 align="center">Sanaboksi</h1>
 <h3 align="center">A game where you fill in a letter grid with Finnish words based on given letters in the correct positions. Play Sanaboksi at <a href="https://sanaboksi.fi">sanaboksi.fi</a>!</h3>
 
 <br>
+
+<div align="center">
+ <a href="https://github.com/devaajanne/sanaboksi/issues">
+  <img alt="GitHub Open Issues" src="https://img.shields.io/github/issues/devaajanne/sanaboksi?style=for-the-badge"></a>
+ <a href="https://github.com/devaajanne/sanaboksi/commits/main/">
+  <img alt="GitHub Last Commit in main Branch" src="https://img.shields.io/github/last-commit/devaajanne/sanaboksi/main?style=for-the-badge"></a>
+ <a href="https://github.com/devaajanne/sanaboksi/tags">
+  <img alt="GitHub Latest Version" src="https://img.shields.io/github/v/tag/devaajanne/sanaboksi?sort=semver&label=LATEST%20VERSION&style=for-the-badge"></a>
+ <a href="LICENSE.md">
+  <img alt="GitHub License" src="https://img.shields.io/github/license/devaajanne/sanaboksi?style=for-the-badge"></a>
+</div>
+
 <br>
 
 ## About Sanaboksi
