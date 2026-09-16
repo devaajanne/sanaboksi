@@ -15,6 +15,7 @@ import { colors } from "../../utils/Constants";
  */
 interface StyledButtonProps {
   ariaLabel: string;
+  type?: "button" | "reset" | "submit" | undefined;
   onClick: () => void;
   fullWidth?: boolean;
   buttonText: string;
@@ -23,6 +24,7 @@ interface StyledButtonProps {
 }
 export default function StyledButton({
   ariaLabel,
+  type,
   onClick,
   fullWidth,
   buttonText,
@@ -38,6 +40,7 @@ export default function StyledButton({
   return (
     <Button
       aria-label={ariaLabel}
+      type={type}
       onClick={onClick}
       color={colorPalette[colors.PRIMARY_COLOR_0]}
       size={fullWidth ? undefined : size}

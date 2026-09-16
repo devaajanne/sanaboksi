@@ -12,7 +12,7 @@ import { colors } from "../../utils/Constants";
  */
 interface StyledSegmentedControlProps {
   ariaLabel: string;
-  value: string;
+  value?: string;
   onChange: (string: string) => void;
   data: (string | SegmentedControlItem)[];
   orientation: "vertical" | "horizontal" | undefined;
