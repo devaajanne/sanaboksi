@@ -11,6 +11,7 @@
   "dependencies": {
     "@fontsource/arvo": "^5.3.0",
     "@mantine/core": "^9.5.1",
+    "@mantine/form": "^9.6.1",
     "@tabler/icons-react": "^3.46.0",
     "@typescript/typescript6": "^6.0.2",
     "axios": "^1.18.1",
