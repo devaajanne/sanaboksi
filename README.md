@@ -1,26 +1,21 @@
 <a id="top"></a>
 
-<div align="center">
- <a href="https://github.com/devaajanne/sanaboksi/issues">
-  <img alt="GitHub Open Issues" src="https://img.shields.io/github/issues/devaajanne/sanaboksi?style=for-the-badge">
- </a>
- <a href="https://github.com/devaajanne/sanaboksi/commits/main/">
-  <img alt="GitHub Last Commit in main Branch" src="https://img.shields.io/github/last-commit/devaajanne/sanaboksi/main?style=for-the-badge">
- </a>
- <a href="https://github.com/devaajanne/sanaboksi/tags">
-  <img alt="GitHub Latest Version" src="https://img.shields.io/github/v/tag/devaajanne/sanaboksi?sort=semver&label=LATEST%20VERSION&style=for-the-badge">
- </a>
- <a href="LICENSE.md">
-  <img alt="GitHub License" src="https://img.shields.io/github/license/devaajanne/sanaboksi?style=for-the-badge">
- </a>
-</div>
-
-<br>
-
 <h1 align="center">Sanaboksi</h1>
 <h3 align="center">A game where you fill in a letter grid with Finnish words based on given letters in the correct positions. Play Sanaboksi at <a href="https://sanaboksi.fi">sanaboksi.fi</a>!</h3>
 
 <br>
+
+<div align="center">
+ <a href="https://github.com/devaajanne/sanaboksi/issues">
+  <img alt="GitHub Open Issues" src="https://img.shields.io/github/issues/devaajanne/sanaboksi?style=for-the-badge"></a>
+ <a href="https://github.com/devaajanne/sanaboksi/commits/main/">
+  <img alt="GitHub Last Commit in main Branch" src="https://img.shields.io/github/last-commit/devaajanne/sanaboksi/main?style=for-the-badge"></a>
+ <a href="https://github.com/devaajanne/sanaboksi/tags">
+  <img alt="GitHub Latest Version" src="https://img.shields.io/github/v/tag/devaajanne/sanaboksi?sort=semver&label=LATEST%20VERSION&style=for-the-badge"></a>
+ <a href="LICENSE.md">
+  <img alt="GitHub License" src="https://img.shields.io/github/license/devaajanne/sanaboksi?style=for-the-badge"></a>
+</div>
+
 <br>
 
 ## About Sanaboksi
@@ -33,18 +28,20 @@ The project consists of a Java backend and a React/TypeScript frontend. CI/CD au
 
 The project is a part of my Bachelor's thesis at Haaga-Helia University of Applied Sciences. While my thesis focused on DevOps and CI/CD pipelines, this app was crucial in developing and testing an automated CI/CD pipeline. You can read the thesis (in Finnish) in Theseus here: [Web-sovelluksen CI/CD-putken toteutus osana DevOps-pohjaista kehitysprosessia](https://www.theseus.fi/handle/10024/920463)
 
-Sanaboksi has been inspired by Sanuli, another word game developed by Haaga-Helia students. Sanuli can be played here: [sanuli.fi](https://sanuli.fi/)
+Sanaboksi has been inspired by Sanuli, another word game developed by Haaga-Helia students. You can play Sanuli here: [sanuli.fi](https://sanuli.fi/)
 
 ### Used technologies
 
 [![Java][java-logo]][java-url]
 [![Spring Boot][spring-logo]][spring-url]
 [![Gradle][gradle-logo]][gradle-url]
-![SQL][sql-logo]
+[![SQL][sql-logo]][sql-url]
 [![SQLite][sqlite-logo]][sqlite-url]
+[![Bash][bash-script-logo]][bash-script-url]
 [![TypeScript][typescript-logo]][typescript-url]
 [![React][react-logo]][react-url]
 [![Vite][vite-logo]][vite-url]
+[![Mantine][mantine-logo]][mantine-url]
 [![i18next][i18next-logo]][i18next-url]
 [![Docker][docker-logo]][docker-url]
 [![Git][git-logo]][git-url]
@@ -122,12 +119,17 @@ Sanaboksi is licensed under the MIT license. See the license in [LICENSE](./LICE
 [sqlite-url]: https://sqlite.org/
 [sqlite-logo]: https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=SQLite&logoColor=white
 [sql-logo]: https://img.shields.io/badge/sql-000000?style=for-the-badge
+[sql-url]: https://www.sqltutorial.org/sql-cheat-sheet/
+[bash-script-logo]: https://img.shields.io/badge/bash_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white
+[bash-script-url]: https://devhints.io/bash
 [typescript-logo]: https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=for-the-badge
 [typescript-url]: https://www.typescriptlang.org/
 [react-logo]: https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB&style=for-the-badge
 [react-url]: https://react.dev/
-[vite-url]: https://vite.dev/
 [vite-logo]: https://img.shields.io/badge/Vite-003B57?style=for-the-badge&logo=Vite&logoColor=white
+[vite-url]: https://vite.dev/
+[mantine-logo]: https://img.shields.io/badge/Mantine-%23ffffff.svg?style=for-the-badge&logo=Mantine&logoColor=339af0
+[mantine-url]: https://mantine.dev/
 [i18next-logo]: https://img.shields.io/badge/i18next-26A69A?logo=i18next&logoColor=fff&style=for-the-badge
 [i18next-url]: https://www.i18next.com/
 [docker-logo]: https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff&style=for-the-badge
