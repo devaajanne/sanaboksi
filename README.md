@@ -28,7 +28,7 @@ The project consists of a Java backend and a React/TypeScript frontend. CI/CD au
 
 The project is a part of my Bachelor's thesis at Haaga-Helia University of Applied Sciences. While my thesis focused on DevOps and CI/CD pipelines, this app was crucial in developing and testing an automated CI/CD pipeline. You can read the thesis (in Finnish) in Theseus here: [Web-sovelluksen CI/CD-putken toteutus osana DevOps-pohjaista kehitysprosessia](https://www.theseus.fi/handle/10024/920463)
 
-Sanaboksi has been inspired by Sanuli, another word game developed by Haaga-Helia students. Sanuli can be played here: [sanuli.fi](https://sanuli.fi/)
+Sanaboksi has been inspired by Sanuli, another word game developed by Haaga-Helia students. You can play Sanuli here: [sanuli.fi](https://sanuli.fi/)
 
 ### Used technologies
 
