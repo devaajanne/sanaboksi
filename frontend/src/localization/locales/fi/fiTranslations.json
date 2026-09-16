@@ -85,6 +85,7 @@
     "GamePitch": "Sanaboksi haastaa sanavarastoasi kielitaidostasi riippumatta. Lähde liikkeelle 4-kirjaimisista sanoista ja testaa taitosi myös 7-kirjaimisissa sanoissa!",
     "YouCanReadGameInstructionsByClicking": "Peliohjeet voit lukea klikkaamalla ",
     "YouCanSwitchBetweenLightAndDarkModeByClicking": "Vaalean ja tumman tilan voit vaihtaa klikkaamalla ",
+    "YouCanReportAFoundBugOrGiveFeedbackByClicking": "Voit ilmoittaa löytyneestä bugista tai antaa palautetta klikkaamalla",
     "And": " ja ",
     "ReadThesisInTheseus": "Lue opinnäytetyö Theseuksessa",
     "KotusDictionaryIsUsedToValidateWords": "Sanojen tarkistuksessa käytetään Kotimaisten kielten keskuksen (Kotus) sanakirjaa.",
@@ -102,7 +103,11 @@
     "FeedbackInstructions": "Anna palautetta Sanaboksista. Mitä pidät pelistä? Mitä voisimme parantaa? Onko sinulla ideoita uusista ominaisuuksista?",
     "Title": "Otsikko",
     "DescribeTheBug": "Kuvaile bugia",
-    "YourFeedback": "Palautteesi"
+    "YourFeedback": "Palautteesi",
+    "FormValidations": {
+      "TitleCannotBeEmpty": "Otsikko ei voi olla tyhjä",
+      "BodyCannotBeEmpty": "Kenttä ei voi olla tyhjä"
+    }
   },
   "Tooltip": {
     "GameInstructionsModalTooltip": "Avaa peliohjeet",
@@ -125,6 +130,7 @@
     "OpenGameSettings": "Avaa pelin asetukset",
     "ToggleLightMode": "Vaihda vaaleaan tilaan",
     "ToggleDarkMode": "Vaihda tummaan tilaan",
+    "OpenReportABugOrGiveFeedbackForm": "Avaa bugi-ilmoitus tai palautelomake",
     "ReportABugOrGiveFeedback": "Ilmoita bugista tai anna palautetta",
     "SelectBugReportOrFeedback": "Valitse ilmoitatko bugista vai annatko palautetta",
     "ReadGameInfo": "Lue tietoa pelistä",
