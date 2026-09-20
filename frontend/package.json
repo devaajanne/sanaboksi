@@ -17,6 +17,7 @@
     "axios": "^1.18.1",
     "i18next": "^26.4.0",
     "react": "^19.2.8",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^19.2.8",
     "react-i18next": "^17.0.12"
   },
