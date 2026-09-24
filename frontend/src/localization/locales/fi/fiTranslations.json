@@ -105,9 +105,11 @@
     "DescribeTheBug": "Kuvaile bugia",
     "YourFeedback": "Palautteesi",
     "FormValidations": {
+      "SelectionMustBeEitherBugReportOrFeedback": "Valinnan täytyy olla joko bugi-ilmoitus tai palaute",
       "TitleCannotBeEmpty": "Otsikko ei voi olla tyhjä",
       "BodyCannotBeEmpty": "Kenttä ei voi olla tyhjä"
-    }
+    },
+    "SubmittingTheFormGathersTheFollowingInfoAboutYourDevice": "Lomakkeen lähettäminen kerää laitteestasi seuraavat tiedot: laitetyyppi (selain, tabletti, mobiili), selaimen nimi ja versio, ruudun leveys ja korkeus. Henkilötietojasi ei kerätä."
   },
   "Tooltip": {
     "GameInstructionsModalTooltip": "Avaa peliohjeet",

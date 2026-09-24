@@ -54,6 +54,25 @@ type GameDifficulty = {
   setWordLength: (wordLength: number) => void;
 };
 
+type FormFields = {
+  formType: string;
+  formTitle: string;
+  formBody: string;
+};
+
+type UserDeviceInfo = {
+  deviceType: string | undefined;
+  os: string | undefined;
+  browser: string | undefined;
+  viewportHeight: number | undefined;
+  viewportWidth: number | undefined;
+};
+
+export type BugReportOrFeedback = {
+  formFields: FormFields;
+  userDeviceInfo: UserDeviceInfo;
+};
+
 export type GameSettingsContextType = { gameDifficulty: GameDifficulty };
 
 export type NotificationModalSourceType = {
@@ -64,6 +83,8 @@ export type NotificationModalSourceType = {
 };
 
 export type ViewportContextType = {
+  viewportHeight: number;
+  viewportWidth: number;
   xs: boolean;
   sm: boolean;
   md: boolean;
