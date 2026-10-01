@@ -99,8 +99,8 @@ export default function BugReportAndFeedbackModal({
     }
   };
 
-  const handleOnFormSubmit = (values: typeof form.values) => {
-    const responseStatus = submitBugReportOrFeedback({
+  const handleOnFormSubmit = async (values: typeof form.values) => {
+    const responseStatus = await submitBugReportOrFeedback({
       ...values,
       userDeviceInfo: {
         ...values.userDeviceInfo,
@@ -108,8 +108,8 @@ export default function BugReportAndFeedbackModal({
         viewportWidth
       }
     });
-    form.resetField("formFields.formTitle")
-    form.resetField("formFields.formBody")
+    form.resetField("formFields.formTitle");
+    form.resetField("formFields.formBody");
     console.log(responseStatus);
     onClose();
   };
