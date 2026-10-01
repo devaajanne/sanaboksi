@@ -14,6 +14,9 @@ services:
       # Set active Spring profile and active port
       SPRING_PROFILES_ACTIVE: "local-dev"
       SERVER_PORT: "8081"
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+      GITHUB_REPOSITORY_OWNER: ${GITHUB_REPOSITORY_OWNER}
+      GITHUB_REPOSITORY_NAME: ${GITHUB_REPOSITORY_NAME}
     healthcheck:
       test:
         ["CMD-SHELL", "curl -f http://localhost:8081/actuator/health || exit 1"]
