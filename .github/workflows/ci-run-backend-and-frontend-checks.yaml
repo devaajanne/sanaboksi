@@ -67,7 +67,6 @@ jobs:
           mkdir -p "${{ github.workspace }}/backend/build/reports/tests"
           docker run --rm --name be-unit-tests \
           -e SPRING_PROFILES_ACTIVE=test \
-          -e SQLITE_DB_PATH=/workdir/database/database.db \
           -v "${{ github.workspace }}/backend/build/reports/tests:/workdir/build/reports/tests" \
           sanaboksi-backend-test sh -c "./gradlew --no-daemon unitTest"
 
@@ -110,6 +109,7 @@ jobs:
           mkdir -p "${{ github.workspace }}/backend/build/reports/tests"
           docker run --rm --name be-integration-tests \
             -e SPRING_PROFILES_ACTIVE=test \
+            -e SQLITE_DB_PATH=/workdir/database/database.db \
             -v "${{ github.workspace }}/backend/build/reports/tests:/workdir/build/reports/tests" \
             sanaboksi-backend-test sh -c "/workdir/src/main/resources/databaseInit/seed_database.sh && ./gradlew --no-daemon integrationTest"
 
