@@ -38,7 +38,6 @@ public class RepositoryService {
     switch (language) {
       case LanguageEnum.FI:
         wordList = finnishWordRepository.findRandomWordsByWordLength(wordLength);
-
         break;
       default:
         throw new IllegalArgumentException("Unknown language: " + language);
@@ -71,7 +70,6 @@ public class RepositoryService {
     switch (language) {
       case LanguageEnum.FI:
         wordCount = finnishWordRepository.countByWordLength(wordLength);
-
         break;
       default:
         throw new IllegalArgumentException("Unknown language: " + language);
