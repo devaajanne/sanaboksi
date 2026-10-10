@@ -8,6 +8,6 @@ public final class Constants {
   public static final int FIXED_INDEX_MAX_VALUE = WORD_MAX_LENGTH - 1;
 
   private Constants() {
-    throw new AssertionError("Constants class should not be instantiated.");
+    throw new AssertionError("Constants class should not be instantiated");
   }
 }

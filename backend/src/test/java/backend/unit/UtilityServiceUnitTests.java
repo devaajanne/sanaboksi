@@ -35,7 +35,7 @@ public class UtilityServiceUnitTests {
   @Test
   public void getRandomIndexShouldReturnErrorIfCountIsNegative() {
     int count = -1;
-    String expectedExceptionMessage = "count must be non-negative.";
+    String expectedExceptionMessage = "count must be non-negative";
 
     IllegalArgumentException exception =
         assertThrows(IllegalArgumentException.class, () -> utilityService.getRandomIndex(count));
@@ -46,7 +46,7 @@ public class UtilityServiceUnitTests {
   @Test
   public void getRandomIndexShouldReturnErrorIfCountIsZero() {
     int count = 0;
-    String expectedExceptionMessage = "count must not be zero.";
+    String expectedExceptionMessage = "count must not be zero";
 
     IllegalArgumentException exception =
         assertThrows(IllegalArgumentException.class, () -> utilityService.getRandomIndex(count));

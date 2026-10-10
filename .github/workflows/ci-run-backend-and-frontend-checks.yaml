@@ -66,6 +66,7 @@ jobs:
         run: |
           mkdir -p "${{ github.workspace }}/backend/build/reports/tests"
           docker run --rm --name be-unit-tests \
+          -e SPRING_PROFILES_ACTIVE=test \
           -v "${{ github.workspace }}/backend/build/reports/tests:/workdir/build/reports/tests" \
           sanaboksi-backend-test sh -c "./gradlew --no-daemon unitTest"
 
@@ -96,7 +97,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Download backend test image
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: sanaboksi-backend-test-image
 
@@ -107,6 +108,8 @@ jobs:
         run: |
           mkdir -p "${{ github.workspace }}/backend/build/reports/tests"
           docker run --rm --name be-integration-tests \
+            -e SPRING_PROFILES_ACTIVE=test \
+            -e SQLITE_DB_PATH=/workdir/database/database.db \
             -v "${{ github.workspace }}/backend/build/reports/tests:/workdir/build/reports/tests" \
             sanaboksi-backend-test sh -c "/workdir/src/main/resources/databaseInit/seed_database.sh && ./gradlew --no-daemon integrationTest"
 
