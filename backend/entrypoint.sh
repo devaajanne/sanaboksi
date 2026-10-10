@@ -5,6 +5,12 @@ set -e
 ACTIVE_SPRING_PROFILE="${SPRING_PROFILES_ACTIVE}"
 echo "Active Spring profile: $ACTIVE_SPRING_PROFILE"
 
+# Exit if not active Spring profile is set
+if [ -z "$SPRING_PROFILES_ACTIVE" ]; then
+  echo "SPRING_PROFILES_ACTIVE must be set"
+  exit 1
+fi
+
 # Set SQLite seed file location and command to run the app in development container
 if [ "$ACTIVE_SPRING_PROFILE" = "local-dev" ]; then
   # Set correct database seed script location

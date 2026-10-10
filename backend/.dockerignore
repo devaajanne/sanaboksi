@@ -15,9 +15,6 @@ gradlew.bat
 .settings/
 bin/
 
-# Tests
-src/test/
-
 # Git
 .git/
 .gitignore
