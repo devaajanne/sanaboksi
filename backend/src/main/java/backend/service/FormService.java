@@ -1,9 +1,8 @@
 package backend.service;
 
 import backend.domain.dto.FormRequest;
+import backend.exception.GitHubIssueNotCreatedException;
 import backend.util.Constants;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -11,13 +10,16 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import tools.jackson.databind.ObjectMapper;
 
 @Service
 public class FormService {
 
+  private final HttpClient httpClient;
   private final ObjectMapper objectMapper;
 
-  public FormService(ObjectMapper objectMapper) {
+  public FormService(HttpClient httpClient, ObjectMapper objectMapper) {
+    this.httpClient = httpClient;
     this.objectMapper = objectMapper;
   }
 
@@ -39,8 +41,6 @@ public class FormService {
   private void setGitHubRepositoryName(String name) {
     GITHUB_REPOSITORY_NAME = name;
   }
-
-  private static final HttpClient client = HttpClient.newHttpClient();
 
   private record GitHubIssue(String title, String body, String[] labels) {}
 
@@ -66,18 +66,21 @@ public class FormService {
               .build();
 
       HttpResponse<String> httpResponse =
-          client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+          httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
       if (httpResponse.statusCode() >= 400) {
-        throw new IllegalStateException(
-            "GitHub API request failed: " + httpResponse.statusCode() + " " + httpResponse.body());
+        String errorMessage = "Failed to create GitHub issue";
+        throw new GitHubIssueNotCreatedException(errorMessage);
       }
-    } catch (IOException | InterruptedException e) {
-
+    } catch (IOException e) {
+      throw new GitHubIssueNotCreatedException("Failed to create GitHub issue", e);
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new GitHubIssueNotCreatedException("GitHub issue creation was interrupted", e);
     }
   }
 
-  private String createIssueBodyString(FormRequest formRequest) throws JsonProcessingException {
+  private String createIssueBodyString(FormRequest formRequest) {
     StringBuilder sb = new StringBuilder();
     boolean isBugReport = Constants.BUG_REPORT.equals(formRequest.getFormFields().getFormType());
     String bodyDesription =

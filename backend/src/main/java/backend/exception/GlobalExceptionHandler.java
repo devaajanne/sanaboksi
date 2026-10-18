@@ -73,4 +73,21 @@ public class GlobalExceptionHandler {
     error.put("statusCode", HttpStatus.SERVICE_UNAVAILABLE.value());
     return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(error);
   }
+
+  /**
+   * Handles failures that occur while creating a GitHub issue. Returns a JSON error message and
+   * HTTP 502 Bad Gateway status.
+   *
+   * @param exception the GitHub issue creation exception
+   * @return ResponseEntity containing error details and status 502
+   */
+  @ExceptionHandler(GitHubIssueNotCreatedException.class)
+  public ResponseEntity<Map<String, Object>> handleGitHubIssueNotCreatedExceptionException(
+      GitHubIssueNotCreatedException exception) {
+    Map<String, Object> error = new HashMap<>();
+    error.put("timeStamp", LocalDateTime.now());
+    error.put("error", exception.getMessage());
+    error.put("statusCode", HttpStatus.BAD_GATEWAY.value());
+    return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(error);
+  }
 }
