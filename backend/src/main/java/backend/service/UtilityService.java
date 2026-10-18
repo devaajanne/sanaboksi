@@ -24,11 +24,11 @@ public class UtilityService {
    */
   public int getRandomIndex(int count) {
     if (count < 0) {
-      throw new IllegalArgumentException("count must be non-negative.");
+      throw new IllegalArgumentException("count must be non-negative");
     }
 
     if (count == 0) {
-      throw new IllegalArgumentException("count must not be zero.");
+      throw new IllegalArgumentException("count must not be zero");
     }
 
     // Returns an int between 0 (inclusive) and count (exclusive)
@@ -46,12 +46,12 @@ public class UtilityService {
    */
   public List<String> getGameGridWords(GameGridRequest gameGridRequest) {
     if (gameGridRequest == null) {
-      throw new IllegalArgumentException("GameGridRequest cannot be null.");
+      throw new IllegalArgumentException("GameGridRequest cannot be null");
     }
 
     List<List<String>> gameGrid = gameGridRequest.getGameGrid();
     if (gameGrid == null || gameGrid.isEmpty()) {
-      throw new IllegalArgumentException("Game grid cannot be null or empty.");
+      throw new IllegalArgumentException("Game grid cannot be null or empty");
     }
 
     List<String> gameGridWords = new ArrayList<>();
@@ -61,7 +61,7 @@ public class UtilityService {
       List<String> row = gameGrid.get(rowIndex);
       if (row == null || row.isEmpty()) {
         throw new IllegalArgumentException(
-            "Row with index " + rowIndex + " in game grid cannot be null or empty.");
+            "Row with index " + rowIndex + " in game grid cannot be null or empty");
       }
 
       for (int columnIndex = 0; columnIndex < row.size(); columnIndex++) {
@@ -72,7 +72,7 @@ public class UtilityService {
                   + rowIndex
                   + " with column index "
                   + columnIndex
-                  + " cannot be null or empty.");
+                  + " cannot be null or empty");
         }
         stringBuilder.append(cell);
       }

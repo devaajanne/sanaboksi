@@ -47,7 +47,7 @@ public class GameService {
               + Constants.WORD_MIN_LENGTH
               + " to "
               + Constants.WORD_MAX_LENGTH
-              + " (inclusive).");
+              + " (inclusive)");
     }
 
     int repositorySizeForLanguageAndWordLength =
@@ -56,7 +56,7 @@ public class GameService {
 
     if (repositorySizeForLanguageAndWordLength == 0) {
       throw new IllegalStateException(
-          "Repository is empty for language " + language + " and word length " + wordLength + ".");
+          "Repository is empty for language " + language + " and word length " + wordLength);
     }
 
     if (repositorySizeForLanguageAndWordLength > 0 && repositorySizeForLanguageAndWordLength < 5) {
@@ -67,7 +67,7 @@ public class GameService {
               + language
               + " and word length "
               + wordLength
-              + " (minimum 5).");
+              + " (minimum 5)");
     }
 
     List<? extends Word> randomWordList =

@@ -12,6 +12,6 @@ public final class Constants {
   public static final String GITHUB_API_VERSION = "2026-03-10";
 
   private Constants() {
-    throw new AssertionError("Constants class should not be instantiated.");
+    throw new AssertionError("Constants class should not be instantiated");
   }
 }
