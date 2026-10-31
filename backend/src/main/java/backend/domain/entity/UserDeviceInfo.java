@@ -22,8 +22,8 @@ public class UserDeviceInfo {
   private String browser;
 
   @NotNull(message = "Viewport height cannot be null")
-  private int viewportHeight;
+  private Integer viewportHeight;
 
   @NotNull(message = "Viewport width cannot be null")
-  private int viewportWidth;
+  private Integer viewportWidth;
 }

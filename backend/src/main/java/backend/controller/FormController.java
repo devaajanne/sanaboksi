@@ -17,7 +17,6 @@ public class FormController {
   public FormController(FormService formService) {
     this.formService = formService;
   }
-  ;
 
   @PostMapping("/form-submission")
   public void submitForm(@Valid @RequestBody FormRequest formRequest) {
