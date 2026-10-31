@@ -10,3 +10,8 @@ server:
   port: 8080
 
 CorsAllowedOrigin: http://localhost:5173
+
+github:
+  token: test-token
+  repository-owner: test-owner
+  repository-name: test-repository
