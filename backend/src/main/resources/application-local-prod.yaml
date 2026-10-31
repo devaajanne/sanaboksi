@@ -11,3 +11,8 @@ server:
   port: 8080
 
 CorsAllowedOrigin: http://localhost:5173
+
+github:
+  token: ${GITHUB_TOKEN:}
+  repository-owner: ${GITHUB_REPOSITORY_OWNER:}
+  repository-name: ${GITHUB_REPOSITORY_NAME:}

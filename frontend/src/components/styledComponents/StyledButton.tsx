@@ -15,21 +15,21 @@ import { colors } from "../../utils/Constants";
  */
 interface StyledButtonProps {
   ariaLabel: string;
+  type?: "button" | "reset" | "submit" | undefined;
   onClick: () => void;
   fullWidth?: boolean;
   buttonText: string;
   loading?: boolean;
   loaderProps?: LoaderProps;
-  marginTop?: number;
 }
 export default function StyledButton({
   ariaLabel,
+  type,
   onClick,
   fullWidth,
   buttonText,
   loading,
-  loaderProps,
-  marginTop
+  loaderProps
 }: StyledButtonProps) {
   const colorPalette = useColorPalette();
   const { xs, sm, md, lg } = useViewportContext();
@@ -40,6 +40,7 @@ export default function StyledButton({
   return (
     <Button
       aria-label={ariaLabel}
+      type={type}
       onClick={onClick}
       color={colorPalette[colors.PRIMARY_COLOR_0]}
       size={fullWidth ? undefined : size}
@@ -51,7 +52,6 @@ export default function StyledButton({
           backgroundColor: colorPalette[colors.PRIMARY_COLOR_0],
           borderColor: colorPalette[colors.SECONDARY_COLOR_1],
           borderWidth: borderWidth,
-          marginTop: marginTop,
           width: fullWidth ? "100%" : undefined,
           height: fullWidth ? fullWidthButtonHeight : undefined
         }

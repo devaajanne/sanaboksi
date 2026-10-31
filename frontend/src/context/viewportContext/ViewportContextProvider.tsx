@@ -5,6 +5,8 @@ import { ViewportContext } from "./ViewportContext";
 
 export function ViewportContextProvider({ children }: { children: ReactNode }) {
   const theme = useMantineTheme();
+  const viewportHeight = innerHeight;
+  const viewportWidth = innerWidth;
   const xs = useMediaQuery(`(max-width: ${theme.breakpoints.xs})`);
   const sm = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   const md = useMediaQuery(`(max-width: ${theme.breakpoints.md})`);
@@ -13,8 +15,8 @@ export function ViewportContextProvider({ children }: { children: ReactNode }) {
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
   const viewportContextValue = useMemo(
-    () => ({ xs, sm, md, lg, xl, isMobile }),
-    [xs, sm, md, lg, xl, isMobile]
+    () => ({ viewportWidth, viewportHeight, xs, sm, md, lg, xl, isMobile }),
+    [viewportHeight, viewportWidth, xs, sm, md, lg, xl, isMobile]
   );
 
   return (

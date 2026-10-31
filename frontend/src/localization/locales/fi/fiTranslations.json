@@ -6,7 +6,8 @@
     "Confirm": "Vahvista",
     "Save": "Tallenna",
     "Retry": "Yritä uudestaan",
-    "DeleteLetter": "Poista kirjain"
+    "DeleteLetter": "Poista kirjain",
+    "Submit": "Lähetä"
   },
   "GameGridButton": {
     "NewGame": "Uusi peli",
@@ -84,6 +85,7 @@
     "GamePitch": "Sanaboksi haastaa sanavarastoasi kielitaidostasi riippumatta. Lähde liikkeelle 4-kirjaimisista sanoista ja testaa taitosi myös 7-kirjaimisissa sanoissa!",
     "YouCanReadGameInstructionsByClicking": "Peliohjeet voit lukea klikkaamalla ",
     "YouCanSwitchBetweenLightAndDarkModeByClicking": "Vaalean ja tumman tilan voit vaihtaa klikkaamalla ",
+    "YouCanReportAFoundBugOrGiveFeedbackByClicking": "Voit ilmoittaa löytyneestä bugista tai antaa palautetta klikkaamalla",
     "And": " ja ",
     "ReadThesisInTheseus": "Lue opinnäytetyö Theseuksessa",
     "KotusDictionaryIsUsedToValidateWords": "Sanojen tarkistuksessa käytetään Kotimaisten kielten keskuksen (Kotus) sanakirjaa.",
@@ -92,11 +94,29 @@
     "SeeSourceCodeInGitHub": "Tutustu lähdekoodiin GitHubissa",
     "HaveFunWithSanaboksi": "Hauskoja pelihetkiä Sanaboksin parissa!"
   },
+  "BugReportAndFeedbackModal": {
+    "ReportABugOrGiveFeedback": "Ilmoita bugista tai anna palautetta",
+    "WithThisFormYouCanReportABugOrGiveFeedbackAboutSanaboksi": "Tällä lomakkeella voit ilmoittaa bugista tai antaa palautetta Sanaboksista.",
+    "BugReport": "Bugi-ilmoitus",
+    "Feedback": "Palaute",
+    "BugReportInstructions": "Kerro bugista mahdollisimman tarkasti. Mitä teit, kun bugi tapahtui? Mitä tapahtui? Mitä odotit tapahtuvan?",
+    "FeedbackInstructions": "Anna palautetta Sanaboksista. Mitä pidät pelistä? Mitä voisimme parantaa? Onko sinulla ideoita uusista ominaisuuksista?",
+    "Title": "Otsikko",
+    "DescribeTheBug": "Kuvaile bugia",
+    "YourFeedback": "Palautteesi",
+    "FormValidations": {
+      "SelectionMustBeEitherBugReportOrFeedback": "Valinnan täytyy olla joko bugi-ilmoitus tai palaute",
+      "TitleCannotBeEmpty": "Otsikko ei voi olla tyhjä",
+      "BodyCannotBeEmpty": "Kenttä ei voi olla tyhjä"
+    },
+    "SubmittingTheFormGathersTheFollowingInfoAboutYourDevice": "Lomakkeen lähettäminen kerää laitteestasi seuraavat tiedot: laitetyyppi (selain, tabletti, mobiili), selaimen nimi ja versio, ruudun leveys ja korkeus. Henkilötietojasi ei kerätä."
+  },
   "Tooltip": {
     "GameInstructionsModalTooltip": "Avaa peliohjeet",
     "GameSettingsModalTooltip": "Avaa peliasetukset",
     "ToggleLightModeTooltip": "Vaihda vaaleaan tilaan",
     "ToggleDarkModeTooltip": "Vaihda tummaan tilaan",
+    "BugReportFeedbackTooltip": "Ilmoita bugista tai anna palautetta",
     "GameInfoModalTooltip": "Lue tietoa pelistä",
     "LoadNewGameTooltip": "Lataa uusi peli",
     "LoadNewGameByPressingNewGameTooltip": "Lataa uusi peli painamalla 'Uusi peli'"
@@ -112,6 +132,9 @@
     "OpenGameSettings": "Avaa pelin asetukset",
     "ToggleLightMode": "Vaihda vaaleaan tilaan",
     "ToggleDarkMode": "Vaihda tummaan tilaan",
+    "OpenReportABugOrGiveFeedbackForm": "Avaa bugi-ilmoitus tai palautelomake",
+    "ReportABugOrGiveFeedback": "Ilmoita bugista tai anna palautetta",
+    "SelectBugReportOrFeedback": "Valitse ilmoitatko bugista vai annatko palautetta",
     "ReadGameInfo": "Lue tietoa pelistä",
     "LoadNewGame": "Lataa uusi peli",
     "LoadNewGameByPressingNewGame": "Lataa uusi peli painamalla 'Uusi peli'",

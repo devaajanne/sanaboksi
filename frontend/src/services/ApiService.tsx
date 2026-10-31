@@ -1,5 +1,6 @@
 import axios from "axios";
 import type {
+  BugReportOrFeedback,
   FixedLetterResponse,
   LetterGrid,
   ValidationResults
@@ -42,6 +43,24 @@ export const validateGameGrid = async (
       { headers: { "Content-Type": "application/json" } }
     );
     return response.data.validationResults;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message, { cause: error });
+    }
+    throw error;
+  }
+};
+
+export const submitBugReportOrFeedback = async (form: BugReportOrFeedback) => {
+  await addWaitTime(750);
+
+  try {
+    const response = await axios.post(
+      `${SERVER_URL}/api/form-submission`,
+      form,
+      { headers: { "Content-Type": "application/json" } }
+    );
+    return response.status;
   } catch (error: unknown) {
     if (error instanceof Error) {
       throw new Error(error.message, { cause: error });
