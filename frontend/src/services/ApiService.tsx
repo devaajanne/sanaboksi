@@ -53,7 +53,6 @@ export const validateGameGrid = async (
 
 export const submitBugReportOrFeedback = async (form: BugReportOrFeedback) => {
   await addWaitTime(750);
-  console.log(form);
 
   try {
     const response = await axios.post(

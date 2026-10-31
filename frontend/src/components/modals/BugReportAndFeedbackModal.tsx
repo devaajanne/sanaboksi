@@ -100,7 +100,7 @@ export default function BugReportAndFeedbackModal({
   };
 
   const handleOnFormSubmit = async (values: typeof form.values) => {
-    const responseStatus = await submitBugReportOrFeedback({
+    await submitBugReportOrFeedback({
       ...values,
       userDeviceInfo: {
         ...values.userDeviceInfo,
@@ -110,7 +110,6 @@ export default function BugReportAndFeedbackModal({
     });
     form.resetField("formFields.formTitle");
     form.resetField("formFields.formBody");
-    console.log(responseStatus);
     onClose();
   };
 
